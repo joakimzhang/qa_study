@@ -1,0 +1,80 @@
+# -*- coding:utf-8 -*-
+from django import forms
+from django.db import models
+from .models import user_info
+class StreamForm(forms.Form):
+    host_name_choice = (
+    ('bjdittest',u"bjdittest"),
+    ('bjdlise2',u"bjdlise2"),
+    ('bjdqa150804',u"bjdqa150804"),
+    )
+  
+    host_name = forms.ChoiceField(label=(u"HostName"),required=True, choices=host_name_choice)
+    stream_path = forms.Field(widget=forms.TextInput(\
+               attrs={
+               'class': 'form-control',
+               'placeholder': 'input the stream path',
+               'aria-describedby': "sizing-addon1",
+                 }),)
+class AddForm(forms.Form):
+    host_name_choice = (
+    ('bjdittest',u"bjdittest"),
+    ('bjdlise2',u"bjdlise2"),
+    ('bjdqa150804',u"bjdqa150804"),
+    )
+    modulation_choice = ( 
+    (5, u"64QAM"), 
+    (1, u"4QAM-NR"),         
+    (2, u"4QAM"),         
+    (3, u"16QAM"), 
+    (4, u"32QAM"), 
+    )
+    frame_mode_choice = (
+    (1,u"mode3"),
+    (2,u"mode2"),
+    (3,u"mode1"),
+    )
+    code_rate_choice = (
+    (3,u"0.8"),
+    (2,u"0.6"),
+    (1,u"0.4"),
+    )
+    frequency_choice = (
+    (2,u"578"),
+    (1,u"474"),
+    )
+    bandwidth_choice = (
+    (4,u"8M"),
+    (3,u"6M"),
+    (2,u"4M"),
+    (1,u"2M"),
+    )
+  
+    host_name = forms.ChoiceField(label=(u"HostName"),required=True, choices=host_name_choice)
+    modulation = forms.ChoiceField(label=(u"modulation"),required=True, choices=modulation_choice)
+    frame_mode = forms.ChoiceField(label=(u"frame_mode"),required=True, choices=frame_mode_choice)
+    code_rate = forms.ChoiceField(label=(u"code_rate"),required=True, choices=code_rate_choice)
+    frequency = forms.ChoiceField(label=(u"frequency"),required=True, choices=frequency_choice)
+    bandwidth = forms.ChoiceField(label=(u"bandwidth"),required=True, choices=bandwidth_choice)
+    #d = forms.ChoiceField(label=(u"modulation"),required=True, choices=modulation_choice)
+    #b = forms.Field()
+    stream_path = forms.Field(widget=forms.TextInput(\
+               attrs={
+               'class': 'form-control',
+               'placeholder': 'input the stream path',
+               'aria-describedby': "sizing-addon1",
+                 }),)
+#class AddUser(models.Form):
+    
+class AddUser(forms.ModelForm):
+    server_name_choice = (
+    ('bjdittest',u"bjdittest"),
+    ('bjdlise2',u"bjdlise2"),
+    ('bjdqa150804',u"bjdqa150804"),
+    )
+    server_name = forms.ChoiceField(label=(u"HostName"),required=True, choices=server_name_choice)
+    #rent_time = models.DateTimeField('....',default = timezone.now)
+    class Meta:
+        model = user_info
+	fields = ['server_name','user_name','rent_time'] 
+    

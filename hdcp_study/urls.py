@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from hdcp_app import views
+import Ts_app.views as Tsviews
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^test/', views.test)
+    url(r'^test/', views.test),
+    url(r'^ts_app/',Tsviews.indexview)
 ]
