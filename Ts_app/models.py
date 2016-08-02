@@ -10,3 +10,10 @@ class user_info(models.Model):
     #rent_time = models.ChoiceField(label=(u"HostName"),required=True, choices=host_name_choice)
     #rent_time = models.CharField(max_length=100)
     rent_time = models.DateTimeField('use end time',default = timezone.now)
+class RentDB(models.Model):
+    d_type = models.CharField(max_length=100)
+    d_id = models.CharField(max_length=100)
+    #d_id = models.CharField(max_length=100)
+    d_pic = models.ImageField(upload_to='img')
+    #d_pic = models.CharField(max_length=100)
+    p_name = models.CharField(max_length=100)

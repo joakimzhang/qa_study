@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 from django import forms
 from django.db import models
-from .models import user_info
+from Ts_app.models import user_info,RentDB
 class StreamForm(forms.Form):
     host_name_choice = (
     ('bjdittest',u"bjdittest"),
@@ -76,5 +76,19 @@ class AddUser(forms.ModelForm):
     #rent_time = models.DateTimeField('....',default = timezone.now)
     class Meta:
         model = user_info
-	fields = ['server_name','user_name','rent_time'] 
+        fields = ['server_name','user_name','rent_time'] 
     
+class RentForm(forms.ModelForm):
+    d_type_choice = (('usb',u'usb'),('disk',u'disk'))
+    d_type = forms.ChoiceField(label=(u"device type"),required=True,choices=d_type_choice)
+    class Meta:
+        model = RentDB
+        fields = '__all__'
+    #host_name = forms.ChoiceField()
+    #d_type_choice = (
+    #('usb',u'usb'),
+    #('disk',u"disk"),
+    #)
+    #d_type = forms.ChoiceField(label=(u"device type"),required=True,choices=d_type_choice)
+
+    #fields = ['d_name','d_type','d_pic','p_name']

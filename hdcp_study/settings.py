@@ -1,3 +1,4 @@
+#coding:utf-8
 """
 Django settings for hdcp_study project.
 
@@ -112,4 +113,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
+#STATIC_URL = '/media/'
+
+
+#MEDIA_ROOT = 'C:/Users/zhangq/git/qa_study/media/'  
+#MEDIA_URL = '/media/'  
+
+HERE=os.path.dirname(os.path.dirname(__file__))
+#�ϴ����ļ�����ʲôĿ¼��
+MEDIA_ROOT=os.path.join( HERE , 'media').replace('\\','/')
+#ͼƬ�ֶε�.url���һ��MEDIA_URL��Ϊǰ׺
+#MEDIA_URL = '/media/'
+
+#STATIC_ROOT =os.path.join( HERE , 'static').replace('\\','/')
+#ָ��ȥ�����Ҿ�̬�ļ�
+STATICFILES_DIRS = ('C:/Users/zhangq/git/qa_study/media/',)
+#ָ����Щurl�ĵ�ַ�Ǿ�̬�ļ��ĵ�ַ������url��/media/��Ȼ��ȥSTATICFILES_DIRS���Ŀ¼���Ҿ�̬�ļ�
+STATIC_URL= '/media/'

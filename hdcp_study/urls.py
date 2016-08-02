@@ -21,5 +21,8 @@ import Ts_app.views as Tsviews
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^test/', views.test),
-    url(r'^ts_app/',Tsviews.indexview)
+    url(r'^ts_app/',Tsviews.indexview),
+    url(r'^equipment/$',Tsviews.rentview),
+    url(r'^ajax_list/$',Tsviews.ajaxview),
+    url(r'^ajax_dic/$',Tsviews.ajaxdicview),
 ]
