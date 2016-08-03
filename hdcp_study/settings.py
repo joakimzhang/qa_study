@@ -1,4 +1,4 @@
-#coding:utf-8
+# coding:utf-8
 """
 Django settings for hdcp_study project.
 
@@ -77,21 +77,21 @@ WSGI_APPLICATION = 'hdcp_study.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #    }
-#}
+# }
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django_hdcp',
-        'USER':'root',
-        'PASSWORD':'Avl1108',
-        'HOST':'127.0.0.1',
-        'PORT':'3306',
+        'USER': 'root',
+        'PASSWORD': 'Avl1108',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 
@@ -113,21 +113,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-#STATIC_URL = '/static/'
-#STATIC_URL = '/media/'
+# STATIC_URL = '/static/'
+# STATIC_URL = '/media/'
 
 
-#MEDIA_ROOT = 'C:/Users/zhangq/git/qa_study/media/'  
-#MEDIA_URL = '/media/'  
+# MEDIA_ROOT = 'C:/Users/zhangq/git/qa_study/media/'
+# MEDIA_URL = '/media/'
 
-HERE=os.path.dirname(os.path.dirname(__file__))
-#�ϴ����ļ�����ʲôĿ¼��
-MEDIA_ROOT=os.path.join( HERE , 'media').replace('\\','/')
-#ͼƬ�ֶε�.url���һ��MEDIA_URL��Ϊǰ׺
-#MEDIA_URL = '/media/'
+HERE = os.path.dirname(os.path.dirname(__file__))
 
-#STATIC_ROOT =os.path.join( HERE , 'static').replace('\\','/')
-#ָ��ȥ�����Ҿ�̬�ļ�
+MEDIA_ROOT = os.path.join(HERE, 'media').replace('\\', '/')
+
+# MEDIA_URL = '/media/'
+
+# STATIC_ROOT =os.path.join( HERE , 'static').replace('\\','/')
+
 STATICFILES_DIRS = ('C:/Users/zhangq/git/qa_study/media/',)
-#ָ����Щurl�ĵ�ַ�Ǿ�̬�ļ��ĵ�ַ������url��/media/��Ȼ��ȥSTATICFILES_DIRS���Ŀ¼���Ҿ�̬�ļ�
-STATIC_URL= '/media/'
+
+STATIC_URL = '/media/'

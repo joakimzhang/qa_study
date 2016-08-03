@@ -1,4 +1,5 @@
-
+<html>
+<body>
 <form method='post'> 
 {% csrf_token %}
 {{ form }}
@@ -17,15 +18,21 @@
 {% endfor %}
 </br>
 
+
 <table border=1>
  <col width=82 span=7 style='width:54pt'>
+ 
 <form method='post'>
 {% csrf_token %}
-<select id="id_host_name" name="host_name">
+<select id="host_id" name="host_id">
 <option value="bjdqa150804">bjdqa150804</option>
 <option value="bjdittest">bjdittest</option>
 <option value="bjdlise2">bjdlise2</option>
 </select>
+<div>
+<p>result: <span id='result'></span></p>
+</div>
+
 <tr>
 <td>mode</td>
 <td>carrier mode</td>
@@ -35,7 +42,7 @@
 <td>inter leaving</td>
 <td>rate</td>
 <td>
-<input type="submit" value='submit'>
+<input type="button" value='submit' id="radio_button">
 </td>
 </tr>
  <tr height=22 style='height:16.5pt'>
@@ -203,3 +210,25 @@
 </tr>
 {% endfor %}
 </table>
+
+<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$("#radio_button").click(function(){
+			$('#result').html("loading...");
+			var r_id = $("input[name='check_box_list']:checked").val();
+			var h_name = $("#host_id").val();
+			$.getJSON("/ajax_radio/",{radio_id:r_id,host_id:h_name},function(ret){
+				$('#result').html("");
+				for(var i = ret.length-1;i>=0;i--){
+					$('#result').append('</br>'+ret[i])
+				};
+				
+				
+			})
+	
+		});	
+	});
+</script>
+</body>
+</html>

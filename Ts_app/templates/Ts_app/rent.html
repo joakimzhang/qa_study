@@ -66,6 +66,7 @@
 			});
 		});	
 		setInterval(function(){
+			$('#dic_result').html('loading')
 			$.getJSON('/ajax_dic/',function(ret){
 				$('#dic_result').html(''+ret['zqxt'])
 			})

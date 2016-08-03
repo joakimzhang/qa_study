@@ -15,14 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from hdcp_app import views
-import Ts_app.views as Tsviews
+
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^test/', views.test),
-    url(r'^ts_app/',Tsviews.indexview),
-    url(r'^equipment/$',Tsviews.rentview),
-    url(r'^ajax_list/$',Tsviews.ajaxview),
-    url(r'^ajax_dic/$',Tsviews.ajaxdicview),
+    url(r'', include(
+        'hdcp_app.urls', namespace='hdcp_app', app_name='hdcp_app')),
+    url(r'', include('Ts_app.urls', namespace='Ts_app', app_name='Ts_app')),
+
 ]
