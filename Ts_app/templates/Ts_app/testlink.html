@@ -1,0 +1,25 @@
+<p>
+<form method='POST' enctype="multipart/form-data">
+{% csrf_token %}
+{{ form_obj }}
+<input type='submit' value='submit'></input>
+</form>
+</p>
+
+<p>
+{% for i in test_case_list %}
+<b>name:</b><br>
+<font color="green">
+{{ i.case_name }}<br>
+</font>
+<b>step:</b><br>
+<font color="blue">
+{{ i.case_step }}<br>
+</font>
+<b>except result:</b><br>
+<font color="grey">
+{{ i.case_except }}<br>
+</font>
+<br>
+{% endfor %}
+</p>

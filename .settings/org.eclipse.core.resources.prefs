@@ -1,5 +1,7 @@
 eclipse.preferences.version=1
+encoding//Ts_app/XML_CSV.py=gbk
 encoding//Ts_app/form.py=utf-8
+encoding//Ts_app/models.py=utf8
 encoding//Ts_app/switch_stream.py=UTF-8
 encoding//Ts_app/switch_stream_Worker.py=utf-8
 encoding//Ts_app/urls.py=utf8

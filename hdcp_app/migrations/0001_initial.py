@@ -18,4 +18,12 @@ class Migration(migrations.Migration):
                 ('comment', models.CharField(max_length=100)),
             ],
         ),
+        migrations.CreateModel(
+            name='test_table2',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('user', models.CharField(max_length=100)),
+                ('comment', models.CharField(max_length=100)),
+            ],
+        ),
     ]

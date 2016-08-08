@@ -99,3 +99,7 @@ class RentForm(forms.ModelForm):
     class Meta:
         model = RentDB
         fields = '__all__'
+
+
+class TestlinkForm(forms.Form):
+    filepath = forms.FileField()

@@ -1,11 +1,12 @@
 # coding:utf-8
 from django.shortcuts import render
 from django.http import JsonResponse
-from Ts_app.form import AddForm, AddUser, StreamForm, RentForm
-from Ts_app.models import user_info, RentDB
+from Ts_app.form import AddForm, AddUser, StreamForm, RentForm, TestlinkForm
+from Ts_app.models import user_info, RentDB, TestlinkDB, TestlinkCase
 # from django.views.generic.edit import CreateView, FormView
-from switch_stream_Worker import switch_stream_Worker
+from Ts_app.switch_stream_Worker import switch_stream_Worker
 from datetime import datetime
+from Ts_app.XML_CSV import XML_CSV
 
 
 # Ts_app页面的逻辑函数
@@ -59,7 +60,7 @@ def indexview(request):
                 return render(request, 'Ts_app/index.html', {
                     'form_stream': form_stream, 'form': form,
                     'form_user': form_user, 'user_obj': user_obj})
-
+        # 注释掉了，暂时不用
         if 'check_box_list_bak' in request.POST:
             print "fff"
             radio = request.POST.get('check_box_list')
@@ -147,3 +148,46 @@ def radioview(request):
         else:
             print "no find check box in request"
             print request.method
+ 
+
+def testlinkview(request):
+    test_case_list = TestlinkCase.objects.all()
+    if request.method == 'POST':
+        form_obj = TestlinkForm(request.POST, request.FILES)
+        if form_obj.is_valid():
+            file_name = form_obj.cleaned_data['filepath']
+            print file_name
+            # 返回一个文件对象
+            file_obj = request.FILES['filepath']
+            print file_obj
+            #print file_obj.read()
+            print hasattr(file_obj, "read")
+            xml_obj = XML_CSV()
+            test_case = xml_obj.read_xml(file_obj)
+            print test_case
+            #suite_root = test_case[0][0]
+            #TestlinkDB.objects.create(parent_suite_name="root", suite_name=suite_root[1], suite_detail=suite_root[2])
+            for suite in test_case[0]:
+                #suite_ins = TestlinkDB.objects.get(suite_name=suite[0])
+                TestlinkDB.objects.get_or_create(parent_suite_name=suite[0], suite_name=suite[1], suite_detail=suite[2])
+            for case in test_case[1]:
+                suite_ins = TestlinkDB.objects.get(suite_name=case[0])
+                #result = TestlinkCase.objects.get_or_create(case_name=case[1], case_sum=case[2], case_step=case[3], case_except=case[4], case_suite=suite_ins)
+                #if result[1] == False:
+                if TestlinkCase.objects.filter(internalid=case[5]):
+                    print case[1]
+                    print "get !!!!!!!!!!"
+                    TestlinkCase.objects.filter(internalid=case[5]).update(case_name=case[1], case_sum=case[2], case_step=case[3], case_except=case[4], internalid=case[5], case_suite=suite_ins)
+                else:
+                    print case[1]
+                    print case[4]
+                    print "not find!!!!!"
+                    TestlinkCase.objects.create(case_name=case[1],case_sum=case[2], case_step=case[3], case_except=case[4], internalid=case[5], case_suite=suite_ins)
+                        
+            return render(request, 'Ts_app/testlink.html',
+                          {'form_obj': form_obj, 'file_name': file_name, 'test_case_list':test_case_list})
+
+    else:
+        form_obj = TestlinkForm()
+    
+    return render(request, 'Ts_app/testlink.html', {'form_obj': form_obj, 'test_case_list':test_case_list})

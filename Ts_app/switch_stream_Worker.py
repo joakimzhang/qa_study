@@ -15,7 +15,7 @@ class switch_stream_Worker():
                        ts_file, '--std=custom', "-F", "578"]
         result_num = switch_stream.exec_switch(argv_stream)
         return result_num
-    print "switch stream successfully"
+        print "switch stream successfully  run_switch_one"
 
     # 切换码流卡模式
     def run_switch_mode(self, ts_card, modulation,
@@ -26,7 +26,7 @@ class switch_stream_Worker():
                        "--CR=%s" % code_rate, "--CM=%s" % carrier_mode]
         result_num = switch_stream.exec_switch(argv_stream)
         return result_num
-    print "switch stream successfully"
+        print "switch stream successfully run_switch_mode "
 
     def run_switch(self, ts_card, ts_file, modulation,
                    frame_rate, code_rate, band_width):
@@ -39,9 +39,9 @@ class switch_stream_Worker():
                        "--CR=%s" % code_rate, "--BW=%s" % band_width]
         result_num = switch_stream.exec_switch(argv_stream)
         return result_num
-    print "switch stream successfully"
+        print "switch stream successfully run_switch"
 
 if __name__ == "__main__":
-    test = switch_stream_Worker()
-    test.run_switch(r"bjdittest",
-                    r"\\10.209.156.47\scannedfiles\zhangq\yanquan.ts")
+    #test = switch_stream_Worker()
+    '''test.run_switch(r"bjdittest",
+                    r"\\10.209.156.47\scannedfiles\zhangq\yanquan.ts")'''
