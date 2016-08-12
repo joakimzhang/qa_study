@@ -148,10 +148,33 @@ def radioview(request):
         else:
             print "no find check box in request"
             print request.method
- 
+
+
+def get_suite_list(root_node):
+    play_list = []
+    for i in root_node:
+        if str(i) == "TestlinkDB":
+            print "suit"
+            play_list.append(i.suite_name)
+            # 当是目录的时候，对子目录进行迭代
+            children = i.children.all()
+            if len(children) > 0:
+                play_list.append(get_suite_list(children))
+            # 当是目录的时候，对子case进行迭代
+            child_case = i.children_case.all()
+            if len(child_case) > 0:
+                play_list.append(get_suite_list(child_case))
+        # 当是case的时候，把case加入list
+        elif str(i) == "TestlinkCase":
+            play_list.append(i.case_name)
+            print "case"
+    return play_list
+
 
 def testlinkview(request):
     test_case_list = TestlinkCase.objects.all()
+    test_suite_root = TestlinkDB.objects.filter(parent_suite_name=None)
+    test_suite_list = get_suite_list(test_suite_root)
     if request.method == 'POST':
         form_obj = TestlinkForm(request.POST, request.FILES)
         if form_obj.is_valid():
@@ -160,34 +183,45 @@ def testlinkview(request):
             # 返回一个文件对象
             file_obj = request.FILES['filepath']
             print file_obj
-            #print file_obj.read()
+            # print file_obj.read()
             print hasattr(file_obj, "read")
             xml_obj = XML_CSV()
             test_case = xml_obj.read_xml(file_obj)
             print test_case
-            #suite_root = test_case[0][0]
-            #TestlinkDB.objects.create(parent_suite_name="root", suite_name=suite_root[1], suite_detail=suite_root[2])
             for suite in test_case[0]:
-                #suite_ins = TestlinkDB.objects.get(suite_name=suite[0])
-                TestlinkDB.objects.get_or_create(parent_suite_name=suite[0], suite_name=suite[1], suite_detail=suite[2])
+                if suite[0] == "root_node":
+                    TestlinkDB.objects.get_or_create(
+                        parent_suite_name=None, suite_name=suite[1],
+                        suite_detail=suite[2])
+                    continue
+                suite_ins = TestlinkDB.objects.get(suite_name=suite[0])
+                TestlinkDB.objects.get_or_create(
+                    parent_suite_name=suite_ins, suite_name=suite[1],
+                    suite_detail=suite[2])
             for case in test_case[1]:
                 suite_ins = TestlinkDB.objects.get(suite_name=case[0])
-                #result = TestlinkCase.objects.get_or_create(case_name=case[1], case_sum=case[2], case_step=case[3], case_except=case[4], case_suite=suite_ins)
-                #if result[1] == False:
                 if TestlinkCase.objects.filter(internalid=case[5]):
-                    print case[1]
-                    print "get !!!!!!!!!!"
-                    TestlinkCase.objects.filter(internalid=case[5]).update(case_name=case[1], case_sum=case[2], case_step=case[3], case_except=case[4], internalid=case[5], case_suite=suite_ins)
+                    # print case[1]
+                    # print "get !!!!!!!!!!"
+                    TestlinkCase.objects.filter(internalid=case[5]).update(
+                        case_name=case[1], case_sum=case[2],
+                        case_step=case[3], case_except=case[4],
+                        internalid=case[5], case_suite=suite_ins)
                 else:
-                    print case[1]
-                    print case[4]
-                    print "not find!!!!!"
-                    TestlinkCase.objects.create(case_name=case[1],case_sum=case[2], case_step=case[3], case_except=case[4], internalid=case[5], case_suite=suite_ins)
-                        
+                    # print case[1]
+                    # print case[4]
+                    # print "not find!!!!!"
+                    TestlinkCase.objects.create(
+                        case_name=case[1], case_sum=case[2],
+                        case_step=case[3], case_except=case[4],
+                        internalid=case[5], case_suite=suite_ins)
             return render(request, 'Ts_app/testlink.html',
-                          {'form_obj': form_obj, 'file_name': file_name, 'test_case_list':test_case_list})
+                          {'form_obj': form_obj, 'file_name': file_name,
+                           'test_case_list': test_case_list,
+                           'test_suite_root': test_suite_root, 'test_suite_list':test_suite_list})
 
     else:
         form_obj = TestlinkForm()
-    
-    return render(request, 'Ts_app/testlink.html', {'form_obj': form_obj, 'test_case_list':test_case_list})
+    return render(request, 'Ts_app/testlink.html',
+                  {'form_obj': form_obj, 'test_case_list': test_case_list,
+                   'test_suite_root': test_suite_root, 'test_suite_list':test_suite_list})

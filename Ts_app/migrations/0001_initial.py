@@ -25,20 +25,20 @@ class Migration(migrations.Migration):
             name='TestlinkCase',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('internalid', models.CharField(default='0000', max_length=100)),
                 ('case_name', models.CharField(default='null', max_length=100, null=True, blank=True)),
                 ('case_sum', models.TextField(null=True, blank=True)),
                 ('case_step', models.TextField(max_length=4000, null=True, blank=True)),
                 ('case_except', models.TextField(null=True, blank=True)),
+                ('internalid', models.CharField(default='0000', max_length=1000)),
             ],
         ),
         migrations.CreateModel(
             name='TestlinkDB',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('parent_suite_name', models.CharField(max_length=100)),
                 ('suite_name', models.CharField(max_length=100)),
                 ('suite_detail', models.TextField()),
+                ('parent_suite_name', models.ForeignKey(related_name='children', blank=True, to='Ts_app.TestlinkDB', null=True)),
             ],
         ),
         migrations.CreateModel(
@@ -53,6 +53,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='testlinkcase',
             name='case_suite',
-            field=models.ForeignKey(to='Ts_app.TestlinkDB'),
+            field=models.ForeignKey(related_name='children_case', blank=True, to='Ts_app.TestlinkDB', null=True),
         ),
     ]

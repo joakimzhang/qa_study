@@ -23,3 +23,17 @@
 <br>
 {% endfor %}
 </p>
+
+
+<p>
+{% for i in test_suite_root %}
+<form method='POST'>
+{% csrf_token %}
+<input type='submit' value="{{ i.suite_name }}">
+</input>
+</form>
+<br>
+{% endfor %}
+</p>
+
+{{ test_suite_list|unordered_list }}

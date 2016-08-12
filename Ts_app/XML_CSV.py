@@ -24,6 +24,15 @@ class XML_CSV():
         return_list = ([],[])
         tree = ET.ElementTree(file=xmlobj)
         #up_suite = 'root'
+
+        root_node = tree.getroot()
+        _root = "root_node"
+        _name = root_node.attrib['name']
+        _detail = ''
+        for child in root_node:
+            if child.tag == "detail":
+                _detail = child.text
+        return_list[0].append([_root, _name, _detail])
         for parent_elem in tree.iter():
         #for i in range(len(tree.iter())):
             #parent_elem = tree.iter()[i]
