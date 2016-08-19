@@ -8,6 +8,7 @@ Created on 2016年8月3日
 from django.conf.urls import url
 from Ts_app import views
 urlpatterns = [
+    url(r'^$', views.homeview),
     url(r'^ts_app/$', views.indexview),
     url(r'^ajax_radio/', views.radioview),
     url(r'^equipment/$', views.rentview),

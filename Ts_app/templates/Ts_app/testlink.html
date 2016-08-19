@@ -6,6 +6,7 @@
 </form>
 </p>
 
+{% autoescape off %}
 <p>
 {% for i in test_case_list %}
 <b>name:</b><br>
@@ -23,7 +24,7 @@
 <br>
 {% endfor %}
 </p>
-
+{% endautoescape %}
 
 <p>
 {% for i in test_suite_root %}

@@ -7,33 +7,86 @@ from xml.etree.ElementTree import iterparse
 import xml.etree.ElementTree as ET
 from HTMLParser import HTMLParser
 import markdown2
-
+import codecs
+import re
 class XML_CSV():
     #去掉xml文件中的HTML标签
     def strip_tags(self,htmlStr):
+        htmlStr = re.sub("[\\x00-\\x08\\x0b-\\x0c\\x0e-\\x1f\\x7f]","",htmlStr)
+        htmlStr = re.sub(codecs.BOM_UTF8,"",htmlStr)
+        htmlStr = re.sub("\\xef\\xbb\\xbf","",htmlStr)
+        
         htmlStr = htmlStr.strip()
         htmlStr = htmlStr.strip("\n")
+
         result = []
         parser = HTMLParser()
         parser.handle_data = result.append
         parser.feed(htmlStr)
         parser.close()
         return  ''.join(result)
+    def recursion(self, parent, _p_num):
+        for child in parent:
+            if child.tag == "testsuite":
+                self.p_num = self.p_num + 1
+                suite_list = ['', '', '', '']
+                suite_list[0] = '%s_%s' % (parent.attrib['name'], str(_p_num))
+                suite_list[1] = child.attrib['name']
+                #suite_list[2] = child.attrib['detail']
+                suite_list[3] = '%s_%s' % (child.attrib['name'], str(self.p_num))
+                self.return_list[0].append(suite_list)
+                self.recursion(child, self.p_num)
+            if child.tag == "testcase":
+                case_list = ['', '', '', '', '', '']
+                case_list[0] = '%s_%s' % (parent.attrib['name'], str(_p_num))
+                case_list[1] = child.attrib['name']
+                case_list[5] = child.attrib['internalid'] 
+                for sub_elem in child:
+                    if sub_elem.tag == "summeary":
+                        case_list[2] = markdown2.markdown(str(sub_elem.text).decode('gbk'))
+                    if sub_elem.tag == "steps":
+                        try:
+                            case_list[3] =  sub_elem.text
+                        except Exception, e:
+                            print e
+                    if sub_elem.tag == "expectedresults":
+                        try:
+                            case_list[4] = sub_elem.text
+                        except Exception, e:
+                            print e
+                self.return_list[1].append(case_list)
+        return self.return_list
+
+
+    def read_xml(self, xml_obj):
+        self.p_num = 0
+        self.return_list = ([],[])
+        tree = ET.ElementTree(file=xml_obj)
+        root_node = tree.getroot()
+        root_name = root_node.attrib['name']
+        self.return_list[0].append(["root_node", root_name, '', '%s_%s'%(root_name,0)]) 
+        
+        self.recursion(root_node, 0)
+        print self.return_list
+        return self.return_list
     #先用iter方法获取所有目录节点，之后遍历每一个目录节点的子节点，把目录节点的名字送给子节点的列表。
-    def read_xml(self,xmlobj):
+    def read_xml_bak(self, xmlobj):
         return_list = ([],[])
         tree = ET.ElementTree(file=xmlobj)
         #up_suite = 'root'
-
+        p_num = 0
         root_node = tree.getroot()
         _root = "root_node"
         _name = root_node.attrib['name']
+        internalid = '%s_%s'% (_name,str(p_num))
         _detail = ''
         for child in root_node:
             if child.tag == "detail":
                 _detail = child.text
-        return_list[0].append([_root, _name, _detail])
+        return_list[0].append([_root, _name, _detail,internalid])
+        
         for parent_elem in tree.iter():
+            
         #for i in range(len(tree.iter())):
             #parent_elem = tree.iter()[i]
             #suite_list = ['','','']
@@ -50,9 +103,10 @@ class XML_CSV():
             if parent_elem.tag == "testsuite":
                 for elem in parent_elem:
                     if elem.tag == "testsuite":
-                        suite_list = ['','','']
-                        suite_list[0] = parent_elem.attrib['name']
+                        suite_list = ['','','','']
+                        suite_list[0] = '%s_%s'% (parent_elem.attrib['name'],str(p_num))
                         suite_list[1] = elem.attrib['name']
+                        suite_list[3] = '%s_%s'% (elem.attrib['name'], str(p_num+1))
                         for child in elem:
                             if child.tag == "details":
                                 suite_list[2] = child.text
@@ -60,18 +114,25 @@ class XML_CSV():
                         return_list[0].append(suite_list)
                     if elem.tag == "testcase":
                         case_list = ['','','','','','']
-                        case_list[0] = parent_elem.attrib['name']    
+                        # case_list[0] = parent_elem.attrib['name']
+                        case_list[0] = '%s_%s'% (parent_elem.attrib['name'],str(p_num))    
                         case_list[1] = elem.attrib['name']
                         case_list[5] = elem.attrib['internalid'] 
                         for child in elem:
                             if child.tag == "summeary":
                                 case_list[2] = markdown2.markdown(str(child.text).decode('gbk'))
                             if child.tag == "steps":
-                                case_list[3] = self.strip_tags(str(child.text)).decode('gbk')
+                                try:
+                                    case_list[3] = self.strip_tags(str(child.text)).decode('gbk')
+                                except Exception,e:
+                                    print e
+                                    case_list[3] = ""
                             if child.tag == "expectedresults":
                                 case_list[4] = self.strip_tags(str(child.text).decode('GBK'))
                         #print case_list
                         return_list[1].append(case_list)
+                p_num = p_num + 1
+        print return_list[0]
         return return_list
     def read_xml_to_csv(self,csv_file,xmlfile):  
         csvfile = open(csv_file, 'wb')

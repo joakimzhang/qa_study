@@ -7,7 +7,11 @@ from Ts_app.models import user_info, RentDB, TestlinkDB, TestlinkCase
 from Ts_app.switch_stream_Worker import switch_stream_Worker
 from datetime import datetime
 from Ts_app.XML_CSV import XML_CSV
+import markdown2
 
+def homeview(request):
+    test = "AAAAAAABBBBBBBBBB"
+    return render(request, 'Ts_app/home.html', {'test':test})
 
 # Ts_app页面的逻辑函数
 def indexview(request):
@@ -154,52 +158,66 @@ def get_suite_list(root_node):
     play_list = []
     for i in root_node:
         if str(i) == "TestlinkDB":
-            print "suit"
+            #print "suit"
             play_list.append(i.suite_name)
-            # 当是目录的时候，对子目录进行迭代
-            children = i.children.all()
-            if len(children) > 0:
-                play_list.append(get_suite_list(children))
-            # 当是目录的时候，对子case进行迭代
+            # 目录的目录子节点
             child_case = i.children_case.all()
-            if len(child_case) > 0:
-                play_list.append(get_suite_list(child_case))
+            # 目录的case子节点
+            children = i.children.all()
+            #if len(child_case) > 0 and len(children) > 0:
+            # 目录子节点和case子节点都加入列表
+            play_list.append(
+                get_suite_list(children)+get_suite_list(child_case))
+            #elif len(children) > 0:
+            #    play_list.append(get_suite_list(children))
+            #elif len(child_case) > 0:
+            #    play_list.append(get_suite_list(child_case))
         # 当是case的时候，把case加入list
         elif str(i) == "TestlinkCase":
             play_list.append(i.case_name)
-            print "case"
+            #print "case"
+    #print play_list
     return play_list
 
 
 def testlinkview(request):
+    
     test_case_list = TestlinkCase.objects.all()
+    for i in test_case_list:
+        #print i.case_step
+        try:
+            i.case_step = markdown2.markdown(i.case_step)
+            print i.case_step
+        except Exception, e:
+            print e
     test_suite_root = TestlinkDB.objects.filter(parent_suite_name=None)
     test_suite_list = get_suite_list(test_suite_root)
     if request.method == 'POST':
         form_obj = TestlinkForm(request.POST, request.FILES)
         if form_obj.is_valid():
             file_name = form_obj.cleaned_data['filepath']
-            print file_name
+            #print file_name
             # 返回一个文件对象
             file_obj = request.FILES['filepath']
-            print file_obj
+            #print file_obj
             # print file_obj.read()
             print hasattr(file_obj, "read")
             xml_obj = XML_CSV()
             test_case = xml_obj.read_xml(file_obj)
-            print test_case
+            #print test_case
             for suite in test_case[0]:
                 if suite[0] == "root_node":
                     TestlinkDB.objects.get_or_create(
                         parent_suite_name=None, suite_name=suite[1],
-                        suite_detail=suite[2])
+                        suite_detail=suite[2], suite_id=suite[3])
                     continue
-                suite_ins = TestlinkDB.objects.get(suite_name=suite[0])
+                print "~~~~~~~~~~~~~~~\n%s\n~~~~~~~~~~~~~~~~~~~" % suite[0]
+                suite_ins = TestlinkDB.objects.get(suite_id=suite[0])
                 TestlinkDB.objects.get_or_create(
                     parent_suite_name=suite_ins, suite_name=suite[1],
-                    suite_detail=suite[2])
+                    suite_detail=suite[2], suite_id=suite[3])
             for case in test_case[1]:
-                suite_ins = TestlinkDB.objects.get(suite_name=case[0])
+                suite_ins = TestlinkDB.objects.get(suite_id=case[0])
                 if TestlinkCase.objects.filter(internalid=case[5]):
                     # print case[1]
                     # print "get !!!!!!!!!!"
@@ -218,7 +236,8 @@ def testlinkview(request):
             return render(request, 'Ts_app/testlink.html',
                           {'form_obj': form_obj, 'file_name': file_name,
                            'test_case_list': test_case_list,
-                           'test_suite_root': test_suite_root, 'test_suite_list':test_suite_list})
+                           'test_suite_root': test_suite_root,
+                           'test_suite_list': test_suite_list})
 
     else:
         form_obj = TestlinkForm()

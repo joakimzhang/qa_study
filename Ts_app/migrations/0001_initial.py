@@ -38,6 +38,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('suite_name', models.CharField(max_length=100)),
                 ('suite_detail', models.TextField()),
+                ('suite_id', models.CharField(max_length=100)),
                 ('parent_suite_name', models.ForeignKey(related_name='children', blank=True, to='Ts_app.TestlinkDB', null=True)),
             ],
         ),

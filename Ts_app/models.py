@@ -26,6 +26,7 @@ class TestlinkDB(models.Model):
         'self', blank=True, null=True, related_name='children')
     suite_name = models.CharField(max_length=100)
     suite_detail = models.TextField()
+    suite_id = models.CharField(max_length=100)
 
     def __str__(self):
         return "TestlinkDB"
