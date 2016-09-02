@@ -2,3 +2,17 @@
 {{ i.user }}
 {{ i.comment }}
 {% endfor %}
+
+<form method="post" enctype="multipart/form-data">
+<input type="hidden" name="csrfmiddlewaretoken" value="hjl7rUdj9j12cwJl60iguY8bpsiDcCM4">
+<label for="id_d_type">device type:</label><select id="id_d_type" name="d_type">
+<option value="usb">usb</option>
+<option value="disk">disk</option>
+</select>
+<label for="id_d_id">D id:</label><input id="id_d_id" maxlength="100" name="d_id" type="text">
+<label for="id_d_pic">D pic:</label><input id="id_d_pic" name="d_pic" type="file">
+<label for="id_p_name">P name:</label><input id="id_p_name" maxlength="100" name="p_name" type="text">
+<input type="submit" name="rent" value="rent" action="rent">
+
+</form>
+

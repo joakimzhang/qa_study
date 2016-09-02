@@ -1,0 +1,5 @@
+[mem_cap]
+name = maxmem
+period = 10s
+auther = zhangq
+time = 2016.09.02

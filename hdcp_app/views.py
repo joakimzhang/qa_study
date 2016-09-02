@@ -5,4 +5,6 @@ def test(request):
     test_obj = test_table.objects.all()
     return render(request,'hdcp_app/index.html',{'test_obj':test_obj})
     #return HttpResponse("hello world")
-    
+
+def login(request):
+    pass
