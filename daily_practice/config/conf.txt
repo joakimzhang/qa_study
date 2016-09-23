@@ -1,5 +1,11 @@
 [mem_cap]
-name = maxmem
-period = 10s
+case_name = YHD-598
+svn_version = kvn2792
+#period value is seconds
+period = 20
 auther = zhangq
-time = 2016.09.02
+keyword = Used
+command = mid
+port = 9
+baudrate = 115200
+#keyword = Max malloc
