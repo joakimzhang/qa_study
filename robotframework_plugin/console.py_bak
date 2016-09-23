@@ -1,0 +1,48 @@
+import serial  
+import time
+import re
+import threading
+class console():
+	def connect_serial(self,console_num):
+		self.ser = serial.Serial(int(console_num)-1,115200)
+		#print self.ser.portstr
+	def close_serial(self):
+		self.ser.close()
+		print "close serial"
+	def get_serial_out(self):
+		while 1:			
+			serial_out = self.ser.readline()
+			#dsp_log = re.search(r'dsp_mode\](.*?)\[dsp_mode',serial_out)
+			
+			dsp_log = serial_out
+			if dsp_log:
+				#print dsp_log.group(1)
+				#print dsp_log
+				pass
+			#time.sleep(5)
+			#if re.search('Test Faild',serial_out):
+			if re.search('TEST:.*FAIL',serial_out):
+				print "faild"
+				return 0
+			#elif re.search('Test Pass',serial_out):
+			elif re.search('TEST:pass',serial_out):
+				print "successful"
+				return 1
+	def print_serial_out(self):
+		self.the_thread = threading.Thread(target=self.get_serial_out)  
+		print "detect Dvb GUI object Home"
+		self.the_thread.start()
+	def sent_command(self,command_char):
+		print("%s\n"%command_char)
+		self.ser.write("%s\n"%str(command_char))
+	def test_command(self,command_char):
+		print("%s\n"%command_char)
+if __name__ == "__main__":
+	obj_1 = console()
+	obj_1.print_serial_out()
+	#obj_1.sent_command("mode1")
+    
+    #while 1:
+    #    input_command = raw_input("please input the command:\n");
+        #print "input is:",input_command
+    #ser.close()             # close port 
