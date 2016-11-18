@@ -1,0 +1,978 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Test Setup        连接串口
+Test Teardown     断开串口
+Test Timeout      50 minutes
+Library           test_tool
+Library           SSHLibrary
+Resource          ../../业务关键字.txt
+Library           OperatingSystem
+Library           String
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    1    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\debug\\test_audio_ac3.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    chenql    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1108    # devel03的密码，用户登录bjdevel03
+
+*** Test Cases ***
+AUDIO_PP_ASRC_44k_48k_fix32k_AC3
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3_fix.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\44k_4khz.ac3    4096    AudioIO\\48k.ac3    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\44k_4khz.ac3    4096    AudioIO\\48k.ac3    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\44k_4khz.ac3    8192    AudioIO\\48k.ac3    8704
+    common_command    target_sample_rate 1
+    common_command    setfmt AC3
+    common_command    setsr 44100
+    common_command    setlen 240744
+    common_command    setfmt2 AC3
+    common_command    setsr2 48000
+    common_command    setlen2 240384
+    sleep    10
+    common_command    play 7 0 1
+    sleep    5
+    common_command    play2 38 0 2
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_48k_AAC
+    [Setup]    指定串口    D:\\debug\\test_audio_aac.exe
+    设置音频    AudioIO\\48k.aac    1
+    common_command    setfmt AAC
+    common_command    setsr 48000
+    播放    7    0    1
+    sleep    50
+    停止    1
+    Ffmpeg Convert To Pcm    48000    D:\\AudioTestFile\\AudioIO\\48k.aac    D:\\48k_aac.pcm
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Fix32K_44K
+    [Documentation]    声卡用44khz 录 IEC的输出
+    [Setup]    指定串口    D:\\debug\\test_audio_fix.exe
+    设置音频    AudioIO\\44k.pcm    1
+    common_command    target_sample_rate 1
+    common_command    setsr 44100
+    common_command    setlen 50000
+    播放    7    0    1
+    iec输出    0
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A4.pcm    d:\\result\\RCA_44k.pcm
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Fix32K_48K
+    [Setup]    指定串口    D:\\debug\\test_audio_fix.exe
+    设置音频    AudioIO\\48k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 1
+    common_command    setsr 48000
+    common_command    setlen 50000
+    播放    8    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_48k.pcm
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Fix32K_64K
+    [Setup]    指定串口    D:\\debug\\test_audio_fix.exe
+    设置音频    AudioIO\\64k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 1
+    common_command    setsr 64000
+    播放    9    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Fix32K_88K
+    [Setup]    指定串口    D:\\debug\\test_audio_fix.exe
+    设置音频    AudioIO\\88k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 1
+    common_command    setsr 88000
+    common_command    setlen 50000
+    播放    10    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Fix32K_96K
+    [Setup]    指定串口    D:\\debug\\test_audio_fix.exe
+    设置音频    AudioIO\\88k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 1
+    common_command    setlen 50000
+    播放    10    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Fix32K_176K
+    设置音频    AudioIO\\88k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 1
+    common_command    setsr 176000
+    common_command    setlen 50000
+    播放    10    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+
+AUDIO_PP_ASRC_Fix32K_192K
+    设置音频    AudioIO\\88k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 1
+    common_command    setsr 192000
+    common_command    setlen 50000
+    播放    10    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+
+AUDIO_PP_ASRC_Fix32K_Change_SR
+    [Documentation]    要用aac的 exe
+    [Setup]    连接串口
+    设置音频    AudioIO\\32k_44k_48k.aac    1
+    iec输出    0
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 244556
+    common_command    target_sample_rate 1
+    播放    6    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    检查checksum    123
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Fix44K_32K
+    [Documentation]    声卡用44khz 录 IEC的输出
+    [Setup]    指定串口    D:\\debug\\test_audio_dummy_fix.exe
+    设置音频    AudioIO\\32k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 2
+    common_command    setsr 32000
+    common_command    setlen 50000
+    播放    6    0    1
+    sleep    20
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_32k.pcm
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Fix44K_48K
+    设置音频    AudioIO\\48k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 2
+    common_command    setsr 48000
+    播放    8    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_48k.pcm
+
+AUDIO_PP_ASRC_Fix44K_64K
+    [Setup]    连接串口
+    设置音频    AudioIO\\64k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 2
+    common_command    setsr 64000
+    common_command    setsr 64000
+    播放    9    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Fix44K_88K
+    [Setup]    指定串口    test_audio_fix_samplerate.exe
+    设置音频    AudioIO\\88k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 2
+    common_command    setsr 88000
+    common_command    setlen 50000
+    播放    10    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Fix44K_96K
+    [Setup]    指定串口    test_audio_fix_samplerate.exe
+    设置音频    AudioIO\\192k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 2
+    common_command    setsr 96000
+    播放    10    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Fix44K_176K
+    [Setup]    指定串口    test_audio_fix_samplerate.exe
+    设置音频    AudioIO\\176k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 2
+    common_command    setsr 176000
+    播放    12    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Fix44K_192K
+    [Setup]    指定串口    test_audio_fix_samplerate.exe
+    设置音频    AudioIO\\192k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 2
+    common_command    setsr 192000
+    播放    10    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Fix44K_Change_SR
+    [Documentation]    要用aac的 exe
+    设置音频    AudioIO\\32k_44k_48k.aac    1
+    iec输出    0
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 244556
+    common_command    target_sample_rate 2
+    播放    6    0    1
+    sleep    10
+    停止    1
+    sleep    10
+
+AUDIO_PP_ASRC_Fix48K_32K
+    [Documentation]    声卡用48khz 录 IEC的输出
+    设置音频    AudioIO\\32k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 4
+    common_command    setsr 32000
+    播放    6    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_32k.pcm
+
+AUDIO_PP_ASRC_Fix48K_44K
+    设置音频    AudioIO\\44k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 4
+    common_command    setsr 44100
+    播放    7    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A4.pcm    d:\\result\\RCA_44k.pcm
+
+AUDIO_PP_ASRC_Fix48K_64K
+    [Setup]    连接串口
+    设置音频    AudioIO\\64k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 4
+    common_command    setsr 64000
+    播放    9    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Fix48K_88K
+    [Documentation]    声卡用48khz 录 IEC的输出
+    [Setup]    指定串口    test_audio_fix_samplerate.exe
+    [Template]
+    设置音频    AudioIO\\88k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 4
+    common_command    setsr 88000
+    common_command    setlen 50000
+    播放    10    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Fix48K_96K
+    设置音频    AudioIO\\88k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 4
+    播放    10    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+
+AUDIO_PP_ASRC_Fix48K_176K
+    设置音频    AudioIO\\88k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 4
+    播放    10    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+
+AUDIO_PP_ASRC_Fix48K_192K
+    设置音频    AudioIO\\88k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 4
+    播放    10    0    1
+    sleep    10
+    停止
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+
+AUDIO_PP_ASRC_Fix48K_Change_SR
+    [Documentation]    要用aac的 exe
+    设置音频    AudioIO\\32k_44k_48k.aac    1
+    iec输出    0
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 244556
+    common_command    target_sample_rate 4
+    播放    6    0    1
+    sleep    10
+    停止    1
+    sleep    10
+
+AUDIO_PP_ASRC_Default_6K
+    设置音频    AudioIO\\6k.pcm    1
+    iec输出    0
+    common_command    setlen 10000
+    播放    1    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+
+AUDIO_PP_ASRC_Default_8K
+    设置音频    AudioIO\\8k.pcm    1
+    iec输出    0
+    common_command    setlen 50000
+    播放    2    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+
+AUDIO_PP_ASRC_Default_11K
+    设置音频    AudioIO\\11k.pcm    1
+    iec输出    0
+    common_command    setlen 441000
+    播放    3    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+
+AUDIO_PP_ASRC_Default_16K
+    设置音频    AudioIO\\16k.pcm    1
+    iec输出    0
+    common_command    setlen 640000
+    播放    4    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+
+AUDIO_PP_ASRC_Default_22K
+    [Setup]    连接串口
+    设置音频    AudioIO\\22k.pcm    1
+    iec输出    0
+    common_command    setlen 882000
+    播放    5    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Default_64K
+    [Setup]    连接串口
+    设置音频    AudioIO\\64k.pcm    1
+    iec输出    0
+    common_command    info
+    common_command    setsr 64000
+    common_command    setlen 2560000
+    播放    9    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_48k_48K_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg.exe
+    生成dual_decoder音频    AudioIO\\48k.mp3    8192    AudioIO\\48k_2khz.mp3    8704
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 160749
+    common_command    setfmt2 MPEG
+    common_command    setsr2 48000
+    common_command    setlen2 160749
+    sleep    3
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_48k_32k_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg.exe
+    生成dual_decoder音频    AudioIO\\48k.mp3    8192    AudioIO\\32k_2khz.mp3    8704
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 160749
+    common_command    setfmt2 MPEG
+    common_command    setsr2 32000
+    common_command    setlen2 120789
+    sleep    3
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_32k_48k_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg.exe
+    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    8192    AudioIO\\48k.mp3    8704
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 120789
+    common_command    setfmt2 MPEG
+    common_command    setsr2 48000
+    common_command    setlen2 160749
+    sleep    3
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_48k_44k_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg.exe
+    生成dual_decoder音频    AudioIO\\48k.mp3    8192    AudioIO\\44k_4khz.mp3    8704
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 160749
+    common_command    setfmt2 MPEG
+    common_command    setsr2 44100
+    common_command    setlen2 160749
+    sleep    3
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_44k_48k_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg.exe
+    生成dual_decoder音频    AudioIO\\44k_4khz.mp3    8192    AudioIO\\48k.mp3    8704
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 160749
+    common_command    setfmt2 MPEG
+    common_command    setsr2 48000
+    common_command    setlen2 160749
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_44k_32k_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg.exe
+    生成dual_decoder音频    AudioIO\\44k_4khz.mp3    8192    AudioIO\\32k_2khz.mp3    8704
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 160749
+    common_command    setfmt2 MPEG
+    common_command    setsr2 32000
+    common_command    setlen2 120789
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_32k_44k_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg.exe
+    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    8192    AudioIO\\44k_4khz.mp3    8704
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 120789
+    common_command    setfmt2 MPEG
+    common_command    setsr2 44100
+    common_command    setlen2 160749
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_48k_48k_AAC
+    [Setup]    指定串口    D:\\debug\\test_audio_aac.exe
+    生成dual_decoder音频    AudioIO\\48k.aac    8192    AudioIO\\48k_2khz.aac    8704
+    common_command    setfmt AAC
+    common_command    setsr 48000
+    common_command    setlen 163693
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 163970
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_48k_32k_AAC
+    [Setup]    指定串口    D:\\debug\\test_audio_aac.exe
+    生成dual_decoder音频    AudioIO\\48k.aac    8192    AudioIO\\32k_2khz.aac    8704
+    common_command    setfmt AAC
+    common_command    setsr 48000
+    common_command    setlen 163693
+    common_command    setfmt2 AAC
+    common_command    setsr2 32000
+    common_command    setlen2 163051
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_32k_48k_AAC
+    [Setup]    指定串口    D:\\debug\\test_audio_aac.exe
+    生成dual_decoder音频    AudioIO\\32k_2khz.aac    8192    AudioIO\\48k.aac    8704
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 163051
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 163693
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_48k_44k_AAC
+    [Setup]    指定串口    D:\\debug\\test_audio_aac.exe
+    生成dual_decoder音频    AudioIO\\48k.aac    8192    AudioIO\\44k_4khz.aac    8704
+    common_command    setfmt AAC
+    common_command    setsr 48000
+    common_command    setlen 163693
+    common_command    setfmt2 AAC
+    common_command    setsr2 44100
+    common_command    setlen2 163752
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_44k_48k_AAC
+    [Setup]    指定串口    D:\\debug\\test_audio_aac.exe
+    生成dual_decoder音频    AudioIO\\44k_4khz.aac    8192    AudioIO\\48k.aac    8704
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 163752
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 163693
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_44k_32k_AAC
+    [Setup]    指定串口    D:\\debug\\test_audio_aac.exe
+    生成dual_decoder音频    AudioIO\\44k_4khz.aac    8192    AudioIO\\32k_2khz.aac    8704
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 163752
+    common_command    setfmt2 AAC
+    common_command    setsr2 32000
+    common_command    setlen2 163051
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_32k_44k_AAC
+    [Setup]    指定串口    D:\\debug\\test_audio_aac.exe
+    生成dual_decoder音频    AudioIO\\32k_2khz.aac    8192    AudioIO\\44k_4khz.aac    8704
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 163051
+    common_command    setfmt2 AAC
+    common_command    setsr2 44100
+    common_command    setlen2 163752
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_48K_48K_AC3
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    生成dual_decoder音频    AudioIO\\48k.ac3    8192    AudioIO\\48k_2khz.ac3    8704
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 240384
+    common_command    setfmt2 AC3
+    common_command    setsr2 48000
+    common_command    setlen2 240384
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_48K_32K_AC3
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    生成dual_decoder音频    AudioIO\\48k.ac3    8192    AudioIO\\32k_2khz.ac3    8704
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 240384
+    common_command    setfmt2 AC3
+    common_command    setsr2 32000
+    common_command    setlen2 240768
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_32K_48K_AC3
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    生成dual_decoder音频    AudioIO\\32k_2khz.ac3    8192    AudioIO\\48k.ac3    8704
+    common_command    setfmt AC3
+    common_command    setsr 32000
+    common_command    setlen 240768
+    common_command    setfmt2 AC3
+    common_command    setsr2 48000
+    common_command    setlen2 240384
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_48K_44K_AC3
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    生成dual_decoder音频    AudioIO\\48k.ac3    8192    AudioIO\\44k_4khz.ac3    8704
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 240384
+    common_command    setfmt2 AC3
+    common_command    setsr2 44100
+    common_command    setlen2 240744
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_44K_48K_AC3
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    生成dual_decoder音频    AudioIO\\44k_4khz.ac3    8192    AudioIO\\48k.ac3    8704
+    common_command    setfmt AC3
+    common_command    setsr 44100
+    common_command    setlen 240744
+    common_command    setfmt2 AC3
+    common_command    setsr2 48000
+    common_command    setlen2 240384
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_44K_32K_AC3
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    生成dual_decoder音频    AudioIO\\44k_4khz.ac3    8192    AudioIO\\32k_2khz.ac3    8704
+    common_command    setfmt AC3
+    common_command    setsr 44100
+    common_command    setlen 240744
+    common_command    setfmt2 AC3
+    common_command    setsr2 32000
+    common_command    setlen2 240768
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_32K_44K_AC3
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    生成dual_decoder音频    AudioIO\\32k_2khz.ac3    8192    AudioIO\\44k_4khz.ac3    8704
+    common_command    setfmt AC3
+    common_command    setsr 32000
+    common_command    setlen 240768
+    common_command    setfmt2 AC3
+    common_command    setsr2 44100
+    common_command    setlen2 240744
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_48K_48K_EAC3
+    [Setup]    指定串口    D:\\debug\\test_audio_eac3.exe
+    生成dual_decoder音频    AudioIO\\48k.eac3    8192    AudioIO\\48k_2khz.eac3    8704
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 240384
+    common_command    setfmt2 EAC3
+    common_command    setsr2 48000
+    common_command    setlen2 240384
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_48K_32K_EAC3
+    [Setup]    指定串口    D:\\debug\\test_audio_eac3.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\48k.eac3    4096    AudioIO\\32k_2khz.eac3    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\48k.eac3    4096    AudioIO\\32k_2khz.eac3    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\48k.eac3    8192    AudioIO\\32k_2khz.eac3    8704
+    common_command    mon
+    common_command    setfmt EAC3
+    common_command    setlen 160749
+    common_command    setfmt2 EAC3
+    common_command    setlen2 160749
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_32K_48K_EAC3
+    [Setup]    指定串口    D:\\debug\\test_audio_eac3.exe
+    生成dual_decoder音频    AudioIO\\32k_2khz.eac3    8192    AudioIO\\48k.eac3    8704
+    common_command    setfmt EAC3
+    common_command    setsr 32000
+    common_command    setlen 160749
+    common_command    setfmt2 EAC3
+    common_command    setsr2 48000
+    common_command    setlen2 160749
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_48K_44K_EAC3
+    [Setup]    指定串口    D:\\debug\\test_audio_eac3.exe
+    生成dual_decoder音频    AudioIO\\48k.eac3    8192    AudioIO\\44k_4khz.eac3    8704
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 160749
+    common_command    setfmt2 EAC3
+    common_command    setsr2 44100
+    common_command    setlen2 240744
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_44K_48K_EAC3
+    [Setup]    指定串口    D:\\debug\\test_audio_eac3.exe
+    生成dual_decoder音频    AudioIO\\44k_4khz.eac3    8192    AudioIO\\48k.eac3    8704
+    common_command    setfmt EAC3
+    common_command    setsr 44100
+    common_command    setlen 240744
+    common_command    setfmt2 EAC3
+    common_command    setsr2 48000
+    common_command    setlen2 160749
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_44K_32K_EAC3
+    [Setup]    指定串口    D:\\debug\\test_audio_eac3.exe
+    生成dual_decoder音频    AudioIO\\44k_4khz.eac3    8192    AudioIO\\32k_2khz.eac3    8704
+    common_command    setfmt EAC3
+    common_command    setsr 44100
+    common_command    setlen 240744
+    common_command    setfmt2 EAC3
+    common_command    setlen2 160749
+    common_command    play 37 0 1
+    sleep    3
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_32K_44K_EAC3
+    [Setup]    指定串口    D:\\debug\\test_audio_eac3.exe
+    生成dual_decoder音频    AudioIO\\32k_2khz.eac3    8192    AudioIO\\44k_4khz.eac3    8704
+    common_command    setfmt EAC3
+    common_command    setsr 32000
+    common_command    setlen 160749
+    common_command    setfmt2 EAC3
+    common_command    setsr2 44100
+    common_command    setlen2 240744
+    common_command    play 37 0 1
+    sleep    2
+    common_command    play2 38 0 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_32k_44k_fix48k_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg_fix.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    4096    AudioIO\\44k_4khz.mp3    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    4096    AudioIO\\44k_4khz.mp3    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    8192    AudioIO\\44k_4khz.mp3    8704
+    common_command    target_sample_rate 4
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 120789
+    common_command    setfmt2 MPEG
+    common_command    setsr2 44000
+    common_command    setlen2 160749
+    sleep    10
+    common_command    play 37 0 1
+    sleep    5
+    common_command    play2 38 0 2
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_32k_48k_fix44k_AAC
+    [Setup]    指定串口    D:\\debug\\test_audio_aac_fix.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\32k_2khz.aac    4096    AudioIO\\48k.aac    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\32k_2khz.aac    4096    AudioIO\\48k.aac    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\32k_2khz.aac    8192    AudioIO\\48k.aac    8704
+    common_command    target_sample_rate 2
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 163051
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 163693
+    sleep    10
+    common_command    play 37 0 1
+    sleep    5
+    common_command    play2 38 0 2
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_Fix32K_128K
+    [Setup]    指定串口    D:\\debug\\test_audio_fix.exe
+    设置音频    AudioIO\\128k.pcm    1
+    iec输出    0
+    common_command    target_sample_rate 1
+    common_command    setsr 128000
+    common_command    setch 2
+    common_command    setlen 5120000
+    播放    10    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+    [Teardown]    断开串口
+
+AUDIO_PP_ASRC_DualDcoder
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg.exe
+    生成dual_decoder音频    AudioIO\\16k.pcm    8192    AudioIO\\11k.pcm    10752
+    common_command    setlen 640000
+    common_command    setlen2 441000
+    common_command    setfmt2 PCM
+    common_command    setsr2 11025
+    common_command    setch2 2
+    sleep    2
+    common_command    setabps2 0
+    sleep    2
+    common_command    setba2 4
+    sleep    2
+    common_command    setbps2 16
+    sleep    2
+    common_command    setcb2 0
+    sleep    3
+    common_command    play 4 1 1
+    sleep    10
+    common_command    play2 46 1 2
+    sleep    60
+    停止    1
+    停止    2
+    [Teardown]    断开串口

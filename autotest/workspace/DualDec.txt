@@ -1,0 +1,352 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Resource          ../业务关键字.txt
+Library           OperatingSystem
+Library           String
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    1    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\debug\\test_audio.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    chenql    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1108    # devel03的密码，用户登录bjdevel03
+
+*** Test Cases ***
+AUDIO_DUAL_DEC_AAC
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 139076
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 284919
+    common_command    play 37 0 1
+    common_command    play2 38 0 2
+    sleep    120
+    停止    1
+    停止    2
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_DUAL_DEC_HE_AAC
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\HE\\48k\\2C_48K-24K_HE-LC_224_stereo.aac    8192    FromSunplus\\AAC\\HE\\44k\\2C_44K-22K_HE-LC_huanghedeshui.aac    8704
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 48000
+    common_command    setlen 247511
+    common_command    setfmt2 AAC
+    common_command    setsr2 44100
+    common_command    setlen2 544957
+    common_command    play 37 0 1
+    common_command    play2 38 0 2
+    sleep    120
+    [Teardown]    断开串口
+
+AUDIO_DUAL_DEC_AC3
+    [Setup]    连接串口
+    生成dual_decoder音频    ES\\AC3\\test_mpeg2_video_ac3_audio_Headphone_0204_32khz_64kbps_2ch.ac3    8192    ES\\AC3\\Hellboy_0011_44.1khz_256kbps_2ch.ac3    8704
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 32000
+    common_command    setlen 157056
+    common_command    setfmt2 AC3
+    common_command    setsr2 44100
+    common_command    setlen2 1920384
+    common_command    play2 37 0 1
+    common_command    play 38 0 2
+    sleep    150
+    [Teardown]    断开串口
+
+AUDIO_DUAL_DEC_EAC3
+    [Setup]    连接串口
+    生成dual_decoder音频    ES\\EAC3\\eac3samples\\eac3sample37.eac3    8192    ES\\EAC3\\matrix2_commentary1_stereo_192.eac3    12288
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 4194304
+    common_command    setfmt2 EAC3
+    common_command    setsr2 48000
+    common_command    setlen2 2191872
+    common_command    play2 47 0 2
+    common_command    play 37 0 1
+    sleep    250
+    [Teardown]    断开串口
+
+AUDIO_DUAL_DEC_MPEG
+    [Setup]    连接串口
+    生成dual_decoder音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\test_20k_8000_lowbitrate.mp3    8192    ES\\ComplianceTestFile\\mpa_test\\compressed\\es02.mp3    8704
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 265131
+    common_command    setfmt2 MPEG
+    common_command    setsr2 44100
+    common_command    setlen2 138890
+    common_command    play 37 0 1
+    common_command    play2 38 0 2
+    sleep    300
+    common_command    stop 1
+    common_command    stop 2
+    [Teardown]    断开串口
+
+AUDIO_MUTE_DUAL_DEC
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 139076
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 284919
+    common_command    play 37 0 1
+    common_command    play2 38 0 2
+    sleep    30
+    common_command    mute 1 5
+    sleep    60
+    [Teardown]    断开串口
+
+AUDIO_VOLUME_CONTROL_DUAL_DEC
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 139076
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 284919
+    common_command    play 37 0 1
+    common_command    play2 38 0 2
+    sleep    30
+    common_command    volume 1 100 0
+    sleep    100
+    [Teardown]    断开串口
+
+AUDIO_FASTFORWARD_DUAL_DEC
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 139076
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 284919
+    common_command    play 37 1 1
+    common_command    play2 38 1 2
+    sleep    30
+    common_command    ff 1 1024
+    sleep    30
+    common_command    ff \ 2 256
+    sleep    30
+    common_command    pplay 1
+    sleep    30
+    [Teardown]    断开串口
+
+AUDIO_DUAL_DEC_DEC1_NO_DATA
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    dual_dec_dec1_no_data
+    sleep    200
+    [Teardown]    断开串口
+
+AUDIO_DUAL_DEC_DEC2_NO_DATA
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    dual_dec_dec2_no_data
+    sleep    200
+    [Teardown]    断开串口
+
+AUDIO_MIXER_OUTPUT_DEC1
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    m_dec1
+    sleep    200
+    [Teardown]    断开串口
+
+AUDIO_MIXER_OUTPUT_DEC2
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    m_dec2
+    sleep    200
+    [Teardown]    断开串口
+
+AUDIO_MIXER_OUTPUT_NONE
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    m_none
+    sleep    200
+    [Teardown]    断开串口
+
+AUDIO_MIXER_OUTPUT_FIFO
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    m_fifo
+    sleep    200
+    [Teardown]    断开串口
+
+AUDIO_MIXER_OUTPUT_SWITCH_WHEN_DUAL_PLAY
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    m_switch_when_dual_play
+    sleep    200
+    [Teardown]    断开串口
+
+AUDIO_MIXER_OUTPUT_SWITCH_WHEN_DEC1_PLAY
+    [Setup]    连接串口
+    生成音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192
+    sleep    5
+    common_command    m_switch_when_dec1_play
+    sleep    200
+    [Teardown]    断开串口
+
+AUDIO_MIXER_OUTPUT_SWITCH_WHEN _DEC2_PLAY
+    [Setup]    连接串口
+    生成音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192
+    sleep    5
+    common_command    m_switch_when_dec2_play
+    sleep    200
+    [Teardown]    断开串口
+
+AUDIO_MIXER_OUTPUT_MIXER
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    m_mixer
+    sleep    200
+    [Teardown]    断开串口
+
+AUDIO_MIXER_OUTPUT_SWITCH_WHEN_NO_DATA
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    m_switch_when_no_data
+    sleep    200
+    [Teardown]    断开串口
+
+AUDIO_CHANGE_SYSTEM_SR_WHEN_DEC2_PLAY
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    ES\\AAC\\ADTS\\sine_1000hz_88.2k_10s.aac    8704
+    sleep    5
+    common_command    change_sr_when_dec2_play
+    sleep    200
+    [Teardown]    断开串口
+
+AUDIO_DEC1_DEC2_OUT_OF_PHASE
+    [Setup]    连接串口
+    生成dual_decoder音频    ES\\MPEG1_LAYER3\\sine_1000hz_48k_10s.mp3    8192    ES\\MPEG1_LAYER3\\sine_1000hz_48k_10s_180.mp3    8704
+    sleep    5
+    common_command    dec1_dec2_out_of_phase
+    sleep    120
+    [Teardown]    断开串口
+
+AUDIO_DEC_AMR
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\5.ape.pkt    1
+    sleep    5
+    common_command    setfmt APE
+    common_command    setsr 48000
+    common_command    setlen 71184384
+    common_command    setch 6
+    common_command    setabps 0
+    common_command    setba 4
+    common_command    setbps 16
+    common_command    setcb 0
+    \    set chmsk 63
+    \    playusb 1 /6ch.wav.es
+    [Teardown]    断开串口
+
+AUDIO_DUAL_DEC1_AAC_DEC2_MPEG
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    ES\\ComplianceTestFile\\mpa_test\\compressed\\es02.mp3    8704
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 139076
+    common_command    setfmt2 MPEG
+    common_command    setsr2 44100
+    common_command    setlen2 138890
+    common_command    play 37 0 1
+    common_command    play2 38 0 2
+    sleep    120
+    停止    1
+    停止    2
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_DUAL_DEC_AAC_2_MPEG
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    ES\\ComplianceTestFile\\mpa_test\\compressed\\es02.mp3    8704
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 139076
+    common_command    setfmt2 MPEG
+    common_command    setsr2 44100
+    common_command    setlen2 138890
+    common_command    play 37 0 1
+    common_command    play2 38 0 2
+    sleep    120
+    停止    1
+    停止    2
+    common_command    play2 38 0 1
+    common_command    play 37 0 2
+    [Teardown]    断开串口
+
+AUDIO_FLOWCONTROL_DUAL_DEC
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 139076
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 284919
+    common_command    rdplay 37 1 1
+    common_command    rdplay2 38 1 2
+    sleep    3
+    common_command    pstop 1
+    sleep    3    #没输出
+    common_command    pplay 1
+    sleep    3    #dec1 dec2输出
+    common_command    pstop 2
+    sleep    3    #没输出
+    common_command    pplay 2
+    sleep    3    #dec1 dec2输出
+    common_command    pause 1
+    sleep    3    #没输出
+    common_command    pplay1
+    sleep    3    #dec1 dec2输出
+    common_command    pause 2
+    sleep    3    #没输出
+    common_command    pplay 2
+    sleep    3    #dec1 dec2输出
+    common_command    pause 1
+    common_command    pstop 2
+    sleep    3    #没输出
+    common_command    pplay 1
+    sleep    3    #只有dec1输出
+    common_command    pplay 2
+    sleep    3    #dec1 dec2输出
+    common_command    pause 2
+    sleep    3    #没输出
+    common_command    pstop 1
+    sleep    3    #没输出
+    common_command    pplay 1
+    sleep    3    #只有dec1输出
+    common_command    pplay 2
+    sleep    3    #dec1 dec2输出
+    [Teardown]    断开串口

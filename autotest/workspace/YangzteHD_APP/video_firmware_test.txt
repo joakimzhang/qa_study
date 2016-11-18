@@ -1,0 +1,57 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../../业务关键字.txt
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    9    #serial port
+${sim_exe_path}    D:\\debug\\test_audio.exe    #
+${BJDevel03_UserName}    chenql    # bjdevel03 user name
+${BJDevel03_Password}    Avl1108    # devel03 password
+@{ir_command}     up    down    left    right    ext    enter
+
+*** Test Cases ***
+YHD-522:VIDEO_FIRMWARE_ERROR_CHECK1_loop_error
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\Field_Captured_TS\\Customer_Kingvon\\H.264\\file_H264陕西.ts 播放金鹰卡通 云南卫视
+
+YHD-523:VIDEO_FIRMWARE_ERROR_CHECK2_error_concealment
+    [Template]    video_templete
+    \\\\BJFile02\\BJShare\\Department\\FAE\\Soc\\AVL8332\\Stream\\DTMB\\山西\\运城\\KingVonTs_682_001.ts
+
+YHD-524:VIDEO_FIRMWARE_ERROR_CHECK4_signal_interrput
+    [Template]    video_templete
+    \\\\bjserver4\\streams\\Lib_test_stream\\kvn\\SC_546.ts
+
+YHD-525:VIDEO_FIRMWARE_ERROR_CHECK6_vdec_error_no_report_auto
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\remux_h264_bframe_crash2_fps15_MP_4.0.ts
+
+YHD-526:VIDEO_FIRMWARE_ERROR_CHECK7_vdec_error_no_report_auto
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\remux_cathedral-beta2_fps12_MP_4.0.ts 码流码率较低，搜sequece间隔也比较久。video size 640*352 画面清晰度不高
+
+YHD-527:VIDEO_FIRMWARE_ERROR_CHECK11_264_non-standard_auto
+    [Template]    video_templete
+    \\\\bjserver4\\streams\\Lib_test_stream\\kvn\\湖北省网信号线上录的流（无视频输出）.ts
+
+YHD-528:VIDEO_FIRMWARE_ERROR_CHECK13_bottom_first
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\remux_test_3_bottom_first.ts
+
+YHD-529:VIDEO_FIRMWARE_ERROR_CHECK14_lost_field
+    [Template]    video_templete
+    \\\\bjserver4\\streams\\Lib_test_stream\\Video\\video_matrix_just_for_debug\\576i_25f
+
+YHD-530:VIDEO_FIRMWARE_ERROR_CHECK15_lost_field
+    [Template]    video_templete
+    \\\\bjdqa05\\yaojj\\Tigris\\test\\remove_one_field.ts
+
+*** Keywords ***
+video_templete
+    [Arguments]    ${dir}
+    切换流    bjdittest    ${dir}
+    log    ${dir}

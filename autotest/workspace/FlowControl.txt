@@ -1,0 +1,684 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Resource          ../业务关键字.txt
+Library           OperatingSystem
+Library           String
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    1    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\debug\\test_audio.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    chenql    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1108    # devel03的密码，用户登录bjdevel03
+${AudioFileDir}    \\\\bjdevel03\\stream\\AudioTestFile
+
+*** Test Cases ***
+AUDIO_STOP---PLAY
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 455072
+    common_command    iec 0
+    common_command    rdplay 22 1 1
+    sleep    10
+    common_command    pstop 1
+    sleep    5
+    common_command    pplay 1
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_PAUSE---PLAY
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 455072
+    common_command    iec 0
+    common_command    play 22 0 1
+    sleep    10
+    common_command    pause 1
+    sleep    5
+    common_command    pplay 1
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_PLAY---FF
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 455072
+    common_command    iec 0
+    common_command    play 22 0 1
+    sleep    10
+    common_command    ff 1 1024
+    sleep    10
+    common_command    pplay 1
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_STOP---FF
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 455072
+    common_command    iec 0
+    common_command    play 22 0 1
+    sleep    10
+    common_command    pstop 1
+    sleep    5
+    common_command    ff 1 1024
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_PAUSE---FF
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 455072
+    common_command    iec 0
+    common_command    play 22 0 1
+    sleep    10
+    common_command    pause 1
+    sleep    5
+    common_command    ff 1 1024
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_FF---PLAY
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 455072
+    common_command    iec 0
+    common_command    fplay 22 0 1 1024
+    sleep    20
+    common_command    pplay 1
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_STOP--READY
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 455072
+    common_command    iec 0
+    common_command    play 22 0 1
+    sleep    20
+    common_command    pstop 1
+    sleep    5
+    common_command    ready 1
+    [Teardown]    断开串口
+
+AUDIO_STOP--READY---STOP---PLAY
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 455072
+    common_command    iec 0
+    common_command    rdplay 22 1 1
+    sleep    10
+    common_command    pstop 1
+    sleep    2
+    common_command    ready 1
+    sleep    2
+    common_command    pstop 1
+    sleep    2
+    common_command    pplay 1
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_STOP---PLAY---PAUSE---PLAY
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    audio_stop_play_pause_play
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_STOP---PLAY---PAUSE
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    audio_stop_play_pause
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_STOP---PAUSE---PLAY
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    audio_stop_pause_play
+    sleep    40
+    [Teardown]    断开串口
+
+AUDIO_STOP---PAUSE
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 455072
+    common_command    iec 0
+    common_command    play 22 0 1
+    sleep    10
+    common_command    pstop 1
+    sleep    2
+    common_command    pause 1
+    sleep    2
+    common_command    pstop 1
+    sleep    2
+    [Teardown]    断开串口
+
+AUDIO_REPEAT_STOP---PLAY
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    audio_stop_play
+    sleep    100
+    [Teardown]    断开串口
+
+AUDIO_REPEAT_PAUSE---PLAY
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    audio_pause_play
+    sleep    100
+    [Teardown]    断开串口
+
+AUDIO_FF_2X
+    [Setup]    指定串口    11
+    设置音频    ES\\MPEG1_LAYER3\\sine_200hz_32k_60s.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 961369
+    common_command    iec 0
+    common_command    fplay 28 0 1 1024
+    sleep    40
+    [Teardown]    断开串口
+
+AUDIO_FF_1.25X
+    [Setup]    指定串口    11
+    设置音频    ES\\MPEG1_LAYER3\\sine_200hz_32k_60s.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 961369
+    common_command    iec 0
+    common_command    fplay 28 0 1 256
+    sleep    40
+    [Teardown]    断开串口
+
+AUDIO_FF_1.5X
+    [Setup]    指定串口    11
+    设置音频    ES\\MPEG1_LAYER3\\sine_200hz_32k_60s.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 961369
+    common_command    iec 0
+    common_command    fplay 28 0 1 512
+    sleep    40
+    [Teardown]    断开串口
+
+AUDIO_FF_1.75X
+    [Setup]    指定串口    11
+    设置音频    ES\\MPEG1_LAYER3\\sine_200hz_32k_60s.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 961369
+    common_command    iec 0
+    common_command    fplay 28 0 1 768
+    sleep    40
+    [Teardown]    断开串口
+
+AUDIO_FF_MPEG
+    [Setup]    指定串口    11
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\IS_MS_short_long_case_44k_cbr.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 1930344
+    common_command    iec 0
+    common_command    rdplay 28 1 1
+    sleep    10
+    common_command    pstop 1
+    sleep    2
+    common_command    pplay 1
+    sleep    10
+    common_command    pause 1
+    sleep    5
+    common_command    ff 1 256
+    [Teardown]    断开串口
+
+AUDIO_FF_AAC
+    [Setup]    指定串口    11
+    设置音频    ES\\ComplianceTestFile\\aac_test\\compressed\\avs_audio_game1_48_16_6_neroenc_1514kbps.adts.aac    1
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 48000
+    common_command    setlen 7045130
+    common_command    iec 0
+    common_command    rdplay 28 1 1
+    sleep    10
+    common_command    pstop 1
+    sleep    2
+    common_command    pplay 1
+    sleep    10
+    common_command    pause 1
+    sleep    5
+    common_command    ff 1 256
+    [Teardown]    断开串口
+
+AUDIO_FF_HE-AAC_V1
+    [Setup]    指定串口    11
+    设置音频    FromSunplus\\AAC\\HE\\32k\\1C_32K-16K_HE-LC_16K_20_mono.aac    1
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 621527
+    common_command    iec 0
+    common_command    rdplay 28 1 1
+    sleep    10
+    common_command    pstop 1
+    sleep    2
+    common_command    pplay 1
+    sleep    10
+    common_command    pause 1
+    sleep    5
+    common_command    ff 1 256
+    [Teardown]    断开串口
+
+AUDIO_FF_HE-AAC_V2
+    [Setup]    指定串口    11
+    设置音频    FromSunplus\\AAC\\HE_V2\\44k\\2C-1C-1C_44K-44K-22K_HEV2-HE-LC_44HEV48.aac    1
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 331776
+    common_command    iec 0
+    common_command    rdplay 28 1 1
+    sleep    10
+    common_command    pstop 1
+    sleep    2
+    common_command    pplay 1
+    sleep    10
+    common_command    pause 1
+    sleep    5
+    common_command    ff 1 256
+    [Teardown]    断开串口
+
+AUDIO_PLAYBACK_TIME
+    [Setup]    指定串口    11
+    设置音频    ES\\MPEG1_LAYER3\\sine_200hz_32k_60s.mp3    1
+    sleep    5
+    common_command    iec 0
+    common_command    audio_pb_time    #每隔1s获取一次pb time
+    sleep    60
+    [Teardown]    断开串口
+
+AUDIO_PLAYBACK_TIME_FF_2X
+    [Setup]    指定串口    11
+    设置音频    ES\\MPEG1_LAYER3\\sine_200hz_32k_60s.mp3    1
+    sleep    5
+    common_command    iec 0
+    common_command    audio_pb_2x
+    sleep    60
+    [Teardown]    断开串口
+
+AUDIO_PLAYBACK_TIME_WHEN_PAUSE
+    [Setup]    指定串口    11
+    设置音频    ES\\MPEG1_LAYER3\\sine_200hz_32k_60s.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 961369
+    common_command    iec 0
+    common_command    rdplay 28 1 1
+    sleep    10
+    common_command    st 1
+    common_command    st 1
+    common_command    st 1    #检查pb time增长
+    common_command    pause 1
+    common_command    st 1
+    common_command    st 1    #检查pb time 不变
+    common_command    pplay 1
+    common_command    st 1
+    common_command    st 1    #检查pb time增长
+    [Teardown]    断开串口
+
+AUDIO_PLAYBACK_TIME_WHEN_STOP
+    [Setup]    指定串口    11
+    设置音频    ES\\MPEG1_LAYER3\\sine_200hz_32k_60s.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 961369
+    common_command    iec 0
+    common_command    rdplay 28 1 1
+    sleep    10
+    common_command    st 1
+    common_command    st 1
+    common_command    st 1    #检查pb time增长
+    common_command    pstop 1
+    common_command    st 1
+    common_command    st 1    #检查pb time不变
+    common_command    pplay 1
+    common_command    st 1
+    common_command    st 1    #检查pb time从0增长
+    [Teardown]    断开串口
+
+AUDIO_PLAYBACK_TIME_DEFAULT_22K
+    [Setup]    指定串口    11
+    设置音频    ES\\MPEG1_LAYER3\\sine_200hz_22k_60s.mp3    1
+    sleep    5
+    common_command    iec 0
+    common_command    audio_pb_22k    #每隔1s获取一次pb time
+    sleep    60
+    [Teardown]    断开串口
+
+AUDIO_PLAYBACK_TIME_REPEAT_PAUSE_PLAY_STOP
+    [Setup]    指定串口    11
+    设置音频    ES\\MPEG1_LAYER3\\sine_200hz_22k_60s.mp3    1
+    sleep    5
+    common_command    iec 0
+    common_command    audio_pb_pause_play_stop_play
+    sleep    60    #pause时playback time不变，play时playback time递增，stop时playback time不变，再次play时playback time从0开始递增。
+    [Teardown]    断开串口
+
+AUDIO_FF_AC3
+    [Setup]    指定串口    11
+    设置音频    FromSunplus\\AC3\\448Kbps_48kHz\\2.diatonis_soal.448k.48kHz.5.1ch.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 19475456
+    common_command    iec 0
+    common_command    rdplay 8 1 1
+    sleep    10
+    common_command    pstop 1
+    sleep    2
+    common_command    pplay 1
+    sleep    10
+    common_command    pause 1
+    sleep    5
+    common_command    ff 1 256
+    [Teardown]    断开串口
+
+AUDIO_FF_COOK
+    [Setup]    指定串口    11
+    设置音频    ES\\RealAudio\\RLV8_19_1ch_8000Hz.bin    1
+    common_command    iec 0
+    sleep    5
+    splay    2    1    1
+    sleep    20
+    common_command    pstop 1
+    sleep    2
+    common_command    pplay 1
+    sleep    10
+    common_command    pause 1
+    sleep    5
+    common_command    ff 1 256
+    [Teardown]    断开串口
+
+AUDIO_FF_WAV
+    [Setup]    指定串口    11
+    设置音频    FromSunplus\\WAV\\wav_0032-Bass.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 4385432
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    common_command    iec 0
+    common_command    rdplay 7 1 1
+    sleep    10
+    common_command    pstop 1
+    sleep    2
+    common_command    pplay 1
+    sleep    10
+    common_command    pause 1
+    sleep    5
+    common_command    ff 1 256
+    [Teardown]    断开串口
+
+AUDIO_FF_DRA
+    [Setup]    指定串口    11
+    设置音频    ES\\DRA\\48KHz\\14-fl_dra128kbps_2ch_48khz_vbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 48000
+    common_command    setlen 4492480
+    common_command    iec 0
+    common_command    rdplay 8 1 1
+    sleep    10
+    common_command    pstop 1
+    sleep    2
+    common_command    pplay 1
+    sleep    10
+    common_command    pause 1
+    sleep    5
+    common_command    ff 1 256
+    [Teardown]    断开串口
+
+AUDIO_FF_EAC3
+    [Setup]    指定串口    11
+    设置音频    ES\\EAC3\\matrix2_commentary2_stereo_192.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2191872
+    common_command    iec 0
+    common_command    rdplay 8 1 1
+    sleep    10
+    common_command    pstop 1
+    sleep    2
+    common_command    pplay 1
+    sleep    10
+    common_command    pause 1
+    sleep    5
+    common_command    ff 1 256
+    [Teardown]    断开串口
+
+AUDIO_FF_OGG
+    [Setup]    指定串口    11
+    设置音频    ES\\ogg_stripped\\coyote_48khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 1548944
+    sleep    10
+    common_command    iec 0
+    common_command    rdplay 8 1 1
+    sleep    20
+    common_command    pstop 1
+    sleep    2
+    common_command    pplay 1
+    sleep    10
+    common_command    pause 1
+    sleep    5
+    common_command    ff 1 256
+    [Teardown]    断开串口
+
+AUDIO_FF_VOLUME_HW
+    [Setup]    指定串口    11
+    设置音频    48kfs_sine_-20db_1khz.pcm    0
+    iec输出    0
+    command    rdplay 8 1 1
+    sleep    20
+    common_command    pstop 1
+    sleep    2
+    volume控制    1    50    50
+    sleep    2
+    common_command    pplay 1
+    sleep    10
+    common_command    pause 1
+    sleep    2
+    volume控制    1    60    60
+    sleep    5
+    common_command    ff 1 256
+    sleep    10
+    volume控制    1    20    20
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_FF_VOLUME_SW
+    [Setup]    指定串口    11
+    设置音频    AudioIO\\48kfs_sine_-20db_1khz.pcm    1
+    iec输出    0
+    common_command    rdplay 8 1 1
+    sleep    20
+    common_command    pstop 1
+    sleep    2
+    volume控制    2    50    50
+    sleep    2
+    common_command    pplay 1
+    sleep    10
+    common_command    pause 1
+    sleep    2
+    volume控制    2    60    60
+    sleep    5
+    common_command    ff 1 256
+    sleep    10
+    volume控制    2    20    20
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_FF_MUTE
+    [Setup]    指定串口    11
+    设置音频    48kfs_sine_-20db_1khz.pcm    0
+    iec输出    0
+    command    rdplay 8 1 1
+    sleep    20
+    common_command    pstop 1
+    sleep    2
+    common_command    mute 0 0
+    sleep    2
+    common_command    pplay 1
+    sleep    2
+    demute
+    sleep    10
+    common_command    pause 1
+    sleep    2
+    common_command    mute 0 0
+    sleep    5
+    common_command    ff 1 256
+    sleep    10
+    demute
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_PLAYBACK_TIME_FIX_32K_22K
+    [Setup]    指定串口    11
+    设置音频    ES\\MPEG1_LAYER3\\sine_200hz_22k_60s.mp3    1    #先将sample rate设置为fix 32k
+    sleep    5
+    common_command    iec 0
+    common_command    audio_pb_22k    #每隔1s获取一次pb time
+    sleep    60
+    [Teardown]    断开串口
+
+AUDIO_RANDOM_FLOW_CONTROL
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 455072
+    common_command    iec 0
+    common_command    rdplay 22 1 1
+    sleep    10
+    common_command    rff 1
+    sleep    1000000
+    [Teardown]    断开串口
+
+AUDIO_FF_AAC_RAW
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1    #用松下耳机RP-WF6000T测试
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 455072
+    切换输出模式    2    2
+    切换输出模式    1    2
+    common_command    rdplay 28 1 1
+    sleep    10
+    common_command    pstop 1
+    sleep    2
+    common_command    pplay 1
+    sleep    10
+    common_command    pause 1
+    sleep    5
+    common_command    ff 1 256
+    [Teardown]    断开串口
+
+AUDIO_FF_AC3_RAW
+    [Setup]    指定串口    11
+    设置音频    ES\\AC3\\Breathless_AC3_128kbps_32khz_Stereo.ac3    1    #用松下耳机RP-WF6000T测试
+    iec输出    5
+    common_command    setfmt AC3
+    common_command    setsr 32000
+    common_command    setlen 960000
+    切换输出模式    1    2
+    common_command    rdplay 28 1 1
+    sleep    10
+    common_command    pstop 1
+    sleep    2
+    common_command    pplay 1
+    sleep    10
+    common_command    pause 1
+    sleep    5
+    common_command    ff 1 256
+    [Teardown]    断开串口
+
+AUDIO_FF_DTS_RAW
+    [Setup]    指定串口    11
+    设置音频    ES\\DTS\\pfcell2DTST02DELAY-240ms_6ch_48khz_24bit_CBR_755kbps.dts    1    #用松下耳机RP-WF6000T测试
+    iec输出    0
+    common_command    setfmt DTS
+    common_command    setsr 48000
+    common_command    setlen 1358100
+    切换输出模式    1    2
+    common_command    rdplay 28 1 1
+    sleep    10
+    common_command    pstop 1
+    sleep    2
+    common_command    pplay 1
+    sleep    10
+    common_command    pause 1
+    sleep    5
+    common_command    ff 1 256
+    [Teardown]    断开串口

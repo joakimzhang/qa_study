@@ -1,0 +1,670 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Test Timeout      50 minutes
+Library           test_tool
+Library           SSHLibrary
+Resource          ../../业务关键字.txt
+Library           OperatingSystem
+Library           String
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    1    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\debug\\test_audio_ac3.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    chenql    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1108    # devel03的密码，用户登录bjdevel03
+
+*** Test Cases ***
+tools2
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    设置音频    AudioIO\\output_5ch.pcm    1
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LORO_8ch_menu1
+    [Documentation]    用ffmpeg生成6channel的WAV,再用UE打开文件，去掉WAV的头，搜索data，删除文件最开始到data后面4个字节为止。
+    ...    ffmpeg -i front_left.wav -i front_right.wav -i front_center.wav -i lfe.wav -i back_left.wav -i back_right.wav -i side_left.wav -i side_right.wav -filter_complex "[0:a][1:a][2:a][3:a][4:a][5:a][6:a][7:a]amerge=inputs=8[aout]" -map "[aout]" output_8ch.wav
+    ...
+    ...
+    ...    将WAV转成AC3格式，这个case没有用到
+    ...    ffmpeg -i output.wav -acodec ac3 output.ac3
+    ...
+    ...    将WAV转成AAC格式，这个case没有用到
+    ...    ffmpeg -i output3.wav -acodec aac output3.aac \
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_8ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    1
+    common_command    setlen 5760000
+    common_command    setsr 48000
+    common_command    setch 8
+    sleep    3
+    播放    8    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+TEST
+    设置音频    AudioIO\\output_5ch.aac    1
+
+AUDIO_PP_DWMIX_LORO
+    [Documentation]    用ffmpeg生成6channel的WAV,再用UE打开文件，去掉WAV的头，搜索data，删除文件最开始到data后面4个字节为止。
+    ...    ffmpeg -i front_left.wav -i front_right.wav -i front_center.wav -i lfe.wav -i back_left.wav -i back_right.wav -filter_complex "[0:a][1:a][2:a][3:a][4:a][5:a]amerge=inputs=6[aout]" -map "[aout]" output4.wav
+    ...
+    ...
+    ...    将WAV转成AC3格式，这个case没有用到
+    ...    ffmpeg -i output.wav -acodec ac3 output.ac3
+    ...
+    ...    将WAV转成AAC格式，这个case没有用到
+    ...    ffmpeg -i output3.wav -acodec aac output3.aac \
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\48K_5.1CH_Downmix.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    1
+    common_command    setsr 48000
+    common_command    setch 6
+    common_command    setlen 5760000
+    sleep    3
+    播放    35    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LORO_8ch
+    [Documentation]    用ffmpeg生成6channel的WAV,再用UE打开文件，去掉WAV的头，搜索data，删除文件最开始到data后面4个字节为止。
+    ...    ffmpeg -i front_left.wav -i front_right.wav -i front_center.wav -i lfe.wav -i back_left.wav -i back_right.wav -i side_left.wav -i side_right.wav -filter_complex "[0:a][1:a][2:a][3:a][4:a][5:a][6:a][7:a]amerge=inputs=8[aout]" -map "[aout]" output_8ch.wav
+    ...
+    ...
+    ...    将WAV转成AC3格式，这个case没有用到
+    ...    ffmpeg -i output.wav -acodec ac3 output.ac3
+    ...
+    ...    将WAV转成AAC格式，这个case没有用到
+    ...    ffmpeg -i output3.wav -acodec aac output3.aac \
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_8ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    1
+    common_command    setlen 5760000
+    common_command    setsr 48000
+    common_command    setch 8
+    sleep    3
+    播放    8    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LORO_8ch_menu
+    [Documentation]    用ffmpeg生成6channel的WAV,再用UE打开文件，去掉WAV的头，搜索data，删除文件最开始到data后面4个字节为止。
+    ...    ffmpeg -i front_left.wav -i front_right.wav -i front_center.wav -i lfe.wav -i back_left.wav -i back_right.wav -i side_left.wav -i side_right.wav -filter_complex "[0:a][1:a][2:a][3:a][4:a][5:a][6:a][7:a]amerge=inputs=8[aout]" -map "[aout]" output_8ch.wav
+    ...
+    ...
+    ...    将WAV转成AC3格式，这个case没有用到
+    ...    ffmpeg -i output.wav -acodec ac3 output.ac3
+    ...
+    ...    将WAV转成AAC格式，这个case没有用到
+    ...    ffmpeg -i output3.wav -acodec aac output3.aac \
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_8ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    common_command    downmix_menu 0 1
+    common_command    setlen 5760000
+    common_command    setsr 48000
+    common_command    setch 8
+    sleep    3
+    播放    8    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LORO_7ch
+    [Documentation]    用ffmpeg生成6channel的WAV,再用UE打开文件，去掉WAV的头，搜索data，删除文件最开始到data后面4个字节为止。
+    ...    ffmpeg -i front_left.wav -i front_right.wav -i front_center.wav -i lfe.wav -i back_left.wav -i back_right.wav -i side_left.wav -i side_right.wav -filter_complex "[0:a][1:a][2:a][3:a][4:a][5:a][6:a][7:a]amerge=inputs=8[aout]" -map "[aout]" output_8ch.wav
+    ...
+    ...
+    ...    将WAV转成AC3格式，这个case没有用到
+    ...    ffmpeg -i output.wav -acodec ac3 output.ac3
+    ...
+    ...    将WAV转成AAC格式，这个case没有用到
+    ...    ffmpeg -i output3.wav -acodec aac output3.aac \
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_7ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    1
+    common_command    setlen 6720000
+    common_command    setsr 48000
+    common_command    setch 7
+    sleep    3
+    播放    8    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LORO_7ch_menu
+    [Documentation]    用ffmpeg生成6channel的WAV,再用UE打开文件，去掉WAV的头，搜索data，删除文件最开始到data后面4个字节为止。
+    ...    ffmpeg -i front_left.wav -i front_right.wav -i front_center.wav -i lfe.wav -i back_left.wav -i back_right.wav -i side_left.wav -i side_right.wav -filter_complex "[0:a][1:a][2:a][3:a][4:a][5:a][6:a][7:a]amerge=inputs=8[aout]" -map "[aout]" output_8ch.wav
+    ...
+    ...
+    ...    将WAV转成AC3格式，这个case没有用到
+    ...    ffmpeg -i output.wav -acodec ac3 output.ac3
+    ...
+    ...    将WAV转成AAC格式，这个case没有用到
+    ...    ffmpeg -i output3.wav -acodec aac output3.aac \
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_7ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    common_command    downmix_menu 0 1
+    common_command    setlen 6720000
+    common_command    setsr 48000
+    common_command    setch 7
+    sleep    3
+    播放    8    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LORO_5ch
+    [Documentation]    用ffmpeg生成6channel的WAV,再用UE打开文件，去掉WAV的头，搜索data，删除文件最开始到data后面4个字节为止。
+    ...    ffmpeg -i front_left.wav -i front_right.wav -i front_center.wav -i lfe.wav -i back_left.wav -i back_right.wav -i side_left.wav -i side_right.wav -filter_complex "[0:a][1:a][2:a][3:a][4:a][5:a][6:a][7:a]amerge=inputs=8[aout]" -map "[aout]" output_8ch.wav
+    ...
+    ...
+    ...    将WAV转成AC3格式，这个case没有用到
+    ...    ffmpeg -i output.wav -acodec ac3 output.ac3
+    ...
+    ...    将WAV转成AAC格式，这个case没有用到
+    ...    ffmpeg -i output3.wav -acodec aac output3.aac \
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_5ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    1
+    common_command    setlen 4800000
+    common_command    setsr 48000
+    common_command    setch 5
+    sleep    3
+    播放    8    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LORO_5ch_menu
+    [Documentation]    用ffmpeg生成6channel的WAV,再用UE打开文件，去掉WAV的头，搜索data，删除文件最开始到data后面4个字节为止。
+    ...    ffmpeg -i front_left.wav -i front_right.wav -i front_center.wav -i lfe.wav -i back_left.wav -i back_right.wav -i side_left.wav -i side_right.wav -filter_complex "[0:a][1:a][2:a][3:a][4:a][5:a][6:a][7:a]amerge=inputs=8[aout]" -map "[aout]" output_8ch.wav
+    ...
+    ...
+    ...    将WAV转成AC3格式，这个case没有用到
+    ...    ffmpeg -i output.wav -acodec ac3 output.ac3
+    ...
+    ...    将WAV转成AAC格式，这个case没有用到
+    ...    ffmpeg -i output3.wav -acodec aac output3.aac \
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_5ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    common_command    downmix_menu 0 1
+    common_command    setlen 5760000
+    common_command    setsr 48000
+    common_command    setch 5
+    sleep    3
+    播放    8    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LORO_4ch
+    [Documentation]    用ffmpeg生成6channel的WAV,再用UE打开文件，去掉WAV的头，搜索data，删除文件最开始到data后面4个字节为止。
+    ...    ffmpeg -i front_left.wav -i front_right.wav -i front_center.wav -i lfe.wav -i back_left.wav -i back_right.wav -i side_left.wav -i side_right.wav -filter_complex "[0:a][1:a][2:a][3:a][4:a][5:a][6:a][7:a]amerge=inputs=8[aout]" -map "[aout]" output_8ch.wav
+    ...
+    ...
+    ...    将WAV转成AC3格式，这个case没有用到
+    ...    ffmpeg -i output.wav -acodec ac3 output.ac3
+    ...
+    ...    将WAV转成AAC格式，这个case没有用到
+    ...    ffmpeg -i output3.wav -acodec aac output3.aac \
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_4ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    1
+    common_command    setlen 3840000
+    common_command    setsr 48000
+    common_command    setch 4
+    sleep    3
+    播放    8    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LORO_3ch
+    [Documentation]    用ffmpeg生成6channel的WAV,再用UE打开文件，去掉WAV的头，搜索data，删除文件最开始到data后面4个字节为止。
+    ...    ffmpeg -i front_left.wav -i front_right.wav -i front_center.wav -i lfe.wav -i back_left.wav -i back_right.wav -i side_left.wav -i side_right.wav -filter_complex "[0:a][1:a][2:a][3:a][4:a][5:a][6:a][7:a]amerge=inputs=8[aout]" -map "[aout]" output_8ch.wav
+    ...
+    ...
+    ...    将WAV转成AC3格式，这个case没有用到
+    ...    ffmpeg -i output.wav -acodec ac3 output.ac3
+    ...
+    ...    将WAV转成AAC格式，这个case没有用到
+    ...    ffmpeg -i output3.wav -acodec aac output3.aac \
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_3ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    1
+    common_command    setlen 2880000
+    common_command    setsr 48000
+    common_command    setch 3
+    sleep    3
+    播放    8    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LORO_1ch
+    [Documentation]    用ffmpeg生成6channel的WAV,再用UE打开文件，去掉WAV的头，搜索data，删除文件最开始到data后面4个字节为止。
+    ...    ffmpeg -i front_left.wav -i front_right.wav -i front_center.wav -i lfe.wav -i back_left.wav -i back_right.wav -i side_left.wav -i side_right.wav -filter_complex "[0:a][1:a][2:a][3:a][4:a][5:a][6:a][7:a]amerge=inputs=8[aout]" -map "[aout]" output_8ch.wav
+    ...
+    ...
+    ...    将WAV转成AC3格式，这个case没有用到
+    ...    ffmpeg -i output.wav -acodec ac3 output.ac3
+    ...
+    ...    将WAV转成AAC格式，这个case没有用到
+    ...    ffmpeg -i output3.wav -acodec aac output3.aac \
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\48k_1ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    1
+    common_command    setlen 960000
+    common_command    setsr 48000
+    common_command    setch 1
+    sleep    3
+    播放    8    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LTRT
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\48K_5.1CH_Downmix.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    2
+    common_command    setsr 48000
+    common_command    setch 6
+    common_command    setlen 5760000
+    sleep    3
+    播放    35    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LTRT_8ch
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_8ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    2
+    common_command    setlen 5760000
+    common_command    setsr 48000
+    common_command    setch 8
+    sleep    3
+    播放    35    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LTRT_7ch
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_7ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    2
+    common_command    setlen 5760000
+    common_command    setsr 48000
+    common_command    setch 7
+    sleep    3
+    播放    35    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LTRT_5ch
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_5ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    2
+    common_command    setsr 48000
+    common_command    setch 5
+    sleep    3
+    播放    8    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LTRT_4ch
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_4ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    2
+    common_command    setlen 3840000
+    common_command    setsr 48000
+    common_command    setch 4
+    sleep    3
+    播放    35    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LTRT_4ch_menu
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_4ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    common_command    downmix_menu 0 2
+    common_command    setlen 500000
+    common_command    setsr 48000
+    common_command    setch 4
+    sleep    3
+    播放    35    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LTRT_3ch
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_3ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    2
+    common_command    setlen 2880000
+    common_command    setsr 48000
+    common_command    setch 3
+    sleep    3
+    播放    35    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LTRT_3ch_menu
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_3ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    common_command    downmix_menu 0 2
+    common_command    setlen 576000
+    common_command    setsr 48000
+    common_command    setch 3
+    sleep    3
+    播放    35    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LTRT_1ch
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\48k_1ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    2
+    common_command    setlen 960000
+    common_command    setsr 48000
+    common_command    setch 1
+    sleep    3
+    播放    35    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LTRT_1ch_menu
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\48k_1ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    common_command    downmix_menu 0 2
+    common_command    setlen 576000
+    common_command    setsr 48000
+    common_command    setch 1
+    sleep    3
+    播放    35    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_OFF
+    [Setup]    连接串口
+    设置音频    AudioIO\\48K_5.1CH_Downmix.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    0
+    common_command    setlen 5760000
+    common_command    setsr 48000
+    common_command    setch 6
+    sleep    3
+    播放    8    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_change_5ch
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_5ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    common_command    setlen 4800000
+    common_command    setsr 48000
+    common_command    setch 5
+    sleep    3
+    播放    8    1    1
+    sleep    5
+    设置DownMix模式    2
+    sleep    3
+    设置DownMix模式    1
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_0db_5ch
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_5ch_0db.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    common_command    setlen 4800000
+    common_command    setsr 48000
+    common_command    setch 5
+    sleep    3
+    播放    35    0    1
+    sleep    2
+    设置DownMix模式    2
+    sleep    2
+    设置DownMix模式    1
+    停止    1
+    检查checksum    2e64aa36
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LORO_DualDecoder
+    [Setup]    指定串口    D:\\debug\\test_audio_aac.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\output_5ch_2.pcm    4096    AudioIO\\output_5ch.pcm    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\output_5ch_2.pcm    4096    AudioIO\\output_5ch.pcm    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\output_5ch_2.pcm    8192    AudioIO\\output_5ch.pcm    10752
+    LOG    1
+    common_command    mon
+    sleep    3
+    设置DownMix模式    1
+    common_command    setlen 2400000
+    common_command    setsr 48000
+    common_command    setch 5
+    common_command    setfmt2 PCM
+    common_command    setlen2 2400000
+    common_command    setsr2 48000
+    common_command    setch2 5
+    sleep    3
+    common_command    play 8 0 1
+    sleep    3
+    common_command    play2 46 0 2
+    sleep    30
+    common_command    pstop 1
+    common_command    pstop 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LTRT_DualDecoder
+    [Setup]    指定串口    D:\\debug\\test_audio_aac.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\output_5ch_2.pcm    4096    AudioIO\\output_5ch.pcm    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\output_5ch_2.pcm    4096    AudioIO\\output_5ch.pcm    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\output_5ch_2.pcm    8192    AudioIO\\output_5ch.pcm    10752
+    LOG    1
+    common_command    mon
+    sleep    3
+    设置DownMix模式    2
+    common_command    setlen 2400000
+    common_command    setsr 48000
+    common_command    setch 5
+    common_command    setfmt2 PCM
+    common_command    setlen2 2400000
+    common_command    setsr2 48000
+    common_command    setch2 5
+    sleep    3
+    common_command    play 8 0 1
+    sleep    3
+    common_command    play2 46 0 2
+    sleep    30
+    common_command    pstop 1
+    common_command    pstop 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LTRT_5ch_eac3
+    [Setup]    指定串口    D:\\debug\\test_audio_eac3.exe
+    设置音频    AudioIO\\output_5ch.eac3    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    2
+    common_command    setlen 5760000
+    common_command    setsr 48000
+    common_command    setfmt EAC3
+    common_command    setch 5
+    sleep    3
+    播放    35    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LTRT_5ch_AC3
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    设置音频    AudioIO\\output_5ch.ac3    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    2
+    common_command    setlen 5760000
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setch 5
+    sleep    3
+    播放    35    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LTRT_5ch_AAC
+    [Setup]    指定串口    D:\\debug\\test_audio_aac.exe
+    设置音频    AudioIO\\output_5ch.aac    0
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    2
+    common_command    setfmt AAC
+    common_command    setsr 48000
+    common_command    setch 5
+    sleep    3
+    播放    8    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LTRT_6ch
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_6ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    2
+    common_command    setsr 48000
+    common_command    setch 6
+    sleep    3
+    播放    8    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LORO_6ch
+    [Setup]    指定串口    D:\\debug\\test_audio_pcm.exe
+    设置音频    AudioIO\\output_6ch.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    设置DownMix模式    1
+    common_command    setsr 48000
+    common_command    setch 6
+    sleep    3
+    播放    8    0    1
+    sleep    10
+    停止    1
+    检查checksum    9f2271a3
+    [Teardown]    断开串口

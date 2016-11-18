@@ -1,0 +1,2876 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../业务关键字.txt
+
+*** Variables ***
+${platform}       1    # 0:fpga,1:simulator,2:ASIC
+${console_num}    11    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\Debug\\test_audio_wma.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    houh    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1118    # devel03的密码，用户登录bjdevel03
+${AudioFileDir}    D:\\AudioFile    # \\\\bjdevel03\\stream\\AudioTestFile D:\\AudioFile
+
+*** Test Cases ***
+wma-broken_WMA_22.05khz_16bit_1ch_16kbps.asf.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA\\wma-broken_WMA_22.05khz_16bit_1ch_16kbps.asf.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+Bangles_01-Walk_Like_An_Egyptian_WMA_V8_Version2_44khz_16bit_2ch_80kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA8\\Bangles_01-Walk_Like_An_Egyptian_WMA_V8_Version2_44khz_16bit_2ch_80kbps.wma.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+Breathless_WMA_V8_Version2_96kbps_32khz_Mono.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA8\\Breathless_WMA_V8_Version2_96kbps_32khz_Mono.wma.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+Breathless_WMA_V8_Version2_128kbps_32khz_Stereo.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA8\\Breathless_WMA_V8_Version2_128kbps_32khz_Stereo.wma.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+Breathless_WMA_V8_Version2_256kbps_44khz_Stereo.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA8\\Breathless_WMA_V8_Version2_256kbps_44khz_Stereo.wma.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+eoa_WMA_V8_Version2_44khz_16bit_2ch_64kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA8\\eoa_WMA_V8_Version2_44khz_16bit_2ch_64kbps.wma.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+Merci_WMA_V8_Version2_44khz_16bit_1ch_32kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA8\\Merci_WMA_V8_Version2_44khz_16bit_1ch_32kbps.wma.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+rum_WMA_V8_Version2_32khz_16bit_2ch_32kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA8\\rum_WMA_V8_Version2_32khz_16bit_2ch_32kbps.wma.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+streaming.wina.com-live_WMA_V8_Version2_22.05khz_16bit_1ch_20kbps.asx.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA8\\streaming.wina.com-live_WMA_V8_Version2_22.05khz_16bit_1ch_20kbps.asx.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+wma_0x163_WMA9_Lossless_44khz_16bit_2ch_VBR_893kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9\\wma_0x163_WMA9_Lossless_44khz_16bit_2ch_VBR_893kbps.wma.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+large_superframe_WMA9.1_2ch_44khz_16bit_CBR_192kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9.1\\large_superframe_WMA9.1_2ch_44khz_16bit_CBR_192kbps.wma.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+8_Channel_ID_WMA9.1_Pro_48khz_24bit_CBR_384kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9.1_Pro\\8_Channel_ID_WMA9.1_Pro_48khz_24bit_CBR_384kbps.wma.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+Beethovens_nionde_symfoni_Scherzo-1_WMA9.1_Pro_2ch_48khz_24bit_VBR_287kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9.1_Pro\\Beethovens_nionde_symfoni_Scherzo-1_WMA9.1_Pro_2ch_48khz_24bit_VBR_287kbps.wma.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+Beethovens_nionde_symfoni_Scherzo-2_WMA9.1_Pro_2ch_48khz_24bit_CBR_127kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9.1_Pro\\Beethovens_nionde_symfoni_Scherzo-2_WMA9.1_Pro_2ch_48khz_24bit_CBR_127kbps.wma.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+New_Stories_Highway_Blues-1_WMA9.1_Pro_2ch_48khz_24bit_VBR_288kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9.1_Pro\\New_Stories_Highway_Blues-1_WMA9.1_Pro_2ch_48khz_24bit_VBR_288kbps.wma.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+New_Stories_Highway_Blues-2_WMA9.1_Pro_2ch_44khz_24bit_CBR_128kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9.1_Pro\\New_Stories_Highway_Blues-2_WMA9.1_Pro_2ch_44khz_24bit_CBR_128kbps.wma.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+Breathless_WMA9.2_192kbps_48khz_stereoCBR.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9.2\\Breathless_WMA9.2_192kbps_48khz_stereoCBR.wma.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+ambient1_WMA9_Pro_192kbps_6channel_48khz_24bit_VBR_192kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9_Pro\\ambient1_WMA9_Pro_192kbps_6channel_48khz_24bit_VBR_192kbps.wma.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+ambient2_WMA9_Pro_192kbps_6channel_48khz_24bit_VBR_192kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9_Pro\\ambient2_WMA9_Pro_192kbps_6channel_48khz_24bit_VBR_192kbps.wma.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+ambient3_WMA9_Pro_192kbps_6channel_48khz_24bit_VBR_192kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9_Pro\\ambient3_WMA9_Pro_192kbps_6channel_48khz_24bit_VBR_192kbps.wma.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+ambient4_WMA9_Pro_192kbps_6channel_48khz_24bit_VBR_192kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9_Pro\\ambient4_WMA9_Pro_192kbps_6channel_48khz_24bit_VBR_192kbps.wma.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+Classical_WMA9_Pro_44khz_16bit_6ch_CBR_256kbps_0_20.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9_Pro\\Classical_WMA9_Pro_44khz_16bit_6ch_CBR_256kbps_0_20.wma.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+Classical_WMA9_Pro_44khz_24bit_6ch_440kbps_1_20.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9_Pro\\Classical_WMA9_Pro_44khz_24bit_6ch_440kbps_1_20.wma.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+Classical_WMA9_Pro_48khz_24bit_6ch_VBR_167kbps_Q25_2_3.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9_Pro\\Classical_WMA9_Pro_48khz_24bit_6ch_VBR_167kbps_Q25_2_3.wma.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+Classical_WMA9_Pro_96khz_24bit_2ch_VBR_104kbps_Q75_2_3.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9_Pro\\Classical_WMA9_Pro_96khz_24bit_2ch_VBR_104kbps_Q75_2_3.wma.bin    1
+    sleep    5
+    splay    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+Classical_WMA9_Pro_96khz_24bit_6ch_CBR_256kbps_1_20.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9_Pro\\Classical_WMA9_Pro_96khz_24bit_6ch_CBR_256kbps_1_20.wma.bin    1
+    sleep    5
+    splay    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+latin_WMA9_Pro_48khz_24bit_6ch_196kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9_Pro\\latin_WMA9_Pro_48khz_24bit_6ch_196kbps.wma.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+newOrleans_WMA9_Pro_48khz_24bit_6ch_192kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9_Pro\\newOrleans_WMA9_Pro_48khz_24bit_6ch_192kbps.wma.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+rock_WMA9_Pro_48khz_24bit_6ch_191kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9_Pro\\rock_WMA9_Pro_48khz_24bit_6ch_191kbps.wma.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+world_192_WMA9_Pro_48khz_24bit_6ch_VBR_191kbps.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA9_Pro\\world_192_WMA9_Pro_48khz_24bit_6ch_VBR_191kbps.wma.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+classical_WMA10_Pro_2ch_22.05khz_16bit_2ch_16kbps_v3c_0_exclusive_0_29.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA10_Pro\\classical_WMA10_Pro_2ch_22.05khz_16bit_2ch_16kbps_v3c_0_exclusive_0_29.wma.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+classical_WMA10_Pro_16khz_16bit_1ch_8kbps_off_0_off_1_29.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA10_Pro\\classical_WMA10_Pro_16khz_16bit_1ch_8kbps_off_0_off_1_29.wma.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+classical_WMA10_Pro_22.05khz_16bit_1ch_14kbps_v3c_0_extend_0_29.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA10_Pro\\classical_WMA10_Pro_22.05khz_16bit_1ch_14kbps_v3c_0_extend_0_29.wma.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+Classical_WMA10_Pro_96khz_24bit_6ch_VBR_461kbps_Q75_2_13.wma.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA10_Pro\\Classical_WMA10_Pro_96khz_24bit_6ch_VBR_461kbps_Q75_2_13.wma.bin    1
+    sleep    5
+    splay    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+piece_WMA10_Pro_6ch_48khz_24bit_VBR_640kbps.wmv.bin
+    [Setup]    连接串口
+    设置音频    ES\\WMA10_Pro\\piece_WMA10_Pro_6ch_48khz_24bit_VBR_640kbps.wmv.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11111111
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_6KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_6KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fe51d771
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_8KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_8KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    44405487
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_8KBPS_11KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_8KBPS_11KHZ_M_1ch_11025Hz.bin    1
+    sleep    5
+    splay    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    00e2708b
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_10KBPS_11KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_10KBPS_11KHZ_M_1ch_11025Hz.bin    1
+    sleep    5
+    splay    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    72ff652f
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_16KBPS_16KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_16KBPS_16KHZ_M_1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9302f6e2
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_16KBPS_16KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_16KBPS_16KHZ_S_2ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7f90d72f
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_16KBPS_22KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_16KBPS_22KHZ_M_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8c04e4ad
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_20KBPS_16KHZ_2.WMA.bin
+    [Documentation]    3a920ce5
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_20KBPS_16KHZ_2_2ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3a920ce5
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_20KBPS_22KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_20KBPS_22KHZ_M_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c030b386
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_20KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_20KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7cd8c6b5
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_20KBPS_32KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_20KBPS_32KHZ_M_1ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    37cb5c33
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_22KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_22KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    55154544
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_22KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_22KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    62566e40
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_32KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_32KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a8e01501
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_32KBPS_32KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_32KBPS_32KHZ_M_1ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    74be865e
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_32KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_32KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1b81852a
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_32KBPS_44KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_32KBPS_44KHZ_M_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    353692ba
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_36KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_36KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6e3c722b
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_40KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_40KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1b9b2a41
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_44KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_44KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d4c88b36
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_48KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_48KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    36f2206a
+    [Teardown]    断开串口
+
+test1_wma_v2_48kbps_44khz_S.wma.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\test1_wma_v2_48kbps_44khz_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    104ee4fb
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_64KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_64KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    371e634c
+    [Teardown]    断开串口
+
+test1_wma_v2_64kbps_44khz_S.wma.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\test1_wma_v2_64kbps_44khz_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d3cc9c88
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_80KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_80KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    08e68d6b
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_96KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_96KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5224cf24
+    [Teardown]    断开串口
+
+test1_wma_v2_128kbps_44khz_S.wma.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\test1_wma_v2_128kbps_44khz_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    74bc3595
+    [Teardown]    断开串口
+
+TEST1_WMA_V2_160KBPS_44KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V2_160KBPS_44KHZ_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    78492ecf
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_0KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_0KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    00000000
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_5KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_5KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    623814fa
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_6KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_6KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2bfd0b77
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_8KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_8KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    af869802
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_8KBPS_11KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_8KBPS_11KHZ_M_1ch_11025Hz.bin    1
+    sleep    5
+    splay    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d2720765
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_10KBPS_11KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_10KBPS_11KHZ_M_1ch_11025Hz.bin    1
+    sleep    5
+    splay    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7ba12078
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_10KBPS_16KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_10KBPS_16KHZ__1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    34f6ae67
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_10KBPS_16KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_10KBPS_16KHZ_M_1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fa860fc7
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_12KBPS_8KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_12KBPS_8KHZ_S_2ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    cc93ac36
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_12KBPS_16KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_12KBPS_16KHZ__1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5c0b5c18
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_12KBPS_16KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_12KBPS_16KHZ_M_1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8b649cfb
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_16KBPS_16KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_16KBPS_16KHZ__1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d52bcf8f
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_16KBPS_16KHZ_2.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_16KBPS_16KHZ_2_2ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    68a0bc3e
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_16KBPS_16KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_16KBPS_16KHZ_M_1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f3668f27
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_16KBPS_16KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_16KBPS_16KHZ_S_2ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bcd706ec
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_16KBPS_22KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_16KBPS_22KHZ__1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    34a3bcb9
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_16KBPS_22KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_16KBPS_22KHZ_M_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    771aeeb6
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_20KBPS_22KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_20KBPS_22KHZ__1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a07c139c
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_20KBPS_22KHZ_2.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_20KBPS_22KHZ_2_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    51bb60fa
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_20KBPS_22KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_20KBPS_22KHZ_M_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c8409afb
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_20KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_20KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7cfa897c
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_20KBPS_32KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_20KBPS_32KHZ__1ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e7238345
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_20KBPS_32KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_20KBPS_32KHZ_M_1ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d8cad5c0
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_22KBPS_22KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_22KBPS_22KHZ__2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    60394f64
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_22KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_22KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d68ef221
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_32KBPS_22KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_32KBPS_22KHZ__2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0df7e709
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_32KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_32KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    05ce0395
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_32KBPS_32KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_32KBPS_32KHZ__2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d36da1aa
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_32KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_32KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7a41c614
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_32KBPS_44KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_32KBPS_44KHZ__1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7acc0a8c
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_32KBPS_44KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_32KBPS_44KHZ_M_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1d18c749
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_40KBPS_32KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_40KBPS_32KHZ__2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a2d6efa3
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_40KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_40KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7e0ee160
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_48KBPS_32KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_48KBPS_32KHZ__2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    51fb896b
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_48KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_48KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    07502034
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_64KBPS_44KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_64KBPS_44KHZ__2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d4f472bf
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_64KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_64KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    459446d4
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_80KBPS_44KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_80KBPS_44KHZ__2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9d45dc5f
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_80KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_80KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2502c273
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_96KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_96KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a7519147
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_128KBPS_44KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_128KBPS_44KHZ_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6cb0d724
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_128KBPS_44KHZ2.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_128KBPS_44KHZ2_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    03fabb00
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_128KBPS_48KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_128KBPS_48KHZ_2ch_48000Hz.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6349aaa0
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_128KBPS_48KHZ2.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_128KBPS_48KHZ2_2ch_48000Hz.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5f56ec4c
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_160KBPS_44KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_160KBPS_44KHZ_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8012af1e
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_160KBPS_44KHZ2.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_160KBPS_44KHZ2_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    59f77553
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_160KBPS_48KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_160KBPS_48KHZ_2ch_48000Hz.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4d851008
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_160KBPS_48KHZ2.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_160KBPS_48KHZ2_2ch_48000Hz.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e0b24203
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_192KBPS_44KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_192KBPS_44KHZ_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8b4fff6d
+    [Teardown]    断开串口
+
+TEST1_WMA_V7_192KBPS_44KHZ2.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V7_192KBPS_44KHZ2_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    62ecb1f3
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_5KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_5KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c207d5d7
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_6KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_6KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    58c19936
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_8KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_8KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3a41ff14
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_8KBPS_11KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_8KBPS_11KHZ_M_1ch_11025Hz.bin    1
+    sleep    5
+    splay    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    746eb5e6
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_10KBPS_11KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_10KBPS_11KHZ_M_1ch_11025Hz.bin    1
+    sleep    5
+    splay    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    04e662ab
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_10KBPS_16KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_10KBPS_16KHZ_M_1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    282e63bc
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_12KBPS_8KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_12KBPS_8KHZ_S_2ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7cbf1192
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_12KBPS_16KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_12KBPS_16KHZ_M_1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4ec43b4e
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_16KBPS_16KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_16KBPS_16KHZ_M_1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6628a367
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_16KBPS_16KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_16KBPS_16KHZ_S_2ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    eb6a31fb
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_16KBPS_22KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_16KBPS_22KHZ_M_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    675adf41
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_20KBPS_16KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_20KBPS_16KHZ_S_2ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    17ee36ac
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_20KBPS_22KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_20KBPS_22KHZ_M_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f4a124f6
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_20KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_20KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5ab5c267
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_20KBPS_32KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_20KBPS_32KHZ_M_1ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f5b377ed
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_22KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_22KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    10985969
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_32KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_32KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    21da4274
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_32KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_32KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e8da6fb0
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_32KBPS_44KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_32KBPS_44KHZ_M_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    913dc84a
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_32KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_32KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c6e3a57d
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_40KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_40KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    200227a0
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_48KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_48KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1ec9ce69
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_48KBPS_44KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_48KBPS_44KHZ_M_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c6737ffe
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_48KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_48KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    851e367a
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_64KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_64KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f2574661
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_80KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_80KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fa806239
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_96KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_96KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3f15f986
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_128KBPS_44KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_128KBPS_44KHZ_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a4d0905d
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_128KBPS_48KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_128KBPS_48KHZ_2ch_48000Hz.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ea152f2b
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_160KBPS_44KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_160KBPS_44KHZ_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6ed9d3da
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_160KBPS_48KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_160KBPS_48KHZ_2ch_48000Hz.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    41841d8d
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_192KBPS_44KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_192KBPS_44KHZ_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1149ecb9
+    [Teardown]    断开串口
+
+TEST1_WMA_V8_192KBPS_48KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST1_WMA_V8_192KBPS_48KHZ_2ch_48000Hz.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a7fb1651
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_5KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_5KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    cc80fd84
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_6KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_6KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    dca93710
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_8KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_8KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    72e4bf05
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_8KBPS_11KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_8KBPS_11KHZ_M_1ch_11025Hz.bin    1
+    sleep    5
+    splay    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0ba171f0
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_10KBPS_11KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_10KBPS_11KHZ_M_1ch_11025Hz.bin    1
+    sleep    5
+    splay    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3458dad9
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_10KBPS_16KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_10KBPS_16KHZ_M_1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b4e66c2c
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_16KBPS_16KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_16KBPS_16KHZ_M_1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8df735ef
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_16KBPS_16KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_16KBPS_16KHZ_S_2ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    93934140
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_16KBPS_22KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_16KBPS_22KHZ_M_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d53053a0
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_20KBPS_16KHZ_2.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_20KBPS_16KHZ_2_2ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7c0f28b5
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_20KBPS_22KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_20KBPS_22KHZ_M_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9d40eb7f
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_20KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_20KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    017016f7
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_20KBPS_32KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_20KBPS_32KHZ_M_1ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f49a7bb5
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_22KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_22KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8ce7a289
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_22KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_22KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1da00f0a
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_32KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_32KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b4999ad3
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_32KBPS_32KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_32KBPS_32KHZ_M_1ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a27bf5ca
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_32KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_32KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    75bd6564
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_32KBPS_44KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_32KBPS_44KHZ_M_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    82732589
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_36KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_36KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    61566695
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_40KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_40KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    79c023f9
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_44KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_44KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    31c069ce
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_48KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_48KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f4022e3e
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_48KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_48KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fae57385
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_64KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_64KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3d21dc1d
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_64KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_64KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d2a1592a
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_80KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_80KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c047a84f
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_96KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_96KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c05a4f44
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_128KBPS_44KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_128KBPS_44KHZ_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0eaefe3e
+    [Teardown]    断开串口
+
+TEST2_WMA_V2_160KBPS_44KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V2_160KBPS_44KHZ_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    19ca8035
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_5KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_5KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    cc45103b
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_6KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_6KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6ecfab60
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_8KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_8KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a3d8371a
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_8KBPS_11KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_8KBPS_11KHZ_M_1ch_11025Hz.bin    1
+    sleep    5
+    splay    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    caa9a9b1
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_10KBPS_11KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_10KBPS_11KHZ_M_1ch_11025Hz.bin    1
+    sleep    5
+    splay    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2e2b7d02
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_10KBPS_16KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_10KBPS_16KHZ__1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e6a8233d
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_10KBPS_16KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_10KBPS_16KHZ_M_1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9a42ef37
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_12KBPS_8KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_12KBPS_8KHZ_S_2ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2fb18254
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_12KBPS_16KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_12KBPS_16KHZ__1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b3d3b450
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_12KBPS_16KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_12KBPS_16KHZ_M_1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    715ef550
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_16KBPS_16KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_16KBPS_16KHZ__1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5cf69506
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_16KBPS_16KHZ_2.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_16KBPS_16KHZ_2_2ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fd8fa01e
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_16KBPS_16KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_16KBPS_16KHZ_M_1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    88b6d137
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_16KBPS_16KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_16KBPS_16KHZ_S_2ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d934f940
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_16KBPS_22KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_16KBPS_22KHZ__1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bed98d49
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_16KBPS_22KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_16KBPS_22KHZ_M_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5eb82b98
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_20KBPS_16KHZ_2.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_20KBPS_16KHZ_2_2ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    cc825166
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_20KBPS_22KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_20KBPS_22KHZ__1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a960fc15
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_20KBPS_22KHZ_2.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_20KBPS_22KHZ_2_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    87a97762
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_20KBPS_22KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_20KBPS_22KHZ_M_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1cad42c2
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_20KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_20KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a3a523ab
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_20KBPS_32KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_20KBPS_32KHZ__1ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d49571cf
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_20KBPS_32KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_20KBPS_32KHZ_M_1ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e7a5cb75
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_22KBPS_22KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_22KBPS_22KHZ__2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    19843e55
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_22KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_22KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f592f3d8
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_32KBPS_22KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_32KBPS_22KHZ__2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9a299c1e
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_32KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_32KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    04a1080f
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_32KBPS_32KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_32KBPS_32KHZ__2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3bedf9ad
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_32KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_32KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c9a91bee
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_32KBPS_44KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_32KBPS_44KHZ__1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0c6083e8
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_32KBPS_44KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_32KBPS_44KHZ_M_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5aae84d4
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_40KBPS_32KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_40KBPS_32KHZ__2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6b7ef235
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_40KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_40KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1b5c2fb6
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_48KBPS_32KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_48KBPS_32KHZ__2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a9ce618a
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_48KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_48KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    006c22d0
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_64KBPS_44KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_64KBPS_44KHZ__2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b6953228
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_64KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_64KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    077b3677
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_80KBPS_44KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_80KBPS_44KHZ__2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ca5f5b30
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_80KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_80KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c3791699
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_96KBPS_44KHZ_.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_96KBPS_44KHZ__2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    954b6476
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_96KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_96KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    93e5dddf
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_128KBPS_44KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_128KBPS_44KHZ_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    939af48a
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_128KBPS_44KHZ2.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_128KBPS_44KHZ2_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b09315ce
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_128KBPS_48KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_128KBPS_48KHZ_2ch_48000Hz.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b4e501af
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_128KBPS_48KHZ2.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_128KBPS_48KHZ2_2ch_48000Hz.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9fa60de1
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_160KBPS_44KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_160KBPS_44KHZ_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    62905f8d
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_160KBPS_44KHZ2.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_160KBPS_44KHZ2_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9126b356
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_160KBPS_48KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_160KBPS_48KHZ_2ch_48000Hz.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    febc8a13
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_160KBPS_48KHZ2.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_160KBPS_48KHZ2_2ch_48000Hz.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    231cb730
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_192KBPS_44KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_192KBPS_44KHZ_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    26d6420a
+    [Teardown]    断开串口
+
+TEST2_WMA_V7_192KBPS_44KHZ2.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V7_192KBPS_44KHZ2_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    30fb0593
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_5KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_5KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1b5159eb
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_6KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_6KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    29243f65
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_8KBPS_8KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_8KBPS_8KHZ_M_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bbdcdde1
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_8KBPS_11KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_8KBPS_11KHZ_M_1ch_11025Hz.bin    1
+    sleep    5
+    splay    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    203cd33e
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_10KBPS_11KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_10KBPS_11KHZ_M_1ch_11025Hz.bin    1
+    sleep    5
+    splay    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fb0d504f
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_10KBPS_16KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_10KBPS_16KHZ_M_1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    85cda161
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_12KBPS_8KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_12KBPS_8KHZ_S_2ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    45e7c6e9
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_12KBPS_16KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_12KBPS_16KHZ_M_1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5fd5ed82
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_16KBPS_16KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_16KBPS_16KHZ_M_1ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9dc208a3
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_16KBPS_16KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_16KBPS_16KHZ_S_2ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5c3a73ed
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_16KBPS_22KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_16KBPS_22KHZ_M_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bb70521a
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_20KBPS_16KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_20KBPS_16KHZ_S_2ch_16000Hz.bin    1
+    sleep    5
+    splay    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d88ee2ba
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_20KBPS_22KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_20KBPS_22KHZ_M_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    15b9debb
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_20KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_20KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c0159c3f
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_20KBPS_32KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_20KBPS_32KHZ_M_1ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    33aad01e
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_22KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_22KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9244cf6b
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_32KBPS_22KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_32KBPS_22KHZ_S_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    339e24b8
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_32KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_32KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5a1c3b22
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_32KBPS_44KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_32KBPS_44KHZ_M_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8871a8cd
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_32KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_32KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8ac4adac
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_40KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_40KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    845d080b
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_48KBPS_32KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_48KBPS_32KHZ_S_2ch_32000Hz.bin    1
+    sleep    5
+    splay    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5619467f
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_48KBPS_44KHZ_M.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_48KBPS_44KHZ_M_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3bbdc4b7
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_48KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_48KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    078fd36a
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_64KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_64KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8f6ecf73
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_80KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_80KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    647383d2
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_96KBPS_44KHZ_S.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_96KBPS_44KHZ_S_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7f39feb5
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_128KBPS_44KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_128KBPS_44KHZ_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    09c9cd9e
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_128KBPS_48KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_128KBPS_48KHZ_2ch_48000Hz.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6b8a3762
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_160KBPS_44KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_160KBPS_44KHZ_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    38aa50e9
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_160KBPS_48KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_160KBPS_48KHZ_2ch_48000Hz.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f4c71e29
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_192KBPS_44KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_192KBPS_44KHZ_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b1986f46
+    [Teardown]    断开串口
+
+TEST2_WMA_V8_192KBPS_48KHZ.WMA.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WMA\\TEST2_WMA_V8_192KBPS_48KHZ_2ch_48000Hz.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1fdbb8d7
+    [Teardown]    断开串口

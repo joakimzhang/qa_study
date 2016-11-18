@@ -1,0 +1,265 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Test Setup
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../../业务关键字.txt
+
+*** Variables ***
+${platform}       3
+${console_num}    9
+
+*** Test Cases ***
+
+*** Keywords ***
+PE_DEC_CASE
+    [Arguments]    ${file_name}    ${check_sum}
+    [Timeout]    30 minutes
+    连接串口
+    common_command    mon
+    sleep    3
+    common_command    avl audp_play ${file_name}
+    sleep    5
+    检查checksum    ${check_sum}
+    [Teardown]    断开串口
+*** Test Cases ***
+1C_11K_LC_1132_mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\11k\\1C_11K_LC_1132_mono.aac    4646f278
+2C_11K_LC_11112_stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\11k\\2C_11K_LC_11112_stereo.aac    a82043f1
+2C_11K_LC_11128_stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\11k\\2C_11K_LC_11128_stereo.aac    160a8c05
+1C_16K_LC_80-mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\16k\\1C_16K_LC_80-mono.aac    8d8557b8
+2C_16K_LC_16LC160-stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\16k\\2C_16K_LC_16LC160-stereo.aac    1136c0b7
+2C_22K_LC_22LC224_stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\16k\\2C_22K_LC_22LC224_stereo.aac    64053ee4
+1C_22K_LC_128_mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\22k\\1C_22K_LC_128_mono.aac    edcf95a3
+1C_24K_LC_24LC32_mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\24k\\1C_24K_LC_24LC32_mono.aac    fbc3037f
+1C_32K_LC_32_mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono.aac    e31b17bb
+1C_48K_LC_48LC160_mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    5b797a8f
+2C_32K_LC_2.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\32k\\2C_32K_LC_2.aac    de714f59
+1C_44K_LC_44LC20_mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\44k\\1C_44K_LC_44LC20_mono.aac    94fd5244
+2C_44K_LC_jiangnan.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\44k\\2C_44K_LC_jiangnan.aac    7d849d75
+2C_48K_LC_128_stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\48k\\2C_48K_LC_128_stereo.aac    b2242727
+1C_8K_LC_20_lc_mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\8k\\1C_8K_LC_20_lc_mono.aac    ea4285d8
+2C_8K_LC_80_stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\8k\\2C_8K_LC_80_stereo.aac    0dce246c
+2C_8K_LC_96_stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\LC\\8k\\2C_8K_LC_96_stereo.aac    febc8f2f
+1C_16K-8K_HE-LC_56stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\16k\\1C_16K-8K_HE-LC_56stereo.aac    15b41341
+1C_16K-8K_HE-LC_64stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\16k\\1C_16K-8K_HE-LC_64stereo.aac    15b41341
+2C_16K-8K_HE-LC_8K_40_stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\16k\\2C_16K-8K_HE-LC_8K_40_stereo.aac    1b05452b
+2C_16K-8K_HE-LC_8K_48_stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\16k\\2C_16K-8K_HE-LC_8K_48_stereo.aac    2250b015
+1C_22K-11K_HE-LC_22HE20_mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\22k\\1C_22K-11K_HE-LC_22HE20_mono.aac    5d076ed7
+1C_22K-11K_HE-LC_22HE32-mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\22k\\1C_22K-11K_HE-LC_22HE32-mono.aac    59e0f472
+2C_22K-11K_HE-LC_64_stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\22k\\2C_22K-11K_HE-LC_64_stereo.aac    bb7de3a2
+1C_24K-12K_HE-LC_2432_mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\24k\\1C_24K-12K_HE-LC_2432_mono.aac    c056d385
+1C_24K-12K_HE-LC_2440_mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\24k\\1C_24K-12K_HE-LC_2440_mono.aac    4e050cb0
+2C_24K-12K_HE-LC_56_ste.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\24k\\2C_24K-12K_HE-LC_56_ste.aac    3ef76ff1
+2C_24K-12K_HE-LC_80_stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\24k\\2C_24K-12K_HE-LC_80_stereo.aac    2ca72fcc
+1C_32K-16K_HE-LC_16K_20_mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\32k\\1C_32K-16K_HE-LC_16K_20_mono.aac    332d7409
+2C_32K-16K_HE-LC_AAC_HEv1-01.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\32k\\2C_32K-16K_HE-LC_AAC_HEv1-01.aac    cec2b256
+2C_32K-16K_HE-LC_firstdream.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\32k\\2C_32K-16K_HE-LC_firstdream.aac    cec2b256
+1C_44K-22K_HE-LC_48HE20_mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\44k\\1C_44K-22K_HE-LC_48HE20_mono.aac    41b9248b
+1C_44K-22K_HE-LC_48HE32_mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\44k\\1C_44K-22K_HE-LC_48HE32_mono.aac    c5a36222
+2C_44K-22K_HE-LC_AAC_HEv1-02.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\44k\\2C_44K-22K_HE-LC_AAC_HEv1-02.aac    f09776c2
+2C_44K-22K_HE-LC_huanghedeshui.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\44k\\2C_44K-22K_HE-LC_huanghedeshui.aac    f09776c2
+1C_48K-24K_HE-LC_64_mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\48k\\1C_48K-24K_HE-LC_64_mono.aac    d5b49d9b
+1C_48K-24K_HE-LC_vbr_mono.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\48k\\1C_48K-24K_HE-LC_vbr_mono.aac    75b5c3d9
+2C_48K-24K_HE-LC_160_stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\48k\\2C_48K-24K_HE-LC_160_stereo.aac    bc706254
+2C_48K-24K_HE-LC_192_ste.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\48k\\2C_48K-24K_HE-LC_192_ste.aac    bc706254
+2C_48K-24K_HE-LC_224_stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE\\48k\\2C_48K-24K_HE-LC_224_stereo.aac    bc706254
+2C-1C-1C_16K-16K-8K_HEV2-HE-LC_32_stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE_V2\\16k\\2C-1C-1C_16K-16K-8K_HEV2-HE-LC_32_stereo.aac    86a67340
+2C-1C-1C_16K-16K-8K_HEV2-HE-LC_40_stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE_V2\\16k\\2C-1C-1C_16K-16K-8K_HEV2-HE-LC_40_stereo.aac    86a67340
+2C-2C-2C_24K-24K-12K_HEV2-HE-LC20_stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE_V2\\24k\\2C-2C-2C_24K-24K-12K_HEV2-HE-LC20_stereo.aac    e306268e
+2C-2C-2C_24K-24K-12K_HEV2-HE-LC_24K_20_stereo.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE_V2\\24k\\2C-2C-2C_24K-24K-12K_HEV2-HE-LC_24K_20_stereo.aac    e306268e
+2C-1C-1C_44K-44K-22K_HEV2-HE-LC_44HEV40.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE_V2\\44k\\2C-1C-1C_44K-44K-22K_HEV2-HE-LC_44HEV40.aac    fa2f258f
+2C-1C-1C_44K-44K-22K_HEV2-HE-LC_44HEV48.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE_V2\\44k\\2C-1C-1C_44K-44K-22K_HEV2-HE-LC_44HEV48.aac    9df571be
+2C-1C-1C_48K-48K-24K_HEV2-HE-LC_48.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE_V2\\48k\\2C-1C-1C_48K-48K-24K_HEV2-HE-LC_48.aac    a062ca12
+2C-1C-1C_48K-48K-24K_HEV2-HE-LC_56.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\HE_V2\\48k\\2C-1C-1C_48K-48K-24K_HEV2-HE-LC_56.aac    bac1281a
+1.AAC.VBR.48kHz.5.1ch.aac
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AAC\\1.AAC.VBR.48kHz.5.1ch.aac    1f40fce2
+al09_08.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\al09_08.aac    8f75824a
+al09_11.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\al09_11.aac    03038278
+al09_12.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\al09_12.aac    fd936fa3
+al09_16.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\al09_16.aac    6feb759d
+al09_22.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\al09_22.aac    3f417cfc
+al09_24.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\al09_24.aac    4f41faf0
+al09_32.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\al09_32.aac    64388140
+al09_44.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\al09_44.aac    f63f9074
+al09_48.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\al09_48.aac    924226ca
+al09_64.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\al09_64.aac    05434ef6
+al09_88.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\al09_88.aac    53a1cf96
+al09_96.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\al09_96.aac    89ecd319
+al12_48.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\al12_48.aac    7431de73
+al13_48.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\al13_48.aac    22d9b87c
+avs_audio_game1_48_16_6_neroenc_1514kbps.adts.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\avs_audio_game1_48_16_6_neroenc_1514kbps.adts.aac    b698993e
+game.compaact.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\game.compaact.aac    1160b042
+game.lc.faac.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\game.lc.faac.aac    7bea62b7
+mono.lc.faac.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\mono.lc.faac.aac    fd43ef67
+qqt_yhddw.lc.faac.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\qqt_yhddw.lc.faac.aac    4f5bced6
+super_start_48000_192kbps_LC_stereo.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\super_start_48000_192kbps_LC_stereo.aac    8e3d219c
+test_256kbps_LC.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\test_256kbps_LC.aac    274f7d3a
+test_288kbps_LC.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\test_288kbps_LC.aac    46661433
+test_8kbps_LC.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\test_8kbps_LC.aac    c1fdf67b
+test_8kHz.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\test_8kHz.aac    d0d56ae3
+test_96kHz.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\test_96kHz.aac    902299e9
+test.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\test.aac    98c19436
+test_faac125_mpeg4.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\test_faac125_mpeg4.aac    afc8ae2d
+test_mpeg2_LC.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\test_mpeg2_LC.aac    4b8896a1
+test_NOms_LC.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\test_NOms_LC.aac    80dca51f
+test_tns_LC.aac
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\aac_test\\compressed\\test_tns_LC.aac    1e2b623d

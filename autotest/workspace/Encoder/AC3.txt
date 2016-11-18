@@ -1,0 +1,763 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Test Setup
+Test Teardown
+Library           test_tool
+Library           SSHLibrary
+Resource          ../../业务关键字.txt
+Library           OperatingSystem
+Library           String
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    1    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\debug\\test_audio.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    chenql    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1108    # devel03的密码，用户登录bjdevel03
+${AudioFileDir}    \\\\bjdevel03\\stream\\AudioTestFile
+
+*** Test Cases ***
+AUDIO_ENC_AC3_32K_WAV
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\halo_mulaw_32k_2ch.wav.es    1    #将该文件拷贝至u盘
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 32000
+    sleep    2
+    common_command    setlen 14419028
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    avl aud playusb 1 /halo_mulaw_32k_2ch.wav.es
+    sleep    3
+    common_command    stop 1
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 5791488
+    common_command    playusb 1 /enc.ac3    #u盘里的文件播放正确
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_44K_WAV
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\LPCM\\love_lpcm_441_16bit_2ch.wav.es    1    #将该文件拷贝至u盘
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 41513660
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    avl aud playusb 1 /love_lpcm_441_16bit_2ch.wav.es
+    sleep    3
+    common_command    stop 1
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 5648640
+    common_command    playusb 1 /enc.ac3    #u盘里的文件播放正确
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_48K_WAV
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\If_I_Were_A_Boy_mulaw_48000_2ch.wav.es    1    #将该文件拷贝至u盘
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 23925762
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    avl aud playusb 1 /If_I_Were_A_Boy_mulaw_48000_2ch.wav.es
+    sleep    3
+    common_command    stop 1
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 5981952
+    common_command    playusb 1 /enc.ac3    #u盘里的文件播放正确
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_1CH
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\halo_mulaw_32k_1ch.wav.es    1    #将该文件拷贝至u盘
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 32000
+    sleep    2
+    common_command    setlen 7209514
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    avl aud playusb 1 /halo_mulaw_32k_1ch.wav.es
+    sleep    3    #功放显示 C
+    停止    1
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_3CH
+    [Setup]    连接串口
+    设置音频    AudioIO\\output_3ch.aac    1
+    common_command    setfmt AAC
+    common_command    setlen 164061
+    sleep    setsr 48000
+    common_command    set_output 1 3
+    common_command    set_output 2 3
+    sleep    2
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    avl aud play 8 0 1
+    sleep    3
+    停止    1
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_4CH
+    [Setup]    连接串口
+    设置音频    AudioIO\\output_4ch.aac    1
+    common_command    setfmt AAC
+    common_command    setlen 164226
+    sleep    setsr 48000
+    common_command    set_output 1 3
+    common_command    set_output 2 3
+    sleep    2
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    avl aud play 8 0 1
+    sleep    3
+    停止    1
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_5CH
+    [Setup]    连接串口
+    设置音频    AudioIO\\output_5ch.aac    1
+    common_command    setfmt AAC
+    common_command    setlen 409795
+    sleep    setsr 48000
+    common_command    set_output 1 3
+    common_command    set_output 2 3
+    sleep    2
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    avl aud play 8 0 1
+    sleep    3
+    停止    1
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_6CH
+    [Setup]    连接串口
+    设置音频    AudioIO\\output_6ch.aac    1
+    common_command    setfmt AAC
+    common_command    setlen 164062
+    sleep    setsr 48000
+    common_command    set_output 1 3
+    common_command    set_output 2 3
+    sleep    2
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    avl aud play 8 0 1
+    sleep    3
+    停止    1
+    [Teardown]    断开串口
+
+AUDIO_ENC_INPUT_AC3
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\48KHz\\ID7.1ch_512kbps_48khz_cbr.es    1
+    sleep    5
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    play 33 0 1
+    sleep    60    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    stop 1
+    sleep    3    #断电重启
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 471552
+    common_command    playusb 1 /enc.ac3    #u盘里的文件播放正确
+    [Teardown]    断开串口
+
+AUDIO_ENC_INPUT_MPEG
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\IS_MS_short_long_case_44k_cbr.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 1930344
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    play 8 0 1
+    sleep    60    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    stop 1
+    sleep    3    #断电重启
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 5791488
+    common_command    playusb 1 /enc.ac3    #u盘里的文件播放正确
+    [Teardown]    断开串口
+
+AUDIO_ENC_INPUT_AAC
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\48KHz\\ID7.1ch_512kbps_48khz_cbr.es    1
+    sleep    5
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    play 32 0 1
+    sleep    60    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    stop 1
+    sleep    3    #断电重启
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 867072
+    common_command    playusb 1 /enc.ac3    #u盘里的文件播放正确
+    [Teardown]    断开串口
+
+AUDIO_ENC_INPUT_OGG
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\MarcTerenziLovetobeLovedbyyou_11p025khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    common_command    setsr 11025
+    common_command    setlen 2086020
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    play 8 0 1
+    sleep    60    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    stop 1
+    sleep    3    #断电重启
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 5701632
+    common_command    playusb 1 /enc.ac3    #u盘里的文件播放正确
+    [Teardown]    断开串口
+
+AUDIO_ENC_INPUT_DRA
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\48KHz\\ID7.1ch_512kbps_48khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 48000
+    common_command    setlen 616528
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    play 8 0 1
+    sleep    60    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    stop 1
+    sleep    3
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 616528
+    common_command    playusb 1 /enc.ac3    #u盘里的文件播放正确
+    [Teardown]    断开串口
+
+AUDIO_ENC_INPUT_COOK
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\choppy-playback-sample_2ch_44100Hz.bin    1
+    sleep    5
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    splay    7    0    1
+    sleep    60    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    stop 1
+    sleep    3
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 981504
+    common_command    playusb 1 /enc.ac3    #u盘里的文件播放正确
+    [Teardown]    断开串口
+
+AUDIO_ENC_INPUT_EAC3
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\buggy_aht_5.1_384.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 7014912
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    play 8 0 1
+    sleep    60    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    stop 1
+    sleep    3
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 8185856
+    common_command    playusb 1 /enc.ac3    #u盘里的文件播放正确
+    [Teardown]    断开串口
+
+AUDIO_ENC_INPUT_FLAC
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L38_01_96kHz.flac    1    #把该文件拷贝到upan根目录下
+    sleep    5
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 179931671
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    playusb 1 /2L38_01_96kHz.flac
+    sleep    60    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    stop 1
+    sleep    3
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 13317888
+    common_command    playusb 1 /enc.ac3    #u盘里的文件播放正确
+    [Teardown]    断开串口
+
+AUDIO_ENC_STOP_START
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\48KHz\\ID7.1ch_512kbps_48khz_cbr.es    1
+    sleep    5
+    common_command    ac3enc
+    sleep    3
+    common_command    play 32 1 1
+    sleep    10    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    stopenc
+    sleep    10    #Sony RP-WF6000T can receive ac3 pcm data
+    common_command    pplay 3
+    sleep    10    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    stopenc
+    sleep    10    #Sony RP-WF6000T can receive ac3 pcm data
+    common_command    pplay 3
+    sleep    10    #Sony RP-WF6000T can receive ac3 raw data
+    [Teardown]    断开串口
+
+AUDIO_ENC_VOLUME_CTRL
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\48KHz\\ID7.1ch_512kbps_48khz_cbr.es    1
+    sleep    5
+    common_command    ac3enc
+    sleep    3
+    common_command    play 32 1 1
+    sleep    10
+    common_command    volume 1 100 0
+    sleep    100    #Sony RP-WF6000T can receive ac3 raw data, volume not changed.
+    [Teardown]    断开串口
+
+AUDIO_ENC_WHEN_MUTE_DEMUTE
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\48KHz\\ID7.1ch_512kbps_48khz_cbr.es    1
+    sleep    5
+    common_command    ac3enc
+    sleep    3
+    common_command    play 32 1 1
+    sleep    10
+    common_command    mute 0 0
+    sleep    10    #Sony RP-WF6000T can receive no data.
+    common_command    demute
+    sleep    10    #Sony RP-WF6000T can receive ac3 raw data.
+    [Teardown]    断开串口
+
+AUDIO_ENC_WHEN_2CH_MODE_SWITCH
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\22.05kHz\\ID7.1ch_256kbps_22khz_cbr.es    1
+    common_command    setfmt DRA
+    common_command    setsr 22050
+    common_command    setlen 308672
+    sleep    5
+    common_command    ac3enc
+    sleep    3
+    common_command    rdplay 5 1 1
+    sleep    10
+    common_command    downmix 16 2
+    sleep    10    #Sony RP-WF6000T can receive ac3 raw data.
+    common_command    downmix 16 3
+    sleep    10    #Sony RP-WF6000T can receive ac3 raw data.
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_WHEN_SWITCH_MIXER_MODE
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 139076
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 284919
+    common_command    ac3enc
+    common_command    play 37 1 1
+    common_command    play2 38 1 2
+    sleep    10    #Sony RP-WF6000T can receive dec1+dec2 ac3 raw data.
+    common_command    mixermode 1
+    sleep    10    #Sony RP-WF6000T can receive dec1 ac3 raw data.
+    common_command    mixermode 2
+    sleep    10    #Sony RP-WF6000T can receive dec2 ac3 raw data.
+    common_command    mixermode 0
+    sleep    10    #Sony RP-WF6000T can receive dec1+dec2 ac3 raw data.
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_WHEN_FF
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\MarcTerenziLovetobeLovedbyyou_11p025khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    common_command    setsr 11025
+    common_command    setlen 2086020
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    fplay 8 0 1 1024
+    sleep    60    #Sony RP-WF6000T can receive ac3 raw data
+    停止    1
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_REPEAT_STOP_PLAY
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\MarcTerenziLovetobeLovedbyyou_11p025khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    common_command    setsr 11025
+    common_command    setlen 2086020
+    common_command    ac3enc
+    sleep    3
+    common_command    rdplay 8 0 1
+    sleep    10    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    stopplay 1
+    sleep    60    #Sony RP-WF6000T \ receive no data when stop
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_REPEAT_PAUSE_PLAY
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\MarcTerenziLovetobeLovedbyyou_11p025khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    common_command    setsr 11025
+    common_command    setlen 2086020
+    common_command    ac3enc
+    sleep    3
+    common_command    rdplay 8 0 1
+    sleep    10    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    pauseplay 1
+    sleep    60    #Sony RP-WF6000T receive no data when pause
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_WHEN_SWITCH_SPDIF_MODE
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\MarcTerenziLovetobeLovedbyyou_11p025khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    common_command    setsr 11025
+    common_command    setlen 2086020
+    common_command    ac3enc
+    sleep    3
+    common_command    play 8 1 1
+    sleep    10    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    set_output 1 1
+    sleep    10    #Sony RP-WF6000T receive pcm data
+    common_command    set_output 1 3
+    sleep    10    #Sony RP-WF6000T can receive ac3 raw data
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_WHEN_SWITCH_HDMI_MODE
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\MarcTerenziLovetobeLovedbyyou_11p025khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    common_command    setsr 11025
+    common_command    setlen 2086020
+    common_command    ac3enc
+    common_command    set_output 2 3
+    common_command    wreg 67 7 0x20404000
+    sleep    3
+    common_command    play 8 1 1
+    sleep    10    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    set_output 2 1
+    sleep    10    #Sony RP-WF6000T receive pcm data
+    common_command    set_output 2 3
+    sleep    10    #Sony RP-WF6000T can receive ac3 raw data
+    [Teardown]    断开串口
+
+AUDIO_GET_AC3_RAW_WHEN_MIXER_OUTPUT_NONE
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 139076
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 284919
+    common_command    ac3enc
+    common_command    play 37 1 1
+    common_command    play2 38 1 2
+    sleep    10    #Sony RP-WF6000T can receive dec1+dec2 ac3 raw data.
+    common_command    mixermode 5
+    sleep    10    #Sony RP-WF6000T receive no data.
+    common_command    getenc    #no data write to usb
+    [Teardown]    断开串口
+
+AUDIO_GET_AC3_RAW_WHEN_MIXER_OUTPUT_DEC1
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 139076
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 284919
+    common_command    ac3enc
+    common_command    play 37 0 1
+    common_command    play2 38 0 2
+    sleep    10    #Sony RP-WF6000T can receive dec1+dec2 ac3 raw data.
+    common_command    mixermode 1
+    sleep    2    #Sony RP-WF6000T receive dec1 raw data.
+    common_command    getenc
+    sleep    30
+    common_command    stop 1
+    common_command    stop 2
+    sleep    3
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 616528
+    common_command    playusb 1 /enc.ac3    #u盘里的文件播放正确
+    [Teardown]    断开串口
+
+AUDIO_GET_AC3_RAW_WHEN_MIXER_OUTPUT_EFFECTAUDIO
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 139076
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 284919
+    common_command    ac3enc
+    common_command    play 37 1 1
+    common_command    play2 38 1 2
+    sleep    10    #Sony RP-WF6000T can receive dec1+dec2 ac3 raw data.
+    common_command    mixermode 3
+    sleep    2
+    common_command    getenc
+    sleep    2
+    common_command    btn
+    sleep    10    #Sony RP-WF6000T receive btn raw data.
+    common_command    stop 1
+    common_command    stop 2
+    sleep    3
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 616528
+    common_command    playusb 1 /enc.ac3    #u盘里的文件播放正确
+    [Teardown]    断开串口
+
+AUDIO_GET_AC3_RAW_WHEN_NO_DATA
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\48KHz\\ID7.1ch_512kbps_48khz_cbr.es    1
+    sleep    5
+    common_command    ac3enc
+    sleep    3
+    common_command    play 32 0 1
+    sleep    60    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    getenc
+    sleep    3    # no data write to usb
+    [Teardown]    断开串口
+
+AUDIO_GET_AC3_RAW_AFTER_PAUSE_A_WHILE
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\48KHz\\ID7.1ch_512kbps_48khz_cbr.es    1
+    sleep    5
+    common_command    ac3enc
+    sleep    3
+    common_command    play 32 0 1
+    sleep    10    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    pause 1
+    sleep    2
+    common_command    getenc
+    sleep    3    # no data write to usb
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_2CH
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AAC\\LC\\11k\\2C_11K_LC_11112_stereo.aac    1
+    common_command    set_output 1 3
+    common_command    set_output 2 3
+    common_command    ac3enc
+    common_command    getenc
+    common_command    setfmt AAC
+    sleep    setsr 11025
+    common_command    setlen 201326
+    播放    3    0    1
+    sleep    20    #功放显示 L R
+    停止    1
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_7CH
+    [Setup]    连接串口
+    设置音频    AudioIO\\output_7ch.pcm    1
+    common_command    set_output 1 3
+    common_command    set_output 2 3
+    common_command    ac3enc
+    common_command    getenc
+    common_command    setlen 6720000
+    common_command    setsr 48000
+    common_command    setch 7
+    sleep    3
+    common_command    avl aud play 8 0 1
+    sleep    3
+    停止    1
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_8CH
+    [Setup]    连接串口
+    设置音频    AudioIO\\output_8ch.eac3    1
+    common_command    setfmt EAC3
+    common_command    setlen 560896
+    sleep    setsr 48000
+    common_command    set_output 1 3
+    common_command    set_output 2 3
+    sleep    2
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    avl aud play 8 0 1
+    sleep    3
+    停止    1
+    [Teardown]    断开串口
+
+AUDIO_ENC_INPUT_PCM
+    [Setup]    连接串口
+    设置音频    AudioIO\\48kfs_sine_L-24db_R-30db_1khz.pcm    1
+    sleep    5
+    common_command    ac3enc
+    common_command    getenc
+    sleep    3
+    common_command    play 8 0 1
+    sleep    60    #Sony RP-WF6000T can receive ac3 raw data
+    common_command    stop 1
+    sleep    3    #断电重启
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 96768
+    common_command    playusb 1 /enc.ac3    #u盘里的文件播放正确
+    [Teardown]    断开串口
+
+AUDIO_ENC_AC3_STRESS
+    [Setup]    连接串口
+    设置音频    AudioIO\\48kfs_sine_L-24db_R-30db_1khz.pcm    1
+    sleep    5
+    common_command    ac3enc
+    common_command    play 32 1 1
+    sleep    100000000000    #Sony RP-WF6000T can receive ac3 raw data for long time
+    [Teardown]    断开串口
+
+AUDIO_ENC_MODE_OUT
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\22.05kHz\\ID7.1ch_256kbps_22khz_cbr.es    1
+    sleep    5
+    common_command    ac3enc
+    common_command    enc_mode 0
+    sleep    3
+    common_command    play 32 1 1
+    sleep    10
+    common_command    volume 2 102 0
+    sleep    100    #Sony RP-WF6000T can receive ac3 raw data, volume changed.
+    [Teardown]    断开串口
+
+AUDIO_ENC_MODE_MIXER
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 139076
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 284919
+    common_command    ac3enc
+    common_command    enc_mode 1
+    common_command    play 37 0 1
+    common_command    play2 38 0 2
+    sleep    10    #Sony RP-WF6000T can receive dec1+dec2 ac3 raw data.
+    common_command    btn
+    sleep    10    #Sony RP-WF6000T can receive dec1+dec2+btn ac3 raw data.
+    [Teardown]    断开串口
+
+AUDIO_ENC_MODE_DEC1
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 139076
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 284919
+    common_command    ac3enc
+    common_command    enc_mode 2
+    common_command    play 37 0 1
+    common_command    play2 38 0 2
+    sleep    10    #Sony RP-WF6000T can receive dec1 ac3 raw data.
+    [Teardown]    断开串口
+
+AUDIO_ENC_MODE_DEC2
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\AAC\\LC\\32k\\1C_32K_LC_32_mono_new.aac    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 139076
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 284919
+    common_command    ac3enc
+    common_command    enc_mode 3
+    common_command    play 37 0 1
+    common_command    play2 38 0 2
+    sleep    10    #Sony RP-WF6000T can receive dec2 ac3 raw data.
+    [Teardown]    断开串口

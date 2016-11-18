@@ -1,0 +1,253 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Test Setup
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../../业务关键字.txt
+
+*** Variables ***
+${platform}       3
+${console_num}    9
+
+*** Test Cases ***
+
+*** Keywords ***
+PE_DEC_CASE
+    [Arguments]    ${file_name}    ${check_sum}
+    [Timeout]    30 minutes
+    连接串口
+    common_command    mon
+    sleep    3
+    common_command    avl audp_play ${file_name}
+    sleep    5
+    检查checksum    ${check_sum}
+    [Teardown]    断开串口
+*** Test Cases ***
+90009885H_2ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\90009885H_2ch_22050Hz.bin    b53d9da1
+audiosig_1ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\audiosig_1ch_44100Hz.bin    799262be
+choppy-playback-sample_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\choppy-playback-sample_2ch_44100Hz.bin    8ae43792
+firstrun_1ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\firstrun_1ch_44100Hz.bin    a161cfd4
+gorleben_1ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\gorleben_1ch_44100Hz.bin    062ecfe7
+mlorre1_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\mlorre1_2ch_44100Hz.bin    cbfefb13
+mul8m1tn_1ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\mul8m1tn_1ch_22050Hz.bin    3c839e07
+RLV8_19_1ch_8000Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\RLV8_19_1ch_8000Hz.bin    e6d9207f
+rockfall_1ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\rockfall_1ch_22050Hz.bin    63c55b5b
+FUN_RM_32_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\AC-cook\\FUN_RM_32_2ch_44100Hz.bin    a1048e7d
+FUN_RM_64_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\AC-cook\\FUN_RM_64_2ch_44100Hz.bin    8c14ac74
+FUN_RM_96_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\AC-cook\\FUN_RM_96_2ch_44100Hz.bin    a5d25d12
+mc_sich_ra8_20_2ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\AC-cook\\mc_sich_ra8_20_2ch_22050Hz.bin    ef51ee6c
+mc_sich_ra8_44_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\AC-cook\\mc_sich_ra8_44_2ch_44100Hz.bin    45ba2346
+Vetenskap_extramaterial_2005-10-31_142936_2ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\AC-cook\\Vetenskap_extramaterial_2005-10-31_142936_2ch_22050Hz.bin    e2da5e45
+Vetenskap_mosbricka_2005-03-02_105820_2ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\AC-cook\\Vetenskap_mosbricka_2005-03-02_105820_2ch_22050Hz.bin    ccb354dc
+gg_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\AC-cook\\good_stereo\\gg_2ch_44100Hz.bin    efe39e39
+cook-missing_channel_2ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\AC-cook\\two_languages\\cook-missing_channel_2ch_22050Hz.bin    fd91604a
+ra10cook_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\audio_pk_pts\\ra10cook_2ch_44100Hz.bin    a3143dfc
+jj-video_1ch_8000Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\new\\jj-video_1ch_8000Hz.bin    54e01110
+no_video_with_xv_or_x11_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\new\\no_video_with_xv_or_x11_2ch_44100Hz.bin    b2bc5472
+novideo_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\new\\novideo_2ch_44100Hz.bin    dd69da85
+strange_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\new\\strange_2ch_44100Hz.bin    806d1115
+video-1_1ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\new\\video-1_1ch_44100Hz.bin    27dd3c76
+23_I_grassi_1ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\real-bug\\A-V_sync\\23_I_grassi_1ch_22050Hz.bin    3a9719dc
+av_out_of_sync_after_about_10_minute_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\real-bug\\A-V_sync\\av_out_of_sync_after_about_10_minute_2ch_44100Hz.bin    fca61dbd
+av_out_of_sync_after_about_10_minutes_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\real-bug\\A-V_sync\\av_out_of_sync_after_about_10_minutes_2ch_44100Hz.bin    24ffda9a
+Episode_603-Asspen_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\real-bug\\A-V_sync\\Episode_603-Asspen_2ch_44100Hz.bin    894ab8ea
+Noir_1ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\real-bug\\bad_WxH\\rv30-bad\\Noir_1ch_22050Hz.bin    c2119d62
+broken-rv30_1ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\real-bug\\black\\broken-rv30_1ch_44100Hz.bin    0f6b8972
+seek_sample2_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\real-bug\\seek\\seek_sample2_2ch_44100Hz.bin    6054c381
+01_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\size_change\\01_2ch_44100Hz.bin    29127485
+resolution_change_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\size_change\\resolution_change_2ch_44100Hz.bin    c5f383c6
+test.realplay-ok_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\size_change\\test.realplay-ok_2ch_44100Hz.bin    36a4db87
+two_section_real_1_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\size_change\\two_section_real_1_2ch_44100Hz.bin    552b7760
+141a_1ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\141a_1ch_22050Hz.bin    141cb0f1
+BQOBD-Vindicator_RM01_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\BQOBD-Vindicator_RM01_2ch_44100Hz.bin    c7d46b1e
+DISK1_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\DISK1_2ch_44100Hz.bin    bd45ffd9
+eiqu-56k_1ch_8000Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\eiqu-56k_1ch_8000Hz.bin    8c0ed802
+firstframenokey_1ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\firstframenokey_1ch_22050Hz.bin    12ba4c8b
+hi1_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\hi1_2ch_44100Hz.bin    8779e5bf
+iz120a-stops_at_67s-RV30_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\iz120a-stops_at_67s-RV30_2ch_44100Hz.bin    afdec72b
+jackass-stops_at_66s-rv30_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\jackass-stops_at_66s-rv30_2ch_44100Hz.bin    39f1b297
+lotr_1000k_final_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\lotr_1000k_final_2ch_44100Hz.bin    2fe45fc4
+lotr_trailer2_large_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\lotr_trailer2_large_2ch_44100Hz.bin    b63ba5e4
+lotr2_newli_german_320x136_css300_2ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\lotr2_newli_german_320x136_css300_2ch_22050Hz.bin    0773f0e1
+paula_abdul-cold_hearted_1ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\paula_abdul-cold_hearted_1ch_44100Hz.bin    afdd1172
+paula_abdul-crazy_cool_1ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\paula_abdul-crazy_cool_1ch_44100Hz.bin    4ecfdcd4
+sample_1ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\sample_1ch_22050Hz.bin    2d915dd8
+simpsons-clip_1ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\simpsons-clip_1ch_44100Hz.bin    9a206dab
+still_still_still_2ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\still_still_still_2ch_22050Hz.bin    2a21d7b6
+teaser_1ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\teaser_1ch_44100Hz.bin    00ee34dc
+teaserde_1ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\teaserde_1ch_44100Hz.bin    093101c0
+Tom_Jerry-Cat_Napping_1ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV30\\Tom_Jerry-Cat_Napping_1ch_22050Hz.bin    e17ed3e9
+20040506_1ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV40\\20040506_1ch_44100Hz.bin    a7ddf01b
+Abyss_DVDRIP_RV9_FR_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV40\\Abyss_DVDRIP_RV9_FR_2ch_44100Hz.bin    cb6d84c1
+Blade2_640_1Mbps_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV40\\Blade2_640_1Mbps_2ch_44100Hz.bin    59c04773
+crash_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV40\\crash_2ch_44100Hz.bin    8e020856
+dquant1_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV40\\dquant1_2ch_44100Hz.bin    55d23442
+issue747_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV40\\issue747_2ch_44100Hz.bin    c087cb92
+packet_timestamp_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV40\\packet_timestamp_2ch_44100Hz.bin    d46cebb2
+rmvb_window_with_large_black_blank_2ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV40\\rmvb_window_with_large_black_blank_2ch_22050Hz.bin    b2eadd26
+sam_640_750Kbps_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV40\\sam_640_750Kbps_2ch_44100Hz.bin    c469534d
+sam_640_750Kbps-requires_flag_fps_24-RV40_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV40\\sam_640_750Kbps-requires_flag_fps_24-RV40_2ch_44100Hz.bin    c469534d
+Sample_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV40\\Sample_2ch_44100Hz.bin    4d371723
+SirMixalot_Baby_Got_Back-uncensored_version_sm_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV40\\SirMixalot_Baby_Got_Back-uncensored_version_sm_2ch_44100Hz.bin    5605ce5d
+spygames-2MB_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV40\\spygames-2MB_2ch_44100Hz.bin    3f34f137
+test_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV40\\test_2ch_44100Hz.bin    dd7e14e9
+paycheck_paramount_1m_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV40\\from_RP10\\paycheck_paramount_1m_2ch_44100Hz.bin    8442ea98
+paycheck_paramount_450k_480x_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    ES\\RealAudio\\VC-RV40\\from_RP10\\paycheck_paramount_450k_480x_2ch_44100Hz.bin    010750d4
+A002_COOK_641kbps_441khz_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    FromSunplus\\RA\\RA\\A002_COOK_641kbps_441khz_2ch_44100Hz.bin    11111111
+A003_COOK_965kbps_441khz_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    FromSunplus\\RA\\RA\\A003_COOK_965kbps_441khz_2ch_44100Hz.bin    ad878eb9
+ra_0001_2ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    FromSunplus\\RA\\RA\\ra_0001_2ch_22050Hz.bin    00000000
+ra_0007-RA_Cook-01_2ch_44100Hz.bin
+    [Template]    PE_DEC_CASE
+    FromSunplus\\RA\\RA\\ra_0007-RA_Cook-01_2ch_44100Hz.bin    272eaf9f
+ra_0010-WangQingShui_2ch_22050Hz.bin
+    [Template]    PE_DEC_CASE
+    FromSunplus\\RA\\RA\\ra_0010-WangQingShui_2ch_22050Hz.bin    00000000

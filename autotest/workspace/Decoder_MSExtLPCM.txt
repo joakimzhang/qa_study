@@ -1,0 +1,1695 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../业务关键字.txt
+
+*** Variables ***
+${platform}       1    # 0:fpga,1:simulator,2:ASIC
+${console_num}    11    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\Debug\\test_audio_pcm.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    houh    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1118    # devel03的密码，用户登录bjdevel03
+${AudioFileDir}    D:\\AudioFile    # \\\\bjdevel03\\stream\\AudioTestFile D:\\AudioFile
+
+*** Test Cases ***
+1_AC3_T01_3_16bit_6ch.wav.es
+    [Documentation]    57b424e2
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\1_AC3_T01_3_16bit_6ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 8036352
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    57b424e2
+    [Teardown]    断开串口
+
+1_AC3_T01_4_16bit_6ch.wav.es
+    [Documentation]    f4bd4877
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\1_AC3_T01_4_16bit_6ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 26025984
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    f4bd4877
+    [Teardown]    断开串口
+
+2.diatonis_soal.448k.48kHz.5.1ch.wav.es
+    [Documentation]    2445cd6e
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\2.diatonis_soal.448k.48kHz.5.1ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 200318976
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    2445cd6e
+    [Teardown]    断开串口
+
+448Kbps_48Khz_6channels_ac3.wav.es
+    [Documentation]    945e3b32
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\448Kbps_48Khz_6channels_ac3.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 71184384
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    945e3b32
+    [Teardown]    断开串口
+
+ac3_0002-1_AC3_T01_3_16bit_6ch.wav.es
+    [Documentation]    57b424e2
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\ac3_0002-1_AC3_T01_3_16bit_6ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 8036352
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    57b424e2
+    [Teardown]    断开串口
+
+ac3_0003-1_AC3_T01_4_16bit_6ch.wav.es
+    [Documentation]    f4bd4877
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\ac3_0003-1_AC3_T01_4_16bit_6ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 26025984
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    f4bd4877
+    [Teardown]    断开串口
+
+ac3_0004-1.current.448k.48kHz.5ch.wav.es
+    [Documentation]    c257dee1
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\ac3_0004-1.current.448k.48kHz.5ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 264545280
+    sleep    2
+    common_command    setch 5
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 10
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 55
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    c257dee1
+    [Teardown]    断开串口
+
+ac3_0007-2.diatonis_soal.448k.48kHz.5.1ch.wav.es
+    [Documentation]    2445cd6e
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\ac3_0007-2.diatonis_soal.448k.48kHz.5.1ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 200318976
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    2445cd6e
+    [Teardown]    断开串口
+
+ac3_0009-3.hard_rock_640k.48khz.5.1ch.wav.es
+    [Documentation]    fc88997b
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\ac3_0009-3.hard_rock_640k.48khz.5.1ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 72585216
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    fc88997b
+    [Teardown]    断开串口
+
+ac3_0010-448Kbps_48Khz_6channels_ac3.wav.es
+    [Documentation]    945e3b32
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\ac3_0010-448Kbps_48Khz_6channels_ac3.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 71184384
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    945e3b32
+    [Teardown]    断开串口
+
+ac3_0014-448Kbps_48Khz_6channels_ac3.wav.es
+    [Documentation]    945e3b32
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\ac3_0014-448Kbps_48Khz_6channels_ac3.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 71184384
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    945e3b32
+    [Teardown]    断开串口
+
+class_6ch.wav.es
+    [Documentation]    d01dcf39
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\class_6ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 30818304
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    d01dcf39
+    [Teardown]    断开串口
+
+country_6ch.wav.es
+    [Documentation]    8ed63390
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\country_6ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 36016128
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    8ed63390
+    [Teardown]    断开串口
+
+game_2.1.0_3ch.wav.es
+    [Documentation]    b411d2ea
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\game_2.1.0_3ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 12745728
+    sleep    2
+    common_command    setch 3
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 6
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 11
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    b411d2ea
+    [Teardown]    断开串口
+
+game_2.1.1_4ch.wav.es
+    [Documentation]    6c08ff11
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\game_2.1.1_4ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 16994304
+    sleep    2
+    common_command    setch 4
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 8
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 263
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    6c08ff11
+    [Teardown]    断开串口
+
+game_2.2.0_4ch.wav.es
+    [Documentation]    380689df
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\game_2.2.0_4ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 16994304
+    sleep    2
+    common_command    setch 4
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 8
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 263
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    380689df
+    [Teardown]    断开串口
+
+game_2.2.1_5ch.wav.es
+    [Documentation]    46ecbc8d
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\game_2.2.1_5ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 21242880
+    sleep    2
+    common_command    setch 5
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 10
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 55
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    46ecbc8d
+    [Teardown]    断开串口
+
+game_3.0.0_3ch.wav.es
+    [Documentation]    682af596
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\game_3.0.0_3ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 12745728
+    sleep    2
+    common_command    setch 3
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 6
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 11
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    682af596
+    [Teardown]    断开串口
+
+game_3.0.1_4ch.wav.es
+    [Documentation]    e4f65802
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\game_3.0.1_4ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 16994304
+    sleep    2
+    common_command    setch 4
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 8
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 263
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    e4f65802
+    [Teardown]    断开串口
+
+game_3.1.0_4ch.wav.es
+    [Documentation]    3177e328
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\game_3.1.0_4ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 16994304
+    sleep    2
+    common_command    setch 4
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 8
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 263
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    3177e328
+    [Teardown]    断开串口
+
+game_3.1.1_5ch.wav.es
+    [Documentation]    00839b0c
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\game_3.1.1_5ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 21242880
+    sleep    2
+    common_command    setch 5
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 10
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 55
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    00839b0c
+    [Teardown]    断开串口
+
+game_5.0_5ch.wav.es
+    [Documentation]    1f03eb10
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\game_5.0_5ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 21242880
+    sleep    2
+    common_command    setch 5
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 10
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 55
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    1f03eb10
+    [Teardown]    断开串口
+
+game_5.1_6ch.wav.es
+    [Documentation]    2c9a76ee
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\game_5.1_6ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 25491456
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    2c9a76ee
+    [Teardown]    断开串口
+
+game_6ch.wav.es
+    [Documentation]    848b8fc2
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\game_6ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 25491456
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    848b8fc2
+    [Teardown]    断开串口
+
+game_acm321_448kbps_32kHz_6ch.wav.es
+    [Documentation]    167487ba
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_AC3\\game_acm321_448kbps_32kHz_6ch.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 25491456
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    167487ba
+    [Teardown]    断开串口
+
+2L38SACD_tr1_mch_96kHz.wav.es
+    [Documentation]    528a05e2
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L38SACD_tr1_mch_96kHz.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 649762356
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    528a05e2
+    [Teardown]    断开串口
+
+2L48SACD_14_mch_96k.wav.es
+    [Documentation]    20d5b654
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L48SACD_14_mch_96k.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 361491060
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    20d5b654
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96.wav.es
+    [Documentation]    08fb9c12
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L50SACD_tr01_multi_96.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 209372160
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    08fb9c12
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96_1_8khz.wav.es
+    [Documentation]    3438eec5
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L50SACD_tr01_multi_96_1_8khz.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 17399808
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    2    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    3438eec5
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96_1_11khz.wav.es
+    [Documentation]    56189f5e
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L50SACD_tr01_multi_96_1_11khz.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 23986176
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    3    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    56189f5e
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96_1_16khz.wav.es
+    [Documentation]    e0d57385
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L50SACD_tr01_multi_96_1_16khz.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 16000
+    sleep    2
+    common_command    setlen 34799616
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    4    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    e0d57385
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96_1_22khz.wav.es
+    [Documentation]    d2d654d7
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L50SACD_tr01_multi_96_1_22khz.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 48070656
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    5    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    d2d654d7
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96_1_24khz.wav.es
+    [Documentation]    df2bd8ed
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L50SACD_tr01_multi_96_1_24khz.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 24000
+    sleep    2
+    common_command    setlen 52297728
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    5    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    df2bd8ed
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96_1_32khz.wav.es
+    [Documentation]    0230cc08
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L50SACD_tr01_multi_96_1_32khz.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 32000
+    sleep    2
+    common_command    setlen 69697536
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    6    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    0230cc08
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96_1_44khz.wav.es
+    [Documentation]    c64ad1ac
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L50SACD_tr01_multi_96_1_44khz.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 96141312
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    7    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    c64ad1ac
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96_1_48khz.wav.es
+    [Documentation]    0ddc12d7
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L50SACD_tr01_multi_96_1_48khz.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 104595456
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    0ddc12d7
+    [Teardown]    断开串口
+
+2L53SACD_04_mch_96k.wav.es
+    [Documentation]    07ce3a42
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L53SACD_04_mch_96k.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 249708720
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    07ce3a42
+    [Teardown]    断开串口
+
+2L-063_mch96_01_01.wav.es
+    [Documentation]    5e8ac519
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L-063_mch96_01_01.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 192000
+    sleep    2
+    common_command    setlen 624867840
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    14    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    5e8ac519
+    [Teardown]    断开串口
+
+2L-064_mch_01_08.wav.es
+    [Documentation]    45d9597e
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L-064_mch_01_08.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 252258420
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    45d9597e
+    [Teardown]    断开串口
+
+2L-068_mch96_01_15.wav.es
+    [Documentation]    67000a16
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L-068_mch96_01_15.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 282502260
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    67000a16
+    [Teardown]    断开串口
+
+2L-071_mch96_01_01.wav.es
+    [Documentation]    bdc2af4a
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L-071_mch96_01_01.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 653261940
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    bdc2af4a
+    [Teardown]    断开串口
+
+2L-074_mch96kHz_01.wav.es
+    [Documentation]    b96db1e7
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L-074_mch96kHz_01.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 476821620
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    b96db1e7
+    [Teardown]    断开串口
+
+2L-077-mch-96kHz_21.wav.es
+    [Documentation]    59913881
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L-077-mch-96kHz_21.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 232889460
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    59913881
+    [Teardown]    断开串口
+
+2L-082_mch-96kHz_01.wav.es
+    [Documentation]    57c200d2
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L-082_mch-96kHz_01.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 295466100
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    57c200d2
+    [Teardown]    断开串口
+
+2L-084_mch-96kHz_11.wav.es
+    [Documentation]    abdf7242
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L-084_mch-96kHz_11.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 324358260
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    abdf7242
+    [Teardown]    断开串口
+
+2L-086_mch-96kHz_15.wav.es
+    [Documentation]    80941d51
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L-086_mch-96kHz_15.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 376474740
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    80941d51
+    [Teardown]    断开串口
+
+2L-087_mch-96kHz_06.wav.es
+    [Documentation]    b1469648
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L-087_mch-96kHz_06.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 273593460
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    b1469648
+    [Teardown]    断开串口
+
+2L-090C_mch-96kHz_01.wav.es
+    [Documentation]    9915eb86
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\2L-090C_mch-96kHz_01.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 776295540
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    9915eb86
+    [Teardown]    断开串口
+
+7041888511922_19_multi.wav.es
+    [Documentation]    90671652
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\7041888511922_19_multi.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 347183328
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    90671652
+    [Teardown]    断开串口
+
+7041888513520_01_13mch92kHz.wav.es
+    [Documentation]    2f04ede5
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\7041888513520_01_13mch92kHz.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 280997040
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    2f04ede5
+    [Teardown]    断开串口
+
+Beethoven_op111_sats1_multikanal.wav.es
+    [Documentation]    ceed735e
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\Beethoven_op111_sats1_multikanal.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 686830704
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    ceed735e
+    [Teardown]    断开串口
+
+csi_miami_5.1_256_spx_nero.wav.es
+    [Documentation]    cbb5e80c
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\csi_miami_5.1_256_spx_nero.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 11999232
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    8    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    cbb5e80c
+    [Teardown]    断开串口
+
+ForUntoUsSurround88.wav.es
+    [Documentation]    17581500
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\ForUntoUsSurround88.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 88200
+    sleep    2
+    common_command    setlen 31862580
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    10    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    17581500
+    [Teardown]    断开串口
+
+HDMCH7041888514725_01_01.wav.es
+    [Documentation]    48393274
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\HDMCH7041888514725_01_01.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 218757120
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    48393274
+    [Teardown]    断开串口
+
+HDMCH7041888514824_01_05.wav.es
+    [Documentation]    6fc693a8
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\HDMCH7041888514824_01_05.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 572866560
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    11    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    6fc693a8
+    [Teardown]    断开串口
+
+surround88.wav.es
+    [Documentation]    5eaa219b
+    [Setup]    连接串口
+    设置音频    ES\\MS_Ext_PCM\\from_FLAC\\surround88.wav.es    1
+    sleep    5
+    common_command    setfmt MSEXTPCM
+    sleep    2
+    common_command    setsr 88200
+    sleep    2
+    common_command    setlen 59634372
+    sleep    2
+    common_command    setch 6
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 12
+    sleep    2
+    common_command    setbps 10
+    sleep    2
+    common_command    setcb 0
+    sleep    2
+    common_command    setchmsk 63
+    sleep    2
+    播放    10    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    5eaa219b
+    [Teardown]    断开串口

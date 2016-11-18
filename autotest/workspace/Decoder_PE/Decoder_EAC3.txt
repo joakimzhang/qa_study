@@ -1,0 +1,304 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Test Setup
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../../业务关键字.txt
+
+*** Variables ***
+${platform}       3
+${console_num}    9
+
+*** Test Cases ***
+
+*** Keywords ***
+PE_DEC_CASE
+    [Arguments]    ${file_name}    ${check_sum}
+    [Timeout]    30 minutes
+    连接串口
+    common_command    mon
+    sleep    3
+    common_command    avl audp_play ${file_name}
+    sleep    5
+    检查checksum    ${check_sum}
+    [Teardown]    断开串口
+*** Test Cases ***
+buggy_aht_5.1_384.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\buggy_aht_5.1_384.eac3    fa36c03e
+casablanca_aht_mono_64.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\casablanca_aht_mono_64.eac3    4030056f
+csi_miami_5.1_256_spx.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\csi_miami_5.1_256_spx.eac3    5eb12d82
+eac3mono64kbit.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3mono64kbit.eac3    4030056f
+csi_miami_stereo_128_spx.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\csi_miami_stereo_128_spx.eac3    5b4ae91d
+matrix2_commentary1_stereo_192.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\matrix2_commentary1_stereo_192.eac3    cb57dffc
+matrix2_commentary2_stereo_192.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\matrix2_commentary2_stereo_192.eac3    372cb16c
+matrix2_commentary3_stereo_192.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\matrix2_commentary3_stereo_192.eac3    b1b5f79f
+matrix2_english_5.1_640.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\matrix2_english_5.1_640.eac3    29d16a20
+matrix2_french_5.1_640.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\matrix2_french_5.1_640.eac3    e73e8b3b
+matrix2_spanish_stereo_192.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\matrix2_spanish_stereo_192.eac3    96b75d74
+rio_bravo_mono_64_spx.ac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\rio_bravo_mono_64_spx.ac3    c46e0406
+serenity_english_5.1_1536.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\serenity_english_5.1_1536.eac3    be0fda2d
+eac3sample01.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample01.eac3    85ea174e
+eac3sample02.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample02.eac3    f812ce61
+eac3sample03.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample03.eac3    8932ab61
+eac3sample04.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample04.eac3    38796c86
+eac3sample05.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample05.eac3    e35bcf3e
+eac3sample06.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample06.eac3    6e14ca5d
+eac3sample07.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample07.eac3    1004144b
+eac3sample08.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample08.eac3    16f15b46
+eac3sample09.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample09.eac3    ee1c2883
+eac3sample10.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample10.eac3    87471e42
+eac3sample11.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample11.eac3    e72bfa34
+eac3sample12.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample12.eac3    31652243
+eac3sample13.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample13.eac3    af007162
+eac3sample14.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample14.eac3    9c8f8388
+eac3sample15.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample15.eac3    21d34301
+eac3sample16.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample16.eac3    fbe697c2
+eac3sample17.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample17.eac3    8662c711
+eac3sample18.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample18.eac3    c61e457c
+eac3sample19.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample19.eac3    bd8f24d4
+eac3sample20.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample20.eac3    d57e9e09
+eac3sample21.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample21.eac3    0a379974
+eac3sample22.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample22.eac3    2337e182
+eac3sample23.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample23.eac3    59b13942
+eac3sample24.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample24.eac3    b0a84f78
+eac3sample25.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample25.eac3    6a8ba8c6
+eac3sample26.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample26.eac3    6a8ba8c6
+eac3sample27.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample27.eac3    d2c68d81
+eac3sample28.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample28.eac3    fde71736
+eac3sample29.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample29.eac3    449b937f
+eac3sample30.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample30.eac3    998cb85a
+eac3sample31.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample31.eac3    ca927145
+eac3sample32.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample32.eac3    821d868f
+eac3sample33.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample33.eac3    00fdf637
+eac3sample34.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample34.eac3    e9403c3d
+eac3sample35.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample35.eac3    21408301
+eac3sample36.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample36.eac3    98a68148
+eac3sample37.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample37.eac3    bc189bbf
+eac3sample38.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample38.eac3    73d43287
+eac3sample39.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample39.eac3    f0f6faa3
+eac3sample40.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample40.eac3    36fd6e51
+eac3sample41.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample41.eac3    eac6144f
+eac3sample42.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample42.eac3    32977f9f
+eac3sample43.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample43.eac3    3a0768ad
+eac3sample44.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample44.eac3    ba00f7ff
+eac3sample45.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample45.eac3    1c5ce63c
+eac3sample46.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample46.eac3    4384c079
+eac3sample47.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample47.eac3    fb64230c
+eac3sample48.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample48.eac3    228ad38c
+eac3sample49.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample49.eac3    8ed59c54
+eac3sample50.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample50.eac3    68d2d858
+eac3sample51.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample51.eac3    ba9ceb89
+eac3sample52.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample52.eac3    808a6bd4
+eac3sample53.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample53.eac3    eb9c4b00
+eac3sample54.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample54.eac3    35897d7b
+eac3sample55.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample55.eac3    bb4cec41
+eac3sample56.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample56.eac3    e4675eec
+eac3sample57.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample57.eac3    dd1550bf
+eac3sample58.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample58.eac3    d4e3a538
+eac3sample59.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample59.eac3    81b03939
+eac3sample60.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample60.eac3    2d69802b
+eac3sample61.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample61.eac3    fe39235c
+eac3sample62.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample62.eac3    8d4680ed
+eac3sample63.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample63.eac3    8daca1da
+eac3sample64.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample64.eac3    3f18267d
+eac3sample65.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample65.eac3    7701e60e
+eac3sample66.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample66.eac3    5efd338c
+eac3sample67.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample67.eac3    4ae3da8a
+eac3sample68.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample68.eac3    15832089
+eac3sample69.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample69.eac3    518945ad
+eac3sample70.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample70.eac3    5eb276a4
+eac3sample71.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample71.eac3    5a5a51f3
+eac3sample72.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample72.eac3    09982cef
+eac3sample73.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample73.eac3    58f3e19d
+eac3sample74.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample74.eac3    abc490a6
+eac3sample75.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample75.eac3    c4d5d676
+eac3sample76.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample76.eac3    fba8b3a2
+eac3sample77.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample77.eac3    4600afa5
+eac3sample78.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample78.eac3    5e95ae79
+eac3sample79.eac3
+    [Template]    PE_DEC_CASE
+    ES\\EAC3\\eac3samples\\eac3sample79.eac3    2353c2e7

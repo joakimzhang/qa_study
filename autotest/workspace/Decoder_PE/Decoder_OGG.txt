@@ -1,0 +1,265 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Test Setup
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../../业务关键字.txt
+
+*** Variables ***
+${platform}       3
+${console_num}    9
+
+*** Test Cases ***
+
+*** Keywords ***
+PE_DEC_CASE
+    [Arguments]    ${file_name}    ${check_sum}
+    [Timeout]    30 minutes
+    连接串口
+    common_command    mon
+    sleep    3
+    common_command    avl audp_play ${file_name}
+    sleep    5
+    检查checksum    ${check_sum}
+    [Teardown]    断开串口
+*** Test Cases ***
+01_Duran_Duran_Planet_Earth_44P1khz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\01_Duran_Duran_Planet_Earth_44P1khz.ogg.packet    75aadd97
+bobyoung_44P1khz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\bobyoung_44P1khz.ogg.packet    827b9994
+Breathless_MPEG1_LAYER2_64kbps_32khz_Stereo.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\Breathless_MPEG1_LAYER2_64kbps_32khz_Stereo.ogg.packet    393794b2
+coyote_48khz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\coyote_48khz.ogg.packet    06b1b14a
+la_isla_bonita_16khz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\la_isla_bonita_16khz.ogg.packet    8acc4368
+Lumme-Badloop_44P1khz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\Lumme-Badloop_44P1khz.ogg.packet    0548b85d
+Lumme-Badloop_44P1khz_q-1.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\Lumme-Badloop_44P1khz_q-1.ogg.packet    653fd8f4
+Lumme-Badloop_44P1khz_q10.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\Lumme-Badloop_44P1khz_q10.ogg.packet    8b78e283
+MarcTerenziLovetobeLovedbyyou_11p025khz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\MarcTerenziLovetobeLovedbyyou_11p025khz.ogg.packet    dc83f297
+mgs1-sample1_44P1khz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\mgs1-sample1_44P1khz.ogg.packet    083fa9c8
+mgs1-sample2_44P1khz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\mgs1-sample2_44P1khz.ogg.packet    4bd82db0
+mmw-deadzy_44P1khz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\mmw-deadzy_44P1khz.ogg.packet    7a00e9d7
+ogg++vorbis++vocal2_prob_converting_44P1khz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\ogg++vorbis++vocal2_prob_converting_44P1khz.ogg.packet    e2fddcad
+ogg+mpeg4+vorbis++crash_foobar_48khz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\ogg+mpeg4+vorbis++crash_foobar_48khz.ogg.packet    39c66a79
+Sahara_22P50khz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\Sahara_22P50khz.ogg.packet    b867b3f1
+sample.VBR.32.64.8000Hz.Mono.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\sample.VBR.32.64.8000Hz.Mono.ogg.packet    4d94eab9
+test_88P2kHz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\test_88P2kHz.ogg.packet    67c8de82
+test_96kHz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\test_96kHz.ogg.packet    a9ec583f
+test_176P4kHz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\test_176P4kHz.ogg.packet    281efed8
+test_192kHz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\test_192kHz.ogg.packet    8631eed3
+theora_44P1khz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\theora_44P1khz.ogg.packet    87947a19
+virginradio-three-consecutive-chains_44P1khz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\virginradio-three-consecutive-chains_44P1khz.ogg.packet    7bd2436e
+vorbis_floor_type_0_44P1khz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\vorbis_floor_type_0_44P1khz.ogg.packet    848e9946
+Yeager_supersonic_flight_1947_44P1khz.ogg
+    [Template]    PE_DEC_CASE
+    ES\\ogg_stripped\\Yeager_supersonic_flight_1947_44P1khz.ogg.packet    044c4ea9
+160Kbps_mono.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\160Kbps_mono.ogg.packet    2925f57f
+192Kbps.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\192Kbps.ogg.packet    1ded4fc0
+256k-cbr.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\256k-cbr.ogg.packet    6c0c944c
+350Kbps.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\350Kbps.ogg.packet    c1324e52
+500k-cbr.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\500k-cbr.ogg.packet    ef76c5b4
+500k-vbr.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\500k-vbr.ogg.packet    80487024
+A001_VORBIS_96KBPS_48KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\A001_VORBIS_96KBPS_48KHZ.OGG.packet    fd328528
+A002_VORBIS_104KBPS_48KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\A002_VORBIS_104KBPS_48KHZ.OGG.packet    eaf8716c
+A003_VORBIS_128KBPS_48KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\A003_VORBIS_128KBPS_48KHZ.OGG.packet    7d5e0781
+A004_VORBIS_192KBPS_48KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\A004_VORBIS_192KBPS_48KHZ.OGG.packet    293e9344
+A005_VORBIS_320KBPS_441KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\A005_VORBIS_320KBPS_441KHZ.OGG.packet    26fc033b
+B001_VORBIS_CBR_12KBPS_8000HZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B001_VORBIS_CBR_12KBPS_8000HZ.OGG.packet    c94595d9
+B002_VORBIS_CBR_26KBPS_11025KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B002_VORBIS_CBR_26KBPS_11025KHZ.OGG.packet    429293da
+B003_VORBIS_CBR_45KBPS_48KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B003_VORBIS_CBR_45KBPS_48KHZ.OGG.packet    01294990
+B004_VORBIS_CBR_56KBPS_24KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B004_VORBIS_CBR_56KBPS_24KHZ.OGG.packet    f0c16d4f
+B005_VORBIS_CBR_56KBPS_2205KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B005_VORBIS_CBR_56KBPS_2205KHZ.OGG.packet    eb81c70c
+B006_VORBIS_CBR_57KBPS_11025KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B006_VORBIS_CBR_57KBPS_11025KHZ.OGG.packet    96dc17f9
+B007_VORBIS_CBR_64KBPS_441KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B007_VORBIS_CBR_64KBPS_441KHZ.OGG.packet    18353fa6
+B008_VORBIS_CBR_64KBPS_8000HZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B008_VORBIS_CBR_64KBPS_8000HZ.OGG.packet    418f7e28
+B009_VORBIS_CBR_70KBPS_32KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B009_VORBIS_CBR_70KBPS_32KHZ.OGG.packet    b15afc4a
+B010_VORBIS_CBR_88KBPS_16KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B010_VORBIS_CBR_88KBPS_16KHZ.OGG.packet    034f249e
+B011_VORBIS_CBR_104KBPS_48KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B011_VORBIS_CBR_104KBPS_48KHZ.OGG.packet    eaf8716c
+B012_VORBIS_CBR_105KBPS_24KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B012_VORBIS_CBR_105KBPS_24KHZ.OGG.packet    1ac8d9f6
+B013_VORBIS_CBR_105KBPS_2205KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B013_VORBIS_CBR_105KBPS_2205KHZ.OGG.packet    55250f76
+B014_VORBIS_CBR_112KBPS_48KHZ.OGG
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B014_VORBIS_CBR_112KBPS_48KHZ.OGG.packet    e6d62e97
+B015_VORBIS_cbr_120kbps_32khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B015_VORBIS_cbr_120kbps_32khz.ogg.packet    4a794b03
+B016_VORBIS_cbr_122kbps_24khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B016_VORBIS_cbr_122kbps_24khz.ogg.packet    a89e5b70
+B017_VORBIS_cbr_122kbps_2205khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B017_VORBIS_cbr_122kbps_2205khz.ogg.packet    8fa73b9f
+B018_VORBIS_cbr_128kbps_441khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B018_VORBIS_cbr_128kbps_441khz.ogg.packet    a2f26c05
+B019_VORBIS_cbr_138kbps_16khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B019_VORBIS_cbr_138kbps_16khz.ogg.packet    ae2b473c
+B020_VORBIS_cbr_150kbps_32khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B020_VORBIS_cbr_150kbps_32khz.ogg.packet    7d9d48b5
+B021_VORBIS_cbr_160kbps_441khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B021_VORBIS_cbr_160kbps_441khz.ogg.packet    e9d8538c
+B022_VORBIS_cbr_192kbps_48khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B022_VORBIS_cbr_192kbps_48khz.ogg.packet    e911f593
+B023_VORBIS_cbr_230kbps_32khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B023_VORBIS_cbr_230kbps_32khz.ogg.packet    1644ec03
+B024_VORBIS_cbr_240kbps_441khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B024_VORBIS_cbr_240kbps_441khz.ogg.packet    637c69ed
+B025_VORBIS_cbr_318kbps_8000hz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B025_VORBIS_cbr_318kbps_8000hz.ogg.packet    2e9823db
+B026_VORBIS_cbr_453kbps_16khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B026_VORBIS_cbr_453kbps_16khz.ogg.packet    8a8153db
+B027_VORBIS_cbr_456kbps_8000hz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B027_VORBIS_cbr_456kbps_8000hz.ogg.packet    03121b57
+B028_VORBIS_cbr_500kbps_48khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B028_VORBIS_cbr_500kbps_48khz.ogg.packet    41e64ea1
+B029_VORBIS_cbr_508kbps_11025khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B029_VORBIS_cbr_508kbps_11025khz.ogg.packet    2c64ad8a
+B030_VORBIS_cbr_667kbps_24khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B030_VORBIS_cbr_667kbps_24khz.ogg.packet    f9cddb1f
+B031_VORBIS_cbr_667kbps_2205khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B031_VORBIS_cbr_667kbps_2205khz.ogg.packet    0d8813d0
+B032_VORBIS_cbr_773kbps_16khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B032_VORBIS_cbr_773kbps_16khz.ogg.packet    76e1c911
+B033_VORBIS_cbr_818kbps_11025khz.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\B033_VORBIS_cbr_818kbps_11025khz.ogg.packet    6eab5342
+ogg_0001-112k-cbr.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\ogg_0001-112k-cbr.ogg.packet    f0c72804
+ogg_0002-128Kbps.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\ogg_0002-128Kbps.ogg.packet    efbfb1e4
+ogg_0003-160Kbps_OGG.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\ogg_0003-160Kbps_OGG.ogg.packet    75db82aa
+ogg_0004-160Kbps_mono.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\ogg_0004-160Kbps_mono.ogg.packet    2925f57f
+ogg_0005-192Kbps.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\ogg_0005-192Kbps.ogg.packet    1ded4fc0
+ogg_0006-256k-cbr.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\ogg_0006-256k-cbr.ogg.packet    6c0c944c
+ogg_0007-350Kbps.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\ogg_0007-350Kbps.ogg.packet    c1324e52
+ogg_0008-45k-cbr.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\ogg_0008-45k-cbr.ogg.packet    c57f65b2
+ogg_0009-48Kbps.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\ogg_0009-48Kbps.ogg.packet    31103f66
+ogg_0010-500k-cbr.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\ogg_0010-500k-cbr.ogg.packet    ef76c5b4
+ogg_0011-500k-vbr.ogg
+    [Template]    PE_DEC_CASE
+    FromSunplus\\ogg_stripped\\ogg_0011-500k-vbr.ogg.packet    80487024

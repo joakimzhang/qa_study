@@ -1,0 +1,9 @@
+*** Settings ***
+Library           SSHLibrary
+Resource          ../业务关键字.txt
+Library           OperatingSystem
+
+*** Variables ***
+${platform}       1    # 0:fpga,1:simulator,2:ASIC
+${BJDevel03_Password}    Avl1108    # devel03的密码，用户登录bjdevel03
+${BJDevel03_UserName}    zhangq    # bjdevel03的用户名

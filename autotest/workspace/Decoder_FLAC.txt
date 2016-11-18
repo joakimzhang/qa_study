@@ -1,0 +1,1335 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../业务关键字.txt
+
+*** Variables ***
+${platform}       1    # 0:fpga,1:simulator,2:ASIC
+${console_num}    11    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\Debug\\test_audio_flac.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    houh    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1118    # devel03的密码，用户登录bjdevel03
+${AudioFileDir}    D:\\AudioFile    # \\\\bjdevel03\\stream\\AudioTestFile D:\\AudioFile
+
+*** Test Cases ***
+2L38_01_96kHz.flac
+    [Documentation]    b6d2cca5
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L38_01_96kHz.flac    1
+    sleep    120
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 179931671
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b6d2cca5
+    [Teardown]    断开串口_flac
+
+2L38_01_192kHz.flac
+    [Documentation]    bc7a2783
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L38_01_192kHz.flac    1
+    sleep    300
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 354537588
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bc7a2783
+    [Teardown]    断开串口_flac
+
+2L38SACD_tr1_mch_96kHz.flac
+    [Documentation]    3e64ca63
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L38SACD_tr1_mch_96kHz.flac    1
+    sleep    300
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 493852717
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3e64ca63
+    [Teardown]    断开串口_flac
+
+2L48SACD_14_mch_96k.flac
+    [Documentation]    1d3d6037
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L48SACD_14_mch_96k.flac    1
+    sleep    120
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 215507788
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1d3d6037
+    [Teardown]    断开串口_flac
+
+2L48SACD_14_stereo_96k.flac
+    [Documentation]    3c69f844
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L48SACD_14_stereo_96k.flac    1
+    sleep    60
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 85780235
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3c69f844
+    [Teardown]    断开串口_flac
+
+2L49SACD_tr1_96k_stereo.flac
+    [Documentation]    43f7ffa2
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L49SACD_tr1_96k_stereo.flac    1
+    sleep    120
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 146593469
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    43f7ffa2
+    [Teardown]    断开串口_flac
+
+2L50SACD_tr01_multi_96.flac
+    [Documentation]    ee9684b8
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L50SACD_tr01_multi_96.flac    1
+    sleep    120
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 142459476
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ee9684b8
+    [Teardown]    断开串口_flac
+
+2L50SACD_tr01_multi_96_1_8khz.flac
+    [Documentation]    70cd2740
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L50SACD_tr01_multi_96_1_8khz.flac    1
+    sleep    15
+    common_command    setfmt FLAC
+    common_command    setsr 8000
+    common_command    setlen 9213562
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    70cd2740
+    [Teardown]    断开串口_flac
+
+2L50SACD_tr01_multi_96_1_11khz.flac
+    [Documentation]    011b9a9e
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L50SACD_tr01_multi_96_1_11khz.flac    1
+    sleep    20
+    common_command    setfmt FLAC
+    common_command    setsr 11025
+    common_command    setlen 11912110
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    011b9a9e
+    [Teardown]    断开串口_flac
+
+2L50SACD_tr01_multi_96_1_16khz.flac
+    [Documentation]    be12541a
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L50SACD_tr01_multi_96_1_16khz.flac    1
+    sleep    20
+    common_command    setfmt FLAC
+    common_command    setsr 16000
+    common_command    setlen 15552622
+    播放    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    be12541a
+    [Teardown]    断开串口_flac
+
+2L50SACD_tr01_multi_96_1_22khz.flac
+    [Documentation]    3aff8fa6
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L50SACD_tr01_multi_96_1_22khz.flac    1
+    sleep    30
+    common_command    setfmt FLAC
+    common_command    setsr 22050
+    common_command    setlen 19256746
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3aff8fa6
+    [Teardown]    断开串口_flac
+
+2L50SACD_tr01_multi_96_1_24khz.flac
+    [Documentation]    fa4dd2b5
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L50SACD_tr01_multi_96_1_24khz.flac    1
+    sleep    30
+    common_command    setfmt FLAC
+    common_command    setsr 24000
+    common_command    setlen 20319215
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fa4dd2b5
+    [Teardown]    断开串口_flac
+
+2L50SACD_tr01_multi_96_1_32khz.flac
+    [Documentation]    668fea99
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L50SACD_tr01_multi_96_1_32khz.flac    1
+    sleep    30
+    common_command    setfmt FLAC
+    common_command    setsr 32000
+    common_command    setlen 24392946
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    668fea99
+    [Teardown]    断开串口_flac
+
+2L50SACD_tr01_multi_96_1_44khz.flac
+    [Documentation]    97529bda
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L50SACD_tr01_multi_96_1_44khz.flac    1
+    sleep    30
+    common_command    setfmt FLAC
+    common_command    setsr 44100
+    common_command    setlen 29721236
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    97529bda
+    [Teardown]    断开串口_flac
+
+2L50SACD_tr01_multi_96_1_48khz.flac
+    [Documentation]    36c62e1b
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L50SACD_tr01_multi_96_1_48khz.flac    1
+    sleep    30
+    common_command    setfmt FLAC
+    common_command    setsr 48000
+    common_command    setlen 31019254
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    36c62e1b
+    [Teardown]    断开串口_flac
+
+2L50SACD_tr01_stereo_96.flac
+    [Documentation]    1ff4f20c
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L50SACD_tr01_stereo_96.flac    1
+    sleep    60
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 53864736
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1ff4f20c
+    [Teardown]    断开串口_flac
+
+2L50SACD_tr01_stereo_192kHz.flac
+    [Documentation]    d39328b3
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L50SACD_tr01_stereo_192kHz.flac    1
+    sleep    120
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 111524686
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d39328b3
+    [Teardown]    断开串口_flac
+
+2L53SACD_04_mch_96k.flac
+    [Documentation]    b35b8933
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L53SACD_04_mch_96k.flac    1
+    sleep    150
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 175322590
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b35b8933
+    [Teardown]    断开串口_flac
+
+2L53SACD_04_stereo_96k.flac
+    [Documentation]    6a5a8ef0
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L53SACD_04_stereo_96k.flac    1
+    sleep    120
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 70177732
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6a5a8ef0
+    [Teardown]    断开串口_flac
+
+2L53SACD_04_stereo_192kHz.flac
+    [Documentation]    5d7d8371
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L53SACD_04_stereo_192kHz.flac    1
+    sleep    150
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 139629266
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5d7d8371
+    [Teardown]    断开串口_flac
+
+2L-063_mch96_01_01.flac
+    [Documentation]    9e90fd1f
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-063_mch96_01_01.flac    1
+    sleep    180
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 181539143
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9e90fd1f
+    [Teardown]    断开串口_flac
+
+2L-063_stereo96_01_01.flac
+    [Documentation]    697748bc
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-063_stereo96_01_01.flac    1
+    sleep    120
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 73885256
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    697748bc
+    [Teardown]    断开串口_flac
+
+2L-063_stereo192_01_01.flac
+    [Documentation]    70889752
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-063_stereo192_01_01.flac    1
+    sleep    180
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 189727957
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    70889752
+    [Teardown]    断开串口_flac
+
+2L-064_mch_01_08.flac
+    [Documentation]    46364bdc
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-064_mch_01_08.flac    1
+    sleep    180
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 150082417
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    46364bdc
+    [Teardown]    断开串口_flac
+
+2L-064_stereo96kHz_01_08.flac
+    [Documentation]    269dacbe
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-064_stereo96kHz_01_08.flac    1
+    sleep    60
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 58404990
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    269dacbe
+    [Teardown]    断开串口_flac
+
+2L-064_stereo192kHz_01_08.flac
+    [Documentation]    7e8f3cc1
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-064_stereo192kHz_01_08.flac    1
+    sleep    120
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 126128385
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7e8f3cc1
+    [Teardown]    断开串口_flac
+
+2L-068_mch96_01_15.flac
+    [Documentation]    88c0dfc6
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-068_mch96_01_15.flac    1
+    sleep    180
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 216659332
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    88c0dfc6
+    [Teardown]    断开串口_flac
+
+2L-068_stereo96_01_15.flac
+    [Documentation]    dbe3256a
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-068_stereo96_01_15.flac    1
+    sleep    120
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 87300255
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    dbe3256a
+    [Teardown]    断开串口_flac
+
+2L-068_stereo192_01_15.flac
+    [Documentation]    58a9e977
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-068_stereo192_01_15.flac    1
+    sleep    180
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 165121440
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    58a9e977
+    [Teardown]    断开串口_flac
+
+2L-071_mch96_01_01.flac
+    [Documentation]    214b7801
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-071_mch96_01_01.flac    1
+    sleep    360
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 450354562
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    214b7801
+    [Teardown]    断开串口_flac
+
+2L-071_stereo96_01_01.flac
+    [Documentation]    29c79723
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-071_stereo96_01_01.flac    1
+    sleep    180
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 169472295
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    29c79723
+    [Teardown]    断开串口_flac
+
+2L-071_stereo192_01_01.flac
+    [Documentation]    269dc786
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-071_stereo192_01_01.flac    1
+    sleep    360
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 345084467
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    269dc786
+    [Teardown]    断开串口_flac
+
+2L-074_mch96kHz_01.flac
+    [Documentation]    3fbb141d
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-074_mch96kHz_01.flac    1
+    sleep    300
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 249988312
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3fbb141d
+    [Teardown]    断开串口_flac
+
+2L-074_stereo96kHz_01.flac
+    [Documentation]    f04a9fb1
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-074_stereo96kHz_01.flac    1
+    sleep    120
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 96415259
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f04a9fb1
+    [Teardown]    断开串口_flac
+
+2L-074_stereo192kHz_01.flac
+    [Documentation]    72cffe54
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-074_stereo192kHz_01.flac    1
+    sleep    300
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 224632081
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    72cffe54
+    [Teardown]    断开串口_flac
+
+2L-077-mch-96kHz_21.flac
+    [Documentation]    c2319cbc
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-077-mch-96kHz_21.flac    1
+    sleep    180
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 166585184
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c2319cbc
+    [Teardown]    断开串口_flac
+
+2L-077-stereo-96kHz_21.flac
+    [Documentation]    0442e2d0
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-077-stereo-96kHz_21.flac    1
+    sleep    60
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 68995736
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0442e2d0
+    [Teardown]    断开串口_flac
+
+2L-077-stereo-192kHz_21.flac
+    [Documentation]    b73253e5
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-077-stereo-192kHz_21.flac    1
+    sleep    120
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 137067637
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b73253e5
+    [Teardown]    断开串口_flac
+
+2L-082_mch-96kHz_01.flac
+    [Documentation]    af3bae46
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-082_mch-96kHz_01.flac    1
+    sleep    180
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 157955344
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    af3bae46
+    [Teardown]    断开串口_flac
+
+2L-082_stereo-96kHz_01.flac
+    [Documentation]    a501748a
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-082_stereo-96kHz_01.flac    1
+    sleep    60
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 62272402
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a501748a
+    [Teardown]    断开串口_flac
+
+2L-082_stereo-192kHz_01.flac
+    [Documentation]    504be392
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-082_stereo-192kHz_01.flac    1
+    sleep    180
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 149266452
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    504be392
+    [Teardown]    断开串口_flac
+
+2L-084_mch-96kHz_11.flac
+    [Documentation]    84ace422
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-084_mch-96kHz_11.flac    1
+    sleep    300
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 215742596
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    84ace422
+    [Teardown]    断开串口_flac
+
+2L-084_stereo-96kHz_11.flac
+    [Documentation]    4f417e46
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-084_stereo-96kHz_11.flac    1
+    sleep    120
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 87757000
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4f417e46
+    [Teardown]    断开串口_flac
+
+2L-084_stereo-192kHz_11.flac
+    [Documentation]    1df70554
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-084_stereo-192kHz_11.flac    1
+    sleep    180
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 181083127
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1df70554
+    [Teardown]    断开串口_flac
+
+2L-086_mch-96kHz_15.flac
+    [Documentation]    f553e53f
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-086_mch-96kHz_15.flac    1
+    sleep    300
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 250974455
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f553e53f
+    [Teardown]    断开串口_flac
+
+2L-086_stereo-96kHz_15.flac
+    [Documentation]    a9b5ecff
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-086_stereo-96kHz_15.flac    1
+    sleep    120
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 98256078
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a9b5ecff
+    [Teardown]    断开串口_flac
+
+2L-086_stereo-192kHz_15.flac
+    [Documentation]    2e631322
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-086_stereo-192kHz_15.flac    1
+    sleep    300
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 202532945
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2e631322
+    [Teardown]    断开串口_flac
+
+2L-087_mch-96kHz_06.flac
+    [Documentation]    a3d6bf54
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-087_mch-96kHz_06.flac    1
+    sleep    180
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 168623447
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a3d6bf54
+    [Teardown]    断开串口_flac
+
+2L-087_stereo-96kHz_06.flac
+    [Documentation]    2e6cca95
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-087_stereo-96kHz_06.flac    1
+    sleep    120
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 68857921
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2e6cca95
+    [Teardown]    断开串口_flac
+
+2L-087_stereo-192kHz_06.flac
+    [Documentation]    307e6390
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-087_stereo-192kHz_06.flac    1
+    sleep    180
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 148401219
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    307e6390
+    [Teardown]    断开串口_flac
+
+2L-090C_mch-96kHz_01.flac
+    [Documentation]    5dbca890
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-090C_mch-96kHz_01.flac    1
+    sleep    540
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 551539804
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5dbca890
+    [Teardown]    断开串口_flac
+
+2L-090C_stereo-96kHz_01.flac
+    [Documentation]    92a9eeb2
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-090C_stereo-96kHz_01.flac    1
+    sleep    300
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 219249073
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    92a9eeb2
+    [Teardown]    断开串口_flac
+
+2L-090C_stereo-192kHz_01.flac
+    [Documentation]    8eb5f4af
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\2L-090C_stereo-192kHz_01.flac    1
+    sleep    360
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 434182929
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8eb5f4af
+    [Teardown]    断开串口_flac
+
+7041888511922_19_multi.flac
+    [Documentation]    16cd6248
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\7041888511922_19_multi.flac    1
+    sleep    240
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 224555255
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    16cd6248
+    [Teardown]    断开串口_flac
+
+7041888511922_19_stereo.flac
+    [Documentation]    1becc384
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\7041888511922_19_stereo.flac    1
+    sleep    90
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 89244257
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1becc384
+    [Teardown]    断开串口_flac
+
+7041888513520_01_13_96kHz.flac
+    [Documentation]    21f476b4
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\7041888513520_01_13_96kHz.flac    1
+    sleep    90
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 78165907
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    21f476b4
+    [Teardown]    断开串口_flac
+
+7041888513520_01_13_192kHz.flac
+    [Documentation]    507f8240
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\7041888513520_01_13_192kHz.flac    1
+    sleep    180
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 152206007
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    507f8240
+    [Teardown]    断开串口_flac
+
+7041888513520_01_13mch92kHz.flac
+    [Documentation]    86da81ef
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\7041888513520_01_13mch92kHz.flac    1
+    sleep    180
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 198730047
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    86da81ef
+    [Teardown]    断开串口_flac
+
+Beethoven_op111_sats1_multikanal.flac
+    [Documentation]    dc0bc85b
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\Beethoven_op111_sats1_multikanal.flac    1
+    sleep    360
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 416322342
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    dc0bc85b
+    [Teardown]    断开串口_flac
+
+BIS1447-002-flac_16.flac
+    [Documentation]    ff25ff52
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\BIS1447-002-flac_16.flac    1
+    sleep    30
+    common_command    setfmt FLAC
+    common_command    setsr 44100
+    common_command    setlen 27197308
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ff25ff52
+    [Teardown]    断开串口_flac
+
+BIS1447-002-flac_24.flac
+    [Documentation]    755f4212
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\BIS1447-002-flac_24.flac    1
+    sleep    120
+    common_command    setfmt FLAC
+    common_command    setsr 88200
+    common_command    setlen 106172160
+    播放    10    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    755f4212
+    [Teardown]    断开串口_flac
+
+BIS1536-001-flac_16.flac
+    [Documentation]    6397d462
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\BIS1536-001-flac_16.flac    1
+    sleep    30
+    common_command    setfmt FLAC
+    common_command    setsr 44100
+    common_command    setlen 15221790
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6397d462
+    [Teardown]    断开串口_flac
+
+BIS1536-001-flac_24.flac
+    [Documentation]    5e5c705c
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\BIS1536-001-flac_24.flac    1
+    sleep    30
+    common_command    setfmt FLAC
+    common_command    setsr 44100
+    common_command    setlen 31944670
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5e5c705c
+    [Teardown]    断开串口_flac
+
+csi_miami_5.1_256_spx_nero.flac
+    [Documentation]    0960d2c0
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\csi_miami_5.1_256_spx_nero.flac    1
+    sleep    10
+    common_command    setfmt FLAC
+    common_command    setsr 48000
+    common_command    setlen 6990512
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0960d2c0
+    [Teardown]    断开串口_flac
+
+csi_miami_stereo_128_spx_nero.flac
+    [Documentation]    c95302fc
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\csi_miami_stereo_128_spx_nero.flac    1
+    sleep    10
+    common_command    setfmt FLAC
+    common_command    setsr 48000
+    common_command    setlen 3208022
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c95302fc
+    [Teardown]    断开串口_flac
+
+ForUntoUsSurround88.flac
+    [Documentation]    742f2161
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\ForUntoUsSurround88.flac    1
+    sleep    30
+    common_command    setfmt FLAC
+    common_command    setsr 88200
+    common_command    setlen 21971451
+    播放    10    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    742f2161
+    [Teardown]    断开串口_flac
+
+HD7041888514725_01_01.flac
+    [Documentation]    bd1014ed
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\HD7041888514725_01_01.flac    1
+    sleep    60
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 52599892
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bd1014ed
+    [Teardown]    断开串口_flac
+
+HD7041888514824_01_05.flac
+    [Documentation]    f939cf2c
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\HD7041888514824_01_05.flac    1
+    sleep    180
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 152703724
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f939cf2c
+    [Teardown]    断开串口_flac
+
+HDMCH7041888514725_01_01.flac
+    [Documentation]    519d59fc
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\HDMCH7041888514725_01_01.flac    1
+    sleep    120
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 135249817
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    519d59fc
+    [Teardown]    断开串口_flac
+
+HDMCH7041888514824_01_05.flac
+    [Documentation]    7f9e0233
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\HDMCH7041888514824_01_05.flac    1
+    sleep    360
+    common_command    setfmt FLAC
+    common_command    setsr 96000
+    common_command    setlen 377375284
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7f9e0233
+    [Teardown]    断开串口_flac
+
+MendelssohnVC.flac
+    [Documentation]    3e3b1634
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\MendelssohnVC.flac    1
+    sleep    60
+    common_command    setfmt FLAC
+    common_command    setsr 44100
+    common_command    setlen 43839954
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3e3b1634
+    [Teardown]    断开串口_flac
+
+MendelssohnVC24.flac
+    [Documentation]    bdd1543e
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\MendelssohnVC24.flac    1
+    sleep    60
+    common_command    setfmt FLAC
+    common_command    setsr 48000
+    common_command    setlen 67839833
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bdd1543e
+    [Teardown]    断开串口_flac
+
+recit16bit.flac
+    [Documentation]    da387346
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\recit16bit.flac    1
+    sleep    3
+    common_command    setfmt FLAC
+    common_command    setsr 44100
+    common_command    setlen 772369
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    da387346
+    [Teardown]    断开串口_flac
+
+recit24bit.flac
+    [Documentation]    62cfd95c
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\recit24bit.flac    1
+    sleep    5
+    common_command    setfmt FLAC
+    common_command    setsr 88200
+    common_command    setlen 2700022
+    播放    10    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    62cfd95c
+    [Teardown]    断开串口_flac
+
+sample_fk12.flac
+    [Documentation]    b5c7b9db
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\sample_fk12.flac    1
+    sleep    5
+    common_command    setfmt FLAC
+    common_command    setsr 44100
+    common_command    setlen 2324220
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b5c7b9db
+    [Teardown]    断开串口_flac
+
+SHD7041888514824_01_05.flac
+    [Documentation]    046c5554
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\SHD7041888514824_01_05.flac    1
+    sleep    360
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 365854800
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    046c5554
+    [Teardown]    断开串口_flac
+
+surround88.flac
+    [Documentation]    327352a5
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\surround88.flac    1
+    sleep    10
+    common_command    setfmt FLAC
+    common_command    setsr 88200
+    common_command    setlen 7041090
+    播放    10    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    327352a5
+    [Teardown]    断开串口_flac
+
+test_176P4kHz.flac
+    [Documentation]    204d7076
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\test_176P4kHz.flac    1
+    sleep    15
+    common_command    setfmt FLAC
+    common_command    setsr 176400
+    common_command    setlen 14765596
+    播放    13    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    204d7076
+    [Teardown]    断开串口_flac
+
+test192.flac
+    [Documentation]    58f000c3
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\test192.flac    1
+    sleep    15
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 17163528
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    58f000c3
+    [Teardown]    断开串口_flac
+
+test-cdmaster.flac
+    [Documentation]    5bae13dd
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\test-cdmaster.flac    1
+    sleep    3
+    common_command    setfmt FLAC
+    common_command    setsr 44100
+    common_command    setlen 836748
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5bae13dd
+    [Teardown]    断开串口_flac
+
+test-hrmaster.flac
+    [Documentation]    358346cf
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\test-hrmaster.flac    1
+    sleep    5
+    common_command    setfmt FLAC
+    common_command    setsr 88200
+    common_command    setlen 3132275
+    播放    10    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    358346cf
+    [Teardown]    断开串口_flac
+
+tone16bit.flac
+    [Documentation]    23879467
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\tone16bit.flac    1
+    sleep    5
+    common_command    setfmt FLAC
+    common_command    setsr 44100
+    common_command    setlen 129282
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    23879467
+    [Teardown]    断开串口_flac
+
+tone24bit.flac
+    [Documentation]    e0d8b662
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\tone24bit.flac    1
+    sleep    5
+    common_command    setfmt FLAC
+    common_command    setsr 88200
+    common_command    setlen 450922
+    播放    10    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e0d8b662
+    [Teardown]    断开串口_flac
+
+UHD7041888512721_01_01.flac
+    [Documentation]    ccef7246
+    [Setup]    连接串口
+    设置音频    ES\\FLAC\\UHD7041888512721_01_01.flac    1
+    sleep    360
+    common_command    setfmt FLAC
+    common_command    setsr 192000
+    common_command    setlen 338941012
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ccef7246
+    [Teardown]    断开串口_flac
+
+all_out_of_love.flac
+    [Documentation]    1e48ba8f
+    [Setup]    连接串口
+    设置音频    FromSunplus\\FLAC\\all_out_of_love.flac    1
+    sleep    30
+    common_command    setfmt FLAC
+    common_command    setsr 44100
+    common_command    setlen 38702912
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1e48ba8f
+    [Teardown]    断开串口_flac
+
+love_you.flac
+    [Documentation]    7a3c4be9
+    [Setup]    连接串口
+    设置音频    FromSunplus\\FLAC\\love_you.flac    1
+    sleep    30
+    common_command    setfmt FLAC
+    common_command    setsr 44100
+    common_command    setlen 23412355
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7a3c4be9
+    [Teardown]    断开串口_flac
+
+Nobuo_Uematsu-Zanarukando_nite.flac
+    [Documentation]    7dc9a4ee
+    [Setup]    连接串口
+    设置音频    FromSunplus\\FLAC\\Nobuo_Uematsu-Zanarukando_nite.flac    1
+    sleep    30
+    common_command    setfmt FLAC
+    common_command    setsr 44100
+    common_command    setlen 11722953
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7dc9a4ee
+    [Teardown]    断开串口_flac
+
+take_me_to_your_heart.flac
+    [Documentation]    d2e88b3c
+    [Setup]    连接串口
+    设置音频    FromSunplus\\FLAC\\take_me_to_your_heart.flac    1
+    sleep    30
+    common_command    setfmt FLAC
+    common_command    setsr 44100
+    common_command    setlen 26328417
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d2e88b3c
+    [Teardown]    断开串口_flac

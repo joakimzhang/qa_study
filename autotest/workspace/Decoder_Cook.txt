@@ -1,0 +1,841 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../业务关键字.txt
+
+*** Variables ***
+${platform}       1    # 0:fpga,1:simulator,2:ASIC
+${console_num}    11    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\Debug\\test_audio_cook.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    houh    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1118    # devel03的密码，用户登录bjdevel03
+${AudioFileDir}    D:\\AudioFile    # \\\\bjdevel03\\stream\\AudioTestFile D:\\AudioFile
+
+*** Test Cases ***
+90009885H_2ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\90009885H_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b53d9da1
+    [Teardown]    断开串口
+
+audiosig_1ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\audiosig_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    799262be
+    [Teardown]    断开串口
+
+choppy-playback-sample_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\choppy-playback-sample_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8ae43792
+    [Teardown]    断开串口
+
+firstrun_1ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\firstrun_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a161cfd4
+    [Teardown]    断开串口
+
+gorleben_1ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\gorleben_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    062ecfe7
+    [Teardown]    断开串口
+
+mlorre1_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\mlorre1_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    cbfefb13
+    [Teardown]    断开串口
+
+mul8m1tn_1ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\mul8m1tn_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3c839e07
+    [Teardown]    断开串口
+
+RLV8_19_1ch_8000Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\RLV8_19_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e6d9207f
+    [Teardown]    断开串口
+
+rockfall_1ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\rockfall_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    63c55b5b
+    [Teardown]    断开串口
+
+FUN_RM_32_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\AC-cook\\FUN_RM_32_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a1048e7d
+    [Teardown]    断开串口
+
+FUN_RM_64_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\AC-cook\\FUN_RM_64_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8c14ac74
+    [Teardown]    断开串口
+
+FUN_RM_96_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\AC-cook\\FUN_RM_96_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a5d25d12
+    [Teardown]    断开串口
+
+mc_sich_ra8_20_2ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\AC-cook\\mc_sich_ra8_20_2ch_22050Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ef51ee6c
+    [Teardown]    断开串口
+
+mc_sich_ra8_44_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\AC-cook\\mc_sich_ra8_44_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    45ba2346
+    [Teardown]    断开串口
+
+Vetenskap_extramaterial_2005-10-31_142936_2ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\AC-cook\\Vetenskap_extramaterial_2005-10-31_142936_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e2da5e45
+    [Teardown]    断开串口
+
+Vetenskap_mosbricka_2005-03-02_105820_2ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\AC-cook\\Vetenskap_mosbricka_2005-03-02_105820_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ccb354dc
+    [Teardown]    断开串口
+
+gg_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\AC-cook\\good_stereo\\gg_2ch_44100Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    efe39e39
+    [Teardown]    断开串口
+
+cook-missing_channel_2ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\AC-cook\\two_languages\\cook-missing_channel_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fd91604a
+    [Teardown]    断开串口
+
+ra10cook_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\audio_pk_pts\\ra10cook_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a3143dfc
+    [Teardown]    断开串口
+
+jj-video_1ch_8000Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\new\\jj-video_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    54e01110
+    [Teardown]    断开串口
+
+no_video_with_xv_or_x11_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\new\\no_video_with_xv_or_x11_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b2bc5472
+    [Teardown]    断开串口
+
+novideo_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\new\\novideo_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    dd69da85
+    [Teardown]    断开串口
+
+strange_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\new\\strange_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    806d1115
+    [Teardown]    断开串口
+
+video-1_1ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\new\\video-1_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    27dd3c76
+    [Teardown]    断开串口
+
+23_I_grassi_1ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\real-bug\\A-V_sync\\23_I_grassi_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3a9719dc
+    [Teardown]    断开串口
+
+av_out_of_sync_after_about_10_minute_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\real-bug\\A-V_sync\\av_out_of_sync_after_about_10_minute_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fca61dbd
+    [Teardown]    断开串口
+
+av_out_of_sync_after_about_10_minutes_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\real-bug\\A-V_sync\\av_out_of_sync_after_about_10_minutes_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    24ffda9a
+    [Teardown]    断开串口
+
+Episode_603-Asspen_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\real-bug\\A-V_sync\\Episode_603-Asspen_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    894ab8ea
+    [Teardown]    断开串口
+
+Noir_1ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\real-bug\\bad_WxH\\rv30-bad\\Noir_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c2119d62
+    [Teardown]    断开串口
+
+broken-rv30_1ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\real-bug\\black\\broken-rv30_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0f6b8972
+    [Teardown]    断开串口
+
+seek_sample2_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\real-bug\\seek\\seek_sample2_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6054c381
+    [Teardown]    断开串口
+
+01_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\size_change\\01_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    29127485
+    [Teardown]    断开串口
+
+resolution_change_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\size_change\\resolution_change_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c5f383c6
+    [Teardown]    断开串口
+
+test.realplay-ok_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\size_change\\test.realplay-ok_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    36a4db87
+    [Teardown]    断开串口
+
+two_section_real_1_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\size_change\\two_section_real_1_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    552b7760
+    [Teardown]    断开串口
+
+141a_1ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\141a_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    141cb0f1
+    [Teardown]    断开串口
+
+BQOBD-Vindicator_RM01_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\BQOBD-Vindicator_RM01_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c7d46b1e
+    [Teardown]    断开串口
+
+DISK1_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\DISK1_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bd45ffd9
+    [Teardown]    断开串口
+
+eiqu-56k_1ch_8000Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\eiqu-56k_1ch_8000Hz.bin    1
+    sleep    5
+    splay    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8c0ed802
+    [Teardown]    断开串口
+
+firstframenokey_1ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\firstframenokey_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    12ba4c8b
+    [Teardown]    断开串口
+
+hi1_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\hi1_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8779e5bf
+    [Teardown]    断开串口
+
+iz120a-stops_at_67s-RV30_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\iz120a-stops_at_67s-RV30_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    afdec72b
+    [Teardown]    断开串口
+
+jackass-stops_at_66s-rv30_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\jackass-stops_at_66s-rv30_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    39f1b297
+    [Teardown]    断开串口
+
+lotr_1000k_final_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\lotr_1000k_final_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2fe45fc4
+    [Teardown]    断开串口
+
+lotr_trailer2_large_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\lotr_trailer2_large_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b63ba5e4
+    [Teardown]    断开串口
+
+lotr2_newli_german_320x136_css300_2ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\lotr2_newli_german_320x136_css300_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0773f0e1
+    [Teardown]    断开串口
+
+paula_abdul-cold_hearted_1ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\paula_abdul-cold_hearted_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    afdd1172
+    [Teardown]    断开串口
+
+paula_abdul-crazy_cool_1ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\paula_abdul-crazy_cool_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4ecfdcd4
+    [Teardown]    断开串口
+
+sample_1ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\sample_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2d915dd8
+    [Teardown]    断开串口
+
+simpsons-clip_1ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\simpsons-clip_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9a206dab
+    [Teardown]    断开串口
+
+still_still_still_2ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\still_still_still_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2a21d7b6
+    [Teardown]    断开串口
+
+teaser_1ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\teaser_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    00ee34dc
+    [Teardown]    断开串口
+
+teaserde_1ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\teaserde_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    093101c0
+    [Teardown]    断开串口
+
+Tom_Jerry-Cat_Napping_1ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV30\\Tom_Jerry-Cat_Napping_1ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e17ed3e9
+    [Teardown]    断开串口
+
+20040506_1ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV40\\20040506_1ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a7ddf01b
+    [Teardown]    断开串口
+
+Abyss_DVDRIP_RV9_FR_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV40\\Abyss_DVDRIP_RV9_FR_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    cb6d84c1
+    [Teardown]    断开串口
+
+Blade2_640_1Mbps_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV40\\Blade2_640_1Mbps_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    59c04773
+    [Teardown]    断开串口
+
+crash_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV40\\crash_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8e020856
+    [Teardown]    断开串口
+
+dquant1_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV40\\dquant1_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    55d23442
+    [Teardown]    断开串口
+
+issue747_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV40\\issue747_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c087cb92
+    [Teardown]    断开串口
+
+packet_timestamp_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV40\\packet_timestamp_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d46cebb2
+    [Teardown]    断开串口
+
+rmvb_window_with_large_black_blank_2ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV40\\rmvb_window_with_large_black_blank_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b2eadd26
+    [Teardown]    断开串口
+
+sam_640_750Kbps_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV40\\sam_640_750Kbps_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c469534d
+    [Teardown]    断开串口
+
+sam_640_750Kbps-requires_flag_fps_24-RV40_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV40\\sam_640_750Kbps-requires_flag_fps_24-RV40_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c469534d
+    [Teardown]    断开串口
+
+Sample_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV40\\Sample_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4d371723
+    [Teardown]    断开串口
+
+SirMixalot_Baby_Got_Back-uncensored_version_sm_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV40\\SirMixalot_Baby_Got_Back-uncensored_version_sm_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5605ce5d
+    [Teardown]    断开串口
+
+spygames-2MB_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV40\\spygames-2MB_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3f34f137
+    [Teardown]    断开串口
+
+test_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV40\\test_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    dd7e14e9
+    [Teardown]    断开串口
+
+paycheck_paramount_1m_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV40\\from_RP10\\paycheck_paramount_1m_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8442ea98
+    [Teardown]    断开串口
+
+paycheck_paramount_450k_480x_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    ES\\RealAudio\\VC-RV40\\from_RP10\\paycheck_paramount_450k_480x_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    010750d4
+    [Teardown]    断开串口
+
+A002_COOK_641kbps_441khz_2ch_44100Hz.bin
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    FromSunplus\\RA\\RA\\A002_COOK_641kbps_441khz_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    06abb346
+    [Teardown]    断开串口
+
+A003_COOK_965kbps_441khz_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\RA\\RA\\A003_COOK_965kbps_441khz_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ad878eb9
+    [Teardown]    断开串口
+
+ra_0001_2ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\RA\\RA\\ra_0001_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    00000000
+    [Teardown]    断开串口
+
+ra_0007-RA_Cook-01_2ch_44100Hz.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\RA\\RA\\ra_0007-RA_Cook-01_2ch_44100Hz.bin    1
+    sleep    5
+    splay    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    272eaf9f
+    [Teardown]    断开串口
+
+ra_0010-WangQingShui_2ch_22050Hz.bin
+    [Setup]    连接串口
+    设置音频    FromSunplus\\RA\\RA\\ra_0010-WangQingShui_2ch_22050Hz.bin    1
+    sleep    5
+    splay    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    00000000
+    [Teardown]    断开串口

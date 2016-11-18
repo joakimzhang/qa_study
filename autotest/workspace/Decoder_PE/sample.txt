@@ -1,0 +1,27 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Test Setup
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../../业务关键字.txt
+
+*** Variables ***
+${platform}       3
+${console_num}    9
+
+*** Test Cases ***
+
+*** Keywords ***
+PE_DEC_CASE
+    [Arguments]    ${file_name}    ${check_sum}
+    [Timeout]    30 minutes
+    连接串口
+    common_command    mon
+    sleep    3
+    common_command    avl audp_play ${file_name}
+    sleep    5
+    检查checksum    ${check_sum}
+    [Teardown]    断开串口

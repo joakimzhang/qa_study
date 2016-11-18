@@ -1,0 +1,1851 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../业务关键字.txt
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    1    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\Debug\\test_audio_allac.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    chenql    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1108    # devel03的密码，用户登录bjdevel03
+${AudioFileDir}    D:\\AudioFile    # \\\\bjdevel03\\stream\\AudioTestFile D:\\AudioFile
+
+*** Test Cases ***
+7041888511922_19_stereo.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 34992983
+    sleep    3
+    common_command    playusb 1 /7041888511922_19_stereo.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    b524ac44
+    [Teardown]    断开串口
+
+2L-082_mch-96kHz_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 201518289
+    sleep    3
+    common_command    playusb 1 /2L-082_mch-96kHz_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    af3bae46
+    [Teardown]    断开串口
+
+2L-063_stereo192_01_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 165743096
+    sleep    3
+    common_command    playusb 1 /2L-063_stereo192_01_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    70889752
+    [Teardown]    断开串口
+
+2L-071_mch96_01_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 504260161
+    sleep    3
+    common_command    playusb 1 /2L-071_mch96_01_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    214b7801
+    [Teardown]    断开串口
+
+2L-087_stereo-192kHz_06.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 151535873
+    sleep    3
+    common_command    playusb 1 /2L-087_stereo-192kHz_06.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    307e6390
+    [Teardown]    断开串口
+
+2L38_01_96kHz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 51058340
+    sleep    3
+    common_command    playusb 1 /2L38_01_96kHz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    9083f709
+    [Teardown]    断开串口
+
+tone16bit.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 138583
+    sleep    3
+    common_command    playusb 1 /tone16bit.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    23879467
+    [Teardown]    断开串口
+
+BIS1447-002-flac_16.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 27265412
+    sleep    3
+    common_command    playusb 1 /BIS1447-002-flac_16.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    ff25ff52
+    [Teardown]    断开串口
+
+Beethoven_op111_sats1_multikanal.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 19343946
+    sleep    3
+    common_command    playusb 1 /Beethoven_op111_sats1_multikanal.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    d6a9f047
+    [Teardown]    断开串口
+
+2L48SACD_14_stereo_96k.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 91132654
+    sleep    3
+    common_command    playusb 1 /2L48SACD_14_stereo_96k.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    3c69f844
+    [Teardown]    断开串口
+
+MendelssohnVC24.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 96835790
+    sleep    3
+    common_command    playusb 1 /MendelssohnVC24.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    bdd1543e
+    [Teardown]    断开串口
+
+2L-090C_mch-96kHz_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 184537531
+    sleep    3
+    common_command    playusb 1 /2L-090C_mch-96kHz_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    980c6889
+    [Teardown]    断开串口
+
+2L53SACD_04_stereo_192kHz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 142680868
+    sleep    3
+    common_command    playusb 1 /2L53SACD_04_stereo_192kHz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    5d7d8371
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96_1_22khz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 22050
+    sleep    3
+    common_command    setlen 19581618
+    sleep    3
+    common_command    playusb 1 /2L50SACD_tr01_multi_96_1_22khz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    3aff8fa6
+    [Teardown]    断开串口
+
+2L-064_mch_01_08.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 177683808
+    sleep    3
+    common_command    playusb 1 /2L-064_mch_01_08.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    46364bdc
+    [Teardown]    断开串口
+
+2L-086_mch-96kHz_15.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 36831868
+    sleep    3
+    common_command    playusb 1 /2L-086_mch-96kHz_15.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    88854e66
+    [Teardown]    断开串口
+
+recit16bit.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 790904
+    sleep    3
+    common_command    playusb 1 /recit16bit.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    da387346
+    [Teardown]    断开串口
+
+test-hrmaster.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 88200
+    sleep    3
+    common_command    setlen 3156691
+    sleep    3
+    common_command    playusb 1 /test-hrmaster.m4a.bin
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    358346cf
+    [Teardown]    断开串口
+
+2L-077-stereo-192kHz_21.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 137043497
+    sleep    3
+    common_command    playusb 1 /2L-077-stereo-192kHz_21.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    b73253e5
+    [Teardown]    断开串口
+
+2L49SACD_tr1_96k_stereo.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 163348673
+    sleep    3
+    common_command    playusb 1 /2L49SACD_tr1_96k_stereo.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    43f7ffa2
+    [Teardown]    断开串口
+
+2L-064_stereo192kHz_01_08.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 130257393
+    sleep    3
+    common_command    playusb 1 /2L-064_stereo192kHz_01_08.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    7e8f3cc1
+    [Teardown]    断开串口
+
+2L-068_stereo96_01_15.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 87913910
+    sleep    3
+    common_command    playusb 1 /2L-068_stereo96_01_15.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    dbe3256a
+    [Teardown]    断开串口
+
+BIS1536-001-flac_24.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 17021379
+    sleep    3
+    common_command    playusb 1 /BIS1536-001-flac_24.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    2a791f4d
+    [Teardown]    断开串口
+
+2L-086_stereo-96kHz_15.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 103245524
+    sleep    3
+    common_command    playusb 1 /2L-086_stereo-96kHz_15.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    a9b5ecff
+    [Teardown]    断开串口
+
+BIS1536-001-flac_16.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 15381991
+    sleep    3
+    common_command    playusb 1 /BIS1536-001-flac_16.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    6397d462
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 156192155
+    sleep    3
+    common_command    playusb 1 /2L50SACD_tr01_multi_96.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    ee9684b8
+    [Teardown]    断开串口
+
+7041888511922_19_multi.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 262030033
+    sleep    3
+    common_command    playusb 1 /7041888511922_19_multi.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    16cd6248
+    [Teardown]    断开串口
+
+7041888513520_01_13mch92kHz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 222571138
+    sleep    3
+    common_command    playusb 1 /7041888513520_01_13mch92kHz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    86da81ef
+    [Teardown]    断开串口
+
+ForUntoUsSurround88.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 88200
+    sleep    3
+    common_command    setlen 24998008
+    sleep    3
+    common_command    playusb 1 /ForUntoUsSurround88.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    742f2161
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96_1_48khz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 31544301
+    sleep    3
+    common_command    playusb 1 /2L50SACD_tr01_multi_96_1_48khz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    36c62e1b
+    [Teardown]    断开串口
+
+2L-071_stereo96_01_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 175212136
+    sleep    3
+    common_command    playusb 1 /2L-071_stereo96_01_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    29c79723
+    [Teardown]    断开串口
+
+2L-087_mch-96kHz_06.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 200217747
+    sleep    3
+    common_command    playusb 1 /2L-087_mch-96kHz_06.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    a3d6bf54
+    [Teardown]    断开串口
+
+2L-077-stereo-96kHz_21.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 69971214
+    sleep    3
+    common_command    playusb 1 /2L-077-stereo-96kHz_21.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    0442e2d0
+    [Teardown]    断开串口
+
+2L53SACD_04_mch_96k.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 196685537
+    sleep    3
+    common_command    playusb 1 /2L53SACD_04_mch_96k.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    b35b8933
+    [Teardown]    断开串口
+
+csi_miami_5.1_256_spx_nero.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 8764815
+    sleep    3
+    common_command    playusb 1 /csi_miami_5.1_256_spx_nero.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    0960d2c0
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96_1_16khz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 16000
+    sleep    3
+    common_command    setlen 15755866
+    sleep    3
+    common_command    playusb 1 /2L50SACD_tr01_multi_96_1_16khz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    be12541a
+    [Teardown]    断开串口
+
+2L-082_stereo-96kHz_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 71045181
+    sleep    3
+    common_command    playusb 1 /2L-082_stereo-96kHz_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    a501748a
+    [Teardown]    断开串口
+
+7041888513520_01_13_192kHz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 119806847
+    sleep    3
+    common_command    playusb 1 /7041888513520_01_13_192kHz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    215a714f
+    [Teardown]    断开串口
+
+recit24bit.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 88200
+    sleep    3
+    common_command    setlen 2728418
+    sleep    3
+    common_command    playusb 1 /recit24bit.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    62cfd95c
+    [Teardown]    断开串口
+
+HDMCH7041888514824_01_05.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 422889718
+    sleep    3
+    common_command    playusb 1 /HDMCH7041888514824_01_05.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    7f9e0233
+    [Teardown]    断开串口
+
+tone24bit.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 88200
+    sleep    3
+    common_command    setlen 1086744
+    sleep    3
+    common_command    playusb 1 /tone24bit.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    e0d8b662
+    [Teardown]    断开串口
+
+2L-087_stereo-96kHz_06.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 71925983
+    sleep    3
+    common_command    playusb 1 /2L-087_stereo-96kHz_06.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    2e6cca95
+    [Teardown]    断开串口
+
+2L-063_mch96_01_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 221046956
+    sleep    3
+    common_command    playusb 1 /2L-063_mch96_01_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    9e90fd1f
+    [Teardown]    断开串口
+
+2L-084_stereo-192kHz_11.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 184370046
+    sleep    3
+    common_command    playusb 1 /2L-084_stereo-192kHz_11.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    1df70554
+    [Teardown]    断开串口
+
+test-cdmaster.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 868188
+    sleep    3
+    common_command    playusb 1 /test-cdmaster.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    5bae13dd
+    [Teardown]    断开串口
+
+2L-077-mch-96kHz_21.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 188414214
+    sleep    3
+    common_command    playusb 1 /2L-077-mch-96kHz_21.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    c2319cbc
+    [Teardown]    断开串口
+
+2L-074_stereo96kHz_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 18509415
+    sleep    3
+    common_command    playusb 1 /2L-074_stereo96kHz_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    d64d547e
+    [Teardown]    断开串口
+
+2L-074_mch96kHz_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 306341982
+    sleep    3
+    common_command    playusb 1 /2L-074_mch96kHz_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    3fbb141d
+    [Teardown]    断开串口
+
+2L-090C_stereo-96kHz_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 167670192
+    sleep    3
+    common_command    playusb 1 /2L-090C_stereo-96kHz_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    e4ee0a5c
+    [Teardown]    断开串口
+
+BIS1447-002-flac_24.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 88200
+    sleep    3
+    common_command    setlen 109747625
+    sleep    3
+    common_command    playusb 1 /BIS1447-002-flac_24.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    755f4212
+    [Teardown]    断开串口
+
+2L-068_stereo192_01_15.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 167515933
+    sleep    3
+    common_command    playusb 1 /2L-068_stereo192_01_15.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    58a9e977
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96_1_44khz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 30257378
+    sleep    3
+    common_command    playusb 1 /2L50SACD_tr01_multi_96_1_44khz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    97529bda
+    [Teardown]    断开串口
+
+2L-084_mch-96kHz_11.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 243931235
+    sleep    3
+    common_command    playusb 1 /2L-084_mch-96kHz_11.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    84ace422
+    [Teardown]    断开串口
+
+2L53SACD_04_stereo_96k.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 71460051
+    sleep    3
+    common_command    playusb 1 /2L53SACD_04_stereo_96k.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    6a5a8ef0
+    [Teardown]    断开串口
+
+2L-084_stereo-96kHz_11.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 89036064
+    sleep    3
+    common_command    playusb 1 /2L-084_stereo-96kHz_11.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    4f417e46
+    [Teardown]    断开串口
+
+test_176P4kHz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 176400
+    sleep    3
+    common_command    setlen 16548309
+    sleep    3
+    common_command    playusb 1 /test_176P4kHz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    204d7076
+    [Teardown]    断开串口
+
+2L-082_stereo-192kHz_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 152717065
+    sleep    3
+    common_command    playusb 1 /2L-082_stereo-192kHz_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    504be392
+    [Teardown]    断开串口
+
+HDMCH7041888514725_01_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 78883584
+    sleep    3
+    common_command    playusb 1 /HDMCH7041888514725_01_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    482caf73
+    [Teardown]    断开串口
+
+HD7041888514725_01_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 55786989
+    sleep    3
+    common_command    playusb 1 /HD7041888514725_01_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    bd1014ed
+    [Teardown]    断开串口
+
+2L-074_stereo192kHz_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 234829183
+    sleep    3
+    common_command    playusb 1 /2L-074_stereo192kHz_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    72cffe54
+    [Teardown]    断开串口
+
+test192.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 18166945
+    sleep    3
+    common_command    playusb 1 /test192.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    58f000c3
+    [Teardown]    断开串口
+
+sample_fk12.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 2492172
+    sleep    3
+    common_command    playusb 1 /sample_fk12.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    73f533be
+    [Teardown]    断开串口
+
+2L-068_mch96_01_15.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 236773425
+    sleep    3
+    common_command    playusb 1 /2L-068_mch96_01_15.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    23541888
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96_1_24khz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 24000
+    sleep    3
+    common_command    setlen 20625805
+    sleep    3
+    common_command    playusb 1 /2L50SACD_tr01_multi_96_1_24khz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    fa4dd2b5
+    [Teardown]    断开串口
+
+2L-071_stereo192_01_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 356237314
+    sleep    3
+    common_command    playusb 1 /2L-071_stereo192_01_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    269dc786
+    [Teardown]    断开串口
+
+2L-063_stereo96_01_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 78821223
+    sleep    3
+    common_command    playusb 1 /2L-063_stereo96_01_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    697748bc
+    [Teardown]    断开串口
+
+2L50SACD_tr01_stereo_96.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 55520247
+    sleep    3
+    common_command    playusb 1 /2L50SACD_tr01_stereo_96.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    1ff4f20c
+    [Teardown]    断开串口
+
+2L50SACD_tr01_stereo_192kHz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 114080648
+    sleep    3
+    common_command    playusb 1 /2L50SACD_tr01_stereo_192kHz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    d39328b3
+    [Teardown]    断开串口
+
+csi_miami_stereo_128_spx_nero.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 3487182
+    sleep    3
+    common_command    playusb 1 /csi_miami_stereo_128_spx_nero.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    c95302fc
+    [Teardown]    断开串口
+
+2L38_01_192kHz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 359950762
+    sleep    3
+    common_command    playusb 1 /2L38_01_192kHz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    bc7a2783
+    [Teardown]    断开串口
+
+2L-086_stereo-192kHz_15.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 208657166
+    sleep    3
+    common_command    playusb 1 /2L-086_stereo-192kHz_15.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    2e631322
+    [Teardown]    断开串口
+
+SHD7041888514824_01_05.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 58400291
+    sleep    3
+    common_command    playusb 1 /SHD7041888514824_01_05.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    2f3b0065
+    [Teardown]    断开串口
+
+2L-064_stereo96kHz_01_08.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 62538990
+    sleep    3
+    common_command    playusb 1 /2L-064_stereo96kHz_01_08.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    269dacbe
+    [Teardown]    断开串口
+
+MendelssohnVC.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 43741448
+    sleep    3
+    common_command    playusb 1 /MendelssohnVC.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    3e3b1634
+    [Teardown]    断开串口
+
+HD7041888514824_01_05.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 153815572
+    sleep    3
+    common_command    playusb 1 /HD7041888514824_01_05.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    f939cf2c
+    [Teardown]    断开串口
+
+surround88.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 88200
+    sleep    3
+    common_command    setlen 32731942
+    sleep    3
+    common_command    playusb 1 /surround88.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    327352a5
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96_1_11khz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 11025
+    sleep    3
+    common_command    setlen 12054871
+    sleep    3
+    common_command    playusb 1 /2L50SACD_tr01_multi_96_1_11khz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    011b9a9e
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96_1_8khz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 8000
+    sleep    3
+    common_command    setlen 9321611
+    sleep    3
+    common_command    playusb 1 /2L50SACD_tr01_multi_96_1_8khz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    70cd2740
+    [Teardown]    断开串口
+
+UHD7041888512721_01_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 35046210
+    sleep    3
+    common_command    playusb 1 /UHD7041888512721_01_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    25023c52
+    [Teardown]    断开串口
+
+2L-090C_stereo-192kHz_01.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 192000
+    sleep    3
+    common_command    setlen 201501994
+    sleep    3
+    common_command    playusb 1 /2L-090C_stereo-192kHz_01.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    a86c1651
+    [Teardown]    断开串口
+
+2L50SACD_tr01_multi_96_1_32khz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 32000
+    sleep    3
+    common_command    setlen 24752052
+    sleep    3
+    common_command    playusb 1 /2L50SACD_tr01_multi_96_1_32khz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    668fea99
+    [Teardown]    断开串口
+
+2L48SACD_14_mch_96k.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 258204304
+    sleep    3
+    common_command    playusb 1 /2L48SACD_14_mch_96k.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    1d3d6037
+    [Teardown]    断开串口
+
+2L38SACD_tr1_mch_96kHz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 518772704
+    sleep    3
+    common_command    playusb 1 /2L38SACD_tr1_mch_96kHz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    3e64ca63
+    [Teardown]    断开串口
+
+7041888513520_01_13_96kHz.m4a.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 34385629
+    sleep    3
+    common_command    playusb 1 /7041888513520_01_13_96kHz.m4a.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    4c5ba061
+    [Teardown]    断开串口
+
+If_I_Were_A_Boy_96khz.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 34385629
+    sleep    3
+    common_command    playusb 1 /If_I_Were_A_Boy_96khz.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    50fd3502
+    [Teardown]    断开串口
+
+If_I_Were_A_Boy_48000.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 29185338
+    sleep    3
+    common_command    playusb 1 /If_I_Were_A_Boy_48000.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    4c97383c
+    [Teardown]    断开串口
+
+Listen_22P05.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 22050
+    sleep    3
+    common_command    setlen 14733918
+    sleep    3
+    common_command    playusb 1 /Listen_22P05.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    29a4a49e
+    [Teardown]    断开串口
+
+CrossEveryRiver_8khz.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 8000
+    sleep    3
+    common_command    setlen 6251914
+    sleep    3
+    common_command    playusb 1 /CrossEveryRiver_8khz.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    ee3a3b65
+    [Teardown]    断开串口
+
+Honesty_11025hz.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 11025
+    sleep    3
+    common_command    setlen 7724331
+    sleep    3
+    common_command    playusb 1 /Honesty_11025hz.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    4c5ddcbc
+    [Teardown]    断开串口
+
+Halo_32khz.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 32000
+    sleep    3
+    common_command    setlen 21877905
+    sleep    3
+    common_command    playusb 1 /Halo_32khz.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    afd03ba0
+    [Teardown]    断开串口
+
+E266-224kbps_AAC_LC_ADTS_Version2_44.1khz_Stereo.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 31988669
+    sleep    3
+    common_command    playusb 1 /E266-224kbps_AAC_LC_ADTS_Version2_44.1khz_Stereo.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    792fd353
+    [Teardown]    断开串口
+
+E254-24kbps_AAC_LC_ADTS_Version2_11.025khz_Stereo.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 11025
+    sleep    3
+    common_command    setlen 8524408
+    sleep    3
+    common_command    playusb 1 /E254-24kbps_AAC_LC_ADTS_Version2_11.025khz_Stereo.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    e420f9a4
+    [Teardown]    断开串口
+
+E253-20kbps_AAC_LC_ADTS_Version2_8khz_Stereo_linux_new.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 8000
+    sleep    3
+    common_command    setlen 6572019
+    sleep    3
+    common_command    playusb 1 /E253-20kbps_AAC_LC_ADTS_Version2_8khz_Stereo_linux_new.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    c8bc7c2f
+    [Teardown]    断开串口
+
+E253-20kbps_AAC_LC_ADTS_Version2_8khz_Stereo.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 8000
+    sleep    3
+    common_command    setlen 6572019
+    sleep    3
+    common_command    playusb 1 /E253-20kbps_AAC_LC_ADTS_Version2_8khz_Stereo.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    c8bc7c2f
+    [Teardown]    断开串口
+
+The_End_Of_The_World_linux_new.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 8000
+    sleep    3
+    common_command    setlen 6572019
+    sleep    3
+    common_command    playusb 1 /The_End_Of_The_World_linux_new.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    c8bc7c2f
+    [Teardown]    断开串口
+
+Run_the_World_Girls_Dave_Aude_Club_Remix_44100.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 65083056
+    sleep    3
+    common_command    playusb 1 /Run_the_World_Girls_Dave_Aude_Club_Remix_44100.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    468c4471
+    [Teardown]    断开串口
+
+NaughtyGirl_11025hz.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 11025
+    sleep    3
+    common_command    setlen 7214646
+    sleep    3
+    common_command    playusb 1 /NaughtyGirl_11025hz.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    2d002f30
+    [Teardown]    断开串口
+
+PriceTag_96khz.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 40923813
+    sleep    3
+    common_command    playusb 1 /PriceTag_96khz.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    8b08e54b
+    [Teardown]    断开串口
+
+Listen_24khz.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 24000
+    sleep    3
+    common_command    setlen 15908264
+    sleep    3
+    common_command    playusb 1 /Listen_24khz.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    94ae5cd2
+    [Teardown]    断开串口
+
+If_I_Were_A_Boy_44100.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 28310345
+    sleep    3
+    common_command    playusb 1 /If_I_Were_A_Boy_44100.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    f0db6a9e
+    [Teardown]    断开串口
+
+The_End_Of_The_World.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 25380712
+    sleep    3
+    common_command    playusb 1 /The_End_Of_The_World.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    18321b02
+    [Teardown]    断开串口
+
+SweetDreams_16khz.caf.bin
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt ALAC
+    sleep    3
+    common_command    setsr 16000
+    sleep    3
+    common_command    setlen 11187509
+    sleep    3
+    common_command    playusb 1 /SweetDreams_16khz.caf.bin
+    sleep    60
+    common_command    stop 1
+    sleep    3
+    检查checksum    3a079ece
+    [Teardown]    断开串口

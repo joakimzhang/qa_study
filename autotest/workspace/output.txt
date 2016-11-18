@@ -1,0 +1,532 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Library           SSHLibrary
+Resource          ../业务关键字.txt
+Library           test_tool
+Library           OperatingSystem
+Library           String
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    1    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\debug\\test_audio_ddp.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    chenql    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1108    # devel03的密码，用户登录bjdevel03
+
+*** Test Cases ***
+AUDIO_IO_RCA_2CH
+    [Setup]    连接串口
+    设置音频    AudioIO\\L_5555_R_5555.pcm    1
+    播放    6    1    1
+    sleep    5
+    volume控制    1    81    81
+    sleep    30
+    volume控制    2    61    61
+    sleep    30
+    common_command    pstop 1
+    sleep    10
+    Copy File    d:\\AudioOut_A4.pcm    d:\\result\\RCA_2CH.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_SPDIF_2CH_24BIT
+    [Setup]    连接串口
+    设置音频    AudioIO\\L_5555_R_5555.pcm    1
+    iec输出    0
+    播放    8    1    1
+    sleep    5
+    volume控制    1    81    81
+    sleep    30
+    volume控制    2    61    61
+    sleep    100
+    common_command    pstop 1
+    sleep    10
+    Copy File    d:\\AudioOut_A4.pcm    d:\\result\\SPDIF_2CH.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_HDMI_2CH_24BIT
+    [Setup]    连接串口
+    设置音频    AudioIO\\L_5555_R_5555.pcm    1
+    iec输出    1
+    播放    8    1    1
+    sleep    5
+    volume控制    1    81    81
+    sleep    30
+    volume控制    2    61    61
+    sleep    100
+    common_command    pstop 1
+    sleep    10
+    Copy File    d:\\AudioOut_A4.pcm    d:\\result\\SPDIF_2CH.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_RCA_32K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\32kfs_sine_L-24db_R-30db_1khz.pcm    1
+    播放    6    1    1
+    sleep    50
+    common_command    pstop 1
+    [Teardown]    断开串口
+
+AUDIO_IO_RCA_44K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\44kfs_sine_L-24db_R-30db_1khz.pcm    1
+    播放    7    1    1
+    sleep    50
+    common_command    pstop 1
+    sleep    10
+    Copy File    d:\\AudioOut_A4.pcm    d:\\result\\RCA_44k.pcm
+    检查checksum    dc330ac3
+    [Teardown]    断开串口
+
+AUDIO_IO_RCA_48K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\48kfs_sine_L-24db_R-30db_1khz.pcm    1
+    播放    8    1    1
+    sleep    50
+    common_command    pstop 1
+    sleep    10
+    Copy File    d:\\AudioOut_A4.pcm    d:\\result\\RCA_48k.pcm
+    检查checksum    7a1447cc
+    [Teardown]    断开串口
+
+AUDIO_IO_RCA_88K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\88k.pcm    1
+    播放    10    1    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A4.pcm    d:\\result\\RCA_88k.pcm
+    检查checksum    21f53ed0
+    [Teardown]    断开串口
+
+AUDIO_IO_RCA_96K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\96k.pcm    1
+    播放    11    1    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A4.pcm    d:\\result\\RCA_96k.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_RCA_176K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\176k.pcm    1
+    播放    13    1    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A4.pcm    d:\\result\\RCA_176k.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_RCA_192K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\192k.pcm    1
+    播放    14    1    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A4.pcm    d:\\result\\RCA_192k.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_SPDIF_32K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\32kfs_sine_L-24db_R-30db_1khz.pcm    1
+    iec输出    0
+    播放    6    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_32k.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_SPDIF_44K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\44kfs_sine_L-24db_R-30db_1khz.pcm    1
+    iec输出    0
+    播放    7    0    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_44k.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_SPDIF_48K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\48kfs_sine_L-24db_R-30db_1khz.pcm    1
+    iec输出    0
+    播放    8    0    1
+    sleep    20
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_48k.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_SPDIF_88K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\88k.pcm    1
+    iec输出    0
+    播放    10    1    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_88k.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_SPDIF_96K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\96k.pcm    1
+    iec输出    0
+    播放    11    1    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_96k.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_SPDIF_176K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\176k.pcm    1
+    iec输出    0
+    播放    13    1    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_176k.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_SPDIF_192K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\192k.pcm    1
+    iec输出    0
+    播放    14    1    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A5.pcm    d:\\result\\SPDIF_192k.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_HDMI_32K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\32kfs_sine_L-24db_R-30db_1khz.pcm    1
+    iec输出    1
+    播放    6    0    1
+    sleep    20
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A6.pcm    d:\\result\\HDMI_32k.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_HDMI_44K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\44kfs_sine_L-24db_R-30db_1khz.pcm    1
+    iec输出    1
+    播放    7    0    1
+    sleep    20
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A6.pcm    d:\\result\\HDMI_44k.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_HDMI_48K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\48kfs_sine_L-24db_R-30db_1khz.pcm    1
+    iec输出    1
+    播放    8    0    1
+    sleep    20
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A6.pcm    d:\\result\\HDMI_48k.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_HDMI_88K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\88k.pcm    1
+    iec输出    1
+    播放    10    1    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A6.pcm    d:\\result\\HDMI_88k.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_HDMI_96K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\96k.pcm    1
+    iec输出    1
+    播放    11    1    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A6.pcm    d:\\result\\HDMI_96k.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_HDMI_176K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\176k.pcm    1
+    iec输出    1
+    播放    13    1    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A6.pcm    d:\\result\\HDMI_176k.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_HDMI_192K_FS
+    [Setup]    连接串口
+    设置音频    AudioIO\\192k.pcm    1
+    iec输出    1
+    播放    14    1    1
+    sleep    10
+    停止    1
+    sleep    10
+    Copy File    d:\\AudioOut_A6.pcm    d:\\result\\HDMI_192k.pcm
+    [Teardown]    断开串口
+
+test
+    [Setup]
+    ${cwd}=    Evaluate    os.getcwd()    modules=os
+    log    ${cwd}
+    Ffmpeg Eac3 To Spdif    D:\\48K_8ch.eac3    D:\\out_8.spdif
+    Pcm24 To 16    D:\\AudioOut_A6.pcm    D:\\AudioOut_A6_18.pcm
+    [Teardown]
+
+test01
+    [Setup]
+    [Timeout]
+    生成dual_decoder音频    AudioIO\\88k.pcm    AudioIO\\88k.pcm    4096    8192
+    [Teardown]
+
+AUDIO_IO_VOLUME_RCA_HW
+    [Setup]    连接串口
+    设置音频    AudioIO\\48kfs_sine_-26db_1khz.pcm    1
+    播放    8    1    1
+    sleep    3
+    volume控制    1    81    0
+    sleep    60
+    common_command    pstop 1
+    [Teardown]    断开串口
+
+AUDIO_IO_VOLUME_IEC0_PCM_HW
+    [Setup]    连接串口
+    设置音频    AudioIO\\48kfs_sine_-20db_1khz.pcm    1
+    sleep    3
+    iec输出    0
+    播放    8    1    1
+    sleep    5
+    volume控制    1    81    0
+    sleep    30
+    common_command    pstop 1
+    [Teardown]    断开串口
+
+AUDIO_IO_VOLUME_IEC1_PCM_HW
+    [Setup]    连接串口
+    设置音频    AudioIO\\48kfs_sine_-20db_1khz.pcm    1
+    sleep    3
+    iec输出    1
+    播放    8    1    1
+    sleep    5
+    volume控制    1    81    0
+    sleep    30
+    common_command    pstop 1
+    [Teardown]    断开串口
+
+AUDIO_IO_VOLUME_STEP_HW
+    [Setup]    连接串口
+    设置音频    AudioIO\\48kfs_sine_-20db_1khz.pcm    0
+    iec输出    0
+    播放    8    1    1
+    sleep    10
+    volume控制    1    0    0
+    sleep    10
+    volume控制    1    50    50
+    sleep    10
+    volume控制    1    70    70
+    sleep    10
+    volume控制    1    81    81
+    sleep    6
+    common_command    pstop 1
+    [Teardown]    断开串口
+
+AUDIO_IO_VOLUME_RCA_SW
+    [Setup]    连接串口
+    设置音频    AudioIO\\48kfs_sine_-26db_1khz.pcm    1
+    播放    8    1    1
+    sleep    10
+    volume控制    2    102    0
+    sleep    60
+    common_command    pstop 1
+    [Teardown]    断开串口
+
+AUDIO_IO_VOLUME_IEC0_PCM_SW
+    [Setup]    指定串口    11
+    设置音频    AudioIO\\48kfs_sine_-20db_1khz.pcm    1
+    sleep    3
+    iec输出    0
+    volume控制    1    81    81
+    sleep    3
+    volume控制    2    102    102
+    sleep    30
+    播放    8    1    1
+    sleep    2
+    volume控制    2    102    0
+    sleep    100
+    common_command    pstop 1
+    [Teardown]    断开串口
+
+AUDIO_IO_VOLUME_IEC1_PCM_SW
+    [Setup]    连接串口
+    设置音频    AudioIO\\48kfs_sine_-20db_1khz.pcm    1
+    sleep    3
+    iec输出    1
+    volume控制    1    81    81
+    sleep    3
+    volume控制    2    102    102
+    sleep    30
+    播放    8    1    1
+    sleep    2
+    volume控制    2    102    0
+    sleep    100
+    common_command    pstop 1
+    [Teardown]    断开串口
+
+AUDIO_IO_VOLUME_STEP_SW
+    [Setup]    连接串口
+    设置音频    48kfs_sine_-20db_1khz.pcm    1
+    iec输出    0
+    播放    8    1    1
+    sleep    5
+    volume控制    2    0    0
+    sleep    40
+    volume控制    2    50    50
+    sleep    20
+    volume控制    2    70    70
+    sleep    20
+    volume控制    2    102    102
+    sleep    20
+    common_command    pstop 1
+    [Teardown]    断开串口
+
+AUDIO_IO_RAW_HDMI_EAC3
+    [Setup]    指定串口    D:\\debug\\test_audio_ddp.exe
+    设置音频    ES\\EAC3\\buggy_aht_5.1_384.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 7014912
+    切换输出模式    2    2
+    切换输出模式    1    2
+    common_command    wreg 67 7 0x20404000
+    播放    8    0    1
+    停止    1
+    Pcm24 To 16    D:\\AudioOut_A6.pcm    d:\\result\\${TEST_NAME}_RAW_16bit.pcm
+    ffmpeg_convert_to_spdif    D:\\AudioTestFile\\AudioIO\\48k.eac3    d:\\result\\${TEST_NAME}_FFMPEG_16bit.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_RAW_HDMI_AC3
+    [Setup]    指定串口    D:\\debug\\test_audio_ddp.exe
+    设置音频    ES\\AC3\\Breathless_AC3_128kbps_32khz_Stereo.ac3    1    #HDMI 接功放
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 32000
+    common_command    setlen 960000
+    切换输出模式    2    2
+    切换输出模式    1    2
+    common_command    wreg 67 7 0x20404000
+    播放    8    0    1
+    sleep    40    \    #功放可以收到raw 数据
+    Pcm24 To 16    D:\\AudioOut_A6.pcm    d:\\result\\${TEST_NAME}_RAW_16bit.pcm
+    ffmpeg_convert_to_spdif    D:\\AudioTestFile\\AudioIO\\48k.ac3    d:\\result\\${TEST_NAME}_FFMPEG_16bit.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_RAW_SPDIF_AC3
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    设置音频    AudioIO\\48k.ac3    1
+    iec输出    0
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 240384
+    切换输出模式    1    2
+    播放    8    0    1
+    sleep    40
+    Pcm24 To 16    D:\\AudioOut_A5.pcm    d:\\result\\${TEST_NAME}_RAW_16bit.pcm
+    ffmpeg_convert_to_spdif    D:\\AudioTestFile\\AudioIO\\48k.ac3    d:\\result\\${TEST_NAME}_FFMPEG_16bit.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_RAW_HDMI_AAC
+    [Setup]    指定串口    D:\\debug\\test_audio_aac.exe
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    iec输出    0
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 455072
+    切换输出模式    2    2
+    切换输出模式    1    2
+    common_command    wreg 67 7 0x20404000
+    播放    8    0    1
+    sleep    100
+    Pcm24 To 16    D:\\AudioOut_A6.pcm    d:\\result\\${TEST_NAME}_RAW_16bit.pcm
+    ffmpeg_convert_to_spdif    D:\\AudioTestFile\\ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    d:\\result\\${TEST_NAME}_FFMPEG_16bit.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_RAW_SPDIF_DTS
+    [Setup]    指定串口    D:\\debug\\test_audio_ddp.exe
+    设置音频    ES\\DTS\\pfcell2DTST02DELAY-240ms_6ch_48khz_24bit_CBR_755kbps.dts    1
+    iec输出    0
+    common_command    setfmt DTS
+    common_command    setsr 48000
+    common_command    setlen 1358100
+    切换输出模式    1    2
+    播放    8    0    1
+    sleep    40
+    Pcm24 To 16    D:\\AudioOut_A5.pcm    d:\\result\\${TEST_NAME}_RAW_16bit.pcm
+    ffmpeg_convert_to_spdif    D:\\AudioTestFile\\ES\\DTS\\Master Audio 2.0ch 16bit_48khz_VBR_1825kbps_1510kbps.dts    d:\\result\\${TEST_NAME}_FFMPEG_16bit.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_RAW+PCM_AC3
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\country.ac3    1
+    iec输出    0
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 3001344
+    切换输出模式    2    1
+    切换输出模式    1    2
+    播放    8    0    1
+    sleep    40
+    Pcm24 To 16    D:\\AudioOut_A5.pcm    d:\\result\\${TEST_NAME}_RAW_16bit_A5.pcm
+    Pcm24 To 16    D:\\AudioOut_A6.pcm    d:\\result\\${TEST_NAME}_RAW_16bit_A6.pcm
+    ffmpeg_convert_to_spdif    D:\\AudioTestFile\\AudioIO\\48k.ac3    d:\\result\\${TEST_NAME}_FFMPEG_16bit.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_RAW_SPDIF_AC3_RAW_pause
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\country.ac3    1
+    iec输出    0
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 3001344
+    切换输出模式    2    2
+    切换输出模式    1    2
+    common_command    play 8 0 1
+    sleep    10
+    common_command    pauseplay 1
+    sleep    30
+    Pcm24 To 16    D:\\AudioOut_A5.pcm    d:\\result\\${TEST_NAME}_RAW_16bit.pcm
+    ffmpeg_convert_to_spdif    D:\\AudioTestFile\\AudioIO\\48k.ac3    d:\\result\\${TEST_NAME}_FFMPEG_16bit.pcm
+    [Teardown]    断开串口
+
+AUDIO_IO_RAW_SPDIF_AAC
+    [Setup]    指定串口    D:\\debug\\test_audio_aac.exe
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    iec输出    0
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 455072
+    切换输出模式    1    2
+    播放    8    0    1
+    sleep    100
+    Pcm24 To 16    D:\\AudioOut_A5.pcm    d:\\result\\${TEST_NAME}_RAW_16bit.pcm
+    ffmpeg_convert_to_spdif    D:\\AudioTestFile\\ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    d:\\result\\${TEST_NAME}_FFMPEG_16bit.pcm
+    [Teardown]    断开串口

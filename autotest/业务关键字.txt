@@ -1,0 +1,357 @@
+*** Keywords ***
+文件搜索
+    [Arguments]    @{dir_path}
+    search_file    @{dir_path}
+
+切换流
+    [Arguments]    ${ts_card}    ${ts_file}
+    run_switch    ${ts_card}    ${ts_file}
+
+XML转CSV
+    [Arguments]    ${csv}    ${xml}
+    read_xml_to_csv    ${csv}    ${xml}
+    read_csv_to_xml    ${csv}    ${xml}
+
+同步bin文件
+    detect_change
+
+切换输出模式
+    [Arguments]    ${output_type}    ${output_mode}
+    [Documentation]    参数1：output_type \ 参数2：output_mode
+    ...    output_type
+    ...    1:spdif
+    ...    2:hdmi
+    ...    output_mode
+    ...    1:pcm
+    ...    2:raw
+    common_command    set_output ${output_type} ${output_mode}
+
+连接串口
+    [Documentation]    参数：串口号
+    ...    例如：
+    ...    串口为com9，则参数为 9
+    BuiltIn.Run Keyword If    ${platform}==0    Connect Serial    ${console_num}    57600
+    BuiltIn.Run Keyword If    ${platform}==0    sent_command    mon
+    ...    ELSE IF    ${platform}==1    connect_command_sim    ${sim_exe_path}
+    BuiltIn.Run Keyword If    ${platform}==2    Connect Serial    ${console_num}    115200
+    BuiltIn.Run Keyword If    ${platform}==3    Connect Serial    ${console_num}    115200
+
+断开串口
+    BuiltIn.Run Keyword If    ${platform}==3    common_command    avl audp_stop
+    BuiltIn.Run Keyword If    ${platform}==0    close_serial
+    ...    ELSE IF    ${platform}==1    kill_subprocess
+    ...    ELSE    close_serial
+    BuiltIn.Run Keyword If    ${platform}==1    sleep    10
+    BuiltIn.Run Keyword If    ${platform}==1    Copy File    d:\\AudioOut_A4.pcm    d:\\result\\${TEST_NAME}.pcm
+
+断开串口_flac
+    BuiltIn.Run Keyword If    ${platform}==3    common_command    avl audp_stop
+    BuiltIn.Run Keyword If    ${platform}==0    close_serial
+    ...    ELSE IF    ${platform}==1    kill_subprocess
+    ...    ELSE    close_serial
+    BuiltIn.Run Keyword If    ${platform}==1    sleep    10
+    BuiltIn.Run Keyword If    ${platform}==1    Copy File    d:\\audio_test\\autotest\\workspace\\flac_mul.pcm    d:\\result\\flac\\${TEST_NAME}.pcm
+
+播放
+    [Arguments]    ${format}    ${repeat}    ${bank_id}
+    [Documentation]    参数1:
+    ...    Source ID:17,format:EAC3
+    ...    Source ID:19,format:AC3
+    ...    Source ID:18,format:EAC3_8
+    ...    Source ID:30,format:SRC_TEST_AAC_88P2K
+    ...    Source ID:31,format:SRC_TEST_AAC_96K
+    ...    Source ID:29,format:SRC_TEST_AAC_64K
+    ...    Source ID: 1,format:SRC_TEST_WAV_6K
+    ...    Source ID: 2,format:SRC_TEST_WAV_8K
+    ...    Source ID: 3,format:SRC_TEST_WAV_11K
+    ...    Source ID: 4,format:SRC_TEST_WAV_16K
+    ...    Source ID: 5,format:SRC_TEST_WAV_22K
+    ...    Source ID: 6,format:SRC_TEST_WAV_32K
+    ...    Source ID: 7,format:SRC_TEST_WAV_44K
+    ...    Source ID: 8,format:SRC_TEST_WAV_48K
+    ...    Source ID: 9,format:SRC_TEST_WAV_64K
+    ...    Source ID:10,format:SRC_TEST_WAV_88K
+    ...    Source ID:11,format:SRC_TEST_WAV_96K
+    ...    Source ID:12,format:SRC_TEST_WAV_128K
+    ...    Source ID:13,format:SRC_TEST_WAV_176K
+    ...    Source ID:14,format:SRC_TEST_WAV_192K
+    ...    Source ID:15,format:MP3====================
+    ...    参数2: 0:不重复播放 1:重复播放
+    ...    参数3: 1:bank1 2：bank2
+    sleep    3
+    common_command    play ${format} ${repeat} ${bank_id}
+
+重置roomter
+    [Arguments]    ${path}    ${name}
+    [Documentation]    参数1：romter的运行文件路径
+    ...
+    ...    参数2：bin文件的路径
+    [Tags]    roomter
+    reset_roomter    ${path} ${name}
+
+停止
+    [Arguments]    ${bank_ID}
+    [Documentation]    会发停止命令，并等待，直到check sum值显示出来
+    sleep    3
+    common_command    stop ${bank_ID}
+    BuiltIn.Run Keyword If    ${platform}==0    compare_checksum    0
+    BuiltIn.Run Keyword If    ${platform}==1    Get Checksum    0
+    sleep    10
+
+设置2声道模式
+    [Arguments]    ${param}
+    [Documentation]    the 2channel mode param:
+    ...
+    ...    support with mpeg,lpcm,wma
+    ...
+    ...    OUT_STEREO \ = 0x1,
+    ...
+    ...    OUT_LL \ = 0x2,
+    ...
+    ...    OUT_RR = 0x3,
+    ...
+    ...    OUT_LL_AutoADDetect = 0x4,
+    ...
+    ...    OUT_RR_AutoADDetect = 0x5,
+    ...
+    ...    OUT_MixMono = 0x6,
+    ...
+    ...    support with mpeg,lpcm,wma,ac3
+    ...
+    ...    OUT_VocalCancel_Auto = 0x7,
+    ...
+    ...    OUT_VocalCancel = 0x8,
+    ...
+    ...    OUT_LR_Exchange = 0x9,
+    ...
+    ...    OUT_Karaoke_MAX = 0x9,
+    common_command    downmix 16 \ ${param}
+
+设置DownMix模式
+    [Arguments]    ${param}
+    [Documentation]    downmix mode param:
+    ...
+    ...    dwmix_off \ = 0x0,
+    ...
+    ...    dwmix_L0R0 = 0x1,
+    ...
+    ...    dwmix_LtRt = 0x2,
+    ...
+    ...    dwmix_LsRs = 0x3, \ \ // downmix by main program
+    ...
+    ...    dwmix_off_7p1 = 0x4,
+    ...
+    ...    dwmix_off_5p1 = 0x5,
+    common_command    downmix 0 \ ${param}
+
+系统重启
+    common_command    mon
+    common_command    reboot
+    sleep    20
+    common_command    mon
+
+环境初始化
+
+生成音频
+    [Arguments]    ${audio_name}    ${add_address}
+    open connection    10.209.152.14
+    Set Client Configuration    prompt=$    timeout=1000
+    Login    ${BJDevel03_UserName}    ${BJDevel03_Password}
+    write    cd /scanned_file/${BJDevel03_UserName}
+    write    sudo chmod 777 rom.bin
+    write    cp rom.bin tmp.bin -rdf
+    ${audio_name}=    String.Replace String Using Regexp    ${audio_name}    \\\\    /
+    write    ./add /media/streams/AudioTestFile/${audio_name} tmp.bin rom_new.bin ${add_address}
+    Read Until Regexp    .*add_end.*
+    SSHLibrary.get file    /scanned_file/${BJDevel03_UserName}/rom_new.bin    D:\\roomter\\rom.bin
+    重置roomter    D:\\roomter\\downbinfile_32M    D:\\roomter\\rom.bin
+
+下载bin文件
+    open connection    10.209.152.14
+    Set Client Configuration    prompt=$    timeout=1000
+    Login    ${BJDevel03_UserName}    ${BJDevel03_Password}
+    SSHLibrary.get file    /scanned_file/${BJDevel03_UserName}/rom.bin    D:\\roomter\\rom.bin
+    重置roomter    D:\\roomter\\downbinfile_32M    D:\\roomter\\rom.bin
+
+下载音频
+    [Arguments]    ${audio_name}
+    open connection    10.209.152.14
+    Set Client Configuration    prompt=$    timeout=1000
+    Login    ${BJDevel03_UserName}    ${BJDevel03_Password}
+    ${audio_name_linux}=    String.Replace String Using Regexp    ${audio_name}    \\\\    /
+    SSHLibrary.get file    /media/streams/AudioTestFile/${audio_name_linux}    D:\\AudioTestFile\\${audio_name}
+    common_command    configfile D:\\AudioTestFile\\${audio_name}
+
+设置音频
+    [Arguments]    ${_stream}    ${_on_off}
+    BuiltIn.Run Keyword If    ${platform}==0 \ and ${_on_off}==1    生成音频    ${_stream}    4096
+    ...    ELSE IF    ${platform}==1 and ${_on_off}==1    下载音频    ${_stream}
+    ...    ELSE IF    ${platform}==2 and ${_on_off}==1    生成音频    ${_stream}    8192
+    BuiltIn.Run Keyword If    ${platform}==0 \ and ${_on_off}==2    common_command    avl audp_play ${_stream}
+
+检查checksum
+    [Arguments]    ${_command}
+    BuiltIn.Run Keyword If    ${platform}==1    checksum_sim    ${_command}
+    BuiltIn.Run Keyword If    ${platform}==0    checksum_fpga    ${_command}
+    BuiltIn.Run Keyword If    ${platform}==2    checksum_fpga    ${_command}
+    BuiltIn.Run Keyword If    ${platform}==3    checksum_fpga    ${_command}
+
+mute控制
+    [Arguments]    ${_conf}    ${_repeat}
+    [Documentation]    参数1:
+    ...    1：default gain control
+    ...    2：dsp gain control
+    ...
+    ...    参数2：
+    ...    repeat 次数
+    ...
+    ...
+    ...    例子：
+    ...    音量控制 2 10 \ （dsp gain 循环测试10 次）
+    common_command    mute ${_conf} ${_repeat}
+
+快进
+    [Arguments]    ${_bank_id}    ${_speed}
+    common_command    fast_f ${_bank_id} ${_speed}
+
+demute
+    common_command    demute
+
+音量
+    [Arguments]    ${_volume}
+    common_command    set_volume ${_volume}
+
+volume控制
+    [Arguments]    ${_conf}    ${_max}    ${_min}
+    common_command    volume ${_conf} ${_max} ${_min}
+
+common_command
+    [Arguments]    ${_command}
+    BuiltIn.Run Keyword If    ${platform}==0    sent_command    ${_command}
+    ...    ELSE IF    ${platform}==1    sent_command_sim    ${_command}
+    ...    ELSE IF    ${platform}==2    sent_command    avl aud ${_command}
+
+iec输出
+    [Arguments]    ${iec_number}
+    common_command    iec ${iec_number}
+
+校验和
+    [Arguments]    ${_check_sum}
+    Compare Checksum    ${_check_sum}
+
+checksum_sim
+    [Arguments]    ${_reference}
+    ${result}=    Get Checksum    ${_reference}
+    LOG    ---------------------------------------------------------------------------------\nCase:${TEST_NAME}    console=yes
+    BuiltIn.Run Keyword If    '${result}'=='0'    LOG    50 minute time out,can not find checksum!!!!    console=yes
+    BuiltIn.Run Keyword If    '${result}'=='${_reference}'    LOG    Checksum:${result}==Reference:'${_reference}'    console=yes
+    Should Be True    '${result}'=='${_reference}'
+
+checksum_fpga
+    [Arguments]    ${_reference}
+    ${result}=    compare_checksum    ${_reference}
+    LOG    ---------------------------------------------------------------------------------\nCase:${TEST_NAME}    console=yes
+    BuiltIn.Run Keyword If    '${result}'=='0'    LOG    50 minute time out,can not find checksum!!!!    console=yes
+    BuiltIn.Run Keyword If    '${result}'=='${_reference}'    LOG    Checksum:${result}==Reference:'${_reference}'    console=yes
+    Should Be True    '${result}'=='${_reference}'
+
+判断case
+    BuiltIn.Run Keyword If    ${platform}==1    check_result_sim
+    BuiltIn.Run Keyword If    ${platform}==0    check_result_fpga
+
+check_result_sim
+    ${result}=    Get Result
+    Should Be True    ${result}==1
+
+check_result_fpga
+    ${result}=    Compare Result
+    Should Be True    ${result}==1
+
+指定串口
+    [Arguments]    ${exe_path}
+    [Documentation]    用法和连接串口关键字相同，区别是多了2个参数，需要和断开串口联合使用
+    ...
+    ...    参数1:当fimulator平台，参数为exe文件路径，例如 D:\\debug\\test_audio_eac3.exe
+    ...
+    ...    参数2:为串口号：例如：1
+    BuiltIn.Run Keyword If    ${platform}==0    Connect Serial    ${console_num}    57600
+    BuiltIn.Run Keyword If    ${platform}==0    sent_command    mon
+    ...    ELSE IF    ${platform}==1    connect_command_sim    ${exe_path}
+    BuiltIn.Run Keyword If    ${platform}==2    Connect Serial    ${console_num}    115200
+    BuiltIn.Run Keyword If    ${platform}==2    sent_command    mon
+
+生成dual_decoder音频
+    [Arguments]    ${audio_name_1}    ${add_address_1}    ${audio_name_2}    ${add_address_2}
+    [Documentation]    \#文件1：${audio_name_1}    #地址1：${add_address_1}    #文件2：${audio_name_2}    #地址2：${add_address_2}
+    BuiltIn.Run Keyword If    ${platform}==0 or ${platform}==2    dual_decoder_fpga    ${audio_name_1}    ${add_address_1}    ${audio_name_2}    ${add_address_2}
+    ...    ELSE IF    ${platform}==1    dual_decoder_sim    ${audio_name_1}    ${audio_name_2}
+    ...    ELSE    LOG    wrong platform ID    console=yes
+
+dual_decoder_sim
+    [Arguments]    ${audio_name_1}    ${audio_name_2}
+    open connection    10.209.152.14
+    Set Client Configuration    prompt=$    timeout=1000
+    Login    ${BJDevel03_UserName}    ${BJDevel03_Password}
+    ${audio_name_linux_1}=    String.Replace String Using Regexp    ${audio_name_1}    \\\\    /
+    ${audio_name_linux_2}=    String.Replace String Using Regexp    ${audio_name_2}    \\\\    /
+    SSHLibrary.get file    /media/streams/AudioTestFile/${audio_name_linux_1}    D:\\AudioTestFile\\${audio_name_1}
+    SSHLibrary.get file    /media/streams/AudioTestFile/${audio_name_linux_2}    D:\\AudioTestFile\\${audio_name_2}
+    common_command    configfile2 D:\\AudioTestFile\\${audio_name_1} D:\\AudioTestFile\\${audio_name_2}
+
+dual_decoder_fpga
+    [Arguments]    ${audio_name_1}    ${add_address_1}    ${audio_name_2}    ${add_address_2}
+    [Documentation]    \#文件1：${audio_name_1}    #地址1：${add_address_1}    #文件2：${audio_name_2}    #地址2：${add_address_2}
+    open connection    10.209.152.14    timeout=5
+    Set Client Configuration    prompt=$    timeout=5
+    Login    ${BJDevel03_UserName}    ${BJDevel03_Password}
+    write    cd /scanned_file/${BJDevel03_UserName}
+    write    sudo chmod 777 rom.bin
+    ${audio_name_1}=    String.Replace String Using Regexp    ${audio_name_1}    \\\\    /
+    ${audio_name_2}=    String.Replace String Using Regexp    ${audio_name_2}    \\\\    /
+    write    ./add /media/streams/AudioTestFile/${audio_name_1} rom.bin rom_tmp.bin ${add_address_1}
+    Read Until Regexp    .*add_end.*
+    write    ./add /media/streams/AudioTestFile/${audio_name_2} rom_tmp.bin rom_new.bin ${add_address_2}
+    Read Until Regexp    .*add_end.*
+    SSHLibrary.get file    /scanned_file/${BJDevel03_UserName}/rom_new.bin    D:\\roomter\\rom.bin
+    重置roomter    D:\\roomter\\downbinfile_32M    D:\\roomter\\rom.bin
+
+strip_ogg
+    [Arguments]    ${ogg_file_path}    ${packet_file_path}
+    open connection    10.209.152.14
+    Set Client Configuration    prompt=$    timeout=1000
+    Login    ${BJDevel03_UserName}    ${BJDevel03_Password}
+    ${ogg_file_path_server}=    String.Replace String Using Regexp    ${ogg_file_path}    \\\\    /
+    ${packet_file_path_server}=    String.Replace String Using Regexp    ${packet_file_path}    \\\\    /
+    SSHLibrary.get file    /media/streams/AudioTestFile/${ogg_file_path_server}    D:\\AudioTestFile\\${ogg_file_path}
+    get_ogg_packet_file    ${vorbis_exe_path}    D:\\AudioTestFile\\${ogg_file_path}    D:\\AudioTestFile\\${ogg_file_path}.pcm    D:\\AudioTestFile\\${ogg_file_path}.pcket
+    SSHLibrary.put file    D:\\AudioTestFile\\${ogg_file_path}.pcket    /media/streams/AudioTestFile/${packet_file_path_server}
+    write    sudo chmod 777 /media/streams/AudioTestFile/${packet_file_path_server}
+
+splay
+    [Arguments]    ${format}    ${repeat}    ${bank_id}
+    [Documentation]    参数1:
+    ...    Source ID:17,format:EAC3
+    ...    Source ID:19,format:AC3
+    ...    Source ID:18,format:EAC3_8
+    ...    Source ID:30,format:SRC_TEST_AAC_88P2K
+    ...    Source ID:31,format:SRC_TEST_AAC_96K
+    ...    Source ID:29,format:SRC_TEST_AAC_64K
+    ...    Source ID: 1,format:SRC_TEST_WAV_6K
+    ...    Source ID: 2,format:SRC_TEST_WAV_8K
+    ...    Source ID: 3,format:SRC_TEST_WAV_11K
+    ...    Source ID: 4,format:SRC_TEST_WAV_16K
+    ...    Source ID: 5,format:SRC_TEST_WAV_22K
+    ...    Source ID: 6,format:SRC_TEST_WAV_32K
+    ...    Source ID: 7,format:SRC_TEST_WAV_44K
+    ...    Source ID: 8,format:SRC_TEST_WAV_48K
+    ...    Source ID: 9,format:SRC_TEST_WAV_64K
+    ...    Source ID:10,format:SRC_TEST_WAV_88K
+    ...    Source ID:11,format:SRC_TEST_WAV_96K
+    ...    Source ID:12,format:SRC_TEST_WAV_128K
+    ...    Source ID:13,format:SRC_TEST_WAV_176K
+    ...    Source ID:14,format:SRC_TEST_WAV_192K
+    ...    Source ID:15,format:MP3====================
+    ...    参数2: 0:不重复播放 1:重复播放
+    ...    参数3: 1:bank1 2：bank2
+    sleep    3
+    common_command    splay ${format} ${repeat} ${bank_id}

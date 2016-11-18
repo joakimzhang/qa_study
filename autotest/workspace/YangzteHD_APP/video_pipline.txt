@@ -1,0 +1,176 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../../业务关键字.txt
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    9    #serial port
+${sim_exe_path}    D:\\debug\\test_audio.exe    #
+${BJDevel03_UserName}    chenql    # bjdevel03 user name
+${BJDevel03_Password}    Avl1108    # devel03 password
+@{ir_command}     up    down    left    right    ext    enter
+
+*** Test Cases ***
+YHD-482:YANGT_VIDEO_MPEG2_TOP_FIELD_FIRST_hunan
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\Field_Captured_TS\\Customer_Kingvon\\file_Kingvon_Hunan.ts\\Kingvon_Hunan.ts
+
+YHD-483:YANGT_VIDEO_MPEG2_BOTTOM_FIELD_FIRST_xinhua
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\TS\\file_新化加密流_卡顿不同步.ts
+
+YHD-484:YANGT_VIDEO_MPEG2_TOP/BOTTOM_CHANGE_remove_one_field
+    [Template]    video_templete
+    \\\\bjdqa05\\yaojj\\Tigris\\test\\remove_one_field.ts
+
+YHD-485:YANGT_VIDEO_H264_BOTTOM_FIELD_FIRST_taoyuan
+    [Template]    video_templete
+    \\\\bjserver3\\bjfiles\\FAE\\Soc\\AVL8332\\Stream\\DTMB\\湖南\\桃源KingVonTs_706_003.ts
+
+YHD-486:YANGT_VIDEO_H264_MBAFF_sichuan
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\Field_Captured_TS\\Customer_Kingvon\\sc省网国标\\file_PBR_REC_20120803102617_786_500M.ts
+
+YHD-487:YANGT_VIDEO_3:2_PULL_DOWN
+    [Template]    video_templete
+    \\\\bjserver4\\streams\\Lib_test_stream\\Video\\TS\\32pull down\\3_2_pull_down.ts
+
+YHD-488:YANGT_VIDEO_FRAMERATE_CONVERSION_25->30
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\Field_Captured_TS\\Customer_Kingvon\\file_雷波县562M码流.ts
+
+YHD-489:YANGT_VIDEO_FRAMERATE_CONVERSION_30->25
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\Field_Captured_TS\\Customer_Kingvon\\MPEG-2\\file_738N制码流_738_PBR_REC_20110926150503.ts
+
+YHD-490:YANGT_VIDEO_ASPECT_RATIO_SOURCE4:3
+    [Template]    video_templete
+    \\\\bjserver4\\streams\\Lib_test_stream\\euro_ts\\MuxA CH32 562MHz 2008 01 04a.ts
+
+YHD-491:YANGT_VIDEO_ASPECT_RATIO_SOURCE16:9
+    [Template]    video_templete
+    \\\\bjserver4\\streams\\Lib_test_stream\\euro_ts\\MuxA CH32 562MHz 2008 01 04a.ts
+
+YHD-492:YANGT_VIDEO_ASPECT_RATIO_SOURCE_CHANGE
+    [Template]    video_templete
+    \\\\bjserver4\\streams\\Lib_test_stream\\euro_ts\\MuxA CH32 562MHz 2008 01 04a.ts
+
+YHD-493:YANGT_VOS_OUTPUT_YPbPr
+    [Template]    video_templete
+
+YHD-494:YANGT_VIDEO_SCALING
+    [Template]    video_templete
+
+YHD-495:YANGT_VIDEO_NO_VIDEO_PICTURE_SCALING
+    [Template]    video_templete
+    \\\\bjserver4\\streams\\Lib_test_stream\\euro_ts\\MuxA CH32 562MHz 2008 01 04a.ts
+
+YHD-496:YANGT_VIDEO_RADIO_FRAME_SCALING
+    [Template]    video_templete
+
+YHD-497:YANGT_VIDEO_SIGNAL_INTERRUPT
+    [Template]    video_templete
+    \\\\bjserver4\\streams\\Lib_test_stream\\kvn\\SC_546.ts
+
+YHD-498:YANGT_VIDEO_SWITCH_CHANNEL_FREEZE_MODE
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\Field_Captured_TS\\Customer_Kingvon\\file_PBR_REC_20101115140006.ts
+
+YHD-499:YANGT_VIDEO_SWITCH_CHANNEL_BLACK_MODE
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\Field_Captured_TS\\Customer_Kingvon\\file_PBR_REC_20101115140006.ts
+
+YHD-500:YANGT_VIDEO_SWITCH_RADIO
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\Field_Captured_TS\\Customer_Redline_Mid-east_TS_SZ\\file_channelname_change_11064_V_13000.ts
+
+YHD-501:YANGT_VIDEO_SWITCH_TV_RADIO_NTSC
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\Field_Captured_TS\\Customer_Redline_Mid-east_TS_SZ\\file_channelname_change_11064_V_13000.ts
+
+YHD-502:YANGT_VIDEO_SWITCH_TV_RADIO_PAL
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\Field_Captured_TS\\Customer_Redline_Mid-east_TS_SZ\\file_channelname_change_11064_V_13000.ts
+
+YHD-503:YANGT_VIDEO_SWITCH_RESOLUTION_CHANGE--
+    [Template]    video_templete
+
+YHD-504:YANGT_VIDEO_SWITCH_CHANNEL_SD_MPEG2
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\file_Helshinki_562Mhz_1.trp
+
+YHD-505:YANGT_VIDEO_SWITCH_CHANNEL_SD_H264
+    [Template]    video_templete
+    \\\\bjserver3\\bjfiles\\FAE\\Soc\\AVL8332\\Stream\\DTMB\\湖北\\642号清流.ts
+
+YHD-506:YANGT_VIDEO_SWITCH_CHANNEL_SD_AVS
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Department\\FAE\\Soc\\AVL8332\\Stream\\DTMB\\新疆广电\\新疆广电码流(4.28).ts
+
+YHD-507:YANGT_VIDEO_SWITCH_CHANNEL_SD_AVS_PLUS
+    [Template]    video_templete
+    \\\\bjserver4\\streams\\Lib_test_stream\\Video\\AVS+\\AVS+_754_001.ts
+
+YHD-508:YANGT_VIDEO_SWITCH_CHANNEL_SD_MPEG2_H264
+    [Template]    video_templete
+
+YHD-509:YANGT_VIDEO_SWITCH_CHANNEL_SD_MPEG2_AVS
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\Audio_Test_Purpose\\file_sydeny_219500_050303.trp\\sydeny_219500_050303.trpten digital这个节目
+
+YHD-510:YANGT_VIDEO_SWITCH_CHANNEL_SD_MPEG2_AVS_PLUS
+    [Template]    video_templete
+    \\\\bjserver4\\streams\\Lib_test_stream\\Video\\AVS+\\AVS+_754_001.ts
+
+YHD-511:YANGT_VIDEO_SWITCH_CHANNEL_SD_H264_AVS
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\Field_Captured_TS\\Customer_Kingvon\\H.264\\file_H264陕西.ts\\H264陕西.ts
+
+YHD-512:YANGT_VIDEO_SWITCH_CHANNEL_SD_H264_AVS_PLUS
+    [Template]    video_templete
+    \\\\bjserver4\\streams\\Lib_test_stream\\Video\\AVS+\\AVS+_754_001.ts
+
+YHD-513:YANGT_VIDEO_SWITCH_CHANNEL_SD_AVS_AVS_PLUS
+    [Template]    video_templete
+    \\\\bjserver4\\streams\\Lib_test_stream\\Video\\AVS+\\AVS+_754_001.ts
+
+YHD-514:YANGT_VIDEO_PLAY_ONE_PROGRAM_FOR_LONG_TIME
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\Field_Captured_TS\\Customer_Kingvon\\file_湘潭音视频不同步.ts
+
+YHD-515:YANGT_VIDEO_PLAY_RADIO_FOR_LONGTIME
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\Field_Captured_TS\\Customer_Redline_Mid-east_TS_SZ\\file_channelname_change_11064_V_13000.ts
+
+YHD-516:YANGT_VOS_OUTPUT_PAL_with_NTSC&PAL_576
+    [Template]    video_templete
+    \\\\bjfile02\\bjshare\\Public\\TS\\Others\\file_test_for_NTSCPAL_576.ts
+
+YHD-517:YANGT_VOS_OUTPUT_NTSC_with_NTSC&PAL_576
+    [Template]    video_templete
+    \\\\bjfile02\\bjshare\\Public\\TS\\Others\\file_test_for_NTSCPAL_576.ts
+
+YHD-518:YANGT_VOS_OUTPUT_PAL_with_NTSC&PAL_480
+    [Template]    video_templete
+    \\\\bjfile02\\bjshare\\Public\\TS\\Others\\file_test_for_NTSCPAL_480.ts
+
+YHD-519:YANGT_VOS_OUTPUT_NTSC_with_NTSC&PAL_480
+    [Template]    video_templete
+    \\\\bjfile02\\bjshare\\Public\\TS\\Others\\file_test_for_NTSCPAL_480.ts
+
+YHD-520: YANGT_VOS_OUTPUT_AUTO_switch_all_window
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\file_H264_28720_720x480i_720x576i.ts
+
+YHD-521:YANGT_VIDEO_SWITCH_CHANNEL_BETWEEN_DIFFERENT_ASPECT_RATIO_SOURCE
+    [Template]    video_templete
+    \\\\bjfile02\\bjshare\\Public\\TS\\Others\\file_test_for_NTSCPAL_480.ts
+
+*** Keywords ***
+video_templete
+    [Arguments]    ${dir}
+    切换流    bjdittest    ${dir}
+    log    ${dir}

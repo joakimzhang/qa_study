@@ -1,0 +1,1422 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../业务关键字.txt
+
+*** Variables ***
+${platform}       1    # 0:fpga,1:simulator,2:ASIC
+${console_num}    11    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\Debug\\test_audio_ddp.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    houh    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1118    # devel03的密码，用户登录bjdevel03
+${AudioFileDir}    D:\\AudioFile    # \\\\bjdevel03\\stream\\AudioTestFile D:\\AudioFile
+
+*** Test Cases ***
+buggy_aht_5.1_384.eac3
+    [Documentation]    6b428828 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\buggy_aht_5.1_384.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 7014912
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fa36c03e
+    [Teardown]    断开串口
+
+casablanca_aht_mono_64.eac3
+    [Documentation]    dff86376 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\casablanca_aht_mono_64.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 6013664
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4030056f
+    [Teardown]    断开串口
+
+csi_miami_5.1_256_spx.eac3
+    [Documentation]    f1175f39 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\csi_miami_5.1_256_spx.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 667490
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5eb12d82
+    [Teardown]    断开串口
+
+eac3mono64kbit.eac3
+    [Documentation]    dff86376 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3mono64kbit.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 6013664
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4030056f
+    [Teardown]    断开串口
+
+csi_miami_stereo_128_spx.eac3
+    [Documentation]    d97dcdd3 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\csi_miami_stereo_128_spx.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 333664
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5b4ae91d
+    [Teardown]    断开串口
+
+matrix2_commentary1_stereo_192.eac3
+    [Documentation]    c2ad3b19 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\matrix2_commentary1_stereo_192.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2191872
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    cb57dffc
+    [Teardown]    断开串口
+
+matrix2_commentary2_stereo_192.eac3
+    [Documentation]    6fb6105b (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\matrix2_commentary2_stereo_192.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2191872
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    372cb16c
+    [Teardown]    断开串口
+
+matrix2_commentary3_stereo_192.eac3
+    [Documentation]    6d5a93ae (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\matrix2_commentary3_stereo_192.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2191872
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b1b5f79f
+    [Teardown]    断开串口
+
+matrix2_english_5.1_640.eac3
+    [Documentation]    0e823e70 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\matrix2_english_5.1_640.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 7306240
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    29d16a20
+    [Teardown]    断开串口
+
+matrix2_french_5.1_640.eac3
+    [Documentation]    d107ffd6 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\matrix2_french_5.1_640.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 7306240
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e73e8b3b
+    [Teardown]    断开串口
+
+matrix2_spanish_stereo_192.eac3
+    [Documentation]    7555c56a (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\matrix2_spanish_stereo_192.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2191872
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    96b75d74
+    [Teardown]    断开串口
+
+rio_bravo_mono_64_spx.ac3
+    [Documentation]    94e57f82 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\rio_bravo_mono_64_spx.ac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2097408
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c46e0406
+    [Teardown]    断开串口
+
+serenity_english_5.1_1536.eac3
+    [Documentation]    4586da16 (r1396)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\serenity_english_5.1_1536.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 13108224
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    be0fda2d
+    [Teardown]    断开串口
+
+eac3sample01.eac3
+    [Documentation]    a447fd3b (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample01.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    85ea174e
+    [Teardown]    断开串口
+
+eac3sample02.eac3
+    [Documentation]    ce61f2d9 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample02.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f812ce61
+    [Teardown]    断开串口
+
+eac3sample03.eac3
+    [Documentation]    cc43ab8c (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample03.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8932ab61
+    [Teardown]    断开串口
+
+eac3sample04.eac3
+    [Documentation]    071b0878 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample04.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    38796c86
+    [Teardown]    断开串口
+
+eac3sample05.eac3
+    [Documentation]    e172781a (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample05.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e35bcf3e
+    [Teardown]    断开串口
+
+eac3sample06.eac3
+    [Documentation]    a1164e9a (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample06.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6e14ca5d
+    [Teardown]    断开串口
+
+eac3sample07.eac3
+    [Documentation]    76aa92b9 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample07.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1004144b
+    [Teardown]    断开串口
+
+eac3sample08.eac3
+    [Documentation]    538cbaeb (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample08.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    16f15b46
+    [Teardown]    断开串口
+
+eac3sample09.eac3
+    [Documentation]    53b764e8 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample09.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ee1c2883
+    [Teardown]    断开串口
+
+eac3sample10.eac3
+    [Documentation]    1f6ae92e (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample10.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    87471e42
+    [Teardown]    断开串口
+
+eac3sample11.eac3
+    [Documentation]    7333ffc9 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample11.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e72bfa34
+    [Teardown]    断开串口
+
+eac3sample12.eac3
+    [Documentation]    552d2ed9 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample12.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5242880
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    31652243
+    [Teardown]    断开串口
+
+eac3sample13.eac3
+    [Documentation]    df4a1c1b (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample13.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    af007162
+    [Teardown]    断开串口
+
+eac3sample14.eac3
+    [Documentation]    39a4e29f (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample14.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9c8f8388
+    [Teardown]    断开串口
+
+eac3sample15.eac3
+    [Documentation]    1feccf8a (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample15.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    21d34301
+    [Teardown]    断开串口
+
+eac3sample16.eac3
+    [Documentation]    956ac668 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample16.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fbe697c2
+    [Teardown]    断开串口
+
+eac3sample17.eac3
+    [Documentation]    075e6609 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample17.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8662c711
+    [Teardown]    断开串口
+
+eac3sample18.eac3
+    [Documentation]    911434af (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample18.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c61e457c
+    [Teardown]    断开串口
+
+eac3sample19.eac3
+    [Documentation]    40064b7f (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample19.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bd8f24d4
+    [Teardown]    断开串口
+
+eac3sample20.eac3
+    [Documentation]    a87ebbd5 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample20.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5242880
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d57e9e09
+    [Teardown]    断开串口
+
+eac3sample21.eac3
+    [Documentation]    7b9d4c2f (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample21.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0a379974
+    [Teardown]    断开串口
+
+eac3sample22.eac3
+    [Documentation]    b29bfee7 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample22.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2337e182
+    [Teardown]    断开串口
+
+eac3sample23.eac3
+    [Documentation]    d5c5e0ac (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample23.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 3145728
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    59b13942
+    [Teardown]    断开串口
+
+eac3sample24.eac3
+    [Documentation]    e3a9de61 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample24.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 3145728
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b0a84f78
+    [Teardown]    断开串口
+
+eac3sample25.eac3
+    [Documentation]    eef20ebb (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample25.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 3145728
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6a8ba8c6
+    [Teardown]    断开串口
+
+eac3sample26.eac3
+    [Documentation]    eef20ebb (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample26.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 3145728
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6a8ba8c6
+    [Teardown]    断开串口
+
+eac3sample27.eac3
+    [Documentation]    7f780e6f (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample27.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 3145728
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d2c68d81
+    [Teardown]    断开串口
+
+eac3sample28.eac3
+    [Documentation]    ad000de4 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample28.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fde71736
+    [Teardown]    断开串口
+
+eac3sample29.eac3
+    [Documentation]    27e8bdaa (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample29.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    449b937f
+    [Teardown]    断开串口
+
+eac3sample30.eac3
+    [Documentation]    64054a56 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample30.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    998cb85a
+    [Teardown]    断开串口
+
+eac3sample31.eac3
+    [Documentation]    939a08d3 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample31.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 3145728
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ca927145
+    [Teardown]    断开串口
+
+eac3sample32.eac3
+    [Documentation]    620a3581 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample32.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    821d868f
+    [Teardown]    断开串口
+
+eac3sample33.eac3
+    [Documentation]    2a126f68 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample33.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    00fdf637
+    [Teardown]    断开串口
+
+eac3sample34.eac3
+    [Documentation]    7dfc4298 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample34.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e9403c3d
+    [Teardown]    断开串口
+
+eac3sample35.eac3
+    [Documentation]    319499bc (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample35.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    21408301
+    [Teardown]    断开串口
+
+eac3sample36.eac3
+    [Documentation]    3a93ccd9 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample36.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    98a68148
+    [Teardown]    断开串口
+
+eac3sample37.eac3
+    [Documentation]    685b0a05 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample37.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 4194304
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bc189bbf
+    [Teardown]    断开串口
+
+eac3sample38.eac3
+    [Documentation]    c660eafa (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample38.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    73d43287
+    [Teardown]    断开串口
+
+eac3sample39.eac3
+    [Documentation]    3d4a5d8a (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample39.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f0f6faa3
+    [Teardown]    断开串口
+
+eac3sample40.eac3
+    [Documentation]    9117fca5 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample40.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    36fd6e51
+    [Teardown]    断开串口
+
+eac3sample41.eac3
+    [Documentation]    c9157160 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample41.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    eac6144f
+    [Teardown]    断开串口
+
+eac3sample42.eac3
+    [Documentation]    3ab0d533 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample42.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    32977f9f
+    [Teardown]    断开串口
+
+eac3sample43.eac3
+    [Documentation]    76f24ff1 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample43.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3a0768ad
+    [Teardown]    断开串口
+
+eac3sample44.eac3
+    [Documentation]    9fd00f45 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample44.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ba00f7ff
+    [Teardown]    断开串口
+
+eac3sample45.eac3
+    [Documentation]    88877d3a (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample45.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1c5ce63c
+    [Teardown]    断开串口
+
+eac3sample46.eac3
+    [Documentation]    19b31f1f (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample46.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 3145728
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4384c079
+    [Teardown]    断开串口
+
+eac3sample47.eac3
+    [Documentation]    0a6fd2da (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample47.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 3145728
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fb64230c
+    [Teardown]    断开串口
+
+eac3sample48.eac3
+    [Documentation]    30778bc1 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample48.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 3145728
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    228ad38c
+    [Teardown]    断开串口
+
+eac3sample49.eac3
+    [Documentation]    64ae9614 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample49.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 3145728
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8ed59c54
+    [Teardown]    断开串口
+
+eac3sample50.eac3
+    [Documentation]    e98233fc (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample50.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    68d2d858
+    [Teardown]    断开串口
+
+eac3sample51.eac3
+    [Documentation]    c72f8f7f (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample51.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ba9ceb89
+    [Teardown]    断开串口
+
+eac3sample52.eac3
+    [Documentation]    b6d306ab (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample52.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2097152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    808a6bd4
+    [Teardown]    断开串口
+
+eac3sample53.eac3
+    [Documentation]    b366f519 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample53.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2097152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    eb9c4b00
+    [Teardown]    断开串口
+
+eac3sample54.eac3
+    [Documentation]    129bd576 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample54.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2097152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    35897d7b
+    [Teardown]    断开串口
+
+eac3sample55.eac3
+    [Documentation]    adc8da29 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample55.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2097152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bb4cec41
+    [Teardown]    断开串口
+
+eac3sample56.eac3
+    [Documentation]    e8d16b65 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample56.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2097152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e4675eec
+    [Teardown]    断开串口
+
+eac3sample57.eac3
+    [Documentation]    1142ee27 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample57.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2097152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    dd1550bf
+    [Teardown]    断开串口
+
+eac3sample58.eac3
+    [Documentation]    0b7f614b (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample58.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d4e3a538
+    [Teardown]    断开串口
+
+eac3sample59.eac3
+    [Documentation]    3a9de3de (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample59.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    81b03939
+    [Teardown]    断开串口
+
+eac3sample60.eac3
+    [Documentation]    c5cbb117 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample60.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2097152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2d69802b
+    [Teardown]    断开串口
+
+eac3sample61.eac3
+    [Documentation]    52163588 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample61.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2097152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fe39235c
+    [Teardown]    断开串口
+
+eac3sample62.eac3
+    [Documentation]    4af511da (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample62.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2097152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8d4680ed
+    [Teardown]    断开串口
+
+eac3sample63.eac3
+    [Documentation]    538ce58f (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample63.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2097152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8daca1da
+    [Teardown]    断开串口
+
+eac3sample64.eac3
+    [Documentation]    96ba8889 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample64.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3f18267d
+    [Teardown]    断开串口
+
+eac3sample65.eac3
+    [Documentation]    4d52cf4b (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample65.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7701e60e
+    [Teardown]    断开串口
+
+eac3sample66.eac3
+    [Documentation]    4424ca81 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample66.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5000000
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5efd338c
+    [Teardown]    断开串口
+
+eac3sample67.eac3
+    [Documentation]    12f251f4 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample67.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 5242880
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4ae3da8a
+    [Teardown]    断开串口
+
+eac3sample68.eac3
+    [Documentation]    a12c59c3 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample68.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2097152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    15832089
+    [Teardown]    断开串口
+
+eac3sample69.eac3
+    [Documentation]    df0c5d8e (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample69.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2097152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    518945ad
+    [Teardown]    断开串口
+
+eac3sample70.eac3
+    [Documentation]    de14a0df (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample70.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 3145728
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5eb276a4
+    [Teardown]    断开串口
+
+eac3sample71.eac3
+    [Documentation]    b8713571 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample71.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 4194304
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5a5a51f3
+    [Teardown]    断开串口
+
+eac3sample72.eac3
+    [Documentation]    cdcb5acc (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample72.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 3145728
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    09982cef
+    [Teardown]    断开串口
+
+eac3sample73.eac3
+    [Documentation]    d995beef (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample73.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 3145728
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    58f3e19d
+    [Teardown]    断开串口
+
+eac3sample74.eac3
+    [Documentation]    284d5f3b (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample74.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2097152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    abc490a6
+    [Teardown]    断开串口
+
+eac3sample75.eac3
+    [Documentation]    2d323e94 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample75.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2097152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c4d5d676
+    [Teardown]    断开串口
+
+eac3sample76.eac3
+    [Documentation]    bfe591a9 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample76.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 2097152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fba8b3a2
+    [Teardown]    断开串口
+
+eac3sample77.eac3
+    [Documentation]    18446cb2 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample77.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 4194304
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4600afa5
+    [Teardown]    断开串口
+
+eac3sample78.eac3
+    [Documentation]    7e2c21e0 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample78.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 4194304
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5e95ae79
+    [Teardown]    断开串口
+
+eac3sample79.eac3
+    [Documentation]    65db48b7 (r1396)
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\eac3samples\\eac3sample79.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 3145728
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2353c2e7
+    [Teardown]    断开串口

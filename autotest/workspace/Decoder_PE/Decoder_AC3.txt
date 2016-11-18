@@ -1,0 +1,130 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Test Setup
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../../业务关键字.txt
+
+*** Variables ***
+${platform}       3
+${console_num}    9
+
+*** Test Cases ***
+
+*** Keywords ***
+PE_DEC_CASE
+    [Arguments]    ${file_name}    ${check_sum}
+    [Timeout]    30 minutes
+    连接串口
+    common_command    mon
+    sleep    3
+    common_command    avl audp_play ${file_name}
+    sleep    5
+    检查checksum    ${check_sum}
+    [Teardown]    断开串口
+*** Test Cases ***
+1_AC3_T01_3_16bit.ac3
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\224kBps_48kHz\\1_AC3_T01_3_16bit.ac3    076e93e8
+ac3_0002-1_AC3_T01_3_16bit.ac3
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\224kBps_48kHz\\ac3_0002-1_AC3_T01_3_16bit.ac3    076e93e8
+2002__ac3_16bit.ac3
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\384kBps_44.1kHz\\2002__ac3_16bit.ac3    15478a52
+2002n_ac3_16bit.ac3
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\384kBps_44.1kHz\\2002n_ac3_16bit.ac3    15478a52
+ac3_0005-2002__ac3_16bit.ac3
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\384kBps_44.1kHz\\ac3_0005-2002__ac3_16bit.ac3    15478a52
+ac3_0006-2002n_ac3_16bit.ac3
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\384kBps_44.1kHz\\ac3_0006-2002n_ac3_16bit.ac3    15478a52
+ac3_0008-384Kbps_48Khz_6channels_ac3.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\384Kbps_48kHz\\ac3_0008-384Kbps_48Khz_6channels_ac3.es    6daccc70
+1_AC3_T01_4_16bit.ac3
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\448Kbps_48kHz\\1_AC3_T01_4_16bit.ac3    e79dcb3c
+2.diatonis_soal.448k.48kHz.5.1ch.ac3
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\448Kbps_48kHz\\2.diatonis_soal.448k.48kHz.5.1ch.ac3    6907a232
+448Kbps_48Khz_6channels_ac3.ac3
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\448Kbps_48kHz\\448Kbps_48Khz_6channels_ac3.ac3    a7ec8bf3
+ac3_0003-1_AC3_T01_4_16bit.ac3
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\448Kbps_48kHz\\ac3_0003-1_AC3_T01_4_16bit.ac3    e79dcb3c
+ac3_0004-1.current.448k.48kHz.5ch.ac3
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\448Kbps_48kHz\\ac3_0004-1.current.448k.48kHz.5ch.ac3    535f66a6
+ac3_0007-2.diatonis_soal.448k.48kHz.5.1ch.ac3
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\448Kbps_48kHz\\ac3_0007-2.diatonis_soal.448k.48kHz.5.1ch.ac3    6907a232
+ac3_0010-448Kbps_48Khz_6channels_ac3.ac3
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\448Kbps_48kHz\\ac3_0010-448Kbps_48Khz_6channels_ac3.ac3    a7ec8bf3
+ac3_0014-448Kbps_48Khz_6channels_ac3.ac3
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\448Kbps_48kHz\\ac3_0014-448Kbps_48Khz_6channels_ac3.ac3    a7ec8bf3
+3.hard_rock_640k.48khz.5.1ch.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\640kbps_48kHz\\3.hard_rock_640k.48khz.5.1ch.es    4290e34c
+ac3_0009-3.hard_rock_640k.48khz.5.1ch.ac3
+    [Template]    PE_DEC_CASE
+    FromSunplus\\AC3\\640kbps_48kHz\\ac3_0009-3.hard_rock_640k.48khz.5.1ch.ac3    810761db
+class.ac3
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\ac3_test\\compressed\\class.ac3    531b5d11
+country.ac3
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\ac3_test\\compressed\\country.ac3    8163e882
+game.ac3
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\ac3_test\\compressed\\game.ac3    d3590ae8
+game_1.0.ac3
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_1.0.ac3    08bc0425
+game_2.0.ac3
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_2.0.ac3    f4e19028
+game_2.1.0.ac3
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_2.1.0.ac3    7e7eee78
+game_2.1.1.ac3
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_2.1.1.ac3    056a4482
+game_2.2.0.ac3
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_2.2.0.ac3    d73e2fdc
+game_2.2.1.ac3
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_2.2.1.ac3    66e148d7
+game_3.0.0.ac3
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_3.0.0.ac3    e7285bb1
+game_3.0.1.ac3
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_3.0.1.ac3    aad82cff
+game_3.1.0.ac3
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_3.1.0.ac3    3dec4323
+game_3.1.1.ac3
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_3.1.1.ac3    922c79b2
+game_5.0.ac3
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_5.0.ac3    c8e4d362
+game_5.1.ac3
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_5.1.ac3    02d00f3e
+Breathless_AC3_128kbps_32khz_Stereo.ac3
+    [Template]    PE_DEC_CASE
+    ES\\AC3\\Breathless_AC3_128kbps_32khz_Stereo.ac3    180e0b30
+game_acm321_448kbps_32kHz.ac3
+    [Template]    PE_DEC_CASE
+    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_acm321_448kbps_32kHz.ac3    e2b6f822

@@ -1,0 +1,95 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Resource          ../业务关键字.txt
+Library           OperatingSystem
+Library           String
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    1    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\debug\\test_audio.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    chenql    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1108    # devel03的密码，用户登录bjdevel03
+${AudioFileDir}    \\\\bjdevel03\\stream\\AudioTestFile
+
+*** Test Cases ***
+AUDIO_DOT_AC3_PCM_SPDIF_RAW
+    [Setup]    指定串口    11
+    设置音频    ES\\AC3\\test_mpeg2_video_ac3_audio_Headphone_0204_32khz_64kbps_2ch.ac3    1
+    sleep    5
+    common_command    audio_dot_ac3_pcm_spdif_raw
+    sleep    60    #检查功放输出pcm data
+    [Teardown]    断开串口
+
+AUDIO_DOT_AAC_RAW_HDMI_PCM
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1    #hdmi接电视，spdif接松下耳机RP-WF6000T测试
+    sleep    5
+    common_command    audio_dot_aac_raw_hdmi_pcm
+    sleep    60    #检查电视输出pcm data
+    [Teardown]    断开串口
+
+AUDIO_DOT_MPEG_RAW_SPDIF_RAW
+    [Setup]    指定串口    11
+    设置音频    ES\\MPEG1_LAYER3\\sine_200hz_32k_60s.mp3    1
+    sleep    5
+    common_command    audio_dot_mpeg_raw_spdif_raw
+    sleep    60    #检查功放输出pcm data
+    [Teardown]    断开串口
+
+AUDIO_DOT_AC3_RAW_HDMI_RAW
+    [Setup]    指定串口    11
+    设置音频    ES\\AC3\\test_mpeg2_video_ac3_audio_Headphone_0204_32khz_64kbps_2ch.ac3    1
+    sleep    5
+    common_command    audio_dot_ac3_raw_hdmi_raw
+    sleep    60    #检查功放输出raw data
+    [Teardown]    断开串口
+
+AUDIO_DOT_AC3_RAW_SPDIF_RAW
+    [Setup]    指定串口    11
+    设置音频    ES\\AC3\\test_mpeg2_video_ac3_audio_Headphone_0204_32khz_64kbps_2ch.ac3    1
+    sleep    5
+    common_command    audio_dot_ac3_raw_spdif_raw
+    sleep    60    #检查功放输出raw data
+    [Teardown]    断开串口
+
+AUDIO_DOT_AAC_RAW_HDMI_RAW
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    audio_dot_aac_raw_hdmi_raw
+    sleep    60    #检查功放输出pcm data
+    [Teardown]    断开串口
+
+AUDIO_DOT_EAC3_RAW_HDMI_RAW
+    [Setup]    指定串口    11
+    设置音频    ES\\EAC3\\E-AC3_48K_5.1ch.eac3    1
+    sleep    5
+    common_command    audio_dot_eac3_raw_hdmi_raw
+    sleep    60    #检查功放输出raw data,FPGA不能测，因为eac3 raw是192K
+    [Teardown]    断开串口
+
+AUDIO_DOT_AAC_RAW_SPDIF_PCM_HDMI
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    audio_dot_aac_raw_spdif_pcm_hdmi
+    sleep    60    #检查功放输出pcm data,然后输出raw data
+    [Teardown]    断开串口
+
+AUDIO_DOT_RAW_PCM_SWITCH
+    [Setup]    指定串口    D:\\debug\\test_audio.exe
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    audio_dot_raw_pcm_switch    #检查耳机交替输出raw和pcm
+    sleep    60
+    [Teardown]    断开串口
+
+AUDIO_DOT_AAC_PCM_HDMI_RAW
+    [Setup]    指定串口    11
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1    #hdmi接电视，spdif接松下耳机RP-WF6000T测试
+    sleep    5
+    common_command    audio_dot_aac_pcm_hdmi_raw
+    sleep    60    #检查功放输出pcm data
+    [Teardown]    断开串口

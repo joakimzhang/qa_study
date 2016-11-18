@@ -1,0 +1,141 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../../业务关键字.txt
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    9    #serial port
+${sim_exe_path}    D:\\debug\\test_audio.exe    #
+${BJDevel03_UserName}    zhangq    # bjdevel03 user name
+${BJDevel03_Password}    Avl1108    # devel03 password
+@{ir_command}     up    down    left    right    ext    enter
+
+*** Test Cases ***
+YHD-456:YANGT_VIDEO_DEC_MPEG1
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\mpeg1video.ts
+
+YHD-457:YANGT_VIDEO_DEC_MPEG2_SP_ML
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\bird_100M.ts
+
+YHD-458:YANGT_VIDEO_DEC_MPEG2_MP_ML
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\bjtv_2M.trp
+
+YHD-459:YANGT_VIDEO_DEC_H264_BP_2.1
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\remux_sinji_h264_BP_2.1.ts
+
+YHD-460:YANGT_VIDEO_DEC_H264_BP_2.1_576P
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\remux_tij_h264_BP_2.1_576P.ts
+
+YHD-461:YANGT_VIDEO_DEC_H264_BP_4.2_576P_NO_B_FRAME
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\H264_720x576@25_3M_64R_all_P_frame_cut.ts
+
+YHD-462:YANGT_VIDEO_DEC_H264_BP_1.1_FRAMERATE_10
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\remux_fps10_h264_BP_1.1.ts
+
+YHD-463:YANGT_VIDEO_DEC_H264_BP_3.0_CLIP_SIZE
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\remux_Cat_h264_BP_3.0.ts
+
+YHD-464:YANGT_VIDEO_DEC_H264_MP_1.2---
+    [Template]    video_templete
+
+YHD-465:YANGT_VIDEO_DEC_H264_MP_2.1
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\remux_hbc9_fps15_h264_MP_2.1.ts
+
+YHD-466:YANGT_VIDEO_DEC_H264_MP_3.0
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\Allegro_BdWidth_CABAC_00_L30_SD576@25Hz_10.1.ts
+
+YHD-467:YANGT_VIDEO_DEC_H264_MP_3.1_480P
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\MI2_MP_3.1_720x480p.ts
+
+YHD-468:YANGT_VIDEO_DEC_H264_MP_3.1_576I
+    [Template]    video_templete
+
+YHD-469:YANGT_VIDEO_DEC_H264_MP_3.1_576P_NO_B_FRAME
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\re-encode_h264_cavlc_nobrame_level3.1_576p50.ts
+
+YHD-470:YANGT_VIDEO_DEC_H264_MP_4.0_576P
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\remux_Nero_h264_MP_4.0.ts
+
+YHD-471:YANGT_VIDEO_DEC_H264_MP_5.1
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\video_remux\\remux_nagative_h264_MP_5.1.ts
+
+YHD-472:YANGT_VIDEO_DEC_H264_HP_3.0
+    [Template]    video_templete
+    \\\\bjdevel03\\stream\\video_regression\\multi_standard\\264\\seq4_544_1.7Mbps_2nd.26l or Montage_720x480_1.7Mbps_2nd.26l
+
+YHD-473:YANGT_VIDEO_DEC_AVS
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Department\\FAE\\Soc\\Yangtze\\stream\\EAY解视频花屏\\AVS_SD_数码编码器_eay视频花屏.ts
+
+YHD-474:YANGT_VIDEO_DEC_AVS_PLUS_1
+    [Template]    video_templete
+    \\\\bjserver4\\streams\\Lib_test_stream\\Video\\AVS+\\AVS+_754_001.ts
+
+YHD-475:YANGT_VIDEO_DEC_AVS_PLUS_2
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\2015\\AVS\\AVS+\\file_cctv.ts\\cctv.ts
+
+YHD-476:YANGT_VIDEO_DEC_AVS_PLUS_3
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\2015\\AVS\\AVS+\\file_football.ts\\football.ts
+
+YHD-477:YANGT_VIDEO_DEC_AVS_PLUS_4
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\2015\\AVS\\AVS+\\file_20150127-Gospell-site-邦威思创_AVS_plus_720_576I25_2M.ts
+
+YHD-478:YANGT_VIDEO_DEC_AVS_PLUS_5
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\2015\\AVS\\AVS+\\file_sudu.ts
+
+YHD-479:YANGT_VIDEO_DEC_AVS_PLUS_6
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\2015\\AVS\\AVS+\\file_湖南_754M-3HD+3SD_1107_195408.ts\\湖南_754M-3HD+3SD_1107_195408.ts
+
+YHD-480:YANGT_VIDEO_DEC_AVS_PLUS_7
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\2015\\AVS\\AVS+\\file_GMT-CCTV15-SD.ts\\GMT-CCTV15-SD.ts
+
+YHD-481:YANGT_VIDEO_DEC_AVS_PLUS_8
+    [Template]    video_templete
+    \\\\bjfile02\\BJShare\\Public\\TS\\2015\\AVS\\AVS+\\file_湖南_0424_232321_546MHz.ts\\湖南_0424_232321_546MHz.ts
+
+YHD-861:YANGT_VIDEO_DEC_H265_1
+    [Template]    video_templete
+
+YHD-862:YANGT_VIDEO_DEC_H265_2
+    [Template]    video_templete
+
+YHD-863:YANGT_VIDEO_DEC_H265_3
+    [Template]    video_templete
+
+YHD-864:YANGT_VIDEO_DEC_H265_4
+    [Template]    video_templete
+
+YHD-865:YANGT_VIDEO_DEC_H265_5
+    [Template]    video_templete
+
+YHD-866:YANGT_VIDEO_DEC_H265_6
+    [Template]    video_templete
+
+*** Keywords ***
+video_templete
+    [Arguments]    ${dir}
+    切换流    bjdittest    ${dir}
+    log    ${dir}

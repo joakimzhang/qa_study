@@ -1,0 +1,1437 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../业务关键字.txt
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    3
+${sim_exe_path}    D:/simulator/Debug/test_audio_heaac.exe
+${BJDevel03_UserName}    houh
+${BJDevel03_Password}    Avl1118
+${AudioFileDir}    D:/AudioFile    # //bjdevel03/stream/AudioTestFile D:/AudioFile
+
+*** Test Cases ***
+1C_11K_LC_1132_mono.aac
+    [Documentation]    c08d0a5f (r1318)
+    [Tags]    smoke
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 11025
+    sleep    3
+    common_command    setlen 58291
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/11k/1C_11K_LC_1132_mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4646f278
+    [Teardown]    断开串口
+
+2C_11K_LC_11112_stereo.aac
+    [Documentation]    a82043f1 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 11025
+    sleep    3
+    common_command    setlen 201326
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/11k/2C_11K_LC_11112_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a82043f1
+    [Teardown]    断开串口
+
+2C_11K_LC_11128_stereo.aac
+    [Documentation]    160a8c05 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 11025
+    sleep    3
+    common_command    setlen 229933
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/11k/2C_11K_LC_11128_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    160a8c05
+    [Teardown]    断开串口
+
+1C_16K_LC_80-mono.aac
+    [Documentation]    978ddf9b (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 16000
+    sleep    3
+    common_command    setlen 142987
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/16k/1C_16K_LC_80-mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8d8557b8
+    [Teardown]    断开串口
+
+2C_16K_LC_16LC160-stereo.aac
+    [Documentation]    1136c0b7 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 16000
+    sleep    3
+    common_command    setlen 284427
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/16k/2C_16K_LC_16LC160-stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1136c0b7
+    [Teardown]    断开串口
+
+2C_22K_LC_22LC224_stereo.aac
+    [Documentation]    64053ee4 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 22050
+    sleep    3
+    common_command    setlen 159492
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/16k/2C_22K_LC_22LC224_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    64053ee4
+    [Teardown]    断开串口
+
+1C_22K_LC_128_mono.aac
+    [Documentation]    f45a4a29 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 22050
+    sleep    3
+    common_command    setlen 91504
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/22k/1C_22K_LC_128_mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    edcf95a3
+    [Teardown]    断开串口
+
+1C_24K_LC_24LC32_mono.aac
+    [Documentation]    795283f8 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 24000
+    sleep    3
+    common_command    setlen 137669
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/24k/1C_24K_LC_24LC32_mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fbc3037f
+    [Teardown]    断开串口
+
+1C_32K_LC_32_mono.aac
+    [Documentation]    2ee3d2c8 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 32000
+    sleep    3
+    common_command    setlen 139076
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/32k/1C_32K_LC_32_mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e31b17bb
+    [Teardown]    断开串口
+
+1C_48K_LC_48LC160_mono.aac
+    [Documentation]    12a759cc (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 284919
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/32k/1C_48K_LC_48LC160_mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5b797a8f
+    [Teardown]    断开串口
+
+2C_32K_LC_2.aac
+    [Documentation]    de714f59 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 32000
+    sleep    3
+    common_command    setlen 1652736
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/32k/2C_32K_LC_2.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    de714f59
+    [Teardown]    断开串口
+
+1C_44K_LC_44LC20_mono.aac
+    [Documentation]    0e716786 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 92806
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/44k/1C_44K_LC_44LC20_mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    94fd5244
+    [Teardown]    断开串口
+
+2C_44K_LC_jiangnan.aac
+    [Documentation]    7d849d75 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 2122650
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/44k/2C_44K_LC_jiangnan.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7d849d75
+    [Teardown]    断开串口
+
+2C_48K_LC_128_stereo.aac
+    [Documentation]    b2242727 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 228855
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/48k/2C_48K_LC_128_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b2242727
+    [Teardown]    断开串口
+
+1C_8K_LC_20_lc_mono.aac
+    [Documentation]    44ae0456 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 8000
+    sleep    3
+    common_command    setlen 646806
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/8k/1C_8K_LC_20_lc_mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ea4285d8
+    [Teardown]    断开串口
+
+2C_8K_LC_80_stereo.aac
+    [Documentation]    0dce246c (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 8000
+    sleep    3
+    common_command    setlen 59202
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/8k/2C_8K_LC_80_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0dce246c
+    [Teardown]    断开串口
+
+2C_8K_LC_96_stereo.aac
+    [Documentation]    febc8f2f (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 8000
+    sleep    3
+    common_command    setlen 69321
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/LC/8k/2C_8K_LC_96_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    febc8f2f
+    [Teardown]    断开串口
+
+1C_16K-8K_HE-LC_56stereo.aac
+    [Documentation]    8147e750 (r1318)
+    [Tags]    smoke
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 16000
+    sleep    3
+    common_command    setlen 43792
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/16k/1C_16K-8K_HE-LC_56stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    15b41341
+    [Teardown]    断开串口
+
+1C_16K-8K_HE-LC_64stereo.aac
+    [Documentation]    8147e750 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 16000
+    sleep    3
+    common_command    setlen 43792
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/16k/1C_16K-8K_HE-LC_64stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    15b41341
+    [Teardown]    断开串口
+
+2C_16K-8K_HE-LC_8K_40_stereo.aac
+    [Documentation]    5562efca (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 16000
+    sleep    3
+    common_command    setlen 72464
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/16k/2C_16K-8K_HE-LC_8K_40_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1b05452b
+    [Teardown]    断开串口
+
+2C_16K-8K_HE-LC_8K_48_stereo.aac
+    [Documentation]    2250b015 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 16000
+    sleep    3
+    common_command    setlen 84002
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/16k/2C_16K-8K_HE-LC_8K_48_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2250b015
+    [Teardown]    断开串口
+
+1C_22K-11K_HE-LC_22HE20_mono.aac
+    [Documentation]    8fb86011 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 22050
+    sleep    3
+    common_command    setlen 121991
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/22k/1C_22K-11K_HE-LC_22HE20_mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5d076ed7
+    [Teardown]    断开串口
+
+1C_22K-11K_HE-LC_22HE32-mono.aac
+    [Documentation]    89fb7143 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 22050
+    sleep    3
+    common_command    setlen 193044
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/22k/1C_22K-11K_HE-LC_22HE32-mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    59e0f472
+    [Teardown]    断开串口
+
+2C_22K-11K_HE-LC_64_stereo.aac
+    [Documentation]    bb7de3a2 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 22050
+    sleep    3
+    common_command    setlen 46502
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/22k/2C_22K-11K_HE-LC_64_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bb7de3a2
+    [Teardown]    断开串口
+
+1C_24K-12K_HE-LC_2432_mono.aac
+    [Documentation]    b1442202 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 24000
+    sleep    3
+    common_command    setlen 151873
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/24k/1C_24K-12K_HE-LC_2432_mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c056d385
+    [Teardown]    断开串口
+
+1C_24K-12K_HE-LC_2440_mono.aac
+    [Documentation]    db1fd4c4 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 24000
+    sleep    3
+    common_command    setlen 165030
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/24k/1C_24K-12K_HE-LC_2440_mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4e050cb0
+    [Teardown]    断开串口
+
+2C_24K-12K_HE-LC_56_ste.aac
+    [Documentation]    3ef76ff1 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 24000
+    sleep    3
+    common_command    setlen 100319
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/24k/2C_24K-12K_HE-LC_56_ste.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3ef76ff1
+    [Teardown]    断开串口
+
+2C_24K-12K_HE-LC_80_stereo.aac
+    [Documentation]    2ca72fcc (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 24000
+    sleep    3
+    common_command    setlen 124731
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/24k/2C_24K-12K_HE-LC_80_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2ca72fcc
+    [Teardown]    断开串口
+
+1C_32K-16K_HE-LC_16K_20_mono.aac
+    [Documentation]    5aa2f43d (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 32000
+    sleep    3
+    common_command    setlen 621527
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/32k/1C_32K-16K_HE-LC_16K_20_mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    332d7409
+    [Teardown]    断开串口
+
+2C_32K-16K_HE-LC_AAC_HEv1-01.aac
+    [Documentation]    cec2b256 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 32000
+    sleep    3
+    common_command    setlen 489059
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/32k/2C_32K-16K_HE-LC_AAC_HEv1-01.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    cec2b256
+    [Teardown]    断开串口
+
+2C_32K-16K_HE-LC_firstdream.aac
+    [Documentation]    cec2b256 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 32000
+    sleep    3
+    common_command    setlen 489059
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/32k/2C_32K-16K_HE-LC_firstdream.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    cec2b256
+    [Teardown]    断开串口
+
+1C_44K-22K_HE-LC_48HE20_mono.aac
+    [Documentation]    4f62ac75 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 36864
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/44k/1C_44K-22K_HE-LC_48HE20_mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    41b9248b
+    [Teardown]    断开串口
+
+1C_44K-22K_HE-LC_48HE32_mono.aac
+    [Documentation]    22becffc (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 57344
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/44k/1C_44K-22K_HE-LC_48HE32_mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c5a36222
+    [Teardown]    断开串口
+
+2C_44K-22K_HE-LC_AAC_HEv1-02.aac
+    [Documentation]    f09776c2 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 544957
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/44k/2C_44K-22K_HE-LC_AAC_HEv1-02.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f09776c2
+    [Teardown]    断开串口
+
+2C_44K-22K_HE-LC_huanghedeshui.aac
+    [Documentation]    f09776c2 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 544957
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/44k/2C_44K-22K_HE-LC_huanghedeshui.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f09776c2
+    [Teardown]    断开串口
+
+1C_48K-24K_HE-LC_64_mono.aac
+    [Documentation]    0d48030a (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 114950
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/48k/1C_48K-24K_HE-LC_64_mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d5b49d9b
+    [Teardown]    断开串口
+
+1C_48K-24K_HE-LC_vbr_mono.aac
+    [Documentation]    6bffa656 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 73669
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/48k/1C_48K-24K_HE-LC_vbr_mono.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    75b5c3d9
+    [Teardown]    断开串口
+
+2C_48K-24K_HE-LC_160_stereo.aac
+    [Documentation]    bc706254 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 247511
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/48k/2C_48K-24K_HE-LC_160_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bc706254
+    [Teardown]    断开串口
+
+2C_48K-24K_HE-LC_192_ste.aac
+    [Documentation]    bc706254 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 247511
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/48k/2C_48K-24K_HE-LC_192_ste.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bc706254
+    [Teardown]    断开串口
+
+2C_48K-24K_HE-LC_224_stereo.aac
+    [Documentation]    bc706254 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 247511
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE/48k/2C_48K-24K_HE-LC_224_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bc706254
+    [Teardown]    断开串口
+
+2C-1C-1C_16K-16K-8K_HEV2-HE-LC_32_stereo.aac
+    [Documentation]    86a67340 (r1318)
+    [Tags]    smoke
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 16000
+    sleep    3
+    common_command    setlen 43801
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE_V2/16k/2C-1C-1C_16K-16K-8K_HEV2-HE-LC_32_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    86a67340
+    [Teardown]    断开串口
+
+2C-1C-1C_16K-16K-8K_HEV2-HE-LC_40_stereo.aac
+    [Documentation]    86a67340 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 16000
+    sleep    3
+    common_command    setlen 43801
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE_V2/16k/2C-1C-1C_16K-16K-8K_HEV2-HE-LC_40_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    86a67340
+    [Teardown]    断开串口
+
+2C-2C-2C_24K-24K-12K_HEV2-HE-LC20_stereo.aac
+    [Documentation]    e306268e (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 24000
+    sleep    3
+    common_command    setlen 36862
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE_V2/24k/2C-2C-2C_24K-24K-12K_HEV2-HE-LC20_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e306268e
+    [Teardown]    断开串口
+
+2C-2C-2C_24K-24K-12K_HEV2-HE-LC_24K_20_stereo.aac
+    [Documentation]    e306268e (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 24000
+    sleep    3
+    common_command    setlen 36862
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE_V2/24k/2C-2C-2C_24K-24K-12K_HEV2-HE-LC_24K_20_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e306268e
+    [Teardown]    断开串口
+
+2C-1C-1C_44K-44K-22K_HEV2-HE-LC_44HEV40.aac
+    [Documentation]    fa2f258f (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 278528
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE_V2/44k/2C-1C-1C_44K-44K-22K_HEV2-HE-LC_44HEV40.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fa2f258f
+    [Teardown]    断开串口
+
+2C-1C-1C_44K-44K-22K_HEV2-HE-LC_44HEV48.aac
+    [Documentation]    9df571be (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 331776
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE_V2/44k/2C-1C-1C_44K-44K-22K_HEV2-HE-LC_44HEV48.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9df571be
+    [Teardown]    断开串口
+
+2C-1C-1C_48K-48K-24K_HEV2-HE-LC_48.aac
+    [Documentation]    a062ca12 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 86790
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE_V2/48k/2C-1C-1C_48K-48K-24K_HEV2-HE-LC_48.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a062ca12
+    [Teardown]    断开串口
+
+2C-1C-1C_48K-48K-24K_HEV2-HE-LC_56.aac
+    [Documentation]    bac1281a (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 100870
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/HE_V2/48k/2C-1C-1C_48K-48K-24K_HEV2-HE-LC_56.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bac1281a
+    [Teardown]    断开串口
+
+1.AAC.VBR.48kHz.5.1ch.aac
+    [Documentation]    49f3c2b7 (r1318), 69ed6321 (r1514), 1f40fce2 (r1576)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 625526
+    sleep    3
+    common_command    playusb 1 /FromSunplus/AAC/1.AAC.VBR.48kHz.5.1ch.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1f40fce2
+    [Teardown]    断开串口
+
+al09_08.aac
+    [Documentation]    88063635 (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 8000
+    sleep    3
+    common_command    setlen 218894
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/al09_08.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8f75824a
+    [Teardown]    断开串口
+
+al09_11.aac
+    [Documentation]    2fa6878b (r1318)
+    [Tags]    function
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 11025
+    sleep    3
+    common_command    setlen 158839
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/al09_11.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    03038278
+    [Teardown]    断开串口
+
+al09_12.aac
+    [Documentation]    c2b435c2 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 12000
+    sleep    3
+    common_command    setlen 146245
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/al09_12.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fd936fa3
+    [Teardown]    断开串口
+
+al09_16.aac
+    [Documentation]    0af94b63 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 16000
+    sleep    3
+    common_command    setlen 109576
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/al09_16.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6feb759d
+    [Teardown]    断开串口
+
+al09_22.aac
+    [Documentation]    91375e7f (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 22050
+    sleep    3
+    common_command    setlen 127099
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/al09_22.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3f417cfc
+    [Teardown]    断开串口
+
+al09_24.aac
+    [Documentation]    5f6f117f (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 24000
+    sleep    3
+    common_command    setlen 116750
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/al09_24.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4f41faf0
+    [Teardown]    断开串口
+
+al09_32.aac
+    [Documentation]    1230326a (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 32000
+    sleep    3
+    common_command    setlen 87576
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/al09_32.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    64388140
+    [Teardown]    断开串口
+
+al09_44.aac
+    [Documentation]    82132864 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 44100
+    sleep    3
+    common_command    setlen 64048
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/al09_44.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f63f9074
+    [Teardown]    断开串口
+
+al09_48.aac
+    [Documentation]    7bdc33e8 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 58382
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/al09_48.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    924226ca
+    [Teardown]    断开串口
+
+al09_64.aac
+    [Documentation]    ecc3f852 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 64000
+    sleep    3
+    common_command    setlen 44244
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/al09_64.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    05434ef6
+    [Teardown]    断开串口
+
+al09_88.aac
+    [Documentation]    a9693ba6 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 88200
+    sleep    3
+    common_command    setlen 32024
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/al09_88.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    53a1cf96
+    [Teardown]    断开串口
+
+al09_96.aac
+    [Documentation]    36dab534 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 29474
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/al09_96.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    89ecd319
+    [Teardown]    断开串口
+
+al12_48.aac
+    [Documentation]    706b66b7 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 31147
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/al12_48.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7431de73
+    [Teardown]    断开串口
+
+al13_48.aac
+    [Documentation]    ae3c47a4 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 29020
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/al13_48.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    22d9b87c
+    [Teardown]    断开串口
+
+avs_audio_game1_48_16_6_neroenc_1514kbps.adts.aac
+    [Documentation]    3e5a7d03 (r1318), dcd60100 (r1514), b698993e (r1576)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 7045130
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/avs_audio_game1_48_16_6_neroenc_1514kbps.adts.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b698993e
+    [Teardown]    断开串口
+
+game.compaact.aac
+    [Documentation]    cec6bd8c (r1318), 3b50e524 (r1514), 1160b042 (r1576)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 1960365
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/game.compaact.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1160b042
+    [Teardown]    断开串口
+
+game.lc.faac.aac
+    [Documentation]    15f4aa75 (r1318), cc0787bc (r1514), 7bea62b7 (r1576)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 2082781
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/game.lc.faac.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7bea62b7
+    [Teardown]    断开串口
+
+mono.lc.faac.aac
+    [Documentation]    ce621dcc (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 7658
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/mono.lc.faac.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fd43ef67
+    [Teardown]    断开串口
+
+qqt_yhddw.lc.faac.aac
+    [Documentation]    4f5bced6 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 98146
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/qqt_yhddw.lc.faac.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4f5bced6
+    [Teardown]    断开串口
+
+super_start_48000_192kbps_LC_stereo.aac
+    [Documentation]    8e3d219c (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 4727564
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/super_start_48000_192kbps_LC_stereo.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8e3d219c
+    [Teardown]    断开串口
+
+test_256kbps_LC.aac
+    [Documentation]    274f7d3a (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 6309069
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/test_256kbps_LC.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    274f7d3a
+    [Teardown]    断开串口
+
+test_288kbps_LC.aac
+    [Documentation]    46661433 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 7051866
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/test_288kbps_LC.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    46661433
+    [Teardown]    断开串口
+
+test_8kbps_LC.aac
+    [Documentation]    c1fdf67b (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 269990
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/test_8kbps_LC.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c1fdf67b
+    [Teardown]    断开串口
+
+test_8kHz.aac
+    [Documentation]    d0d56ae3 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 8000
+    sleep    3
+    common_command    setlen 383004
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/test_8kHz.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d0d56ae3
+    [Teardown]    断开串口
+
+test_96kHz.aac
+    [Documentation]    902299e9 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 96000
+    sleep    3
+    common_command    setlen 1805586
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/test_96kHz.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    902299e9
+    [Teardown]    断开串口
+
+test.aac
+    [Documentation]    98c19436 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 1267309
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/test.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    98c19436
+    [Teardown]    断开串口
+
+test_faac125_mpeg4.aac
+    [Documentation]    afc8ae2d (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 1672389
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/test_faac125_mpeg4.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    afc8ae2d
+    [Teardown]    断开串口
+
+test_mpeg2_LC.aac
+    [Documentation]    4b8896a1 (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 1656775
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/test_mpeg2_LC.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4b8896a1
+    [Teardown]    断开串口
+
+test_NOms_LC.aac
+    [Documentation]    80dca51f (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 1644659
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/test_NOms_LC.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    80dca51f
+    [Teardown]    断开串口
+
+test_tns_LC.aac
+    [Documentation]    1e2b623d (r1318)
+    [Tags]    basic
+    [Setup]    连接串口
+    sleep    3
+    common_command    setfmt AAC
+    sleep    3
+    common_command    setsr 48000
+    sleep    3
+    common_command    setlen 1661547
+    sleep    3
+    common_command    playusb 1 /ES/ComplianceTestFile/aac_test/compressed/test_tns_LC.aac
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1e2b623d
+    [Teardown]    断开串口

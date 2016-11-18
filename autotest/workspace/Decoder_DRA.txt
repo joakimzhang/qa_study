@@ -1,0 +1,936 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../业务关键字.txt
+
+*** Variables ***
+${platform}       1    # 0:fpga,1:simulator,2:ASIC
+${console_num}    11    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\Debug\\test_audio_dra.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    houh    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1118    # devel03的密码，用户登录bjdevel03
+${AudioFileDir}    D:\\AudioFile    # \\\\bjdevel03\\stream\\AudioTestFile D:\\AudioFile
+
+*** Test Cases ***
+ID7.1ch_512kbps_48khz_cbr.es
+    [Documentation]    e4ee4861 (r1289), 3e6709ef (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\48KHz\\ID7.1ch_512kbps_48khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 48000
+    common_command    setlen 616528
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3e6709ef
+    [Teardown]    断开串口
+
+ID5.1ch_384kbps_48khz_cbr.es
+    [Documentation]    994d6b8e (r1289), 9e2e2018 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\48KHz\\ID5.1ch_384kbps_48khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 48000
+    common_command    setlen 348160
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9e2e2018
+    [Teardown]    断开串口
+
+ID2.0ch_128kbps_48khz_cbr.es
+    [Documentation]    ea121801 (r1289), ea121801 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\48KHz\\ID2.0ch_128kbps_48khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 48000
+    common_command    setlen 58140
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ea121801
+    [Teardown]    断开串口
+
+ID1.0ch_64kbps_48khz_cbr.es
+    [Documentation]    d97ce25d (r1289), eeae2e69 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\48KHz\\ID1.0ch_64kbps_48khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 48000
+    common_command    setlen 19320
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    eeae2e69
+    [Teardown]    断开串口
+
+14-fl_dra128kbps_2ch_48khz_vbr.es
+    [Documentation]    9eb8ee60 (r1289), 9eb8ee60 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\48KHz\\14-fl_dra128kbps_2ch_48khz_vbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 48000
+    common_command    setlen 4492480
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9eb8ee60
+    [Teardown]    断开串口
+
+14-fl_dra384kbps_51ch_48khz_vbr.es
+    [Documentation]    6197d86c (r1289), 9a5dfd47 (r1318), fb0546dc (r1525)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\48KHz\\14-fl_dra384kbps_51ch_48khz_vbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 48000
+    common_command    setlen 13533824
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fb0546dc
+    [Teardown]    断开串口
+
+14-fl_dra512kbps_71ch_48khz_vbr.es
+    [Documentation]    346c1bee (r1289), c5528ebd (r1318), 0ef5bbc2 (r1525)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\48KHz\\14-fl_dra512kbps_71ch_48khz_vbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 48000
+    common_command    setlen 18028336
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0ef5bbc2
+    [Teardown]    断开串口
+
+ID7.1ch_512kbps_44khz_cbr.es
+    [Documentation]    d677696d (r1289), 78bad64e (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\44.1KHz\\ID7.1ch_512kbps_44khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 44100
+    common_command    setlen 617344
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    78bad64e
+    [Teardown]    断开串口
+
+ID5.1ch_384kbps_44khz_cbr.es
+    [Documentation]    02d4e1fe (r1289), 603866db (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\44.1KHz\\ID5.1ch_384kbps_44khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 44100
+    common_command    setlen 348056
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    603866db
+    [Teardown]    断开串口
+
+ID2.0ch_128kbps_44khz_cbr.es
+    [Documentation]    405909a5 (r1289), 405909a5 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\44.1KHz\\ID2.0ch_128kbps_44khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 44100
+    common_command    setlen 58144
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    405909a5
+    [Teardown]    断开串口
+
+ID1.0ch_64kbps_44khz_cbr.es
+    [Documentation]    42ac6dd4 (r1289), dbcae71c (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\44.1KHz\\ID1.0ch_64kbps_44khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 44100
+    common_command    setlen 19504
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    dbcae71c
+    [Teardown]    断开串口
+
+14-fl_dra128kbps_2ch_44khz_vbr.es
+    [Documentation]    36dd037e (r1289), 36dd037e (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\44.1KHz\\14-fl_dra128kbps_2ch_44khz_vbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 44100
+    common_command    setlen 4466272
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    36dd037e
+    [Teardown]    断开串口
+
+14-fl_dra512kbps_71ch_44khz_vbr.es
+    [Documentation]    3f54ab1c (r1289), fe6e8dc7 (r1318), ca527dbb (r1525)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\44.1KHz\\14-fl_dra512kbps_71ch_44khz_vbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 44100
+    common_command    setlen 18019652
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ca527dbb
+    [Teardown]    断开串口
+
+14-fl_dra384kbps_51ch_44khz_vbr.es
+    [Documentation]    056d5b41 (r1289), 0fd3ff4c (r1318), 23a3e091 (r1525)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\44.1KHz\\14-fl_dra384kbps_51ch_44khz_vbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 44100
+    common_command    setlen 13501884
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    23a3e091
+    [Teardown]    断开串口
+
+ID7.1ch_384kbps_32khz_cbr.es
+    [Documentation]    8cd09a7a (r1289), 95000982 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\32KHz\\ID7.1ch_384kbps_32khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 32000
+    common_command    setlen 463872
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    95000982
+    [Teardown]    断开串口
+
+ID5.1ch_256kbps_32khz_cbr.es
+    [Documentation]    4beace5c (r1289), b0277c77 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\32KHz\\ID5.1ch_256kbps_32khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 32000
+    common_command    setlen 232448
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b0277c77
+    [Teardown]    断开串口
+
+ID2.0ch_96kbps_32khz_cbr.es
+    [Documentation]    dc1316cf (r1289), dc1316cf (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\32KHz\\ID2.0ch_96kbps_32khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 32000
+    common_command    setlen 44160
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    dc1316cf
+    [Teardown]    断开串口
+
+ID1.0ch_48kbps_32khz_cbr.es
+    [Documentation]    15a95716 (r1289), 324544e3 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\32KHz\\ID1.0ch_48kbps_32khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 32000
+    common_command    setlen 14784
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    324544e3
+    [Teardown]    断开串口
+
+14-fl_dra512kbps_71ch_32khz_vbr.es
+    [Documentation]    e0d020d6 (r1289), b04ea825 (r1318), 8f9f8986 (r1525)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\32KHz\\14-fl_dra512kbps_71ch_32khz_vbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 32000
+    common_command    setlen 18044788
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8f9f8986
+    [Teardown]    断开串口
+
+14-fl_dra384kbps_51ch_32khz_vbr.es
+    [Documentation]    c76603e3 (r1289), 525531cd (r1318), 18aaca85 (r1525)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\32KHz\\14-fl_dra384kbps_51ch_32khz_vbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 32000
+    common_command    setlen 13532660
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    18aaca85
+    [Teardown]    断开串口
+
+14-fl_dra128kbps_2ch_32khz_vbr.es
+    [Documentation]    bae19b89 (r1289), bae19b89 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\32KHz\\14-fl_dra128kbps_2ch_32khz_vbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 32000
+    common_command    setlen 4508132
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bae19b89
+    [Teardown]    断开串口
+
+ID7.1ch_1024kbps_96khz_cbr.es
+    [Documentation]    248604ee (r1289), b3f26627 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\96kHz\\ID7.1ch_1024kbps_96khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 96000
+    common_command    setlen 1230328
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b3f26627
+    [Teardown]    断开串口
+
+ID5.1ch_768kbps_96khz_cbr.es
+    [Documentation]    076e8ffa (r1289), 3d05e147 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\96kHz\\ID5.1ch_768kbps_96khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 96000
+    common_command    setlen 693248
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3d05e147
+    [Teardown]    断开串口
+
+ID2.0ch_256kbps_96khz_cbr.es
+    [Documentation]    2fdbdeb8 (r1289), 2fdbdeb8 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\96kHz\\ID2.0ch_256kbps_96khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 96000
+    common_command    setlen 115260
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2fdbdeb8
+    [Teardown]    断开串口
+
+ID1.0ch_128kbps_96khz_cbr.es
+    [Documentation]    21f53ed0 (r1289), cd45370a (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\96kHz\\ID1.0ch_128kbps_96khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 96000
+    common_command    setlen 38136
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    cd45370a
+    [Teardown]    断开串口
+
+ID7.1ch_96kbps_8khz_cbr.es
+    [Documentation]    618f57b0 (r1289), e63aa067 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\8kHz\\ID7.1ch_96kbps_8khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 8000
+    common_command    setlen 118272
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e63aa067
+    [Teardown]    断开串口
+
+ID5.1ch_64kbps_8khz_cbr.es
+    [Documentation]    692deb48 (r1289), 57545134 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\8kHz\\ID5.1ch_64kbps_8khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 8000
+    common_command    setlen 59392
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    57545134
+    [Teardown]    断开串口
+
+ID1.0ch_16kbps_8khz_cbr.es
+    [Documentation]    8833b292 (r1289), d69c6561 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\8kHz\\ID1.0ch_16kbps_8khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 8000
+    common_command    setlen 5376
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d69c6561
+    [Teardown]    断开串口
+
+ID2.0ch_24kbps_8khz_cbr.es
+    [Documentation]    c930aa40 (r1289), c930aa40 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\8kHz\\ID2.0ch_24kbps_8khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 8000
+    common_command    setlen 11520
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c930aa40
+    [Teardown]    断开串口
+
+ID7.1ch_1024kbps_88khz_cbr.es
+    [Documentation]    3b083a02 (r1289), 8e32eeff (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\88.2kHz\\ID7.1ch_1024kbps_88khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 88200
+    common_command    setlen 1230236
+    播放    10    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8e32eeff
+    [Teardown]    断开串口
+
+ID5.1ch_768kbps_88khz_cbr.es
+    [Documentation]    16787a9d (r1289), 80152998 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\88.2kHz\\ID5.1ch_768kbps_88khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 88200
+    common_command    setlen 691664
+    播放    10    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    80152998
+    [Teardown]    断开串口
+
+ID2.0ch_256kbps_88khz_cbr.es
+    [Documentation]    cfff2ec6 (r1289), cfff2ec6 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\88.2kHz\\ID2.0ch_256kbps_88khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 88200
+    common_command    setlen 114816
+    播放    10    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    cfff2ec6
+    [Teardown]    断开串口
+
+ID1.0ch_128kbps_88khz_cbr.es
+    [Documentation]    276c99a2 (r1289), fe49ffb2 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\88.2kHz\\ID1.0ch_128kbps_88khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 88200
+    common_command    setlen 38456
+    播放    10    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fe49ffb2
+    [Teardown]    断开串口
+
+ID7.1ch_256kbps_24khz_cbr.es
+    [Documentation]    bd0c56c1 (r1289), ffe1f954 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\24kHz\\ID7.1ch_256kbps_24khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 24000
+    common_command    setlen 309628
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ffe1f954
+    [Teardown]    断开串口
+
+ID5.1ch_192kbps_24khz_cbr.es
+    [Documentation]    6e8fb20b (r1289), 630d6fad (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\24kHz\\ID5.1ch_192kbps_24khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 24000
+    common_command    setlen 175104
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    630d6fad
+    [Teardown]    断开串口
+
+ID2.0ch_64kbps_24khz_cbr.es
+    [Documentation]    72b6a29a (r1289), 72b6a29a (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\24kHz\\ID2.0ch_64kbps_24khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 24000
+    common_command    setlen 29240
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    72b6a29a
+    [Teardown]    断开串口
+
+ID1.0ch_32kbps_24khz_cbr.es
+    [Documentation]    f3a7cd54 (r1289), d3c72af6 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\24kHz\\ID1.0ch_32kbps_24khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 24000
+    common_command    setlen 9744
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d3c72af6
+    [Teardown]    断开串口
+
+ID7.1ch_256kbps_22khz_cbr.es
+    [Documentation]    3a876188 (r1289), 292c170d (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\22.05kHz\\ID7.1ch_256kbps_22khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 22050
+    common_command    setlen 308672
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    292c170d
+    [Teardown]    断开串口
+
+ID5.1ch_192kbps_22khz_cbr.es
+    [Documentation]    94c544d7 (r1289), 1fe0913c (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\22.05kHz\\ID5.1ch_192kbps_22khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 22050
+    common_command    setlen 174584
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1fe0913c
+    [Teardown]    断开串口
+
+ID2.0ch_64kbps_22khz_cbr.es
+    [Documentation]    41f0acc1 (r1289), 41f0acc1 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\22.05kHz\\ID2.0ch_64kbps_22khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 22050
+    common_command    setlen 29440
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    41f0acc1
+    [Teardown]    断开串口
+
+ID1.0ch_32kbps_22khz_cbr.es
+    [Documentation]    d36bbb7d (r1289), ebc6c7cd (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\22.05kHz\\ID1.0ch_32kbps_22khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 22050
+    common_command    setlen 9936
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ebc6c7cd
+    [Teardown]    断开串口
+
+ID7.1ch_2048kbps_192khz_cbr.es
+    [Documentation]    083c6976 (r1289), 4a325c13 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\192kHz\\ID7.1ch_2048kbps_192khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 192000
+    common_command    setlen 2457928
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4a325c13
+    [Teardown]    断开串口
+
+ID5.1ch_1536kbps_192khz_cbr.es
+    [Documentation]    9fab4e2e (r1289), d5fc69c2 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\192kHz\\ID5.1ch_1536kbps_192khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 192000
+    common_command    setlen 1384448
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d5fc69c2
+    [Teardown]    断开串口
+
+ID2.0ch_512kbps_192khz_cbr.es
+    [Documentation]    3db1e413 (r1289), 3db1e413 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\192kHz\\ID2.0ch_512kbps_192khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 192000
+    common_command    setlen 230180
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3db1e413
+    [Teardown]    断开串口
+
+ID1.0ch_256kbps_192khz_cbr.es
+    [Documentation]    dfe27985 (r1289), df4cfbd8 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\192kHz\\ID1.0ch_256kbps_192khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 192000
+    common_command    setlen 75936
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    df4cfbd8
+    [Teardown]    断开串口
+
+ID7.1ch_1881kbps_176khz_cbr.es
+    [Documentation]    a6fd026f (r1289), 3e00e057 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\176.4kHz\\ID7.1ch_1881kbps_176khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 176400
+    common_command    setlen 2258784
+    播放    13    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3e00e057
+    [Teardown]    断开串口
+
+ID5.1ch_1411kbps_176khz_cbr.es
+    [Documentation]    bba77680 (r1289), 533a9039 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\176.4kHz\\ID5.1ch_1411kbps_176khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 176400
+    common_command    setlen 1271808
+    播放    13    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    533a9039
+    [Teardown]    断开串口
+
+ID2.0ch_512kbps_176khz_cbr.es
+    [Documentation]    55c0c568 (r1289), 55c0c568 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\176.4kHz\\ID2.0ch_512kbps_176khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 176400
+    common_command    setlen 228896
+    播放    13    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    55c0c568
+    [Teardown]    断开串口
+
+ID1.0ch_256kbps_176khz_cbr.es
+    [Documentation]    751b2d47 (r1289), bf449244 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\176.4kHz\\ID1.0ch_256kbps_176khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 176400
+    common_command    setlen 76360
+    播放    13    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bf449244
+    [Teardown]    断开串口
+
+ID7.1ch_192kbps_16khz_cbr.es
+    [Documentation]    78650665 (r1289), 38da5b76 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\16kHz\\ID7.1ch_192kbps_16khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 16000
+    common_command    setlen 233472
+    播放    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    38da5b76
+    [Teardown]    断开串口
+
+ID5.1ch_128kbps_16khz_cbr.es
+    [Documentation]    43f07701 (r1289), 638903f4 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\16kHz\\ID5.1ch_128kbps_16khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 16000
+    common_command    setlen 116736
+    播放    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    638903f4
+    [Teardown]    断开串口
+
+ID2.0ch_48kbps_16khz_cbr.es
+    [Documentation]    edac5619 (r1289), edac5619 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\16kHz\\ID2.0ch_48kbps_16khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 16000
+    common_command    setlen 22272
+    播放    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    edac5619
+    [Teardown]    断开串口
+
+ID1.0ch_24kbps_16khz_cbr.es
+    [Documentation]    56dcf445 (r1289), d77b8e75 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\16kHz\\ID1.0ch_24kbps_16khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 16000
+    common_command    setlen 7488
+    播放    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d77b8e75
+    [Teardown]    断开串口
+
+ID7.1ch_128kbps_12khz_cbr.es
+    [Documentation]    bd8cffec (r1289), 7edc8405 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\12kHz\\ID7.1ch_128kbps_12khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 12000
+    common_command    setlen 156860
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7edc8405
+    [Teardown]    断开串口
+
+ID5.1ch_96kbps_12khz_cbr.es
+    [Documentation]    9d5e6ba5 (r1289), e82dd4a2 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\12kHz\\ID5.1ch_96kbps_12khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 12000
+    common_command    setlen 89088
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e82dd4a2
+    [Teardown]    断开串口
+
+ID2.0ch_32kbps_12khz_cbr.es
+    [Documentation]    da95b903 (r1289), da95b903 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\12kHz\\ID2.0ch_32kbps_12khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 12000
+    common_command    setlen 15300
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    da95b903
+    [Teardown]    断开串口
+
+ID1.0ch_16kbps_12khz_cbr.es
+    [Documentation]    37065d87 (r1289), 8c6fa90f (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\12kHz\\ID1.0ch_16kbps_12khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 12000
+    common_command    setlen 5040
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8c6fa90f
+    [Teardown]    断开串口
+
+ID7.1ch_128kbps_11khz_cbr.es
+    [Documentation]    eb738953 (r1289), 720bc98a (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\11.025kHz\\ID7.1ch_128kbps_11khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 11025
+    common_command    setlen 157304
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    720bc98a
+    [Teardown]    断开串口
+
+ID5.1ch_96kbps_11khz_cbr.es
+    [Documentation]    450276b9 (r1289), b76316b5 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\11.025kHz\\ID5.1ch_96kbps_11khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 11025
+    common_command    setlen 88960
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b76316b5
+    [Teardown]    断开串口
+
+ID1.0ch_16kbps_11khz_cbr.es
+    [Documentation]    d1a9a213 (r1289), f84c3241 (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\11.025kHz\\ID1.0ch_16kbps_11khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 11025
+    common_command    setlen 5152
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f84c3241
+    [Teardown]    断开串口
+
+ID2.0ch_32kbps_11khz_cbr.es
+    [Documentation]    61fcc98e (r1289), 61fcc98e (r1318)
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\11.025kHz\\ID2.0ch_32kbps_11khz_cbr.es    1
+    sleep    5
+    common_command    setfmt DRA
+    common_command    setsr 11025
+    common_command    setlen 15088
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    61fcc98e
+    [Teardown]    断开串口

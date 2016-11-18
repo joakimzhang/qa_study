@@ -1,0 +1,542 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Test Timeout      50 minutes
+Library           test_tool
+Library           SSHLibrary
+Resource          ../../业务关键字.txt
+Library           OperatingSystem
+Library           String
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    1    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\debug\\test_audio_ac3.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    chenql    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1108    # devel03的密码，用户登录bjdevel03
+
+*** Test Cases ***
+AUDIO_PP_DualDecoder_RampUp_RamDown
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\48khz_1k_-10db.pcm    4096    AudioIO\\48khz_1k_-16db.pcm    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\48khz_1k_-10db.pcm    4096    AudioIO\\48khz_1k_-16db.pcm    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\48khz_1k_-10db.pcm    8192    AudioIO\\48khz_2k_-16db.pcm    8704
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    setlen 384000
+    common_command    setch 2
+    common_command    setabps 0
+    common_command    setba 2
+    common_command    setbps 16
+    common_command    setcb 0
+    common_command    setfmt2 PCM
+    common_command    setlen2 384000
+    common_command    setsr2 48000
+    common_command    setch2 2
+    common_command    setabps2 0
+    common_command    setba2 2
+    common_command    setbps2 16
+    common_command    setcb2 0
+    sleep    3
+    common_command    play 37 1 1
+    sleep    2
+    common_command    play2 38 1 2
+    sleep    1
+    common_command    stop 1
+    common_command    stop 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_Gain_default
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\48khz_1k_-10db.pcm    4096    AudioIO\\48khz_1k_-16db.pcm    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\48khz_1k_-10db.pcm    4096    AudioIO\\48khz_1k_-16db.pcm    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\48khz_1k_-10db.pcm    8192    AudioIO\\48khz_2k_-16db.pcm    8704
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    setlen 384000
+    common_command    setch 2
+    common_command    setabps 0
+    common_command    setba 2
+    common_command    setbps 16
+    common_command    setcb 0
+    common_command    setfmt2 PCM
+    common_command    setlen2 384000
+    common_command    setsr2 48000
+    common_command    setch2 2
+    common_command    setabps2 0
+    common_command    setba2 2
+    common_command    setbps2 16
+    common_command    setcb2 0
+    sleep    3
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    10
+    common_command    stop 1
+    common_command    stop 2
+    common_command    play 37 1 1
+    common_command    play2 38 1 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_Gain_set
+    [Documentation]    mixergain1 0~77 0~255\r
+    ...
+    ...    mixergain2 0~77 0~254\r
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\48k.ac3    4096    AudioIO\\48k_2khz.ac3    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\48k.ac3    4096    AudioIO\\48k_2khz.ac3    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\48k.ac3    8192    AudioIO\\48k_2khz.ac3    8704
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 240384
+    common_command    setfmt2 AC3
+    common_command    setsr2 48000
+    common_command    setlen2 240384
+    sleep    10
+    common_command    play 37 1 1
+    sleep    1
+    common_command    play2 38 1 2
+    sleep    10
+    common_command    mixergain2 20 0
+    common_command    mixergain1 20 0
+    sleep    10
+    common_command    mixergain2 0 0
+    common_command    mixergain1 0 0
+    sleep    10
+    common_command    mixergain2 0 66
+    common_command    mixergain1 0 66
+    sleep    10
+    common_command    mixergain2 0 10
+    common_command    mixergain1 0 33
+    sleep    10
+    common_command    mixergain2 77 0
+    common_command    mixergain1 77 0
+    sleep    10
+    common_command    mixergain2 20 20
+    common_command    mixergain1 20 66
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_32k_44k_DEC1_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    4096    AudioIO\\44k_4khz.mp3    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    4096    AudioIO\\44k_4khz.mp3    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    8192    AudioIO\\44k_4khz.mp3    8704
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    mixermode 1
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 120789
+    common_command    setfmt2 MPEG
+    common_command    setlen2 160749
+    common_command    setsr2 44100
+    sleep    3
+    common_command    play 37 0 1
+    sleep    3
+    common_command    play2 38 0 2
+    sleep    30
+    common_command    pstop 1
+    common_command    pstop 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_32k_44k_DEC2_AAC
+    [Setup]    指定串口    D:\\debug\\test_audio_aac.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\32k_2khz.aac    4096    AudioIO\\44k_4khz.aac    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\32k_2khz.aac    4096    AudioIO\\44k_4khz.aac    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\32k_2khz.aac    8192    AudioIO\\44k_4khz.aac    8704
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    mixermode 2
+    common_command    setfmt AAC
+    common_command    setsr 32000
+    common_command    setlen 163051
+    common_command    setfmt2 AAC
+    common_command    setsr2 44100
+    common_command    setlen2 163478
+    sleep    10
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    30
+    common_command    pstop 1
+    common_command    pstop 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_32k_44k_EffecAudio_AC3
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\32k_2khz.ac3    4096    AudioIO\\44k_4khz.ac3    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\32k_2khz.ac3    4096    AudioIO\\44k_4khz.ac3    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\32k_2khz.ac3    8192    AudioIO\\44k_4khz.ac3    8704
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    mixermode 3
+    common_command    setfmt AC3
+    common_command    setsr 32000
+    common_command    setlen 240768
+    common_command    setfmt2 AC3
+    common_command    setsr2 44100
+    common_command    setlen2 240744
+    sleep    10
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    common_command    btn
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_32k_44k_fix48k_DEC1_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg_fix.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    4096    AudioIO\\44k_4khz.mp3    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    4096    AudioIO\\44k_4khz.mp3    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    8192    AudioIO\\44k_4khz.mp3    8704
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    target_sample_rate 4
+    common_command    mixermode 1
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 120789
+    common_command    setfmt2 MPEG
+    common_command    setlen2 160749
+    common_command    setsr2 44100
+    sleep    3
+    common_command    play 37 0 1
+    sleep    3
+    common_command    play2 38 0 2
+    sleep    30
+    common_command    pstop 1
+    common_command    pstop 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_32k_44k_fix32k_DEC2_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg_fix.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    4096    AudioIO\\44k_4khz.mp3    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    4096    AudioIO\\44k_4khz.mp3    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    8192    AudioIO\\44k_4khz.mp3    8704
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    target_sample_rate 1
+    common_command    mixermode 2
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 120789
+    common_command    setfmt2 MPEG
+    common_command    setsr2 44100
+    common_command    setlen2 160749
+    sleep    10
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    sleep    30
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_32k_44k_fix32k_EffecAudio_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg_fix.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    4096    AudioIO\\44k_4khz.mp3    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    4096    AudioIO\\44k_4khz.mp3    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    8192    AudioIO\\44k_4khz.mp3    8704
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    target_sample_rate 1
+    common_command    mixermode 3
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 120789
+    common_command    setfmt2 MPEG
+    common_command    setsr2 44100
+    common_command    setlen2 160749
+    sleep    10
+    common_command    play 37 0 1
+    sleep    10
+    common_command    play2 38 0 2
+    common_command    btn
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_44k_Mixer_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\44k_4khz.mp3    4096    AudioIO\\44k_4khz.mp3    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\44k_4khz.mp3    4096    AudioIO\\44k_4khz.mp3    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\44k_4khz.mp3    8192    AudioIO\\44k_4khz.mp3    8704
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    mixermode 0
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 160749
+    common_command    setfmt2 MPEG
+    common_command    setlen2 160749
+    common_command    setsr2 44100
+    sleep    3
+    common_command    play2 38 0 2
+    sleep    30
+    common_command    pstop 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_44k_DEC1_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\44k_4khz.mp3    4096    AudioIO\\44k_4khz.mp3    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\44k_4khz.mp3    4096    AudioIO\\44k_4khz.mp3    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\44k_4khz.mp3    8192    AudioIO\\44k_4khz.mp3    8704
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    mixermode 1
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 160749
+    common_command    setfmt2 MPEG
+    common_command    setlen2 160749
+    common_command    setsr2 44100
+    sleep    3
+    common_command    play2 38 0 2
+    sleep    30
+    common_command    pstop 1
+    common_command    pstop 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_44k_DEC2_AAC
+    [Setup]    指定串口    D:\\debug\\test_audio_aac_fix.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\44k_4khz.aac    4096    AudioIO\\44k_4khz.aac    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\44k_4khz.aac    4096    AudioIO\\44k_4khz.aac    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\44k_4khz.aac    8192    AudioIO\\44k_4khz.aac    8704
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    mixermode 2
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 160749
+    common_command    setfmt2 AAC
+    common_command    setlen2 160749
+    common_command    setsr2 44100
+    sleep    3
+    common_command    play2 38 0 2
+    sleep    30
+    common_command    pstop 1
+    common_command    pstop 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_44k_EffecAudio_AC3
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\44k_4khz.ac3    4096    AudioIO\\44k_4khz.ac3    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\44k_4khz.ac3    4096    AudioIO\\44k_4khz.ac3    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    AudioIO\\44k_4khz.ac3    8192    AudioIO\\44k_4khz.ac3    8704
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    mixermode 3
+    common_command    setfmt AC3
+    common_command    setsr 44100
+    common_command    setlen 160749
+    common_command    setfmt2 AC3
+    common_command    setlen2 160749
+    common_command    setsr2 44100
+    sleep    3
+    common_command    play2 38 0 2
+    common_command    btn
+    sleep    30
+    common_command    pstop 1
+    common_command    pstop 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_44k_fix32k_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg_fix.exe
+    设置音频    AudioIO\\44k_4khz.mp3    1
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    target_sample_rate 1
+    common_command    mixermode 0
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 160749
+    sleep    3
+    common_command    play 37 0 2
+    sleep    30
+    common_command    pstop 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_32k_fix44k_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg_fix.exe
+    设置音频    AudioIO\\32k_2khz.mp3    1
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    target_sample_rate 2
+    common_command    mixermode 0
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 120789
+    sleep    3
+    common_command    play 37 0 2
+    sleep    30
+    common_command    pstop 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_44k_fix48k_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg_fix.exe
+    设置音频    AudioIO\\44k_4khz.mp3    1
+    common_command    mon
+    sleep    3
+    common_command    target_sample_rate 4
+    common_command    mixermode 0
+    common_command    setfmt MPEG
+    common_command    setlen 160749
+    common_command    setsr 44100
+    sleep    3
+    common_command    play 37 0 2
+    sleep    30
+    common_command    pstop 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_44k_fix48k_DEC1_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg_fix.exe
+    设置音频    AudioIO\\44k_4khz.mp3    1
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    target_sample_rate 4
+    common_command    mixermode 1
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 160749
+    sleep    3
+    common_command    play 37 0 2
+    sleep    30
+    common_command    pstop 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_44k_fix32k_DEC2_MP3
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg_fix.exe
+    设置音频    AudioIO\\44k_4khz.mp3    1
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    target_sample_rate 1
+    common_command    mixermode 2
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 160749
+    sleep    3
+    common_command    play 37 0 2
+    sleep    30
+    common_command    pstop 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_44k_fix32k_EffecAudio_MP3
+    [Documentation]    button sound 原始流长度为1.6秒
+    [Setup]    指定串口    D:\\debug\\test_audio_mpeg_fix.exe
+    设置音频    AudioIO\\44k_4khz.mp3    1
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    target_sample_rate 1
+    common_command    mixermode 3
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 160749
+    sleep    3
+    common_command    play 37 0 2
+    common_command    btn
+    common_command    pstop 2
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_DEC2_AC3_RAW
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\country.ac3    4096    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_acm321_448kbps_32kHz.ac3    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\country.ac3    4096    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_acm321_448kbps_32kHz.ac3    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\country.ac3    8192    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_acm321_448kbps_32kHz.ac3    12288
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    mixermode 2
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 3001344
+    common_command    setfmt2 AC3
+    common_command    setsr2 32000
+    common_command    setlen2 3717504
+    common_command    setlen2 160749
+    切换输出模式    2    2
+    切换输出模式    1    2
+    sleep    10
+    common_command    play 7 0 1
+    sleep    10
+    common_command    play2 45 0 2
+    common_command    btn
+    sleep    40
+    Pcm24 To 16    D:\\AudioOut_A5.pcm    d:\\result\\${TEST_NAME}_RAW_16bit_iec0.pcm
+    Pcm24 To 16    D:\\AudioOut_A6.pcm    d:\\result\\${TEST_NAME}_RAW_16bit_iec1.pcm
+    ffmpeg_convert_to_spdif    D:\\AudioTestFile\\AudioIO\\output_5ch.ac3    d:\\result\\${TEST_NAME}_FFMPEG_16bit_dec2.pcm
+    ffmpeg_convert_to_spdif    D:\\AudioTestFile\\AudioIO\\48k.ac3    d:\\result\\${TEST_NAME}_FFMPEG_16bit_dec1.pcm
+    [Teardown]    断开串口
+
+AUDIO_PP_DualDecoder_DEC1_AC3_RAW
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\country.ac3    4096    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_acm321_448kbps_32kHz.ac3    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\country.ac3    4096    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_acm321_448kbps_32kHz.ac3    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\country.ac3    8192    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_acm321_448kbps_32kHz.ac3    12288
+    LOG    1
+    common_command    mon
+    sleep    3
+    common_command    mixermode 1
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 3001344
+    common_command    setfmt2 AC3
+    common_command    setsr2 32000
+    common_command    setlen2 3717504
+    切换输出模式    2    2
+    切换输出模式    1    2
+    sleep    10
+    common_command    play 7 0 1
+    sleep    10
+    common_command    play2 45 0 2
+    sleep    40
+    Pcm24 To 16    D:\\AudioOut_A5.pcm    d:\\result\\${TEST_NAME}_RAW_16bit_iec0.pcm
+    Pcm24 To 16    D:\\AudioOut_A6.pcm    d:\\result\\${TEST_NAME}_RAW_16bit_iec1.pcm
+    ffmpeg_convert_to_spdif    D:\\AudioTestFile\\AudioIO\\output_5ch.ac3    d:\\result\\${TEST_NAME}_FFMPEG_16bit_dec2.pcm
+    ffmpeg_convert_to_spdif    D:\\AudioTestFile\\AudioIO\\48k.ac3    d:\\result\\${TEST_NAME}_FFMPEG_16bit_dec1.pcm
+    [Teardown]    断开串口
+
+AUDIO_PP_DWMIX_LORO_DualDecoder_raw
+    [Setup]    指定串口    D:\\debug\\test_audio_ac3.exe
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\country.ac3    4096    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_acm321_448kbps_32kHz.ac3    8192
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\country.ac3    4096    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_acm321_448kbps_32kHz.ac3    8192
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\country.ac3    8192    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_acm321_448kbps_32kHz.ac3    12288
+    LOG    1
+    common_command    mon
+    sleep    3
+    设置DownMix模式    1
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 3001344
+    common_command    setfmt2 AC3
+    common_command    setsr2 32000
+    common_command    setlen2 3717504
+    切换输出模式    2    2
+    切换输出模式    1    2
+    sleep    3
+    common_command    play 37 0 1
+    common_command    play2 45 0 2
+    sleep    40
+    Pcm24 To 16    D:\\AudioOut_A5.pcm    d:\\result\\${TEST_NAME}_RAW_16bit_iec0.pcm
+    Pcm24 To 16    D:\\AudioOut_A6.pcm    d:\\result\\${TEST_NAME}_RAW_16bit_iec1.pcm
+    ffmpeg_convert_to_spdif    D:\\AudioTestFile\\AudioIO\\output_5ch.ac3    d:\\result\\${TEST_NAME}_FFMPEG_16bit_dec2.pcm
+    ffmpeg_convert_to_spdif    D:\\AudioTestFile\\AudioIO\\48k.ac3    d:\\result\\${TEST_NAME}_FFMPEG_16bit_dec1.pcm
+    [Teardown]    断开串口

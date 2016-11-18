@@ -1,0 +1,358 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Test Timeout      50 minutes
+Library           test_tool
+Library           SSHLibrary
+Resource          ../../业务关键字.txt
+Library           OperatingSystem
+Library           String
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    1    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\debug\\test_audio_ac3.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    chenql    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1108    # devel03的密码，用户登录bjdevel03
+
+*** Test Cases ***
+AUDIO_PP_EQ_STANDARD
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq_menu 0
+    播放    8    0    1
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_CLASSIC
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq 1
+    播放    8    0    1
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_ROCK
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq_menu 2
+    播放    8    0    1
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_JAZZ
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq 3
+    播放    8    0    1
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_POP
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq_menu 4
+    播放    8    0    1
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_DANCE
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq 5
+    播放    8    0    1
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_TECHNO
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq_menu 6
+    播放    8    0    1
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_SOFT
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq 7
+    播放    8    0    1
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_LIVE
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq_menu 8
+    播放    8    0    1
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_USER_DEFINE_BAND0
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq 16 0
+    common_command    setch 2
+    common_command    setabps 0
+    common_command    setba 2
+    common_command    setbps 16
+    common_command    setcb 0
+    common_command    playusb 1 /L_all_band_R_20_20K_48KHZ_-6db.pcm
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_USER_DEFINE_BAND1
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq 16 1
+    common_command    setch 2
+    common_command    setabps 0
+    common_command    setba 2
+    common_command    setbps 16
+    common_command    setcb 0
+    common_command    playusb 1 /L_all_band_R_20_20K_48KHZ_-6db.pcm
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_USER_DEFINE_BAND2
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq 16 2
+    common_command    setch 2
+    common_command    setabps 0
+    common_command    setba 2
+    common_command    setbps 16
+    common_command    setcb 0
+    common_command    playusb 1 /L_all_band_R_20_20K_48KHZ_-6db.pcm
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_USER_DEFINE_BAND3
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq 16 3
+    common_command    setch 2
+    common_command    setabps 0
+    common_command    setba 2
+    common_command    setbps 16
+    common_command    setcb 0
+    common_command    playusb 1 /L_all_band_R_20_20K_48KHZ_-6db.pcm
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_USER_DEFINE_BAND4
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq 16 4
+    common_command    setch 2
+    common_command    setabps 0
+    common_command    setba 2
+    common_command    setbps 16
+    common_command    setcb 0
+    common_command    playusb 1 /L_all_band_R_20_20K_48KHZ_-6db.pcm
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_USER_DEFINE_BAND5
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq 16 5
+    common_command    setch 2
+    common_command    setabps 0
+    common_command    setba 2
+    common_command    setbps 16
+    common_command    setcb 0
+    common_command    playusb 1 /L_all_band_R_20_20K_48KHZ_-6db.pcm
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_USER_DEFINE_BAND6
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq 16 6
+    common_command    setch 2
+    common_command    setabps 0
+    common_command    setba 2
+    common_command    setbps 16
+    common_command    setcb 0
+    common_command    playusb 1 /L_all_band_R_20_20K_48KHZ_-6db.pcm
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_SPECTRUM_BAND0
+    [Setup]    连接串口
+    设置音频    postprocess\\130hz_-6db_48k.pcm    1
+    common_command    setlen 11520000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq_menu 0
+    common_command    get_spectrum
+    播放    8    0    1
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_SPECTRUM_BAND1
+    [Setup]    连接串口
+    设置音频    postprocess\\150hz_-6db_48k.pcm    1
+    common_command    setlen 11520000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq_menu 0
+    common_command    get_spectrum
+    播放    8    0    1
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_SPECTRUM_BAND2
+    [Setup]    连接串口
+    设置音频    postprocess\\400hz_-6db_48k.pcm    1
+    common_command    setlen 11520000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq_menu 0
+    common_command    get_spectrum
+    播放    8    0    1
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_SPECTRUM_BAND3
+    [Setup]    连接串口
+    设置音频    postprocess\\1khz_-6db_48k.pcm    1
+    common_command    setlen 11520000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq_menu 0
+    common_command    get_spectrum
+    播放    8    0    1
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_SPECTRUM_BAND4
+    [Setup]    连接串口
+    设置音频    postprocess\\3khz_-6db_48k.pcm    1
+    common_command    setlen 11520000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq_menu 0
+    common_command    get_spectrum
+    播放    8    0    1
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_SPECTRUM_BAND5
+    [Setup]    连接串口
+    设置音频    postprocess\\7khz_-6db_48k.pcm    1
+    common_command    setlen 11520000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq_menu 0
+    common_command    get_spectrum
+    播放    8    0    1
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口
+
+AUDIO_PP_EQ_SPECTRUM_BAND6
+    [Setup]    连接串口
+    设置音频    postprocess\\15khz_-6db_48k.pcm    1
+    common_command    setlen 11520000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq_menu 0
+    common_command    get_spectrum
+    播放    8    0    1
+    sleep    180
+    停止    1
+    sleep    5
+    [Teardown]    断开串口

@@ -1,0 +1,615 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../业务关键字.txt
+
+*** Variables ***
+${platform}       1    # 0:fpga,1:simulator,2:ASIC
+${console_num}    11    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\Debug\\test_audio_pcm.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    houh    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1118    # devel03的密码，用户登录bjdevel03
+${AudioFileDir}    D:\\AudioFile    # \\\\bjdevel03\\stream\\AudioTestFile D:\\AudioFile
+
+*** Test Cases ***
+720X480_MPEG2_29970fps_Britney.Spears.If.U.Seek.Amy_DVD_LPCM_2ch_48000Hz_0002.bin
+    [Documentation]    ce2309c2
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\720X480_MPEG2_29970fps_Britney.Spears.If.U.Seek.Amy_DVD_LPCM_2ch_48000Hz_0002.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ce2309c2
+    [Teardown]    断开串口
+
+Fever_DVD_LPCM_2ch_48000Hz_0003.bin
+    [Documentation]    5249b915
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\Fever_DVD_LPCM_2ch_48000Hz_0003.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5249b915
+    [Teardown]    断开串口
+
+Kylie_Minogue_Greatest_Hits_87-97_21_Confide_In_Me_5m56s_VOB_720x480_LPCM_DVD_LPCM_2ch_48000Hz_0004.bin
+    [Documentation]    77ab2e68
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\Kylie_Minogue_Greatest_Hits_87-97_21_Confide_In_Me_5m56s_VOB_720x480_LPCM_DVD_LPCM_2ch_48000Hz_0004.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    77ab2e68
+    [Teardown]    断开串口
+
+L8_Eminem_Mockingbird_DVD_LPCM_2ch_48000Hz_0005.bin
+    [Documentation]    d0d03afb
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\L8_Eminem_Mockingbird_DVD_LPCM_2ch_48000Hz_0005.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d0d03afb
+    [Teardown]    断开串口
+
+L9_Eminem_When_Im_Gone_DVD_LPCM_2ch_48000Hz_0000.bin
+    [Documentation]    72e24828
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\L9_Eminem_When_Im_Gone_DVD_LPCM_2ch_48000Hz_0000.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    72e24828
+    [Teardown]    断开串口
+
+L11_Akon_Ft._Eminem_Smack_That_DVD_LPCM_2ch_48000Hz_0001.bin
+    [Documentation]    82bc5bfd
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\L11_Akon_Ft._Eminem_Smack_That_DVD_LPCM_2ch_48000Hz_0001.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    82bc5bfd
+    [Teardown]    断开串口
+
+CH_DISC_VTS_06_1_DVD_LPCM_2ch_48000Hz_0001.bin
+    [Documentation]    b78b7fa7
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\CH_DISC_VTS_06_1_DVD_LPCM_2ch_48000Hz_0001.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b78b7fa7
+    [Teardown]    断开串口
+
+CH_DISC_VTS_09_1_DVD_LPCM_2ch_48000Hz_0004.bin
+    [Documentation]    54d3ebff
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\CH_DISC_VTS_09_1_DVD_LPCM_2ch_48000Hz_0004.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    54d3ebff
+    [Teardown]    断开串口
+
+CH_DISC_VTS_09_1_DVD_LPCM_2ch_48000Hz_0005.bin
+    [Documentation]    c7c706f3
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\CH_DISC_VTS_09_1_DVD_LPCM_2ch_48000Hz_0005.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c7c706f3
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_03_1_DVD_LPCM_2ch_48000Hz_0006.bin
+    [Documentation]    d4ab4162
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_03_1_DVD_LPCM_2ch_48000Hz_0006.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d4ab4162
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_04_1_DVD_LPCM_2ch_48000Hz_0007.bin
+    [Documentation]    00000000
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_04_1_DVD_LPCM_2ch_48000Hz_0007.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    00000000
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_05_1_DVD_LPCM_2ch_48000Hz_0008.bin
+    [Documentation]    8a914132
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_05_1_DVD_LPCM_2ch_48000Hz_0008.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8a914132
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_08_1_DVD_LPCM_2ch_96000Hz_0001.bin
+    [Documentation]    d1a7f774
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_08_1_DVD_LPCM_2ch_96000Hz_0001.bin    1
+    sleep    5
+    splay    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d1a7f774
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_09_1_DVD_LPCM_2ch_48000Hz_0002.bin
+    [Documentation]    25d84f3c
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_09_1_DVD_LPCM_2ch_48000Hz_0002.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    25d84f3c
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_11_1_DVD_LPCM_2ch_48000Hz_0009.bin
+    [Documentation]    9d3d2d98
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_11_1_DVD_LPCM_2ch_48000Hz_0017.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9d3d2d98
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_12_1_DVD_LPCM_2ch_48000Hz_0010.bin
+    [Documentation]    45a33b7e
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_12_1_DVD_LPCM_2ch_48000Hz_0010.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    45a33b7e
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_13_1_DVD_LPCM_2ch_48000Hz_0011.bin
+    [Documentation]    45a33b7e
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_13_1_DVD_LPCM_2ch_48000Hz_0000.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    45a33b7e
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_14_1_DVD_LPCM_2ch_48000Hz_0012.bin
+    [Documentation]    0542a000
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_14_1_DVD_LPCM_2ch_48000Hz_0001.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0542a000
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_15_1_DVD_LPCM_2ch_96000Hz_0000.bin
+    [Documentation]    d1200001
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_15_1_DVD_LPCM_2ch_96000Hz_0021.bin    1
+    sleep    5
+    splay    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d1200001
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_38_1_DVD_LPCM_2ch_96000Hz_0000.bin
+    [Documentation]    acb42fd1
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_38_1_DVD_LPCM_2ch_96000Hz_0022.bin    1
+    sleep    5
+    splay    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    acb42fd1
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_39_1_DVD_LPCM_2ch_48000Hz_0013.bin
+    [Documentation]    476eac8d
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_39_1_DVD_LPCM_2ch_48000Hz_0013.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    476eac8d
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_40_1_DVD_LPCM_2ch_48000Hz_0014.bin
+    [Documentation]    2ad83ba7
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_40_1_DVD_LPCM_2ch_48000Hz_0014.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2ad83ba7
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_41_1_DVD_LPCM_2ch_48000Hz_0015.bin
+    [Documentation]    6a5b7007
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_41_1_DVD_LPCM_2ch_48000Hz_0002.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6a5b7007
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_42_1_DVD_LPCM_2ch_48000Hz_0016.bin
+    [Documentation]    8e28957f
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_42_1_DVD_LPCM_2ch_48000Hz_0003.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8e28957f
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_43_1_DVD_LPCM_2ch_48000Hz_0017.bin
+    [Documentation]    423a8a2f
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_43_1_DVD_LPCM_2ch_48000Hz_0017.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    423a8a2f
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_44_1_DVD_LPCM_2ch_48000Hz_0018.bin
+    [Documentation]    c95dd34d
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_44_1_DVD_LPCM_2ch_48000Hz_0004.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c95dd34d
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_45_1_DVD_LPCM_2ch_48000Hz_0019.bin
+    [Documentation]    448eeeb8
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_45_1_DVD_LPCM_2ch_48000Hz_0019.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    448eeeb8
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_46_1_DVD_LPCM_2ch_96000Hz_0001.bin
+    [Documentation]    b19da29d
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_46_1_DVD_LPCM_2ch_96000Hz_0030.bin    1
+    sleep    5
+    splay    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b19da29d
+    [Teardown]    断开串口
+
+JVC_NTSC_VTS_47_1_DVD_LPCM_2ch_96000Hz_0002.bin
+    [Documentation]    c9c07f54
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_NTSC_VTS_47_1_DVD_LPCM_2ch_96000Hz_0031.bin    1
+    sleep    5
+    splay    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c9c07f54
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_03_1_DVD_LPCM_2ch_48000Hz_0020.bin
+    [Documentation]    d4ab4162
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_03_1_DVD_LPCM_2ch_48000Hz_0020.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d4ab4162
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_04_1_DVD_LPCM_2ch_48000Hz_0021.bin
+    [Documentation]    00000000
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_04_1_DVD_LPCM_2ch_48000Hz_0021.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    00000000
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_05_1_DVD_LPCM_2ch_48000Hz_0000.bin
+    [Documentation]    8a914132
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_05_1_DVD_LPCM_2ch_48000Hz_0000.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8a914132
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_06_1_DVD_LPCM_2ch_96000Hz_0000.bin
+    [Documentation]    0884e5c2
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_06_1_DVD_LPCM_2ch_96000Hz_0000.bin    1
+    sleep    5
+    splay    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0884e5c2
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_09_1_DVD_LPCM_2ch_48000Hz_0025.bin
+    [Documentation]    25d84f3c
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_09_1_DVD_LPCM_2ch_48000Hz_0025.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    25d84f3c
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_11_1_DVD_LPCM_2ch_48000Hz_0026.bin
+    [Documentation]    9d3d2d98
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_11_1_DVD_LPCM_2ch_48000Hz_0026.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9d3d2d98
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_12_1_DVD_LPCM_2ch_48000Hz_0001.bin
+    [Documentation]    45a33b7e
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_12_1_DVD_LPCM_2ch_48000Hz_0001.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    45a33b7e
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_13_1_DVD_LPCM_2ch_48000Hz_0002.bin
+    [Documentation]    45a33b7e
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_13_1_DVD_LPCM_2ch_48000Hz_0002.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    45a33b7e
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_14_1_DVD_LPCM_2ch_48000Hz_0003.bin
+    [Documentation]    0542a000
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_14_1_DVD_LPCM_2ch_48000Hz_0003.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0542a000
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_15_1_DVD_LPCM_2ch_96000Hz_0004.bin
+    [Documentation]    d1200001
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_15_1_DVD_LPCM_2ch_96000Hz_0004.bin    1
+    sleep    5
+    splay    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d1200001
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_38_1_DVD_LPCM_2ch_96000Hz_0000.bin
+    [Documentation]    acb42fd1
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_38_1_DVD_LPCM_2ch_96000Hz_0000.bin    1
+    sleep    5
+    splay    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    acb42fd1
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_39_1_DVD_LPCM_2ch_48000Hz_0005.bin
+    [Documentation]    476eac8d
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_39_1_DVD_LPCM_2ch_48000Hz_0005.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    476eac8d
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_40_1_DVD_LPCM_2ch_48000Hz_0006.bin
+    [Documentation]    2ad83ba7
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_40_1_DVD_LPCM_2ch_48000Hz_0006.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2ad83ba7
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_41_1_DVD_LPCM_2ch_48000Hz_0007.bin
+    [Documentation]    6a5b7007
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_41_1_DVD_LPCM_2ch_48000Hz_0007.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6a5b7007
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_42_1_DVD_LPCM_2ch_48000Hz_0008.bin
+    [Documentation]    8e28957f
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_42_1_DVD_LPCM_2ch_48000Hz_0008.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8e28957f
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_43_1_DVD_LPCM_2ch_48000Hz_0009.bin
+    [Documentation]    423a8a2f
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_43_1_DVD_LPCM_2ch_48000Hz_0047.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    423a8a2f
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_44_1_DVD_LPCM_2ch_48000Hz_0010.bin
+    [Documentation]    c95dd34d
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_44_1_DVD_LPCM_2ch_48000Hz_0010.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c95dd34d
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_45_1_DVD_LPCM_2ch_48000Hz_0000.bin
+    [Documentation]    448eeeb8
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_45_1_DVD_LPCM_2ch_48000Hz_0000.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    448eeeb8
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_46_1_DVD_LPCM_2ch_96000Hz_0001.bin
+    [Documentation]    b19da29d
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_46_1_DVD_LPCM_2ch_96000Hz_0001.bin    1
+    sleep    5
+    splay    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b19da29d
+    [Teardown]    断开串口
+
+JVC_PAL_VTS_48_1_DVD_LPCM_2ch_96000Hz_0000.bin
+    [Documentation]    dc52267d
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\JVC_PAL_VTS_48_1_DVD_LPCM_2ch_96000Hz_0000.bin    1
+    sleep    5
+    splay    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    dc52267d
+    [Teardown]    断开串口
+
+TEAC_NTSC_ALL_VTS_02_2_DVD_LPCM_2ch_48000Hz_0000.bin
+    [Documentation]    83948230
+    [Setup]    连接串口
+    设置音频    ES\\DVD_LPCM\\VOB_from_Zhiyun_Share_Folder\\TEAC_NTSC_ALL_VTS_02_2_DVD_LPCM_2ch_48000Hz_0000.bin    1
+    sleep    5
+    splay    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    83948230
+    [Teardown]    断开串口

@@ -1,0 +1,689 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Resource          ../业务关键字.txt
+Library           OperatingSystem
+Library           String
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    1    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\debug\\test_audio.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    chenql    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1108    # devel03的密码，用户登录bjdevel03
+${vorbis_exe_path}    D:\\debug\\vorbis.exe    # vorbis.exe path to strip ogg file
+
+*** Test Cases ***
+AUDIO_SET_IEC0_DELAY_250MS
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 455072
+    common_command    iec 0
+    common_command    setiec0d 250
+    common_command    play 22 0 1
+    sleep    20    \    #检查A5波形比A6波形滞后250ms
+    [Teardown]    断开串口
+
+AUDIO_SNDEFFECT_48K
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    btn 48000
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_SNDEFFECT_96K
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1    #测试btn要拔掉HDMI线
+    sleep    5
+    common_command    iec 0
+    common_command    btn 96000
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_SNDEFFECT_192K
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    btn 192000
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_SNDEFFECT_32K
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    btn 32000
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_SNDEFFECT_64K
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    btn 64000
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_SNDEFFECT_44K
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    btn 44100
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_SNDEFFECT_88K
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    btn 88200
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_SNDEFFECT_176K
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    btn 176400
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_SNDEFFECT_WHEN_PAUSE
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    play 32 0 1
+    sleep    10
+    common_command    pause 1
+    sleep    5
+    common_command    btn 0
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_SNDEFFECT_WHEN_FF
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\country.ac3    1
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 3001344
+    common_command    fplay 37 0 1 1024
+    sleep    3
+    common_command    btn 0
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_SNDEFFECT_WHEN_STOP
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    play 32 1 1
+    sleep    10
+    common_command    pstop 1
+    sleep    5
+    common_command    btn 0
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_SNDEFFECT_WHEN_BSBUF_NO_DATA
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    btn_no_data
+    sleep    120
+    [Teardown]    断开串口
+
+AUDIO_SNDEFFECT_AFTER_SET_BSBUF_END
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    play 32 0 1
+    sleep    20
+    common_command    stop 1
+    common_command    btn 0
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_PAUSE_DEC1_WHEN_SNDEFFECT
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    pause_dec_when_btn
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_MIXER_MODE_EFFECTAUDIO
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    btn_only
+    sleep    20    \    #only output btn sound.
+    [Teardown]    断开串口
+
+AUDIO_SNDEFFECT_DEC1_SMPRATE_32K_2_44K
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0
+    common_command    btn_when_sr_changed
+    sleep    20    \    #only output btn sound.
+    [Teardown]    断开串口
+
+AUDIO_BTN_WHEN_MIXER_MODE_DEC1
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    btn_when_m_dec1
+    sleep    20    \    #only output btn sound.
+    [Teardown]    断开串口
+
+AUDIO_BTN_WHEN_MIXER_MODE_DEC2
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    btn_when_m_dec2
+    sleep    20    \    #only output btn sound.
+    [Teardown]    断开串口
+
+AUDIO_SET_IEC0_DELAY_100MS
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 455072
+    common_command    iec 0
+    common_command    setiec0d 100
+    common_command    play 22 0 1
+    sleep    20    \    #检查A5波形比A6波形滞后250ms
+    [Teardown]    断开串口
+
+AUDIO_SET_IEC0_DELAY_300MS
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    setfmt AAC
+    common_command    setsr 44100
+    common_command    setlen 455072
+    common_command    iec 0
+    common_command    setiec0d 300
+    common_command    play 22 0 1
+    sleep    20    \    #检查A5波形比A6波形滞后250ms
+    [Teardown]    断开串口
+
+AUDIO_DSP_RESET_DURING_DECODING
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0    #只能在FPGA上运行，不能在simulator上跑。
+    common_command    play 32 0 1
+    common_command    dsp_reset
+    sleep    20    \    #检查reset后继续解码
+    [Teardown]    断开串口
+
+AUDIO_DSP_RESET_WHEN_STOP
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0    \    #只能在FPGA上运行，不能在simulator上跑。
+    common_command    play 32 0 1
+    sleep    10
+    common_command    pstop 1
+    common_command    dsp_reset
+    sleep    10    \    #检查reset后dec1处于stop状态，不解码。
+    common_command    play 32 0 1    #检查dec1有输出
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_DSP_RESET_WHEN_PAUSE
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0    #只能在FPGA上运行，不能在simulator上跑。
+    common_command    rdplay 32 1 1
+    sleep    10
+    common_command    pause 1
+    common_command    dsp_reset
+    sleep    10    #检查dec1恢复解码。
+    [Teardown]    断开串口
+
+AUDIO_DSP_RESET_WHEN_FF
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0    \    #只能在FPGA上运行，不能在simulator上跑。
+    common_command    fplay 32 1 1 1024
+    sleep    10
+    common_command    dsp_reset
+    sleep    10    \    #检查reset后dec1以1倍速播放。
+    [Teardown]    断开串口
+
+AUDIO_DSP_RESET_WHEN_SPDIF_RAW
+    [Setup]    连接串口
+    设置音频    ES\\AC3\\test_mpeg2_video_ac3_audio_Headphone_0204_32khz_64kbps_2ch.ac3    1    #只能在FPGA上运行，不能在simulator上跑。
+    sleep    5
+    common_command    iec 0
+    common_command    dsp_reset_when_spdif_raw
+    sleep    60    #检查reset后spdif仍有raw输出
+    [Teardown]    断开串口
+
+AUDIO_DSP_RESET_WHEN_HDMI_RAW
+    [Setup]    连接串口
+    设置音频    ES\\AC3\\test_mpeg2_video_ac3_audio_Headphone_0204_32khz_64kbps_2ch.ac3    1    #只能在FPGA上运行，不能在simulator上跑。
+    sleep    5
+    common_command    iec 1
+    common_command    dsp_reset_when_hdmi_raw
+    sleep    60
+    sleep    10    #检查reset后hdmi仍有raw输出
+    [Teardown]    断开串口
+
+AUDIO_DSP_RESET_WHEN_LL
+    [Setup]    指定串口    11
+    设置音频    AudioIO\\48kfs_sine_L-20db_R-26db_1khz.pcm    1
+    sleep    3
+    iec输出    0
+    设置DownMix模式    0
+    sleep    3
+    播放    8    1    1
+    sleep    20
+    设置2声道模式    2
+    sleep    20
+    common_command    dsp_reset
+    sleep    20    #检查dsp reset后iec0波形幅值左右声道差6db。
+    [Teardown]    断开串口
+
+AUDIO_DSP_RESET_AFTER_HW_VOL_CTL
+    [Setup]    指定串口    11
+    设置音频    AudioIO\\48kfs_sine_-20db_1khz.pcm    1
+    sleep    3
+    iec输出    0
+    播放    8    1    1
+    sleep    5
+    volume控制    1    81    81
+    sleep    20
+    volume控制    1    20    20
+    sleep    20
+    common_command    dsp_reset
+    sleep    20
+    common_command    getvolume    #检查volume是20，输出幅值和reset前一样
+    [Teardown]    断开串口
+
+AUDIO_DSP_RESET_AFTER_SW_VOL_CTL
+    [Setup]    指定串口    11
+    设置音频    AudioIO\\48kfs_sine_-20db_1khz.pcm    0
+    sleep    3
+    iec输出    0
+    播放    8    1    1
+    volume控制    1    81    81
+    sleep    3
+    volume控制    2    102    102
+    sleep    40
+    volume控制    2    90    90
+    sleep    30
+    common_command    dsp_reset
+    sleep    30
+    common_command    getvolume    #检查volume是90，输出幅值和reset前一样
+    [Teardown]    断开串口
+
+AUDIO_DSP_RESET_WHEN_EQ_JAZZ
+    [Setup]    连接串口
+    设置音频    postprocess\\L_all_band_R_20_20K_48KHZ_-6db.pcm    1
+    sleep    5
+    common_command    setlen 13440000
+    common_command    setfmt PCM
+    common_command    setsr 48000
+    common_command    set_eq 3
+    common_command    iec 0
+    播放    8    1    1
+    sleep    180
+    common_command    dsp_reset
+    sleep    180    #检查各频点的db值reset前后相等
+    [Teardown]    断开串口
+
+AUDIO_DSP_RESET_AFTER_SWITCH_MIXER_MODE
+    [Setup]    连接串口
+    BuiltIn.Run Keyword If    ${platform}==0    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    4096    AudioIO\\44k_4khz.mp3    4608
+    BuiltIn.Run Keyword If    ${platform}==1    生成dual_decoder音频    AudioIO\\32k_2khz.mp3    4096    AudioIO\\44k_4khz.mp3    4608
+    BuiltIn.Run Keyword If    ${platform}==2    生成dual_decoder音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\es02.mp3    8192    ES\\ComplianceTestFile\\mpa_test\\compressed\\sfReuse_mixedblock_44k_cbr.mp3    8704
+    sleep    5
+    common_command    iec 0
+    common_command    mixermode 1
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 138890
+    common_command    setfmt2 MPEG
+    common_command    setlen2 160749
+    common_command    setsr2 44100
+    common_command    play 7 1 1
+    common_command    play2 38 1 2
+    sleep    30
+    common_command    mixermode 2
+    sleep    30
+    common_command    dsp_reset    #reset后没有输出
+    common_command    mixermode 1    #检查只有dec1输出
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_DSP_RESET_AFTER_SWITCH_DOWNMIX_MODE
+    [Setup]    连接串口
+    设置音频    AudioIO\\48K_5.1CH_Downmix.pcm    1
+    sleep    3
+    iec输出    0
+    volume控制    1    81    81
+    设置DownMix模式    2
+    common_command    setlen 5760000
+    sleep    3
+    播放    35    0    1
+    sleep    40
+    common_command    dsp_reset
+    sleep    20
+    停止    1
+    [Teardown]    断开串口
+
+AUDIO_OGG
+    [Setup]    连接串口
+    strip_ogg    ES\\OGG\\01_Duran_Duran_Planet_Earth_44P1khz.ogg    stripped_ogg\\01_Duran_Duran_Planet_Earth_44P1khz.ogg.packet
+    sleep    20
+    设置音频    stripped_ogg\\01_Duran_Duran_Planet_Earth_44P1khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1037345
+    播放    15    0    1
+    sleep    40
+    common_command    stop 1
+    sleep    3
+    [Teardown]    断开串口
+
+AUDIO_DSP_RESET_WHEN_MUTE
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5    \    #只能在FPGA上运行，不能在simulator上跑。
+    common_command    iec 0
+    common_command    play 32 1 1
+    sleep    40
+    mute控制    0    0
+    sleep    20
+    common_command    dsp_reset
+    sleep    10    \    #检查reset后继续解码,但没有声音。
+    common_command    demute
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_DSP_RESET_WHEN_DEC2_PLAYING
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0    #只能在FPGA上运行，不能在simulator上跑。
+    common_command    play 32 1 2
+    sleep    40
+    common_command    dsp_reset
+    sleep    30    \    #检查reset后继续解码
+    [Teardown]    断开串口
+
+AUDIO_DSP_RESET_WHEN_PLAY_BTN
+    [Setup]    连接串口
+    设置音频    ES\\AAC\\ADTS\\E156_mp2_AAC_LC_ADTS_Version2_44.1khz_Stereo.aac    1
+    sleep    5
+    common_command    iec 0    #只能在FPGA上运行，不能在simulator上跑。
+    common_command    btn 48000
+    sleep    10
+    common_command    dsp_reset
+    sleep    20
+    common_command    btn 48000    #检查reset后可以播放btn sound
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_SNDEFFECT_ENC
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\class.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 2568192
+    common_command    ac3enc
+    common_command    getenc
+    播放    8    0    1
+    sleep    40
+    [Teardown]    断开串口
+
+AUDIO_DSP_RESET_DURING_ENCODING
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\class.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 2568192
+    common_command    ac3enc
+    播放    8    0    1
+    sleep    20
+    common_command    dsp_reset
+    [Teardown]    断开串口
+
+AUDIO_HDMI_RAWHD
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\buggy_aht_5.1_384.eac3    1
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 7014912
+    common_command    set_output 2 4
+    播放    8    0    1
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_SPDIF_MODE_OFF
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\buggy_aht_5.1_384.eac3    1
+    sleep    5
+    common_command    set_output 1 0
+    播放    32    0    1
+    sleep    20    #SPDIF 没有声音
+    [Teardown]    断开串口
+
+AUDIO_SPDIF_MODE_PCMDECAY
+    [Setup]    连接串口
+    设置音频    AudioIO\\48kfs_sine_-26db_1khz.pcm    1
+    sleep    5
+    播放    8    1    1
+    sleep    5
+    common_command    set_output 1 5
+    sleep    20    #SPDIF 声音降低8db
+    [Teardown]    断开串口
+
+AUDIO_SPDIF_MODE_SWITCH
+    [Setup]    连接串口
+    设置音频    ES\\EAC3\\buggy_aht_5.1_384.eac3    1
+    sleep    5
+    播放    32    1    1
+    sleep    10    #SPDIF output PCM data
+    common_command    set_output 1 5
+    sleep    10    #SPDIF PCM 声音降低
+    common_command    set_output 1 0
+    sleep    5    #SPDIF无声音
+    common_command    ac3enc
+    sleep    10    #SPDIF output ac3 raw data
+    common_command    set_output 1 2
+    sleep    10    #SPDIF output raw data
+    common_command    set_output 1 1
+    sleep    10    #SPDIF output PCM data
+    common_command    set_output 1 3
+    sleep    10    #SPDIF output ac3 raw data
+    common_command    set_output 1 0
+    sleep    5    #SPDIF无声音
+    [Teardown]    断开串口
+
+AUDIO_HDMI_OFF
+    [Setup]    连接串口
+    设置音频    ES\\AC3\\Breathless_AC3_128kbps_32khz_Stereo.ac3    1    #HDMI 接功放
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 32000
+    common_command    setlen 960000
+    播放    8    0    1
+    sleep    20    \    #功放可以收到raw 数据
+    切换输出模式    2    0
+    sleep    5    \    #功放没声音
+    [Teardown]    断开串口
+
+AUDIO_HDMI_PCMDECAY
+    [Setup]    连接串口
+    设置音频    AudioIO\\48kfs_sine_-26db_1khz.pcm    1    #HDMI 接功放
+    sleep    5
+    播放    8    1    1
+    common_command    wreg 67 7 0x20404000
+    sleep    20    \    #功放可以收到PCM 数据
+    切换输出模式    2    6
+    sleep    5    \    #功放声音变小
+    [Teardown]    断开串口
+
+AUDIO_HDMI_REENC
+    [Setup]    连接串口
+    设置音频    ES\\AC3\\Breathless_AC3_128kbps_32khz_Stereo.ac3    1    #HDMI 接功放
+    sleep    5
+    common_command    ac3enc
+    切换输出模式    2    3
+    播放    8    0    1
+    sleep    20    \    #功放可以收到ac3 raw 数据
+    [Teardown]    断开串口
+
+AUDIO_HDMI_PCMBOOST
+    [Setup]    连接串口
+    设置音频    ES\\AC3\\Breathless_AC3_128kbps_32khz_Stereo.ac3    1    #HDMI 接功放
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 32000
+    common_command    setlen 960000
+    播放    8    0    1
+    sleep    20    \    #功放可以收到PCM 数据
+    切换输出模式    2    7
+    sleep    5    \    #功放声音变大
+    [Teardown]    断开串口
+
+AUDIO_ALAC
+    [Setup]    连接串口
+    设置音频    ES\\ALAC\\Halo_32khz.caf.ffmpeg.bin    1
+    sleep    5
+    common_command    setfmt ALAC
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 156192155
+    common_command    playusb 1 /2L50SACD_tr01_multi_96.m4a.ffmpeg.bin
+    sleep    40
+    common_command    stop 1
+    sleep    3
+    [Teardown]    断开串口
+
+AUDIO_AUTO_VOL_ON
+    [Setup]    连接串口
+    设置音频    postprocess\\autovolume.pcm    1
+    common_command    setsr 48000
+    common_command    setlen 6528000
+    common_command    autovol_on
+    播放    8    0    1
+    sleep    20
+    停止    1
+    #录制iec0输出检查
+    [Teardown]    断开串口
+
+AUDIO_SWFADPCM
+    [Setup]    连接串口
+    设置音频    ES\\SWF_ADPCM\\mono_11k.wav.bin    1
+    sleep    5
+    common_command    setfmt SWFADPCM
+    common_command    setch 1
+    common_command    setsr 11025
+    common_command    setba 257
+    common_command    setlen 334871
+    common_command    play 8 0 1
+    sleep    40
+    common_command    stop 1
+    sleep    3
+    [Teardown]    断开串口
+
+AUDIO_AUTO_VOL_OFF
+    [Setup]    连接串口
+    设置音频    postprocess\\autovolume.pcm    1
+    播放    32    1    1
+    sleep    10
+    common_command    autovol_onoff
+    sleep    60
+    停止    1
+    [Teardown]    断开串口
+
+AUDIO_AUTO_VOL_ON_WHEN_MUTE_DEMUTE
+    [Setup]    连接串口
+    设置音频    postprocess\\autovolume.pcm    1
+    播放    32    1    1
+    sleep    10
+    common_command    autovol_on
+    sleep    10
+    common_command    mute 0 0
+    sleep    10
+    common_command    demute
+    sleep    10
+    停止    1
+    [Teardown]    断开串口
+
+AUDIO_AUTO_VOL_ON_WHEN_VOLUME_CTRL
+    [Setup]    连接串口
+    设置音频    AudioIO\\48kfs_sine_-26db_1khz.pcm    1
+    播放    8    1    1
+    common_command    autovol_on
+    volume控制    1    81    0
+    sleep    60
+    停止    1
+    [Teardown]    断开串口
+
+AUDIO_AUTO_VOL_ON_WHEN_FF
+    [Setup]    连接串口
+    设置音频    postprocess\\autovolume.pcm    1
+    common_command    autovol_on
+    common_command    setsr 48000
+    common_command    setlen 6528000
+    common_command    fplay 8 0 1 1024
+    sleep    60
+    停止    1
+    [Teardown]    断开串口
+
+AUDIO_AUTO_VOL_ON_WHEN_REENC_AC3
+    [Setup]    连接串口
+    设置音频    postprocess\\autovolume.pcm    1
+    common_command    ac3enc
+    common_command    set_output 1 3
+    common_command    play 32 0 1
+    sleep    10
+    common_command    autovol_on
+    sleep    60
+    停止    1
+    [Teardown]    断开串口
+
+AUDIO_AUTO_VOL_ON_WHEN_OUTPUT_RAW
+    [Setup]    连接串口
+    设置音频    postprocess\\autovolume.pcm    1
+    common_command    set_output 1 2
+    common_command    play 32 1 1
+    sleep    10
+    common_command    autovol_on
+    sleep    60
+    停止    1
+    [Teardown]    断开串口

@@ -1,0 +1,211 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Test Setup
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../../业务关键字.txt
+
+*** Variables ***
+${platform}       3
+${console_num}    9
+
+*** Test Cases ***
+
+*** Keywords ***
+PE_DEC_CASE
+    [Arguments]    ${file_name}    ${check_sum}
+    [Timeout]    30 minutes
+    连接串口
+    common_command    mon
+    sleep    3
+    common_command    avl audp_play ${file_name}
+    sleep    5
+    检查checksum    ${check_sum}
+    [Teardown]    断开串口
+*** Test Cases ***
+ID7.1ch_512kbps_48khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\48KHz\\ID7.1ch_512kbps_48khz_cbr.es    3e6709ef
+ID5.1ch_384kbps_48khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\48KHz\\ID5.1ch_384kbps_48khz_cbr.es    9e2e2018
+ID2.0ch_128kbps_48khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\48KHz\\ID2.0ch_128kbps_48khz_cbr.es    ea121801
+ID1.0ch_64kbps_48khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\48KHz\\ID1.0ch_64kbps_48khz_cbr.es    eeae2e69
+14-fl_dra128kbps_2ch_48khz_vbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\48KHz\\14-fl_dra128kbps_2ch_48khz_vbr.es    9eb8ee60
+14-fl_dra384kbps_51ch_48khz_vbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\48KHz\\14-fl_dra384kbps_51ch_48khz_vbr.es    fb0546dc
+14-fl_dra512kbps_71ch_48khz_vbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\48KHz\\14-fl_dra512kbps_71ch_48khz_vbr.es    0ef5bbc2
+ID7.1ch_512kbps_44khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\44.1KHz\\ID7.1ch_512kbps_44khz_cbr.es    78bad64e
+ID5.1ch_384kbps_44khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\44.1KHz\\ID5.1ch_384kbps_44khz_cbr.es    603866db
+ID2.0ch_128kbps_44khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\44.1KHz\\ID2.0ch_128kbps_44khz_cbr.es    405909a5
+ID1.0ch_64kbps_44khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\44.1KHz\\ID1.0ch_64kbps_44khz_cbr.es    dbcae71c
+14-fl_dra128kbps_2ch_44khz_vbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\44.1KHz\\14-fl_dra128kbps_2ch_44khz_vbr.es    36dd037e
+14-fl_dra512kbps_71ch_44khz_vbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\44.1KHz\\14-fl_dra512kbps_71ch_44khz_vbr.es    ca527dbb
+14-fl_dra384kbps_51ch_44khz_vbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\44.1KHz\\14-fl_dra384kbps_51ch_44khz_vbr.es    23a3e091
+ID7.1ch_384kbps_32khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\32KHz\\ID7.1ch_384kbps_32khz_cbr.es    95000982
+ID5.1ch_256kbps_32khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\32KHz\\ID5.1ch_256kbps_32khz_cbr.es    b0277c77
+ID2.0ch_96kbps_32khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\32KHz\\ID2.0ch_96kbps_32khz_cbr.es    dc1316cf
+ID1.0ch_48kbps_32khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\32KHz\\ID1.0ch_48kbps_32khz_cbr.es    324544e3
+14-fl_dra512kbps_71ch_32khz_vbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\32KHz\\14-fl_dra512kbps_71ch_32khz_vbr.es    8f9f8986
+14-fl_dra384kbps_51ch_32khz_vbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\32KHz\\14-fl_dra384kbps_51ch_32khz_vbr.es    18aaca85
+14-fl_dra128kbps_2ch_32khz_vbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\32KHz\\14-fl_dra128kbps_2ch_32khz_vbr.es    bae19b89
+ID7.1ch_1024kbps_96khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\96kHz\\ID7.1ch_1024kbps_96khz_cbr.es    b3f26627
+ID5.1ch_768kbps_96khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\96kHz\\ID5.1ch_768kbps_96khz_cbr.es    3d05e147
+ID2.0ch_256kbps_96khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\96kHz\\ID2.0ch_256kbps_96khz_cbr.es    2fdbdeb8
+ID1.0ch_128kbps_96khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\96kHz\\ID1.0ch_128kbps_96khz_cbr.es    cd45370a
+ID7.1ch_96kbps_8khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\8kHz\\ID7.1ch_96kbps_8khz_cbr.es    e63aa067
+ID5.1ch_64kbps_8khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\8kHz\\ID5.1ch_64kbps_8khz_cbr.es    57545134
+ID1.0ch_16kbps_8khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\8kHz\\ID1.0ch_16kbps_8khz_cbr.es    d69c6561
+ID2.0ch_24kbps_8khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\8kHz\\ID2.0ch_24kbps_8khz_cbr.es    c930aa40
+ID7.1ch_1024kbps_88khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\88.2kHz\\ID7.1ch_1024kbps_88khz_cbr.es    8e32eeff
+ID5.1ch_768kbps_88khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\88.2kHz\\ID5.1ch_768kbps_88khz_cbr.es    80152998
+ID2.0ch_256kbps_88khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\88.2kHz\\ID2.0ch_256kbps_88khz_cbr.es    cfff2ec6
+ID1.0ch_128kbps_88khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\88.2kHz\\ID1.0ch_128kbps_88khz_cbr.es    fe49ffb2
+ID7.1ch_256kbps_24khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\24kHz\\ID7.1ch_256kbps_24khz_cbr.es    ffe1f954
+ID5.1ch_192kbps_24khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\24kHz\\ID5.1ch_192kbps_24khz_cbr.es    630d6fad
+ID2.0ch_64kbps_24khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\24kHz\\ID2.0ch_64kbps_24khz_cbr.es    72b6a29a
+ID1.0ch_32kbps_24khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\24kHz\\ID1.0ch_32kbps_24khz_cbr.es    d3c72af6
+ID7.1ch_256kbps_22khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\22.05kHz\\ID7.1ch_256kbps_22khz_cbr.es    292c170d
+ID5.1ch_192kbps_22khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\22.05kHz\\ID5.1ch_192kbps_22khz_cbr.es    1fe0913c
+ID2.0ch_64kbps_22khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\22.05kHz\\ID2.0ch_64kbps_22khz_cbr.es    41f0acc1
+ID1.0ch_32kbps_22khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\22.05kHz\\ID1.0ch_32kbps_22khz_cbr.es    ebc6c7cd
+ID7.1ch_2048kbps_192khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\192kHz\\ID7.1ch_2048kbps_192khz_cbr.es    4a325c13
+ID5.1ch_1536kbps_192khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\192kHz\\ID5.1ch_1536kbps_192khz_cbr.es    d5fc69c2
+ID2.0ch_512kbps_192khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\192kHz\\ID2.0ch_512kbps_192khz_cbr.es    3db1e413
+ID1.0ch_256kbps_192khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\192kHz\\ID1.0ch_256kbps_192khz_cbr.es    df4cfbd8
+ID7.1ch_1881kbps_176khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\176.4kHz\\ID7.1ch_1881kbps_176khz_cbr.es    3e00e057
+ID5.1ch_1411kbps_176khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\176.4kHz\\ID5.1ch_1411kbps_176khz_cbr.es    533a9039
+ID2.0ch_512kbps_176khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\176.4kHz\\ID2.0ch_512kbps_176khz_cbr.es    55c0c568
+ID1.0ch_256kbps_176khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\176.4kHz\\ID1.0ch_256kbps_176khz_cbr.es    bf449244
+ID7.1ch_192kbps_16khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\16kHz\\ID7.1ch_192kbps_16khz_cbr.es    38da5b76
+ID5.1ch_128kbps_16khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\16kHz\\ID5.1ch_128kbps_16khz_cbr.es    638903f4
+ID2.0ch_48kbps_16khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\16kHz\\ID2.0ch_48kbps_16khz_cbr.es    edac5619
+ID1.0ch_24kbps_16khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\16kHz\\ID1.0ch_24kbps_16khz_cbr.es    d77b8e75
+ID7.1ch_128kbps_12khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\12kHz\\ID7.1ch_128kbps_12khz_cbr.es    7edc8405
+ID5.1ch_96kbps_12khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\12kHz\\ID5.1ch_96kbps_12khz_cbr.es    e82dd4a2
+ID2.0ch_32kbps_12khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\12kHz\\ID2.0ch_32kbps_12khz_cbr.es    da95b903
+ID1.0ch_16kbps_12khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\12kHz\\ID1.0ch_16kbps_12khz_cbr.es    8c6fa90f
+ID7.1ch_128kbps_11khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\11.025kHz\\ID7.1ch_128kbps_11khz_cbr.es    720bc98a
+ID5.1ch_96kbps_11khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\11.025kHz\\ID5.1ch_96kbps_11khz_cbr.es    b76316b5
+ID1.0ch_16kbps_11khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\11.025kHz\\ID1.0ch_16kbps_11khz_cbr.es    f84c3241
+ID2.0ch_32kbps_11khz_cbr.es
+    [Template]    PE_DEC_CASE
+    ES\\DRA\\11.025kHz\\ID2.0ch_32kbps_11khz_cbr.es    61fcc98e

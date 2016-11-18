@@ -1,0 +1,912 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../业务关键字.txt
+
+*** Variables ***
+${platform}       1    # 0:fpga,1:simulator,2:ASIC
+${console_num}    11    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\Debug\\test_audio_ape.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    houh    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1118    # devel03的密码，用户登录bjdevel03
+${AudioFileDir}    D:\\AudioFile    # \\\\bjdevel03\\stream\\AudioTestFile D:\\AudioFile
+
+*** Test Cases ***
+01.Janacek_Sonata_for_Violin_and_Piano-Con_moto.ape.bin
+    [Documentation]    c806f1a9
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\01.Janacek_Sonata_for_Violin_and_Piano-Con_moto.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    c806f1a9
+    [Teardown]    断开串口
+
+01.ZhongGuoHua.ape.bin
+    [Documentation]    95212431
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\01.ZhongGuoHua.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    95212431
+    [Teardown]    断开串口
+
+02.HouLai.ape.bin
+    [Documentation]    d4f26565
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\02.HouLai.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    d4f26565
+    [Teardown]    断开串口
+
+03.ZhiDuiNiYouGuanJue.ape.bin
+    [Documentation]    a9767a49
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\03.ZhiDuiNiYouGuanJue.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    a9767a49
+    [Teardown]    断开串口
+
+09.JuHuaTai.ape.bin
+    [Documentation]    f03fa655
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\09.JuHuaTai.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    f03fa655
+    [Teardown]    断开串口
+
+24KHz_VBR_RiBuLuo.ape.bin
+    [Documentation]    d2950751
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\24KHz_VBR_RiBuLuo.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    d2950751
+    [Teardown]    断开串口
+
+2002_8bit.ape.bin
+    [Documentation]    908a98b5
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\2002_8bit.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    908a98b5
+    [Teardown]    断开串口
+
+2002_16bit.ape.bin
+    [Documentation]    f4d04dfa
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\2002_16bit.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    f4d04dfa
+    [Teardown]    断开串口
+
+ape_0006-2007HongKongGaoJiShiTingZhan.ape.bin
+    [Documentation]    b31cad41
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\ape_0006-2007HongKongGaoJiShiTingZhan.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    b31cad41
+    [Teardown]    断开串口
+
+APE_32KHz_256Kbps_AiMei_HouXiangTing.ape.bin
+    [Documentation]    6d0a7960
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\APE_32KHz_256Kbps_AiMei_HouXiangTing.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    6d0a7960
+    [Teardown]    断开串口
+
+Artist-01.ape.bin
+    [Documentation]    046b1267
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\Artist-01.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    046b1267
+    [Teardown]    断开串口
+
+Artist-02.LingRenGe.ape.bin
+    [Documentation]    afae95f6
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\Artist-02.LingRenGe.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    afae95f6
+    [Teardown]    断开串口
+
+Artist-03.AWaErGuLi.ape.bin
+    [Documentation]    e2c819c4
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\Artist-03.AWaErGuLi.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    e2c819c4
+    [Teardown]    断开串口
+
+Artist-04.YueZhiGuXiang.ape.bin
+    [Documentation]    d8ddbcf8
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\Artist-04.YueZhiGuXiang.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    d8ddbcf8
+    [Teardown]    断开串口
+
+Artist-05.YiShuiGeTianYa.ape.bin
+    [Documentation]    2d642452
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\Artist-05.YiShuiGeTianYa.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    2d642452
+    [Teardown]    断开串口
+
+Artist-06.XinLingGangWan.ape.bin
+    [Documentation]    14510039
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\Artist-06.XinLingGangWan.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    14510039
+    [Teardown]    断开串口
+
+Artist-07.Starry_Starry_Night.ape.bin
+    [Documentation]    8d197caa
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\Artist-07.Starry_Starry_Night.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    8d197caa
+    [Teardown]    断开串口
+
+Artist-08.YuHuoShanShan.ape.bin
+    [Documentation]    04a8b620
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\Artist-08.YuHuoShanShan.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    04a8b620
+    [Teardown]    断开串口
+
+Artist-09.HeHuaSong.ape.bin
+    [Documentation]    7d0a81c5
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\Artist-09.HeHuaSong.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    7d0a81c5
+    [Teardown]    断开串口
+
+Artist-10.ShengShengShiShi.ape.bin
+    [Documentation]    71ace85a
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\Artist-10.ShengShengShiShi.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    71ace85a
+    [Teardown]    断开串口
+
+Artist-11.MingYueGuang.ape.bin
+    [Documentation]    17e902ef
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\Artist-11.MingYueGuang.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    17e902ef
+    [Teardown]    断开串口
+
+Artist-12.HongXueLian.ape.bin
+    [Documentation]    70ede61d
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\Artist-12.HongXueLian.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    70ede61d
+    [Teardown]    断开串口
+
+Artist-13.TingYuanShenShen.ape.bin
+    [Documentation]    b21a0b97
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\Artist-13.TingYuanShenShen.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    b21a0b97
+    [Teardown]    断开串口
+
+Artist-14.QianLiZhiWai.ape.bin
+    [Documentation]    38a0774e
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\Artist-14.QianLiZhiWai.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    38a0774e
+    [Teardown]    断开串口
+
+big_big_girl.ape.bin
+    [Documentation]    0f1307d3
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\big_big_girl.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    0f1307d3
+    [Teardown]    断开串口
+
+love_you_more_than_i_can_say.ape.bin
+    [Documentation]    32816200
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\love_you_more_than_i_can_say.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    32816200
+    [Teardown]    断开串口
+
+QunXing-AiDeLuoManShi.ape.bin
+    [Documentation]    82cb154f
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-AiDeLuoManShi.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    82cb154f
+    [Teardown]    断开串口
+
+QunXing-AiWo.ape.bin
+    [Documentation]    fc39c7fb
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-AiWo.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    fc39c7fb
+    [Teardown]    断开串口
+
+QunXing-BuYaoXiaoWoChi.ape.bin
+    [Documentation]    45c6118a
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-BuYaoXiaoWoChi.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    45c6118a
+    [Teardown]    断开串口
+
+QunXing-FengZhongDeErYu.ape.bin
+    [Documentation]    6d3dcead
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-FengZhongDeErYu.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    6d3dcead
+    [Teardown]    断开串口
+
+QunXing-HenMianMian.ape.bin
+    [Documentation]    407a53d7
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-HenMianMian.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    407a53d7
+    [Teardown]    断开串口
+
+QunXing-HongHuaYu.ape.bin
+    [Documentation]    2a8b1bdb
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-HongHuaYu.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    2a8b1bdb
+    [Teardown]    断开串口
+
+QunXing-HongQiangWei.ape.bin
+    [Documentation]    27af793a
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-HongQiangWei.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    27af793a
+    [Teardown]    断开串口
+
+QunXing-HongZhuLei.ape.bin
+    [Documentation]    0a700924
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-HongZhuLei.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    0a700924
+    [Teardown]    断开串口
+
+QunXing-HuaLouLianGe.ape.bin
+    [Documentation]    738a1fe2
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-HuaLouLianGe.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    738a1fe2
+    [Teardown]    断开串口
+
+QunXing-I_CRY_YuanChuang.ape.bin
+    [Documentation]    060f2ebf
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-I_CRY_YuanChuang.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    060f2ebf
+    [Teardown]    断开串口
+
+QunXing-JiMoJiJie.ape.bin
+    [Documentation]    50b2d566
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-JiMoJiJie.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    50b2d566
+    [Teardown]    断开串口
+
+QunXing-JinYeQingZhuWoLiaDeAi.ape.bin
+    [Documentation]    3627624e
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-JinYeQingZhuWoLiaDeAi.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    3627624e
+    [Teardown]    断开串口
+
+QunXing-LaoDiFang.ape.bin
+    [Documentation]    655191f2
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-LaoDiFang.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    655191f2
+    [Teardown]    断开串口
+
+QunXing-LiuSha.ape.bin
+    [Documentation]    51a8d2ca
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-LiuSha.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    51a8d2ca
+    [Teardown]    断开串口
+
+QunXing-LiuYangHe.ape.bin
+    [Documentation]    fe4e75ea
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-LiuYangHe.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    fe4e75ea
+    [Teardown]    断开串口
+
+QunXing-MengJiangNan.ape.bin
+    [Documentation]    9ed77506
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-MengJiangNan.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    9ed77506
+    [Teardown]    断开串口
+
+QunXing-MoMoZhuFuNi.ape.bin
+    [Documentation]    f1fd8d99
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-MoMoZhuFuNi.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    f1fd8d99
+    [Teardown]    断开串口
+
+QunXing-NiZhenDeZhaoDaoLe.ape.bin
+    [Documentation]    721d2741
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-NiZhenDeZhaoDaoLe.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    721d2741
+    [Teardown]    断开串口
+
+QunXing-RenMianTaoHua.ape.bin
+    [Documentation]    c3394469
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-RenMianTaoHua.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    c3394469
+    [Teardown]    断开串口
+
+QunXing-ShuiKeGaiBian.ape.bin
+    [Documentation]    286f95bb
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-ShuiKeGaiBian.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    286f95bb
+    [Teardown]    断开串口
+
+QunXing-SiSiXiaoYu.ape.bin
+    [Documentation]    112797d0
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-SiSiXiaoYu.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    112797d0
+    [Teardown]    断开串口
+
+QunXing-TaoHuaYun.ape.bin
+    [Documentation]    5342a395
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-TaoHuaYun.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    5342a395
+    [Teardown]    断开串口
+
+QunXing-TingBuDaoDeShuoHua.ape.bin
+    [Documentation]    44ef1cee
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-TingBuDaoDeShuoHua.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    44ef1cee
+    [Teardown]    断开串口
+
+QunXing-WanQuanHeShuiQingYouQing.ape.bin
+    [Documentation]    1e931497
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-WanQuanHeShuiQingYouQing.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    1e931497
+    [Teardown]    断开串口
+
+QunXing-WuYanDeJieJu.ape.bin
+    [Documentation]    fb0c14af
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-WuYanDeJieJu.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    fb0c14af
+    [Teardown]    断开串口
+
+QunXing-XiangZheNiShuiBuZhao.ape.bin
+    [Documentation]    4a0a8c11
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-XiangZheNiShuiBuZhao.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    4a0a8c11
+    [Teardown]    断开串口
+
+QunXing-XiaZhiLv.ape.bin
+    [Documentation]    ab0c48e9
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-XiaZhiLv.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    ab0c48e9
+    [Teardown]    断开串口
+
+QunXing-XingGuangBeiHou.ape.bin
+    [Documentation]    2c33a316
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-XingGuangBeiHou.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    2c33a316
+    [Teardown]    断开串口
+
+QunXing-YanZi.ape.bin
+    [Documentation]    1991cfbd
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-YanZi.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    1991cfbd
+    [Teardown]    断开串口
+
+QunXing-YeQu.ape.bin
+    [Documentation]    a3660b0c
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-YeQu.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    a3660b0c
+    [Teardown]    断开串口
+
+QunXing-YiNianYouYiNian.ape.bin
+    [Documentation]    3df29502
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-YiNianYouYiNian.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    3df29502
+    [Teardown]    断开串口
+
+QunXing-YiShanHaiYouYiShanGao.ape.bin
+    [Documentation]    c76ac9ef
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-YiShanHaiYouYiShanGao.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    c76ac9ef
+    [Teardown]    断开串口
+
+QunXing-YuanJiaHanJiaLang.ape.bin
+    [Documentation]    dad17cab
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-YuanJiaHanJiaLang.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    dad17cab
+    [Teardown]    断开串口
+
+QunXing-YuanQing.ape.bin
+    [Documentation]    faaaf6d4
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-YuanQing.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    faaaf6d4
+    [Teardown]    断开串口
+
+QunXing-YuanQuDeMuQin.ape.bin
+    [Documentation]    dd0dc4fa
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-YuanQuDeMuQin.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    dd0dc4fa
+    [Teardown]    断开串口
+
+QunXing-YuanXiangRen.ape.bin
+    [Documentation]    728460dc
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-YuanXiangRen.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    728460dc
+    [Teardown]    断开串口
+
+QunXing-YueLiangWan.ape.bin
+    [Documentation]    0d1ef644
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-YueLiangWan.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    0d1ef644
+    [Teardown]    断开串口
+
+QunXing-YuJian.ape.bin
+    [Documentation]    cc78a31c
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-YuJian.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    cc78a31c
+    [Teardown]    断开串口
+
+QunXing-YuRenWanChang.ape.bin
+    [Documentation]    7449de2b
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-YuRenWanChang.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    7449de2b
+    [Teardown]    断开串口
+
+QunXing-ZaiNaYaoYuanDeDiFang.ape.bin
+    [Documentation]    a8324935
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-ZaiNaYaoYuanDeDiFang.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    a8324935
+    [Teardown]    断开串口
+
+QunXing-ZangHuaYin.ape.bin
+    [Documentation]    b837e580
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-ZangHuaYin.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    b837e580
+    [Teardown]    断开串口
+
+QunXing-ZiYou.ape.bin
+    [Documentation]    1d1cb2fd
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\QunXing-ZiYou.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    1d1cb2fd
+    [Teardown]    断开串口
+
+SAKURA_Realize.ape.bin
+    [Documentation]    c765ad62
+    [Setup]    连接串口
+    设置音频    FromSunplus\\APE\\SAKURA_Realize.ape.bin    1
+    sleep    5
+    common_command    setfmt APE
+    播放    15    0    1
+    sleep    5
+    common_command    stop 1
+    sleep    3
+    检查checksum    c765ad62
+    [Teardown]    断开串口

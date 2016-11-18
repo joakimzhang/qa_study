@@ -1,0 +1,4671 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../业务关键字.txt
+
+*** Variables ***
+${platform}       1    # 0:fpga,1:simulator,2:ASIC
+${console_num}    1    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\Debug\\test_audio_pcm.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    houh    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1118    # devel03的密码，用户登录bjdevel03
+${AudioFileDir}    D:\\AudioFile    # \\\\bjdevel03\\stream\\AudioTestFile D:\\AudioFile
+
+*** Test Cases ***
+8k8bitpcm.wav.es
+    [Documentation]    c2ca7214 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\LPCM\\8k8bitpcm.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 110488
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c2ca7214
+    [Teardown]    断开串口
+
+8k16bitpcm.wav.es
+    [Documentation]    79e3c570 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\LPCM\\8k16bitpcm.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 220982
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    sleep    5
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    79e3c570
+    [Teardown]    断开串口
+
+11k8bitpcm.wav.es
+    [Documentation]    3ece3de9 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\LPCM\\11k8bitpcm.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 152267
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    sleep    5
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3ece3de9
+    [Teardown]    断开串口
+
+11k16bitpcm.wav.es
+    [Documentation]    e557c00f (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\LPCM\\11k16bitpcm.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 304534
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e557c00f
+    [Teardown]    断开串口
+
+love_lpcm_441_16bit_2ch.wav.es
+    [Documentation]    74533ad8 (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\LPCM\\love_lpcm_441_16bit_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 41513660
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    74533ad8
+    [Teardown]    断开串口
+
+tada_lpcm_2205_16bit_2ch.wav.es
+    [Documentation]    05111d08 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\LPCM\\tada_lpcm_2205_16bit_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 171008
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    05111d08
+    [Teardown]    断开串口
+
+wav_0011-6.Irony.pcm.1441k.44.1kHz.2ch.wav.es
+    [Documentation]    5b2fb27b (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0011-6.Irony.pcm.1441k.44.1kHz.2ch.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 144382224
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5b2fb27b
+    [Teardown]    断开串口
+
+wav_0015-hamish.wav.es
+    [Documentation]    0c200722 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0015-hamish.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1150976
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0c200722
+    [Teardown]    断开串口
+
+wav_0016-instructins.wav.es
+    [Documentation]    5d870346 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0016-instructins.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 5713408
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5d870346
+    [Teardown]    断开串口
+
+wav_0021-SHE07.wav.es
+    [Documentation]    9fb8287f (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0021-SHE07.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 47684448
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9fb8287f
+    [Teardown]    断开串口
+
+wav_0022-SHE08.wav.es
+    [Documentation]    6dd88b80 (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0022-SHE08.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 50071728
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6dd88b80
+    [Teardown]    断开串口
+
+wav_0023-SHE09.wav.es
+    [Documentation]    78ce3a49 (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0023-SHE09.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 32584608
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    78ce3a49
+    [Teardown]    断开串口
+
+wav_0024-KuanDaiDuiHua.wav.es
+    [Documentation]    2787df72 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0024-KuanDaiDuiHua.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 5386182
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2787df72
+    [Teardown]    断开串口
+
+wav_0025-1000Hz_0dB.wav.es
+    [Documentation]    1a8be000 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0025-1000Hz_0dB.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 882000
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1a8be000
+    [Teardown]    断开串口
+
+wav_0026-10Hz_0dB.wav.es
+    [Documentation]    09dcc5aa (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0026-10Hz_0dB.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 882000
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    09dcc5aa
+    [Teardown]    断开串口
+
+wav_0027-1kHz_Left.wav.es
+    [Documentation]    30099747 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0027-1kHz_Left.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1764000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    30099747
+    [Teardown]    断开串口
+
+wav_0028-1kHz_Mid.wav.es
+    [Documentation]    abf222d6 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0028-1kHz_Mid.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1764000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    abf222d6
+    [Teardown]    断开串口
+
+wav_0029-1kHz_Right.wav.es
+    [Documentation]    7a61977e (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0029-1kHz_Right.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1764000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7a61977e
+    [Teardown]    断开串口
+
+wav_0030-1kHz_Side.wav.es
+    [Documentation]    07ee521d (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0030-1kHz_Side.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1764000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    07ee521d
+    [Teardown]    断开串口
+
+wav_0031-440Hz_0dB.wav.es
+    [Documentation]    76b3e71d (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0031-440Hz_0dB.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 882000
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    76b3e71d
+    [Teardown]    断开串口
+
+wav_0032-Bass.wav.es
+    [Documentation]    cc6a7b28 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0032-Bass.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 4385432
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    cc6a7b28
+    [Teardown]    断开串口
+
+wav_0034-Female_speech_E.wav.es
+    [Documentation]    82f14d50 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0034-Female_speech_E.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 3384648
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    82f14d50
+    [Teardown]    断开串口
+
+wav_0035-Female_speech_F.wav.es
+    [Documentation]    b9c344bb (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0035-Female_speech_F.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 2973708
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b9c344bb
+    [Teardown]    断开串口
+
+wav_0037-Female_speech_G.wav.es
+    [Documentation]    5b87ae89 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0037-Female_speech_G.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 2917224
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5b87ae89
+    [Teardown]    断开串口
+
+wav_0038-Frere_Jacques.wav.es
+    [Documentation]    2e057b06 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0038-Frere_Jacques.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 6169296
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2e057b06
+    [Teardown]    断开串口
+
+wav_0039-Glockenspiel_1.wav.es
+    [Documentation]    79fc6f3f (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0039-Glockenspiel_1.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 4567892
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    79fc6f3f
+    [Teardown]    断开串口
+
+wav_0040-Glockenspiel_2.wav.es
+    [Documentation]    9d5dd3d8 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0040-Glockenspiel_2.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 3352712
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9d5dd3d8
+    [Teardown]    断开串口
+
+wav_0041-Horn.wav.es
+    [Documentation]    38f9dc08 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0041-Horn.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 4576056
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    38f9dc08
+    [Teardown]    断开串口
+
+wav_0042-Impulses.wav.es
+    [Documentation]    0000fffe (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0042-Impulses.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1764000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0000fffe
+    [Teardown]    断开串口
+
+wav_0044-Male_speech_E.wav.es
+    [Documentation]    5c6bd7e1 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0044-Male_speech_E.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 3166948
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5c6bd7e1
+    [Teardown]    断开串口
+
+wav_0046-Male_speech_F.wav.es
+    [Documentation]    2cbb728e (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0046-Male_speech_F.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 3529820
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2cbb728e
+    [Teardown]    断开串口
+
+wav_0047-Male_speech_G.wav.es
+    [Documentation]    ad783cfe (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0047-Male_speech_G.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 2948864
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ad783cfe
+    [Teardown]    断开串口
+
+wav_0048-Pink_Noise_Left.wav.es
+    [Documentation]    d85780fb (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0048-Pink_Noise_Left.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1764000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d85780fb
+    [Teardown]    断开串口
+
+wav_0049-Pink_Noise_Mid.wav.es
+    [Documentation]    e411d6dd (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0049-Pink_Noise_Mid.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1764000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e411d6dd
+    [Teardown]    断开串口
+
+wav_0050-Pink_Noise_Right.wav.es
+    [Documentation]    0a458dc4 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0050-Pink_Noise_Right.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1764000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0a458dc4
+    [Teardown]    断开串口
+
+wav_0051-Pink_Noise_Side.wav.es
+    [Documentation]    35963c7b (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0051-Pink_Noise_Side.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1764000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    35963c7b
+    [Teardown]    断开串口
+
+wav_0052-Pink_Noise.wav.es
+    [Documentation]    0605ad21 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0052-Pink_Noise.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1764000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0605ad21
+    [Teardown]    断开串口
+
+wav_0054-Quartet.wav.es
+    [Documentation]    a1d49497 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0054-Quartet.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 4070392
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a1d49497
+    [Teardown]    断开串口
+
+wav_0055-Silence.wav.es
+    [Documentation]    00000000 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0055-Silence.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1764000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    00000000
+    [Teardown]    断开串口
+
+wav_0056-Soprano.wav.es
+    [Documentation]    6fe3a7a9 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0056-Soprano.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 4171008
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6fe3a7a9
+    [Teardown]    断开串口
+
+wav_0057-Sweep_10Hz_20kHz_0dB.wav.es
+    [Documentation]    c26c82e5 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0057-Sweep_10Hz_20kHz_0dB.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 5292000
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c26c82e5
+    [Teardown]    断开串口
+
+wav_0058-Trumpet.wav.es
+    [Documentation]    8a794dc4 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0058-Trumpet.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 3146440
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8a794dc4
+    [Teardown]    断开串口
+
+wav_0059-Violoncello.wav.es
+    [Documentation]    793ef3b6 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0059-Violoncello.wav.es    1
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 5303752
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    793ef3b6
+    [Teardown]    断开串口
+
+8kadpcm.wav.es
+    [Documentation]    365a5872 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\IMA\\8kadpcm.wav.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 56012
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 256
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    365a5872
+    [Teardown]    断开串口
+
+11kadpcm.wav.es
+    [Documentation]    8c5729df (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\IMA\\11kadpcm.wav.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 77192
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 256
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8c5729df
+    [Teardown]    断开串口
+
+love_ima_adpcm_8k_4bit_2ch_.wav.es
+    [Documentation]    83121d1d (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\IMA\\love_ima_adpcm_8k_4bit_2ch_.wav.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 1908736
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 512
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    83121d1d
+    [Teardown]    断开串口
+
+love_ima_adpcm_11k_4bit_2ch_.wav.es
+    [Documentation]    80ce4234 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\IMA\\love_ima_adpcm_11k_4bit_2ch_.wav.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 2630144
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 512
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    80ce4234
+    [Teardown]    断开串口
+
+love_ima_adpcm_22k_4bit_1ch_.wav.es
+    [Documentation]    39c8db76 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\IMA\\love_ima_adpcm_22k_4bit_1ch_.wav.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 2612224
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 512
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    39c8db76
+    [Teardown]    断开串口
+
+love_ima_adpcm_22k_4bit_2ch_.wav.es
+    [Documentation]    3c156e16 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\IMA\\love_ima_adpcm_22k_4bit_2ch_.wav.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 5223424
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1024
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3c156e16
+    [Teardown]    断开串口
+
+love_ima_adpcm_441_16bit_1ch_.wav.es
+    [Documentation]    ea65d068 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\IMA\\love_ima_adpcm_441_16bit_1ch_.wav.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 5206016
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1024
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ea65d068
+    [Teardown]    断开串口
+
+love_ima_adpcm_441_16bit_2ch_.wav.es
+    [Documentation]    d004a59e (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\IMA\\love_ima_adpcm_441_16bit_2ch_.wav.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 10449920
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1024
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d004a59e
+    [Teardown]    断开串口
+
+Breathless_ima_adpcm_44khz_StereoCBR.wav.es
+    [Documentation]    430fc758 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\Breathless_ima_adpcm_44khz_StereoCBR.wav.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 2695168
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2048
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    430fc758
+    [Teardown]    断开串口
+
+wav_0001-004.wav.es
+    [Documentation]    d5bf0025 (r1525)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0001-004.wav.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 3971584
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 512
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d5bf0025
+    [Teardown]    断开串口
+
+wav_0002-005.wav.es
+    [Documentation]    b26f2a81 (r1525)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0002-005.wav.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 7164928
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 512
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b26f2a81
+    [Teardown]    断开串口
+
+wav_0006-1.adpcm.32k.8kHz.1ch.wav.es
+    [Documentation]    365a5872 (r1525)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0006-1.adpcm.32k.8kHz.1ch.wav.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 56012
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 256
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    365a5872
+    [Teardown]    断开串口
+
+wav_0007-2.adpcm.44.1k.11k.1ch.wav.es
+    [Documentation]    8c5729df (r1525)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0007-2.adpcm.44.1k.11k.1ch.wav.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 77192
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 256
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8c5729df
+    [Teardown]    断开串口
+
+wav_0017-REC_0002.WAV.es
+    [Documentation]    008e7376 (r1525)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0017-REC_0002.WAV.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 35268
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 256
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    008e7376
+    [Teardown]    断开串口
+
+wav_0018-REC_0004.WAV.es
+    [Documentation]    7ee84737 (r1525)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0018-REC_0004.WAV.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 15300
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 256
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7ee84737
+    [Teardown]    断开串口
+
+wav_0019-REC_0016.WAV.es
+    [Documentation]    a2f70a43 (r1525)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0019-REC_0016.WAV.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 107460
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 256
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a2f70a43
+    [Teardown]    断开串口
+
+wav_0020-REC_0017.WAV.es
+    [Documentation]    20362b4b (r1525)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0020-REC_0017.WAV.es    1
+    sleep    5
+    common_command    setfmt IMA_ADPCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 162756
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 256
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    20362b4b
+    [Teardown]    断开串口
+
+8k8bitpcm-microsoft-adpcm.wav.es
+    [Documentation]    5b8ad0aa (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\MS\\8k8bitpcm-microsoft-adpcm.wav.es    1
+    sleep    5
+    common_command    setfmt ADPCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 56570
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 256
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5b8ad0aa
+    [Teardown]    断开串口
+
+11k16bitpcm-microsoft-adpcm.wav.es
+    [Documentation]    4452b701 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\MS\\11k16bitpcm-microsoft-adpcm.wav.es    1
+    sleep    5
+    common_command    setfmt ADPCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 77963
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 256
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4452b701
+    [Teardown]    断开串口
+
+Never_MS_ADPCM_8k_16bit_1ch.wav.es
+    [Documentation]    1152d814 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\MS\\Never_MS_ADPCM_8k_16bit_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt ADPCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 984597
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 256
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1152d814
+    [Teardown]    断开串口
+
+Never_MS_ADPCM_8k_16bit_2ch.wav.es
+    [Documentation]    44cf2691 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\MS\\Never_MS_ADPCM_8k_16bit_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ADPCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 1969194
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 512
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    44cf2691
+    [Teardown]    断开串口
+
+Never_MS_ADPCM_11k_16bit_2ch.wav.es
+    [Documentation]    3e7629f8 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\MS\\Never_MS_ADPCM_11k_16bit_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ADPCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 2713600
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 512
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3e7629f8
+    [Teardown]    断开串口
+
+Never_MS_ADPCM_22k_16bit_1ch.wav.es
+    [Documentation]    931cb06d (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\MS\\Never_MS_ADPCM_22k_16bit_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt ADPCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 2681344
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 512
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    931cb06d
+    [Teardown]    断开串口
+
+Never_MS_ADPCM_22k_16bit_2ch.wav.es
+    [Documentation]    26267e1f (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\MS\\Never_MS_ADPCM_22k_16bit_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ADPCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 5362688
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1024
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    26267e1f
+    [Teardown]    断开串口
+
+Never_MS_ADPCM_441_16bit_1ch.wav.es
+    [Documentation]    e4d86e0b (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\MS\\Never_MS_ADPCM_441_16bit_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt ADPCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 5330944
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1024
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e4d86e0b
+    [Teardown]    断开串口
+
+Never_MS_ADPCM_441_16bit_2ch.wav.es
+    [Documentation]    4b5c83e4 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\ADPCM\\MS\\Never_MS_ADPCM_441_16bit_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ADPCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 10663188
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2048
+    sleep    2
+    common_command    setbps 4
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4b5c83e4
+    [Teardown]    断开串口
+
+8kulaw.wav.es
+    [Documentation]    342e5b30 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\8kulaw.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 110488
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    342e5b30
+    [Teardown]    断开串口
+
+8kulaw_stereo.wav.es
+    [Documentation]    40fe41e5 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\8kulaw_stereo.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 220976
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    40fe41e5
+    [Teardown]    断开串口
+
+11kulaw.wav.es
+    [Documentation]    2a460207 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\11kulaw.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 152267
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2a460207
+    [Teardown]    断开串口
+
+11kulaw_stereo.wav.es
+    [Documentation]    4745a0ad (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\11kulaw_stereo.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 304534
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4745a0ad
+    [Teardown]    断开串口
+
+halo_mulaw_32k_1ch.wav.es
+    [Documentation]    f7addce1 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\halo_mulaw_32k_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 32000
+    sleep    2
+    common_command    setlen 7209514
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f7addce1
+    [Teardown]    断开串口
+
+halo_mulaw_32k_2ch.wav.es
+    [Documentation]    17e0862f (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\halo_mulaw_32k_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 32000
+    sleep    2
+    common_command    setlen 14419028
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    17e0862f
+    [Teardown]    断开串口
+
+If_I_Were_A_Boy_mulaw_48000_1ch.wav.es
+    [Documentation]    764e03e2 (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\If_I_Were_A_Boy_mulaw_48000_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 11962881
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    764e03e2
+    [Teardown]    断开串口
+
+If_I_Were_A_Boy_mulaw_48000_2ch.wav.es
+    [Documentation]    7efd9811 (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\If_I_Were_A_Boy_mulaw_48000_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 23925762
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7efd9811
+    [Teardown]    断开串口
+
+la_isla_bonita__mulaw_88p2khz_1ch.wav.es
+    [Documentation]    f628eac0 (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\la_isla_bonita__mulaw_88p2khz_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 88200
+    sleep    2
+    common_command    setlen 18312214
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    10    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f628eac0
+    [Teardown]    断开串口
+
+la_isla_bonita__mulaw_88p2khz_2ch.wav.es
+    [Documentation]    c0aa75d9 (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\la_isla_bonita__mulaw_88p2khz_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 36624428
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    10    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c0aa75d9
+    [Teardown]    断开串口
+
+Listen_mulaw_22P05_1ch.wav.es
+    [Documentation]    13824782 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\Listen_mulaw_22P05_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 4803329
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    13824782
+    [Teardown]    断开串口
+
+Listen_mulaw_22P05_2ch.wav.es
+    [Documentation]    799e1704 (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\Listen_mulaw_22P05_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 9606658
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    799e1704
+    [Teardown]    断开串口
+
+love_mulaw_22k_16bit_1ch.wav.es
+    [Documentation]    44054afa (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\love_mulaw_22k_16bit_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 10378415
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    44054afa
+    [Teardown]    断开串口
+
+love_mulaw_22k_16bit_2ch.wav.es
+    [Documentation]    48ed6001 (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\love_mulaw_22k_16bit_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 20756830
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    48ed6001
+    [Teardown]    断开串口
+
+love_mulaw_441_16bit_1ch.wav.es
+    [Documentation]    44054afa (r1475)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\love_mulaw_441_16bit_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 10378415
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    44054afa
+    [Teardown]    断开串口
+
+love_mulaw_441_16bit_2ch.wav.es
+    [Documentation]    48ed6001 (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\love_mulaw_441_16bit_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 20756830
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    48ed6001
+    [Teardown]    断开串口
+
+PriceTag_mulaw_96khz_1ch.wav.es
+    [Documentation]    e95a6ae3 (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\PriceTag_mulaw_96khz_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 21250220
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e95a6ae3
+    [Teardown]    断开串口
+
+PriceTag_mulaw_96khz_2ch.wav.es
+    [Documentation]    0da27048 (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\PriceTag_mulaw_96khz_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 42500440
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0da27048
+    [Teardown]    断开串口
+
+test_mulaw_176P4kHz_1ch.wav.es
+    [Documentation]    3d532656 (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\test_mulaw_176P4kHz_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 176400
+    sleep    2
+    common_command    setlen 18657548
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    13    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3d532656
+    [Teardown]    断开串口
+
+test_mulaw_176P4kHz_2ch.wav.es
+    [Documentation]    70744710 (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\test_mulaw_176P4kHz_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 176400
+    sleep    2
+    common_command    setlen 37315096
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    13    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    70744710
+    [Teardown]    断开串口
+
+test_mulaw_192kHz_1ch.wav.es
+    [Documentation]    b0825a84 (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\test_mulaw_192kHz_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 192000
+    sleep    2
+    common_command    setlen 20306444
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b0825a84
+    [Teardown]    断开串口
+
+test_mulaw_192kHz_2ch.wav.es
+    [Documentation]    7e48271c (r1475)
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\MULAW\\test_mulaw_192kHz_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 192000
+    sleep    2
+    common_command    setlen 40612888
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7e48271c
+    [Teardown]    断开串口
+
+wav_0004-11.ulaw.64k.8kHz.1ch.wav.es
+    [Documentation]    342e5b30 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0004-11.ulaw.64k.8kHz.1ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 110488
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    342e5b30
+    [Teardown]    断开串口
+
+wav_0005-12.ulaw.88k.11kHz.1ch.wav.es
+    [Documentation]    2a460207 (r1475)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\WAV\\wav_0005-12.ulaw.88k.11kHz.1ch.wav.es    1
+    sleep    5
+    common_command    setfmt MULAW_PCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 152267
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2a460207
+    [Teardown]    断开串口
+
+alaw_8k8bitpcm-microsoft-adpcm.wav.es
+    [Documentation]    aff26a7d (r1666)
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_8k8bitpcm-microsoft-adpcm.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 110488
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 256
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    aff26a7d
+    [Teardown]    断开串口
+
+alaw_8k16bitpcm.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_8k16bitpcm.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 110491
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    sleep    5
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7d1e2a56
+    [Teardown]    断开串口
+
+alaw_8kadpcm.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_8kadpcm.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 110090
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 256
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1a99a959
+    [Teardown]    断开串口
+
+alaw_8kulaw.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_8kulaw.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 110488
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    907579cd
+    [Teardown]    断开串口
+
+alaw_8kulaw_stereo.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_8kulaw_stereo.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 220976
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    463d527e
+    [Teardown]    断开串口
+
+alaw_11k16bitpcm.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_11k16bitpcm.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 152267
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ca3476cc
+    [Teardown]    断开串口
+
+alaw_11k16bitpcm-microsoft_adpcm.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_11k16bitpcm-microsoft-adpcm.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 152266
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 256
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bafac681
+    [Teardown]    断开串口
+
+alaw_11kadpcm.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_11kadpcm.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 152005
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 256
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    409f03de
+    [Teardown]    断开串口
+
+alaw_11kulaw.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_11kulaw.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 152267
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bfef0218
+    [Teardown]    断开串口
+
+alaw_halo_mulaw_32k_1ch.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_halo_mulaw_32k_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 32000
+    sleep    2
+    common_command    setlen 7209514
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2f109385
+    [Teardown]    断开串口
+
+alaw_halo_mulaw_32k_2ch.wav.es
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_halo_mulaw_32k_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 32000
+    sleep    2
+    common_command    setlen 14419028
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    005eb286
+    [Teardown]    断开串口
+
+alaw_If_I_Were_A_Boy_mulaw_48000_2ch.wav.es
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_If_I_Were_A_Boy_mulaw_48000_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 23925762
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    faf03727
+    [Teardown]    断开串口
+
+alaw_la_isla_bonita__mulaw_88p2khz_1ch.wav.es
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_la_isla_bonita__mulaw_88p2khz_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 88200
+    sleep    2
+    common_command    setlen 18312214
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    10    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1b08a4ec
+    [Teardown]    断开串口
+
+alaw_la_isla_bonita__mulaw_88p2khz_2ch.wav.es
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_la_isla_bonita__mulaw_88p2khz_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 36624428
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    10    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9ef8a082
+    [Teardown]    断开串口
+
+alaw_Listen_mulaw_22P05_1ch.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_Listen_mulaw_22P05_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 4801481
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a657bb1a
+    [Teardown]    断开串口
+
+alaw_Listen_mulaw_22P05_2ch.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_Listen_mulaw_22P05_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 9606658
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    842e16c0
+    [Teardown]    断开串口
+
+alaw_love_ima_adpcm_8k_4bit_2ch_.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_love_ima_adpcm_8k_4bit_2ch_.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 3765280
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 512
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    17f3097f
+    [Teardown]    断开串口
+
+alaw_love_ima_adpcm_11k_4bit_2ch_.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_love_ima_adpcm_11k_4bit_2ch_.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 5188370
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 512
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    476e557f
+    [Teardown]    断开串口
+
+alaw_love_ima_adpcm_22k_4bit_1ch_.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_love_ima_adpcm_22k_4bit_1ch_.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 5188734
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 512
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    de99a561
+    [Teardown]    断开串口
+
+alaw_love_ima_adpcm_22k_4bit_2ch_.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_love_ima_adpcm_22k_4bit_2ch_.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 10375434
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1024
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8a633397
+    [Teardown]    断开串口
+
+alaw_love_ima_adpcm_441_16bit_1ch_.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_love_ima_adpcm_441_16bit_1ch_.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 10376444
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1024
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    00bbe32e
+    [Teardown]    断开串口
+
+alaw_love_ima_adpcm_441_16bit_2ch_.wav.es
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_love_ima_adpcm_441_16bit_2ch_.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 20756970
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1024
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    80f4ef5f
+    [Teardown]    断开串口
+
+alaw_love_lpcm_441_16bit_2ch.wav.es
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_love_lpcm_441_16bit_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 20756830
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1a45e806
+    [Teardown]    断开串口
+
+alaw_love_mulaw_22k_16bit_1ch.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_love_mulaw_22k_16bit_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 10377654
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    60c61abd
+    [Teardown]    断开串口
+
+alaw_love_mulaw_22k_16bit_2ch.wav.es
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_love_mulaw_22k_16bit_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 20756830
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    74b1c6ef
+    [Teardown]    断开串口
+
+alaw_love_mulaw_441_16bit_1ch.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_love_mulaw_441_16bit_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 10377654
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    60c61abd
+    [Teardown]    断开串口
+
+alaw_love_mulaw_441_16bit_2ch.wav.es
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_love_mulaw_441_16bit_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 20756830
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    74b1c6ef
+    [Teardown]    断开串口
+
+alaw_Never_MS_ADPCM_8k_16bit_1ch.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_Never_MS_ADPCM_8k_16bit_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 1921152
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 256
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0bbcba7c
+    [Teardown]    断开串口
+
+alaw_Never_MS_ADPCM_8k_16bit_2ch.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_Never_MS_ADPCM_8k_16bit_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 3846060
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 512
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    22238a02
+    [Teardown]    断开串口
+
+alaw_Never_MS_ADPCM_11k_16bit_2ch.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_Never_MS_ADPCM_11k_16bit_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 5300000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 512
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d3a78972
+    [Teardown]    断开串口
+
+alaw_Never_MS_ADPCM_22k_16bit_1ch.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_Never_MS_ADPCM_22k_16bit_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 5299844
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 512
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d3a22309
+    [Teardown]    断开串口
+
+alaw_Never_MS_ADPCM_22k_16bit_2ch.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_Never_MS_ADPCM_22k_16bit_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 10599688
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1024
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a67b91ba
+    [Teardown]    断开串口
+
+alaw_Never_MS_ADPCM_441_16bit_1ch.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_Never_MS_ADPCM_441_16bit_1ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 10599416
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1024
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    42440b68
+    [Teardown]    断开串口
+
+alaw_Never_MS_ADPCM_441_16bit_2ch.wav.es
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_Never_MS_ADPCM_441_16bit_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 21201408
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2048
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    25e80915
+    [Teardown]    断开串口
+
+alaw_PriceTag_mulaw_96khz_2ch.wav.es
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_PriceTag_mulaw_96khz_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 42500440
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f9413c77
+    [Teardown]    断开串口
+
+alaw_tada_lpcm_2205_16bit_2ch.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_tada_lpcm_2205_16bit_2ch.wav.es    1    #将该文件拷贝到U盘根目录下
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 85504
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    common_command    playusb 1 \ \halo_mulaw_32k_2ch.wav.es
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    12da1042
+    [Teardown]    断开串口
+
+alaw_test_mulaw_176P4kHz_2ch.wav.es
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_test_mulaw_176P4kHz_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 176400
+    sleep    2
+    common_command    setlen 37315096
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    13    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4a3a56e9
+    [Teardown]    断开串口
+
+alaw_test_mulaw_192kHz_2ch.wav.es
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_test_mulaw_192kHz_2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 192000
+    sleep    2
+    common_command    setlen 40612888
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5645258b
+    [Teardown]    断开串口
+
+alaw_wav_0011-6.Irony.pcm.1441k.44.1kHz.2ch.wav.es
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0011-6.Irony.pcm.1441k.44.1kHz.2ch.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 72191112
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    37833e2d
+    [Teardown]    断开串口
+
+alaw_wav_0015-hamish.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0015-hamish.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 575488
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1f4a4ad3
+    [Teardown]    断开串口
+
+alaw_wav_0016-instructins.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0016-instructins.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 2856704
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bc994a02
+    [Teardown]    断开串口
+
+alaw_wav_0021-SHE07.wav.es
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0021-SHE07.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 23842224
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    476da973
+    [Teardown]    断开串口
+
+alaw_wav_0022-SHE08.wav.es
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0022-SHE08.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 25035864
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    dafff34a
+    [Teardown]    断开串口
+
+alaw_wav_0023-SHE09.wav.es
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0023-SHE09.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 16292304
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a48333d0
+    [Teardown]    断开串口
+
+alaw_wav_0024-KuanDaiDuiHua.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0024-KuanDaiDuiHua.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 4106240
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ea4c4a85
+    [Teardown]    断开串口
+
+alaw_wav_0025-1000Hz_0dB.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0025-1000Hz_0dB.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 441000
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    db7c4bb3
+    [Teardown]    断开串口
+
+alaw_wav_0026-10Hz_0dB.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0026-10Hz_0dB.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 441000
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1d55d3ae
+    [Teardown]    断开串口
+
+alaw_wav_0027-1kHz_Left.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0027-1kHz_Left.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 882000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a2997a5a
+    [Teardown]    断开串口
+
+alaw_wav_0028-1kHz_Mid.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0028-1kHz_Mid.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 882000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5125feb4
+    [Teardown]    断开串口
+
+alaw_wav_0029-1kHz_Right.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0029-1kHz_Right.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 882000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    dc129d69
+    [Teardown]    断开串口
+
+alaw_wav_0030-1kHz_Side.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0030-1kHz_Side.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 882000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    861bcb38
+    [Teardown]    断开串口
+
+alaw_wav_0031-440Hz_0dB.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0031-440Hz_0dB.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 441000
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    74d462a7
+    [Teardown]    断开串口
+
+alaw_wav_0032-Bass.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0032-Bass.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 2192716
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ac15d9c3
+    [Teardown]    断开串口
+
+alaw_wav_0034-Female_speech_E.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0034-Female_speech_E.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1692324
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ca172325
+    [Teardown]    断开串口
+
+alaw_wav_0035-Female_speech_F.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0035-Female_speech_F.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1486854
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c5f3f707
+    [Teardown]    断开串口
+
+alaw_wav_0037-Female_speech_G.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0037-Female_speech_G.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1458612
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    30f61e44
+    [Teardown]    断开串口
+
+alaw_wav_0038-Frere_Jacques.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0038-Frere_Jacques.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 3084648
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f5d46b95
+    [Teardown]    断开串口
+
+alaw_wav_0039-Glockenspiel_1.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0039-Glockenspiel_1.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 2283946
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d838b00c
+    [Teardown]    断开串口
+
+alaw_wav_0040-Glockenspiel_2.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0040-Glockenspiel_2.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1676356
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b46ba447
+    [Teardown]    断开串口
+
+alaw_wav_0041-Horn.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0041-Horn.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 2288028
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    762e8519
+    [Teardown]    断开串口
+
+alaw_wav_0042-Impulses.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0042-Impulses.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 882000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e0929246
+    [Teardown]    断开串口
+
+alaw_wav_0044-Male_speech_E.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0044-Male_speech_E.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1583474
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f4b366bc
+    [Teardown]    断开串口
+
+alaw_wav_0046-Male_speech_F.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0046-Male_speech_F.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1764910
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f8f6938b
+    [Teardown]    断开串口
+
+alaw_wav_0047-Male_speech_G.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0047-Male_speech_G.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1474432
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    08eb3f49
+    [Teardown]    断开串口
+
+alaw_wav_0048-Pink_Noise_Left.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0048-Pink_Noise_Left.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 882000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4500df96
+    [Teardown]    断开串口
+
+alaw_wav_0049-Pink_Noise_Mid.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0049-Pink_Noise_Mid.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 882000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    549860a1
+    [Teardown]    断开串口
+
+alaw_wav_0050-Pink_Noise_Right.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0050-Pink_Noise_Right.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 882000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f7aaba08
+    [Teardown]    断开串口
+
+alaw_wav_0051-Pink_Noise_Side.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0051-Pink_Noise_Side.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 882000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c23a4a12
+    [Teardown]    断开串口
+
+alaw_wav_0052-Pink_Noise.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0052-Pink_Noise.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 882000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6a92e41d
+    [Teardown]    断开串口
+
+alaw_wav_0054-Quartet.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0054-Quartet.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 2035196
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    47550bc0
+    [Teardown]    断开串口
+
+alaw_wav_0055-Silence.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0055-Silence.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 882000
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1fde28ae
+    [Teardown]    断开串口
+
+alaw_wav_0056-Soprano.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0056-Soprano.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 2085504
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b314eb9c
+    [Teardown]    断开串口
+
+alaw_wav_0057-Sweep_10Hz_20kHz_0dB.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0057-Sweep_10Hz_20kHz_0dB.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 2646000
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d2a66796
+    [Teardown]    断开串口
+
+alaw_wav_0058-Trumpet.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0058-Trumpet.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1573220
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b7900423
+    [Teardown]    断开串口
+
+alaw_wav_0059-Violoncello.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\WAVE\\alaw_pcm\\alaw_wav_0059-Violoncello.wav.es    1
+    sleep    5
+    common_command    setfmt ALAW_PCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 2651876
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6388aa2b
+    [Teardown]    断开串口
+
+mono_11k.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\SWF_ADPCM\\mono_11k.wav.es    1
+    sleep    5
+    common_command    setfmt SWFADPCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 334871
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 257
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6c39c729
+    [Teardown]    断开串口
+
+mono_22k.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\SWF_ADPCM\\mono_22k.wav.es    1
+    sleep    5
+    common_command    setfmt SWFADPCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 668439
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 513
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7544269d
+    [Teardown]    断开串口
+
+mono_44k.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\SWF_ADPCM\\mono_44k.wav.es    1
+    sleep    5
+    common_command    setfmt SWFADPCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1335575
+    sleep    2
+    common_command    setch 1
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1025
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    cc8d1b64
+    [Teardown]    断开串口
+
+stereo_11k.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\SWF_ADPCM\\stereo_11k.wav.es    1
+    sleep    5
+    common_command    setfmt SWFADPCM
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 671045
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 515
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b87eed03
+    [Teardown]    断开串口
+
+stereo_22k.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\SWF_ADPCM\\stereo_22k.wav.es    1
+    sleep    5
+    common_command    setfmt SWFADPCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 1338181
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 1027
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    99bbc2fd
+    [Teardown]    断开串口
+
+stereo_44k.wav.es
+    [Setup]    连接串口
+    设置音频    ES\\SWF_ADPCM\\stereo_44k.wav.es    1
+    sleep    5
+    common_command    setfmt SWFADPCM
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 2672453
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 2051
+    sleep    2
+    common_command    setbps 8
+    sleep    2
+    common_command    setcb 0
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    12f13ebf
+    [Teardown]    断开串口

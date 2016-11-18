@@ -1,0 +1,532 @@
+*** Settings ***
+Suite Setup
+Suite Teardown
+Test Setup
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../../业务关键字.txt
+
+*** Variables ***
+${platform}       3
+${console_num}    9
+
+*** Test Cases ***
+
+*** Keywords ***
+PE_DEC_CASE
+    [Arguments]    ${file_name}    ${check_sum}
+    [Timeout]    30 minutes
+    连接串口
+    common_command    mon
+    sleep    3
+    common_command    avl audp_play ${file_name}
+    sleep    5
+    检查checksum    ${check_sum}
+    [Teardown]    断开串口
+*** Test Cases ***
+8k8bitpcm.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\LPCM\\8k8bitpcm.wav.es    c2ca7214
+8k16bitpcm.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\LPCM\\8k16bitpcm.wav.es    79e3c570
+11k8bitpcm.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\LPCM\\11k8bitpcm.wav.es    3ece3de9
+11k16bitpcm.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\LPCM\\11k16bitpcm.wav.es    e557c00f
+love_lpcm_441_16bit_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\LPCM\\love_lpcm_441_16bit_2ch.wav.es    74533ad8
+tada_lpcm_2205_16bit_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\LPCM\\tada_lpcm_2205_16bit_2ch.wav.es    05111d08
+wav_0011-6.Irony.pcm.1441k.44.1kHz.2ch.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0011-6.Irony.pcm.1441k.44.1kHz.2ch.wav.es    5b2fb27b
+wav_0015-hamish.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0015-hamish.wav.es    0c200722
+wav_0016-instructins.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0016-instructins.wav.es    5d870346
+wav_0021-SHE07.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0021-SHE07.wav.es    9fb8287f
+wav_0022-SHE08.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0022-SHE08.wav.es    6dd88b80
+wav_0023-SHE09.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0023-SHE09.wav.es    78ce3a49
+wav_0024-KuanDaiDuiHua.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0024-KuanDaiDuiHua.wav.es    2787df72
+wav_0025-1000Hz_0dB.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0025-1000Hz_0dB.wav.es    1a8be000
+wav_0026-10Hz_0dB.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0026-10Hz_0dB.wav.es    09dcc5aa
+wav_0027-1kHz_Left.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0027-1kHz_Left.wav.es    30099747
+wav_0028-1kHz_Mid.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0028-1kHz_Mid.wav.es    abf222d6
+wav_0029-1kHz_Right.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0029-1kHz_Right.wav.es    7a61977e
+wav_0030-1kHz_Side.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0030-1kHz_Side.wav.es    07ee521d
+wav_0031-440Hz_0dB.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0031-440Hz_0dB.wav.es    76b3e71d
+wav_0032-Bass.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0032-Bass.wav.es    cc6a7b28
+wav_0034-Female_speech_E.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0034-Female_speech_E.wav.es    82f14d50
+wav_0035-Female_speech_F.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0035-Female_speech_F.wav.es    b9c344bb
+wav_0037-Female_speech_G.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0037-Female_speech_G.wav.es    5b87ae89
+wav_0038-Frere_Jacques.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0038-Frere_Jacques.wav.es    2e057b06
+wav_0039-Glockenspiel_1.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0039-Glockenspiel_1.wav.es    79fc6f3f
+wav_0040-Glockenspiel_2.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0040-Glockenspiel_2.wav.es    9d5dd3d8
+wav_0041-Horn.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0041-Horn.wav.es    38f9dc08
+wav_0042-Impulses.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0042-Impulses.wav.es    0000fffe
+wav_0044-Male_speech_E.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0044-Male_speech_E.wav.es    5c6bd7e1
+wav_0046-Male_speech_F.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0046-Male_speech_F.wav.es    2cbb728e
+wav_0047-Male_speech_G.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0047-Male_speech_G.wav.es    ad783cfe
+wav_0048-Pink_Noise_Left.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0048-Pink_Noise_Left.wav.es    d85780fb
+wav_0049-Pink_Noise_Mid.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0049-Pink_Noise_Mid.wav.es    e411d6dd
+wav_0050-Pink_Noise_Right.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0050-Pink_Noise_Right.wav.es    0a458dc4
+wav_0051-Pink_Noise_Side.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0051-Pink_Noise_Side.wav.es    35963c7b
+wav_0052-Pink_Noise.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0052-Pink_Noise.wav.es    0605ad21
+wav_0054-Quartet.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0054-Quartet.wav.es    a1d49497
+wav_0055-Silence.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0055-Silence.wav.es    00000000
+wav_0056-Soprano.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0056-Soprano.wav.es    6fe3a7a9
+wav_0057-Sweep_10Hz_20kHz_0dB.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0057-Sweep_10Hz_20kHz_0dB.wav.es    c26c82e5
+wav_0058-Trumpet.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0058-Trumpet.wav.es    8a794dc4
+wav_0059-Violoncello.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0059-Violoncello.wav.es    793ef3b6
+8kadpcm.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\IMA\\8kadpcm.wav.es    365a5872
+11kadpcm.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\IMA\\11kadpcm.wav.es    8c5729df
+love_ima_adpcm_8k_4bit_2ch_.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\IMA\\love_ima_adpcm_8k_4bit_2ch_.wav.es    83121d1d
+love_ima_adpcm_11k_4bit_2ch_.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\IMA\\love_ima_adpcm_11k_4bit_2ch_.wav.es    80ce4234
+love_ima_adpcm_22k_4bit_1ch_.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\IMA\\love_ima_adpcm_22k_4bit_1ch_.wav.es    39c8db76
+love_ima_adpcm_22k_4bit_2ch_.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\IMA\\love_ima_adpcm_22k_4bit_2ch_.wav.es    3c156e16
+love_ima_adpcm_441_16bit_1ch_.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\IMA\\love_ima_adpcm_441_16bit_1ch_.wav.es    ea65d068
+love_ima_adpcm_441_16bit_2ch_.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\IMA\\love_ima_adpcm_441_16bit_2ch_.wav.es    d004a59e
+Breathless_ima_adpcm_44khz_StereoCBR.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\Breathless_ima_adpcm_44khz_StereoCBR.wav.es    430fc758
+wav_0001-004.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0001-004.wav.es    d5bf0025
+wav_0002-005.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0002-005.wav.es    b26f2a81
+wav_0006-1.adpcm.32k.8kHz.1ch.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0006-1.adpcm.32k.8kHz.1ch.wav.es    365a5872
+wav_0007-2.adpcm.44.1k.11k.1ch.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0007-2.adpcm.44.1k.11k.1ch.wav.es    8c5729df
+wav_0017-REC_0002.WAV.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0017-REC_0002.WAV.es    008e7376
+wav_0018-REC_0004.WAV.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0018-REC_0004.WAV.es    7ee84737
+wav_0019-REC_0016.WAV.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0019-REC_0016.WAV.es    a2f70a43
+wav_0020-REC_0017.WAV.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0020-REC_0017.WAV.es    20362b4b
+8k8bitpcm-microsoft-adpcm.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\MS\\8k8bitpcm-microsoft-adpcm.wav.es    5b8ad0aa
+11k16bitpcm-microsoft-adpcm.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\MS\\11k16bitpcm-microsoft-adpcm.wav.es    4452b701
+Never_MS_ADPCM_8k_16bit_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\MS\\Never_MS_ADPCM_8k_16bit_1ch.wav.es    1152d814
+Never_MS_ADPCM_8k_16bit_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\MS\\Never_MS_ADPCM_8k_16bit_2ch.wav.es    44cf2691
+Never_MS_ADPCM_11k_16bit_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\MS\\Never_MS_ADPCM_11k_16bit_2ch.wav.es    3e7629f8
+Never_MS_ADPCM_22k_16bit_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\MS\\Never_MS_ADPCM_22k_16bit_1ch.wav.es    931cb06d
+Never_MS_ADPCM_22k_16bit_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\MS\\Never_MS_ADPCM_22k_16bit_2ch.wav.es    26267e1f
+Never_MS_ADPCM_441_16bit_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\MS\\Never_MS_ADPCM_441_16bit_1ch.wav.es    e4d86e0b
+Never_MS_ADPCM_441_16bit_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\ADPCM\\MS\\Never_MS_ADPCM_441_16bit_2ch.wav.es    4b5c83e4
+8kulaw.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\8kulaw.wav.es    342e5b30
+8kulaw_stereo.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\8kulaw_stereo.wav.es    40fe41e5
+11kulaw.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\11kulaw.wav.es    2a460207
+11kulaw_stereo.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\11kulaw_stereo.wav.es    4745a0ad
+halo_mulaw_32k_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\halo_mulaw_32k_1ch.wav.es    f7addce1
+halo_mulaw_32k_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\halo_mulaw_32k_2ch.wav.es    17e0862f
+If_I_Were_A_Boy_mulaw_48000_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\If_I_Were_A_Boy_mulaw_48000_1ch.wav.es    764e03e2
+If_I_Were_A_Boy_mulaw_48000_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\If_I_Were_A_Boy_mulaw_48000_2ch.wav.es    7efd9811
+la_isla_bonita__mulaw_88p2khz_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\la_isla_bonita__mulaw_88p2khz_1ch.wav.es    f628eac0
+la_isla_bonita__mulaw_88p2khz_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\la_isla_bonita__mulaw_88p2khz_2ch.wav.es    c0aa75d9
+Listen_mulaw_22P05_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\Listen_mulaw_22P05_1ch.wav.es    13824782
+Listen_mulaw_22P05_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\Listen_mulaw_22P05_2ch.wav.es    799e1704
+love_mulaw_22k_16bit_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\love_mulaw_22k_16bit_1ch.wav.es    44054afa
+love_mulaw_22k_16bit_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\love_mulaw_22k_16bit_2ch.wav.es    48ed6001
+love_mulaw_441_16bit_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\love_mulaw_441_16bit_1ch.wav.es    44054afa
+love_mulaw_441_16bit_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\love_mulaw_441_16bit_2ch.wav.es    48ed6001
+PriceTag_mulaw_96khz_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\PriceTag_mulaw_96khz_1ch.wav.es    e95a6ae3
+PriceTag_mulaw_96khz_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\PriceTag_mulaw_96khz_2ch.wav.es    0da27048
+test_mulaw_176P4kHz_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\test_mulaw_176P4kHz_1ch.wav.es    3d532656
+test_mulaw_176P4kHz_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\test_mulaw_176P4kHz_2ch.wav.es    70744710
+test_mulaw_192kHz_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\test_mulaw_192kHz_1ch.wav.es    b0825a84
+test_mulaw_192kHz_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\MULAW\\test_mulaw_192kHz_2ch.wav.es    7e48271c
+wav_0004-11.ulaw.64k.8kHz.1ch.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0004-11.ulaw.64k.8kHz.1ch.wav.es    342e5b30
+wav_0005-12.ulaw.88k.11kHz.1ch.wav.es
+    [Template]    PE_DEC_CASE
+    FromSunplus\\WAV\\wav_0005-12.ulaw.88k.11kHz.1ch.wav.es    2a460207
+alaw_8k8bitpcm-microsoft-adpcm.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_8k8bitpcm-microsoft-adpcm.wav.es    aff26a7d
+alaw_8k16bitpcm.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_8k16bitpcm.wav.es    7d1e2a56
+alaw_8kadpcm.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_8kadpcm.wav.es    1a99a959
+alaw_8kulaw.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_8kulaw.wav.es    907579cd
+alaw_8kulaw_stereo.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_8kulaw_stereo.wav.es    463d527e
+alaw_11k16bitpcm.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_11k16bitpcm.wav.es    ca3476cc
+alaw_11k16bitpcm-microsoft_adpcm.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_11k16bitpcm-microsoft-adpcm.wav.es    bafac681
+alaw_11kadpcm.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_11kadpcm.wav.es    409f03de
+alaw_11kulaw.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_11kulaw.wav.es    bfef0218
+alaw_halo_mulaw_32k_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_halo_mulaw_32k_1ch.wav.es    2f109385
+alaw_halo_mulaw_32k_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_halo_mulaw_32k_2ch.wav.es    005eb286
+alaw_If_I_Were_A_Boy_mulaw_48000_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_If_I_Were_A_Boy_mulaw_48000_2ch.wav.es    faf03727
+alaw_la_isla_bonita__mulaw_88p2khz_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_la_isla_bonita__mulaw_88p2khz_1ch.wav.es    1b08a4ec
+alaw_la_isla_bonita__mulaw_88p2khz_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_la_isla_bonita__mulaw_88p2khz_2ch.wav.es    9ef8a082
+alaw_Listen_mulaw_22P05_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_Listen_mulaw_22P05_1ch.wav.es    a657bb1a
+alaw_Listen_mulaw_22P05_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_Listen_mulaw_22P05_2ch.wav.es    842e16c0
+alaw_love_ima_adpcm_8k_4bit_2ch_.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_love_ima_adpcm_8k_4bit_2ch_.wav.es    17f3097f
+alaw_love_ima_adpcm_11k_4bit_2ch_.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_love_ima_adpcm_11k_4bit_2ch_.wav.es    476e557f
+alaw_love_ima_adpcm_22k_4bit_1ch_.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_love_ima_adpcm_22k_4bit_1ch_.wav.es    de99a561
+alaw_love_ima_adpcm_22k_4bit_2ch_.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_love_ima_adpcm_22k_4bit_2ch_.wav.es    8a633397
+alaw_love_ima_adpcm_441_16bit_1ch_.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_love_ima_adpcm_441_16bit_1ch_.wav.es    00bbe32e
+alaw_love_ima_adpcm_441_16bit_2ch_.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_love_ima_adpcm_441_16bit_2ch_.wav.es    80f4ef5f
+alaw_love_lpcm_441_16bit_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_love_lpcm_441_16bit_2ch.wav.es    1a45e806
+alaw_love_mulaw_22k_16bit_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_love_mulaw_22k_16bit_1ch.wav.es    60c61abd
+alaw_love_mulaw_22k_16bit_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_love_mulaw_22k_16bit_2ch.wav.es    74b1c6ef
+alaw_love_mulaw_441_16bit_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_love_mulaw_441_16bit_1ch.wav.es    60c61abd
+alaw_love_mulaw_441_16bit_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_love_mulaw_441_16bit_2ch.wav.es    74b1c6ef
+alaw_Never_MS_ADPCM_8k_16bit_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_Never_MS_ADPCM_8k_16bit_1ch.wav.es    0bbcba7c
+alaw_Never_MS_ADPCM_8k_16bit_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_Never_MS_ADPCM_8k_16bit_2ch.wav.es    22238a02
+alaw_Never_MS_ADPCM_11k_16bit_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_Never_MS_ADPCM_11k_16bit_2ch.wav.es    d3a78972
+alaw_Never_MS_ADPCM_22k_16bit_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_Never_MS_ADPCM_22k_16bit_1ch.wav.es    d3a22309
+alaw_Never_MS_ADPCM_22k_16bit_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_Never_MS_ADPCM_22k_16bit_2ch.wav.es    a67b91ba
+alaw_Never_MS_ADPCM_441_16bit_1ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_Never_MS_ADPCM_441_16bit_1ch.wav.es    42440b68
+alaw_Never_MS_ADPCM_441_16bit_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_Never_MS_ADPCM_441_16bit_2ch.wav.es    25e80915
+alaw_PriceTag_mulaw_96khz_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_PriceTag_mulaw_96khz_2ch.wav.es    f9413c77
+alaw_tada_lpcm_2205_16bit_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_tada_lpcm_2205_16bit_2ch.wav.es    12da1042
+alaw_test_mulaw_176P4kHz_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_test_mulaw_176P4kHz_2ch.wav.es    4a3a56e9
+alaw_test_mulaw_192kHz_2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_test_mulaw_192kHz_2ch.wav.es    5645258b
+alaw_wav_0011-6.Irony.pcm.1441k.44.1kHz.2ch.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0011-6.Irony.pcm.1441k.44.1kHz.2ch.wav.es    37833e2d
+alaw_wav_0015-hamish.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0015-hamish.wav.es    1f4a4ad3
+alaw_wav_0016-instructins.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0016-instructins.wav.es    bc994a02
+alaw_wav_0021-SHE07.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0021-SHE07.wav.es    476da973
+alaw_wav_0022-SHE08.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0022-SHE08.wav.es    dafff34a
+alaw_wav_0023-SHE09.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0023-SHE09.wav.es    a48333d0
+alaw_wav_0024-KuanDaiDuiHua.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0024-KuanDaiDuiHua.wav.es    ea4c4a85
+alaw_wav_0025-1000Hz_0dB.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0025-1000Hz_0dB.wav.es    db7c4bb3
+alaw_wav_0026-10Hz_0dB.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0026-10Hz_0dB.wav.es    1d55d3ae
+alaw_wav_0027-1kHz_Left.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0027-1kHz_Left.wav.es    a2997a5a
+alaw_wav_0028-1kHz_Mid.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0028-1kHz_Mid.wav.es    5125feb4
+alaw_wav_0029-1kHz_Right.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0029-1kHz_Right.wav.es    dc129d69
+alaw_wav_0030-1kHz_Side.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0030-1kHz_Side.wav.es    861bcb38
+alaw_wav_0031-440Hz_0dB.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0031-440Hz_0dB.wav.es    74d462a7
+alaw_wav_0032-Bass.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0032-Bass.wav.es    ac15d9c3
+alaw_wav_0034-Female_speech_E.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0034-Female_speech_E.wav.es    ca172325
+alaw_wav_0035-Female_speech_F.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0035-Female_speech_F.wav.es    c5f3f707
+alaw_wav_0037-Female_speech_G.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0037-Female_speech_G.wav.es    30f61e44
+alaw_wav_0038-Frere_Jacques.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0038-Frere_Jacques.wav.es    f5d46b95
+alaw_wav_0039-Glockenspiel_1.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0039-Glockenspiel_1.wav.es    d838b00c
+alaw_wav_0040-Glockenspiel_2.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0040-Glockenspiel_2.wav.es    b46ba447
+alaw_wav_0041-Horn.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0041-Horn.wav.es    762e8519
+alaw_wav_0042-Impulses.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0042-Impulses.wav.es    e0929246
+alaw_wav_0044-Male_speech_E.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0044-Male_speech_E.wav.es    f4b366bc
+alaw_wav_0046-Male_speech_F.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0046-Male_speech_F.wav.es    f8f6938b
+alaw_wav_0047-Male_speech_G.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0047-Male_speech_G.wav.es    08eb3f49
+alaw_wav_0048-Pink_Noise_Left.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0048-Pink_Noise_Left.wav.es    4500df96
+alaw_wav_0049-Pink_Noise_Mid.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0049-Pink_Noise_Mid.wav.es    549860a1
+alaw_wav_0050-Pink_Noise_Right.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0050-Pink_Noise_Right.wav.es    f7aaba08
+alaw_wav_0051-Pink_Noise_Side.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0051-Pink_Noise_Side.wav.es    c23a4a12
+alaw_wav_0052-Pink_Noise.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0052-Pink_Noise.wav.es    6a92e41d
+alaw_wav_0054-Quartet.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0054-Quartet.wav.es    47550bc0
+alaw_wav_0055-Silence.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0055-Silence.wav.es    1fde28ae
+alaw_wav_0056-Soprano.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0056-Soprano.wav.es    b314eb9c
+alaw_wav_0057-Sweep_10Hz_20kHz_0dB.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0057-Sweep_10Hz_20kHz_0dB.wav.es    d2a66796
+alaw_wav_0058-Trumpet.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0058-Trumpet.wav.es    b7900423
+alaw_wav_0059-Violoncello.wav.es
+    [Template]    PE_DEC_CASE
+    ES\\WAVE\\alaw_pcm\\alaw_wav_0059-Violoncello.wav.es    6388aa2b

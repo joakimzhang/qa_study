@@ -1,0 +1,536 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../业务关键字.txt
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    1    #serial port
+${sim_exe_path}    D:\\debug\\test_audio.exe    #
+${BJDevel03_UserName}    chenql    # bjdevel03 user name
+${BJDevel03_Password}    Avl1108    # devel03 password
+
+*** Test Cases ***
+AUDIO_INTE_DEC1_FULL_FEATURE
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\22.05kHz\\ID7.1ch_256kbps_22khz_cbr.es    1    #set fix sample rate 48khz before running this test case.
+    sleep    5    \    #手动运行该命令，否则打印 no more data时命令set不进去
+    common_command    iec 0
+    common_command    setfmt DRA
+    common_command    setsr 22050
+    common_command    setlen 308672
+    common_command    setiec0d 250
+    common_command    set_eq 3
+    设置DownMix模式    2
+    common_command    get_spectrum
+    common_command    get_pbtime 1
+    common_command    rdplay 5 1 1
+    sleep    20
+    设置2声道模式    6
+    sleep    30
+    common_command    ff 1 1024
+    volume控制    1    0    81
+    sleep    20
+    common_command    pplay 1
+    sleep    20
+    common_command    pause 1
+    sleep    10
+    common_command    pplay 1
+    sleep    20
+    common_command    pstop 1
+    sleep    20
+    common_command    pplay 1
+    sleep    20
+    common_command    ff 1 512
+    sleep    20
+    设置2声道模式    1
+    sleep    20
+    common_command    pplay 1
+    sleep    20
+    common_command    pstop 1
+    [Teardown]    断开串口
+
+AUDIO_INTE_STOP_DEC1_DURING_VOLUME_CTRL
+    [Setup]    连接串口
+    设置音频    AudioIO\\48kfs_sine_-20db_1khz.pcm    1
+    sleep    3
+    iec输出    0
+    common_command    setlen 1920000
+    common_command    rdplay 8 1 1
+    sleep    10
+    volume控制    1    0    81
+    sleep    20
+    volume控制    1    0    81
+    sleep    20
+    common_command    vol_ctl 1 0 81
+    sleep    2
+    common_command    pstop 1
+    sleep    2
+    common_command    pplay 1
+    sleep    2
+    common_command    pstop 1
+    sleep    2
+    common_command    pplay 1
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_INTE_PAUSE_DEC1_DURING_VOLUME_CTRL
+    [Setup]    连接串口
+    设置音频    AudioIO\\48kfs_sine_-20db_1khz.pcm    1
+    sleep    3
+    iec输出    0
+    common_command    setlen 1920000
+    播放    8    1    1
+    sleep    10
+    volume控制    1    0    81
+    sleep    20
+    volume控制    1    0    81
+    sleep    20
+    common_command    vol_ctl 1 0 81
+    sleep    2
+    common_command    pause 1
+    sleep    2
+    common_command    pplay 1
+    sleep    2
+    common_command    pause 1
+    sleep    2
+    common_command    pplay 1
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_GET_SPECTRUM_WHEN_PLAY_DIFFERRNT_FORMAT
+    [Setup]    连接串口
+    生成dual_decoder音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\test_20k_8000_lowbitrate.mp3    8192    FromSunplus\\AAC\\LC\\32k\\1C_48K_LC_48LC160_mono.aac    8704
+    sleep    5    \    #不能在simulator运行
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 265131
+    common_command    setfmt2 AAC
+    common_command    setsr2 48000
+    common_command    setlen2 284919
+    common_command    get_spectrum
+    common_command    play 37 0 1
+    sleep    20
+    common_command    stop 1
+    sleep    10
+    common_command    play2 38 0 1
+    sleep    20
+    common_command    stop 1
+    sleep    3
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_LL_2_RR_DURING_VOLUME_CTRL
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\22.05kHz\\ID7.1ch_256kbps_22khz_cbr.es    1
+    sleep    5
+    common_command    iec 0
+    common_command    setfmt DRA
+    common_command    setsr 22050
+    common_command    setlen 308672
+    iec输出    0
+    common_command    rdplay 5 1 1
+    sleep    10
+    common_command    vol_ctl 1 0 81
+    设置2声道模式    2
+    sleep    30
+    设置2声道模式    3
+    sleep    30
+    设置2声道模式    1
+    sleep    30
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_LL_MUTE_RR_DEMUTE
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\22.05kHz\\ID7.1ch_256kbps_22khz_cbr.es    1
+    sleep    5
+    common_command    iec 0
+    common_command    setfmt DRA
+    common_command    setsr 22050
+    common_command    setlen 308672
+    iec输出    0
+    common_command    rdplay 5 1 1
+    sleep    10
+    设置2声道模式    2
+    sleep    20
+    common_command    mute 0 0
+    sleep    10
+    设置2声道模式    3
+    common_command    demute
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_CHANGE_EQ_TYPE
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\22.05kHz\\ID7.1ch_256kbps_22khz_cbr.es    1
+    sleep    5
+    common_command    iec 0
+    common_command    setfmt DRA
+    common_command    setsr 22050
+    common_command    setlen 308672
+    iec输出    0
+    common_command    set_eq 1
+    common_command    play 5 0 1
+    sleep    10
+    common_command    stop 1
+    sleep    20
+    common_command    set_eq 2
+    common_command    play 5 0 1
+    sleep    10
+    common_command    stop 1
+    sleep    20
+    common_command    set_eq 3
+    common_command    play 5 0 1
+    sleep    10
+    common_command    stop 1
+    sleep    20
+    common_command    set_eq 4
+    common_command    play 5 0 1
+    sleep    10
+    common_command    stop 1
+    sleep    20
+    common_command    set_eq 5
+    common_command    play 5 0 1
+    sleep    10
+    common_command    stop 1
+    sleep    20
+    common_command    set_eq 6
+    common_command    play 5 0 1
+    sleep    10
+    common_command    stop 1
+    sleep    20
+    common_command    set_eq 7
+    common_command    play 5 0 1
+    sleep    10
+    common_command    stop 1
+    sleep    20
+    common_command    set_eq 8
+    common_command    play 5 0 1
+    sleep    10
+    common_command    stop 1
+    sleep    20
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_VOLUME_CTRL_WHEN_SPDIF_RAW
+    [Setup]    连接串口
+    设置音频    ES\\AC3\\test_mpeg2_video_ac3_audio_Headphone_0204_32khz_64kbps_2ch.ac3    1
+    sleep    5
+    common_command    vol_ctl 1 0 81
+    common_command    audio_dot_ac3_raw_spdif_raw
+    sleep    120    #检查功放输出raw data的音量没有变化。
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_GET_SPECTRUM_WHEN_SPDIF_RAW
+    [Setup]    连接串口
+    设置音频    ES\\AC3\\test_mpeg2_video_ac3_audio_Headphone_0204_32khz_64kbps_2ch.ac3    1
+    sleep    5
+    common_command    get_spectrum
+    common_command    audio_dot_ac3_raw_spdif_raw
+    sleep    120    #检查功放输出raw data.
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_MUTE_WHEN_HDMI_RAW
+    [Setup]    连接串口
+    设置音频    ES\\AC3\\test_mpeg2_video_ac3_audio_Headphone_0204_32khz_64kbps_2ch.ac3    1
+    common_command    wreg 67 7 0x20404000    #IEC0 with A6 data
+    sleep    5
+    common_command    mute 0 0
+    common_command    audio_dot_ac3_raw_hdmi_raw
+    sleep    120    #检查HDMI输出静音。
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_HDMI_RAW_WHEN_EQ_TYPE_LIVE
+    [Setup]    连接串口
+    设置音频    ES\\AC3\\test_mpeg2_video_ac3_audio_Headphone_0204_32khz_64kbps_2ch.ac3    1
+    common_command    wreg 67 7 0x20404000    #IEC0 with A6 data
+    sleep    5
+    common_command    set_eq 8
+    common_command    audio_dot_ac3_raw_hdmi_raw
+    sleep    120    #检查HDMI输出raw data.
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_LR_2_RR_WHEN_EQ_TYPE_SOFT
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\22.05kHz\\ID7.1ch_256kbps_22khz_cbr.es    1
+    sleep    5
+    common_command    iec 0
+    common_command    setfmt DRA
+    common_command    setsr 22050
+    common_command    setlen 308672
+    iec输出    0
+    common_command    set_eq 7
+    common_command    rdplay 5 1 1
+    sleep    10
+    设置2声道模式    2    #只听见前左，后左，旁左，前中
+    sleep    30
+    设置2声道模式    3    #只听见前右，后右，旁右，前中
+    sleep    30
+    设置2声道模式    1
+    sleep    30
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_LL_2_RR_2_LR_WHEN_PLAY_MONO_192KHZ_DRA
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\192kHz\\ID1.0ch_256kbps_192khz_cbr.es    1
+    sleep    5
+    common_command    iec 0
+    common_command    setfmt DRA
+    common_command    setsr 192000
+    common_command    setlen 75936
+    iec输出    0
+    common_command    rdplay 5 1 1
+    sleep    20
+    设置2声道模式    2
+    sleep    30
+    设置2声道模式    3
+    sleep    30
+    设置2声道模式    1
+    sleep    30
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_SWITCH_2_CH_MODE_WHEN_HDMI_RAW
+    [Setup]    连接串口
+    设置音频    ES\\AC3\\test_mpeg2_video_ac3_audio_Headphone_0204_32khz_64kbps_2ch.ac3    1
+    common_command    wreg 67 7 0x20404000    #IEC0 with A6 data
+    sleep    5
+    common_command    get_pbtime 1
+    common_command    audio_dot_ac3_raw_hdmi_raw
+    设置2声道模式    2
+    sleep    10
+    设置2声道模式    3
+    sleep    10
+    设置2声道模式    1
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_SWITCH_2_CH_MODE_WHEN_HDMI_PCM
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\22.05kHz\\ID7.1ch_256kbps_22khz_cbr.es    1
+    sleep    5
+    common_command    iec 0
+    common_command    setfmt DRA
+    common_command    setsr 22050
+    common_command    setlen 308672
+    iec输出    0
+    common_command    rdplay 5 1 1
+    sleep    10
+    设置2声道模式    2
+    sleep    30
+    设置2声道模式    3
+    sleep    30
+    设置2声道模式    1
+    sleep    30    #检查A6输出
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_DOWNMIX_STREAM_CONTAINS_DIFFERENT_CHANNELS_n_DIFFERENT_SR
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\ID1.0ch_32kbps_22khz_cbr_and_ID7.1ch_2048kbps_192khz_cbr.es    1
+    sleep    5
+    common_command    iec 0
+    common_command    setfmt DRA
+    common_command    setsr 22050
+    common_command    setlen 2467864
+    iec输出    0
+    common_command    set_eq 1
+    common_command    play 5 1 1
+    sleep    60
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_FF_STREAM_CONTAINS_DIFFERENT_CHANNELS_n_DIFFERENT_SR
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\ID1.0ch_32kbps_22khz_cbr_and_ID7.1ch_2048kbps_192khz_cbr.es    1
+    sleep    5
+    common_command    iec 0
+    common_command    setfmt DRA
+    common_command    setsr 22050
+    common_command    setlen 2467864
+    iec输出    0
+    common_command    set_eq 1
+    common_command    fplay 5 1 1 1024
+    sleep    60
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_PAUSE_PLAY_STREAM_CONTAINS_DIFFERENT_CHANNELS_n_DIFFERENT_SR
+    [Setup]    连接串口
+    设置音频    ES\\DRA\\ID1.0ch_32kbps_22khz_cbr_and_ID7.1ch_2048kbps_192khz_cbr.es    1
+    sleep    5
+    common_command    iec 0
+    common_command    setfmt DRA
+    common_command    setsr 22050
+    common_command    setlen 2467864
+    iec输出    0
+    common_command    set_eq 1
+    common_command    play 5 1 1
+    sleep    10
+    common_command    pauseplay 1
+    sleep    200
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_PLAY_WAV-->AC3
+    [Setup]    连接串口
+    生成dual_decoder音频    ES\\WAVE\\LPCM\\tada_lpcm_2205_16bit_2ch.wav.es    8192    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_5.1.ac3    8704
+    sleep    5
+    common_command    setfmt PCM
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 171008
+    sleep    2
+    common_command    setch 2
+    sleep    2
+    common_command    setabps 0
+    sleep    2
+    common_command    setba 4
+    sleep    2
+    common_command    setbps 16
+    sleep    2
+    common_command    setcb 0
+    common_command    play 5 0 1
+    sleep    20
+    common_command    stop 1
+    sleep    2
+    common_command    setfmt2 AC3
+    common_command    setsr2 48000
+    common_command    setlen2 1770240
+    common_command    play2 38 0 1
+    sleep    30
+    common_command    stop 1
+    sleep    3
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_PLAY_AAC-->AC3
+    [Setup]    连接串口
+    生成dual_decoder音频    ES\\ComplianceTestFile\\aac_test\\compressed\\qqt_yhddw.lc.faac.aac    8192    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_5.1.ac3    8704
+    sleep    3
+    common_command    setfmt AAC
+    common_command    setsr 48000
+    common_command    setlen 98146
+    common_command    play 8 0 1
+    sleep    20
+    common_command    stop 1
+    sleep    3
+    common_command    setfmt2 AC3
+    common_command    setsr2 48000
+    common_command    setlen2 1770240
+    common_command    play2 38 0 1
+    sleep    20
+    common_command    stop 1
+    sleep    3
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_PLAY_MPEG-->AC3
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\MP3\\Bitrate_Test\\16-224KPBS_Bitrate\\mp3_0924-1-Quartet_224_48000.mp3    8192    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_5.1.ac3    8704
+    sleep    3
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 304544
+    common_command    play 8 0 1
+    sleep    10
+    common_command    stop 1
+    common_command    setfmt2 AC3
+    common_command    setsr2 48000
+    common_command    setlen2 1770240
+    common_command    play2 38 0 1
+    sleep    20
+    common_command    stop 1
+    sleep    3
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_PLAY_MPEG-->WMA
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\MP3\\Bitrate_Test\\16-224KPBS_Bitrate\\mp3_0924-1-Quartet_224_48000.mp3    8192    FromSunplus\\WMA\\TEST1_WMA_V2_6KBPS_8KHZ_M_1ch_8000Hz.bin    8704
+    sleep    3
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 304544
+    common_command    play 8 0 1
+    sleep    10
+    common_command    stop 1
+    splay2    38    0    1
+    sleep    10
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_PLAY_OGG-->DRA
+    [Setup]    连接串口
+    生成dual_decoder音频    ES\\ogg_stripped\\mgs1-sample1_44P1khz.ogg.packet    8192    ES\\DRA\\48KHz\\ID7.1ch_512kbps_48khz_cbr.es    8704
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 14763
+    common_command    play 7 0 1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    common_command    setfmt2 DRA
+    common_command    setsr2 48000
+    common_command    setlen2 616528
+    common_command    play2 38 0 1
+    sleep    20
+    common_command    stop 1
+    sleep    3
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_PLAY_WMA-->EAC3
+    [Setup]    连接串口
+    生成dual_decoder音频    FromSunplus\\WMA\\TEST1_WMA_V2_6KBPS_8KHZ_M_1ch_8000Hz.bin    8192    ES\\EAC3\\buggy_aht_5.1_384.eac3    8704
+    sleep    3
+    splay    6    0    1
+    common_command    stop 1
+    common_command    setfmt2 EAC3
+    common_command    setsr2 48000
+    common_command    setlen2 7014912
+    common_command    play2 38 0 1
+    sleep    30
+    common_command    stop 1
+    sleep    3
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_PLAY_EAC3-->WAV
+    [Setup]    连接串口
+    生成dual_decoder音频    ES\\EAC3\\csi_miami_stereo_128_spx.eac3    8192    ES\\WAVE\\LPCM\\tada_lpcm_2205_16bit_2ch.wav.es    8704
+    sleep    5
+    common_command    setfmt EAC3
+    common_command    setsr 48000
+    common_command    setlen 333664
+    common_command    play 37 0 1
+    sleep    20
+    common_command    stop 1
+    sleep    3
+    common_command    setfmt2 PCM
+    sleep    2
+    common_command    setsr2 22050
+    sleep    2
+    common_command    setlen2 171008
+    sleep    2
+    common_command    setch2 2
+    sleep    2
+    common_command    setabps2 0
+    sleep    2
+    common_command    setba2 4
+    sleep    2
+    common_command    setbps2 16
+    sleep    2
+    common_command    setcb2 0
+    common_command    play2 38 0 1
+    sleep    20
+    common_command    stop 1
+    sleep    3
+    [Teardown]    断开串口
+
+AUDIO_INTE_DEC1_PLAY_WMAPRO-->AAC
+    [Setup]    连接串口
+    生成dual_decoder音频    \    8192    ES\\ComplianceTestFile\\aac_test\\compressed\\al09_08.aac    8704
+    sleep    3
+    #todo
+    common_command    setfmt2 AAC
+    common_command    setsr2 8000
+    common_command    setlen2 218894
+    common_command    play2 38 0 1
+    sleep    30
+    common_command    stop 1
+    sleep    3
+    [Teardown]    断开串口

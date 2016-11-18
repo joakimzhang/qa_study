@@ -1,0 +1,133 @@
+*** Settings ***
+Suite Setup       连接串口
+Suite Teardown    断开串口
+Test Timeout      50 minutes
+Library           SSHLibrary
+Resource          ../../业务关键字.txt
+Library           OperatingSystem
+Library           String
+Library           test_tool
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    1    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\debug\\test_audio_ac3.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    chenql    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1108    # devel03的密码，用户登录bjdevel03
+
+*** Test Cases ***
+AUDIO_PP_LL_RCA
+    设置音频    AudioIO\\48kfs_sine_L-20db_R-26db_1khz.pcm    1
+    sleep    3
+    设置DownMix模式    0
+    sleep    3
+    播放    8    1    1
+    sleep    5
+    设置2声道模式    2
+    sleep    30
+    common_command    pstop 1
+
+AUDIO_PP_RR_RCA
+    设置音频    AudioIO\\48kfs_sine_L-20db_R-26db_1khz.pcm    1
+    sleep    3
+    设置DownMix模式    0
+    sleep    3
+    播放    8    1    1
+    sleep    5
+    设置2声道模式    3
+    sleep    30
+    common_command    pstop 1
+
+AUDIO_PP_LR_RCA
+    设置音频    AudioIO\\48kfs_sine_L-20db_R-26db_1khz.pcm    1
+    sleep    3
+    设置DownMix模式    0
+    sleep    3
+    播放    3    1    1
+    sleep    5
+    设置2声道模式    1
+    sleep    30
+    common_command    pstop 1
+
+AUDIO_PP_L+R_RCA
+    设置音频    AudioIO\\48kfs_sine_L-20db_R-26db_1khz.pcm    1
+    sleep    3
+    设置DownMix模式    0
+    sleep    3
+    播放    8    1    1
+    sleep    5
+    设置2声道模式    6
+    sleep    30
+    common_command    pstop 1
+
+AUDIO_PP_LL_IEC0
+    设置音频    AudioIO\\48kfs_sine_L-20db_R-26db_1khz.pcm    0
+    sleep    3
+    iec输出    0
+    设置DownMix模式    0
+    sleep    3
+    播放    8    1    1
+    sleep    30
+    设置2声道模式    2
+    sleep    30
+    common_command    pstop 1
+
+AUDIO_PP_RR_IEC0
+    设置音频    AudioIO\\48kfs_sine_L-20db_R-26db_1khz.pcm    0
+    sleep    3
+    iec输出    0
+    设置DownMix模式    0
+    sleep    3
+    播放    8    1    1
+    sleep    10
+    设置2声道模式    3
+    sleep    10
+    common_command    pstop 1
+
+AUDIO_PP_LR_IEC0
+    设置音频    AudioIO\\48kfs_sine_L-20db_R-26db_1khz.pcm    0
+    sleep    3
+    iec输出    0
+    设置DownMix模式    0
+    sleep    3
+    播放    8    1    1
+    sleep    10
+    设置2声道模式    1
+    sleep    10
+    common_command    pstop 1
+
+AUDIO_PP_LL_IEC1
+    设置音频    AudioIO\\48kfs_sine_L-20db_R-26db_1khz.pcm    0
+    sleep    3
+    iec输出    0
+    设置DownMix模式    0
+    sleep    3
+    播放    8    1    1
+    sleep    10
+    设置2声道模式    2
+    sleep    10
+    common_command    pstop 1
+
+AUDIO_PP_RR_IEC1
+    设置音频    AudioIO\\48kfs_sine_L-20db_R-26db_1khz.pcm    0
+    sleep    3
+    iec输出    0
+    设置DownMix模式    0
+    sleep    3
+    播放    8    1    1
+    sleep    10
+    设置2声道模式    3
+    sleep    10
+    common_command    pstop 1
+
+AUDIO_PP_LR_IEC1
+    设置音频    AudioIO\\48kfs_sine_L-20db_R-26db_1khz.pcm    0
+    sleep    3
+    iec输出    0
+    设置DownMix模式    0
+    sleep    3
+    播放    8    1    1
+    sleep    10
+    设置2声道模式    1
+    sleep    10
+    common_command    pstop 1

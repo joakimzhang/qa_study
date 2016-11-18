@@ -1,0 +1,441 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../业务关键字.txt
+
+*** Variables ***
+${platform}       2    # 0:fpga,1:simulator,2:ASIC
+${console_num}    9    #serial port
+${sim_exe_path}    D:\\debug\\test_audio.exe    #
+${BJDevel03_UserName}    chenql    # bjdevel03 user name
+${BJDevel03_Password}    Avl1108    # devel03 password
+@{ir_command}     up    down    left    right    ext    enter
+
+*** Test Cases ***
+case_01
+    [Documentation]    搜索当前目录下的TS文件
+    文件搜索    @{path_list}[0]
+    切换流    bjdittest    @{path_list}[1]
+
+test1
+    log    1
+    Should Be True    2>3
+
+XML转CSV
+    read_xml_to_csv    testsuites_qiuling.csv    testsuites_qiuling.xml
+
+CSV转XML
+    read_csv_to_xml    testsuites_system.csv    testsuites_system.xml
+    [Teardown]
+
+同步件
+    同步bin文件
+
+流库
+    32K_2ch_ac3
+    44K_2ch.ac3
+    48k_5.1ch.ac3
+    48K_8ch_eac3
+    96K.aac
+    88K.pcm
+
+停止播放
+    [Setup]
+    sleep    3
+    sent_command    mon
+    sleep    3
+    sent_command    AUD 3
+
+切换源
+    [Tags]    测试1
+    [Setup]
+    [Template]
+    44k.wav
+    重置roomter    D:\\roomter\\downbinfile_32M    D:\\roomter\\rom.bin
+    连接串口    9
+    系统重启
+
+case_0
+    [Tags]    测试1
+    [Setup]
+    切换流    bjdittest    \\bjdevel03\stream\video_regression\multi_standard\video_remux\mpeg1video.ts
+
+case_1
+    [Setup]    连接串口    9
+    切换输出模式    1    2
+    Should Be True    Get Serial Out
+    Wait Until Keyword Succeeds    1x    5s    Get Serial Out
+
+case_2
+    [Documentation]    这只是一个示例，睡眠1秒后结束，如果出现successfully的提示，说明运行成功。
+    [Setup]    连接串口    9
+    sent_command    stop
+    sleep    3
+    设置DownMix模式    2
+    sleep    3
+    播放    3    1    1
+    sleep    10
+    设置2声道模式    3
+    sent_command    AUD 3
+
+case_3
+    [Setup]
+    切换输出模式    1    1
+
+case_4
+    [Documentation]    这只是一个示例，睡眠1秒后结束，如果出现successfully的提示，说明运行成功。
+    [Setup]    连接串口    9
+    sent_command    stop
+    sleep    3
+    设置DownMix模式    2
+    sleep    3
+    播放    3    1    1
+    sleep    10
+    设置2声道模式    3
+    sent_command    AUD 3
+
+播放
+    [Setup]    连接串口    9
+    播放    4    1    1
+
+AUD命令
+    [Setup]    连接串口    9
+    sent_command    AUD 5
+
+RCA_output
+    [Setup]    连接串口    9
+    生成音频    32k.wav
+    播放    6    0    1
+    sleep    20
+    生成音频    44k.wav
+    播放    7    0    1
+    sleep    20
+    生成音频    48k.wav
+    播放    8    0    1
+    sleep    20
+    生成音频    88k.wav
+    播放    10    0    1
+    sleep    20
+    生成音频    96k.wav
+    播放    11    0    1
+    sleep    20
+    生成音频    176k.wav
+    播放    13    0    1
+    sleep    20
+    生成音频    192k.wav
+    播放    14    0    1
+
+HDMI_output
+    [Setup]    连接串口    9
+    生成音频    32k.wav
+    播放    6    0    1
+    sleep    20
+    生成音频    44k.wav
+    播放    7    0    1
+    sleep    20
+    生成音频    48k.wav
+    播放    8    0    1
+    sleep    20
+    生成音频    88k.wav
+    播放    10    0    1
+    sleep    20
+    生成音频    96k.wav
+    播放    11    0    1
+    sleep    20
+    生成音频    176k.wav
+    播放    13    0    1
+    sleep    20
+    生成音频    192k.wav
+    播放    14    0    1
+
+SPDIF_output
+    生成音频    32k.wav
+    播放    6    0    1
+    sleep    20
+    生成音频    44k.wav
+    播放    7    0    1
+    sleep    20
+    生成音频    48k.wav
+    播放    8    0    1
+    sleep    20
+    生成音频    88k.wav
+    播放    10    0    1
+    sleep    20
+    生成音频    96k.wav
+    播放    11    0    1
+    sleep    20
+    生成音频    176k.wav
+    播放    13    0    1
+    sleep    20
+    生成音频    192k.wav
+    播放    14    0    1
+
+mute_ctrl
+    [Setup]    连接串口    9
+    生成音频    48k.wav
+    播放    8    1    1
+    sleep    10
+    mute控制    2    2
+    判断结果
+    sleep    5
+    静音
+    sleep    5
+    mute控制    1    2
+    判断结果
+    [Teardown]    断开串口
+
+downmix_OFF
+    [Documentation]    downmix off 的时候，只有左右两个声道出现
+    [Setup]    连接串口    9
+    生成音频    48K_8ch.eac3
+    sleep    3
+    设置DownMix模式    0
+    sleep    3
+    播放    18    1    1
+    sleep    10
+    设置2声道模式    1
+    sleep    10
+    设置2声道模式    2
+    sleep    10
+    设置2声道模式    3
+    [Teardown]    断开串口
+
+downmix_LORO
+    48K_8ch_eac3
+    重置roomter    D:\\roomter\\downbinfile_32M    D:\\roomter\\rom.bin
+    连接串口    9
+    系统重启
+    sleep    3
+    设置DownMix模式    1
+    sleep    3
+    播放    3    1    1
+    sleep    10
+    设置2声道模式    1
+    sleep    10
+    设置2声道模式    2
+    sleep    10
+    设置2声道模式    3
+
+downmix_LTRT
+    48K_8ch_eac3
+    重置roomter    D:\\roomter\\downbinfile_32M    D:\\roomter\\rom.bin
+    连接串口    9
+    系统重启
+    sleep    3
+    设置DownMix模式    2
+    sleep    3
+    播放    3    1    1
+    sleep    10
+    设置2声道模式    1
+    sleep    10
+    设置2声道模式    2
+    sleep    10
+    设置2声道模式    3
+
+out_LL
+    48K_8ch_eac3
+    重置roomter    D:\\roomter\\downbinfile_32M    D:\\roomter\\rom.bin
+    连接串口    9
+    系统重启
+    sleep    3
+    设置DownMix模式    0
+    sleep    3
+    播放    3    1    1
+    sleep    10
+    设置2声道模式    2
+
+out_RR
+    48K_8ch_eac3
+    重置roomter    D:\\roomter\\downbinfile_32M    D:\\roomter\\rom.bin
+    连接串口    9
+    系统重启
+    sleep    3
+    设置DownMix模式    0
+    sleep    3
+    播放    3    1    1
+    sleep    10
+    设置2声道模式    3
+
+out_LR
+    48K_8ch_eac3
+    重置roomter    D:\\roomter\\downbinfile_32M    D:\\roomter\\rom.bin
+    连接串口    9
+    系统重启
+    sleep    3
+    设置DownMix模式    0
+    sleep    3
+    播放    3    1    1
+    sleep    10
+    设置2声道模式    1
+
+out_L+R
+    48K_8ch_eac3
+    重置roomter    D:\\roomter\\downbinfile_32M    D:\\roomter\\rom.bin
+    连接串口    9
+    系统重启
+    sleep    3
+    设置DownMix模式    0
+    sleep    3
+    播放    3    1    1
+    sleep    10
+    设置2声道模式    6
+
+ASRC
+    [Documentation]    需要在AUDIF_Init_Audio之前设置output mode为single(fix) sample rate,否则会出错。
+    ...    建议后续再minitest上的case里面添加以下内容。
+    [Setup]    连接串口    9
+    生成音频    6k.wav
+    播放    1    0    1
+    sleep    20
+    生成音频    8k.wav
+    播放    2    0    1
+    sleep    20
+    生成音频    11k.wav
+    播放    3    0    1
+    sleep    20
+    生成音频    16k.wav
+    播放    4    0    1
+    sleep    20
+    生成音频    22k.wav
+    播放    5    0    1
+    sleep    20
+    生成音频    32k.wav
+    播放    6    0    1
+    sleep    20
+    生成音频    44k.wav
+    播放    7    0    1
+    sleep    20
+    生成音频    48k.wav
+    播放    8    0    1
+    sleep    20
+    生成音频    64k.wav
+    播放    9    0    1
+    sleep    20
+    生成音频    88k.wav
+    播放    10    0    1
+    sleep    20
+    生成音频    96k.wav
+    播放    11    0    1
+    sleep    20
+    生成音频    176k.wav
+    播放    13    0    1
+    sleep    20
+    生成音频    192k.wav
+    播放    14    0    1
+
+case_5
+    [Setup]    连接串口    9
+    [Timeout]    30 seconds
+    设置DownMix模式    1
+    判断结果
+    [Teardown]
+
+mute_id
+    生成音频    48k.wav
+    sent_command    play 20 1 1
+    sleep    5
+    sent_command    mute_id 1 1
+
+mute_ff
+    [Setup]    连接串口    9
+    生成音频    Hair.mp3
+    播放    15    1    1
+    sleep    10
+    快进    1    2
+    静音
+    sleep    3
+    demute
+    sleep    3
+    静音
+    sleep    3
+    demute
+    sleep    3
+    静音
+    sleep    3
+    demute
+    sleep    3
+    静音
+    sleep    3
+    demute
+    sleep    3
+    快进    1    1
+    静音
+    sleep    3
+    demute
+    sleep    3
+
+mute_max_volume
+    [Setup]    连接串口    9
+    生成音频    48k_0db.wav
+    播放    9    1    1
+    sleep    10
+    音量    100
+    静音
+    sleep    3
+    demute
+    sleep    3
+    静音
+    sleep    3
+    demute
+    sleep    3
+    静音
+    sleep    3
+    demute
+    sleep    3
+    静音
+    sleep    3
+    demute
+    sleep    3
+    快进    1    1
+    静音
+    sleep    3
+    demute
+
+mute_0db
+    [Setup]    连接串口    9
+    生成音频    48k_0db.wav
+    播放    8    1    1
+    sleep    10
+    mute控制    2    2
+    生成音频    48k_0db_2.wav
+    播放    9    1    1
+    sleep    10
+    mute控制    1    2
+    停止
+
+random_key
+    [Setup]    指定串口    9
+    : FOR    ${n}    IN RANGE    10000
+    \    log    ${n}
+    \    ${random}=    Evaluate    random.randint(0, 5)    modules=random
+    \    log    ${random}
+    \    common_command    @{ir_command}[${random}]
+    \    sleep    0.5
+    LOG    outside loop
+    [Teardown]    断开串口
+
+tools
+    [Setup]
+    Pcm24 To 16    D:\\AudioOut_A6.pcm    d:\\result\\${TEST_NAME}_RAW_16bit.pcm
+    ffmpeg_convert_to_spdif    D:\\AudioTestFile\\AudioIO\\48K_8ch.eac3    d:\\result\\${TEST_NAME}_FFMPEG_16bit.pcm
+
+test_sim
+    ${a}=    Set Variable    fffffffffffffffffffffffffffffffff
+    LOG    ${a}
+    LOG    "AAAA"
+
+random_and_loop
+    : FOR    ${n}    IN RANGE    10
+    \    log    ${n}
+    \    ${random}=    Evaluate    random.randint(0, 6)    modules=random
+    \    log    ${random}
+    \    log    @{ir_command}[${random}]
+    LOG    outside loop
+
+*** Keywords ***
+关键字
+
+串口显示
+    print_serial_out

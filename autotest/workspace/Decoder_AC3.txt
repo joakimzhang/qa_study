@@ -1,0 +1,528 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../业务关键字.txt
+
+*** Variables ***
+${platform}       1    # 0:fpga,1:simulator,2:ASIC
+${console_num}    11    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\Debug\\test_audio_ddp.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    houh    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1118    # devel03的密码，用户登录bjdevel03
+${AudioFileDir}    D:\\AudioFile    # \\\\bjdevel03\\stream\\AudioTestFile D:\\AudioFile
+
+*** Test Cases ***
+1_AC3_T01_3_16bit.ac3
+    [Documentation]    076e93e8
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\224kBps_48kHz\\1_AC3_T01_3_16bit.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 390656
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    076e93e8
+    [Teardown]    断开串口
+
+ac3_0002-1_AC3_T01_3_16bit.ac3
+    [Documentation]    076e93e8
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\224kBps_48kHz\\ac3_0002-1_AC3_T01_3_16bit.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 390656
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    076e93e8
+    [Teardown]    断开串口
+
+2002__ac3_16bit.ac3
+    [Documentation]    15478a52
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\384kBps_44.1kHz\\2002__ac3_16bit.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 44100
+    common_command    setlen 6232440
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    15478a52
+    [Teardown]    断开串口
+
+2002n_ac3_16bit.ac3
+    [Documentation]    15478a52
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\384kBps_44.1kHz\\2002n_ac3_16bit.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 44100
+    common_command    setlen 6232440
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    15478a52
+    [Teardown]    断开串口
+
+ac3_0005-2002__ac3_16bit.ac3
+    [Documentation]    15478a52
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\384kBps_44.1kHz\\ac3_0005-2002__ac3_16bit.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 44100
+    common_command    setlen 6232440
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    15478a52
+    [Teardown]    断开串口
+
+ac3_0006-2002n_ac3_16bit.ac3
+    [Documentation]    15478a52
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\384kBps_44.1kHz\\ac3_0006-2002n_ac3_16bit.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 44100
+    common_command    setlen 6232440
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    15478a52
+    [Teardown]    断开串口
+
+ac3_0008-384Kbps_48Khz_6channels_ac3.es
+    [Documentation]    6daccc70 (r1487)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\384Kbps_48kHz\\ac3_0008-384Kbps_48Khz_6channels_ac3.es    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 4194304
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6daccc70
+    [Teardown]    断开串口
+
+1_AC3_T01_4_16bit.ac3
+    [Documentation]    e79dcb3c
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\448Kbps_48kHz\\1_AC3_T01_4_16bit.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 2530304
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e79dcb3c
+    [Teardown]    断开串口
+
+2.diatonis_soal.448k.48kHz.5.1ch.ac3
+    [Documentation]    6907a232
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\448Kbps_48kHz\\2.diatonis_soal.448k.48kHz.5.1ch.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 19475456
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6907a232
+    [Teardown]    断开串口
+
+448Kbps_48Khz_6channels_ac3.ac3
+    [Documentation]    a7ec8bf3
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\448Kbps_48kHz\\448Kbps_48Khz_6channels_ac3.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 6920704
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a7ec8bf3
+    [Teardown]    断开串口
+
+ac3_0003-1_AC3_T01_4_16bit.ac3
+    [Documentation]    e79dcb3c
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\448Kbps_48kHz\\ac3_0003-1_AC3_T01_4_16bit.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 2530304
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e79dcb3c
+    [Teardown]    断开串口
+
+ac3_0004-1.current.448k.48kHz.5ch.ac3
+    [Documentation]    535f66a6
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\448Kbps_48kHz\\ac3_0004-1.current.448k.48kHz.5ch.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 30863616
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    535f66a6
+    [Teardown]    断开串口
+
+ac3_0007-2.diatonis_soal.448k.48kHz.5.1ch.ac3
+    [Documentation]    6907a232
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\448Kbps_48kHz\\ac3_0007-2.diatonis_soal.448k.48kHz.5.1ch.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 19475456
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6907a232
+    [Teardown]    断开串口
+
+ac3_0010-448Kbps_48Khz_6channels_ac3.ac3
+    [Documentation]    a7ec8bf3
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\448Kbps_48kHz\\ac3_0010-448Kbps_48Khz_6channels_ac3.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 6920704
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a7ec8bf3
+    [Teardown]    断开串口
+
+ac3_0014-448Kbps_48Khz_6channels_ac3.ac3
+    [Documentation]    a7ec8bf3
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\448Kbps_48kHz\\ac3_0014-448Kbps_48Khz_6channels_ac3.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 6920704
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a7ec8bf3
+    [Teardown]    断开串口
+
+3.hard_rock_640k.48khz.5.1ch.es
+    [Documentation]    4290e34c (r1487)
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\640kbps_48kHz\\3.hard_rock_640k.48khz.5.1ch.es    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 207786
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4290e34c
+    [Teardown]    断开串口
+
+ac3_0009-3.hard_rock_640k.48khz.5.1ch.ac3
+    [Documentation]    810761db
+    [Setup]    连接串口
+    设置音频    FromSunplus\\AC3\\640kbps_48kHz\\ac3_0009-3.hard_rock_640k.48khz.5.1ch.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 10081280
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    810761db
+    [Teardown]    断开串口
+
+class.ac3
+    [Documentation]    531b5d11
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\class.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 2568192
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    531b5d11
+    [Teardown]    断开串口
+
+country.ac3
+    [Documentation]    8163e882
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\country.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 3001344
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8163e882
+    [Teardown]    断开串口
+
+game.ac3
+    [Documentation]    d3590ae8
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\game.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 2124288
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d3590ae8
+    [Teardown]    断开串口
+
+game_1.0.ac3
+    [Documentation]    08bc0425
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_1.0.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 1770240
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    08bc0425
+    [Teardown]    断开串口
+
+game_2.0.ac3
+    [Documentation]    f4e19028
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_2.0.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 1770240
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f4e19028
+    [Teardown]    断开串口
+
+game_2.1.0.ac3
+    [Documentation]    7e7eee78
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_2.1.0.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 1770240
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7e7eee78
+    [Teardown]    断开串口
+
+game_2.1.1.ac3
+    [Documentation]    056a4482
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_2.1.1.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 1770240
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    056a4482
+    [Teardown]    断开串口
+
+game_2.2.0.ac3
+    [Documentation]    d73e2fdc
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_2.2.0.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 1770240
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d73e2fdc
+    [Teardown]    断开串口
+
+game_2.2.1.ac3
+    [Documentation]    66e148d7
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_2.2.1.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 1770240
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    66e148d7
+    [Teardown]    断开串口
+
+game_3.0.0.ac3
+    [Documentation]    e7285bb1
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_3.0.0.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 1770240
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e7285bb1
+    [Teardown]    断开串口
+
+game_3.0.1.ac3
+    [Documentation]    aad82cff
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_3.0.1.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 1770240
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    aad82cff
+    [Teardown]    断开串口
+
+game_3.1.0.ac3
+    [Documentation]    3dec4323
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_3.1.0.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 1770240
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3dec4323
+    [Teardown]    断开串口
+
+game_3.1.1.ac3
+    [Documentation]    922c79b2
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_3.1.1.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 1770240
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    922c79b2
+    [Teardown]    断开串口
+
+game_5.0.ac3
+    [Documentation]    c8e4d362
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_5.0.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 1770240
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c8e4d362
+    [Teardown]    断开串口
+
+game_5.1.ac3
+    [Documentation]    02d00f3e
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_5.1.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 48000
+    common_command    setlen 1770240
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    02d00f3e
+    [Teardown]    断开串口
+
+Breathless_AC3_128kbps_32khz_Stereo.ac3
+    [Documentation]    180e0b30
+    [Setup]    连接串口
+    设置音频    ES\\AC3\\Breathless_AC3_128kbps_32khz_Stereo.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 32000
+    common_command    setlen 960000
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    180e0b30
+    [Teardown]    断开串口
+
+game_acm321_448kbps_32kHz.ac3
+    [Documentation]    e2b6f822
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\ac3_test\\compressed\\game_acm321_448kbps_32kHz.ac3    1
+    sleep    5
+    common_command    setfmt AC3
+    common_command    setsr 32000
+    common_command    setlen 3717504
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e2b6f822
+    [Teardown]    断开串口

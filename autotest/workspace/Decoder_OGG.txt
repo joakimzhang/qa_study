@@ -1,0 +1,1282 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Library           OperatingSystem
+Library           String
+Resource          ../业务关键字.txt
+
+*** Variables ***
+${platform}       1    # 0:fpga,1:simulator,2:ASIC
+${console_num}    11    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\Debug\\test_audio_vorbis.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    houh    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1118    # devel03的密码，用户登录bjdevel03
+${AudioFileDir}    D:\\AudioFile    # \\\\bjdevel03\\stream\\AudioTestFile D:\\AudioFile
+${vorbis_exe_path}    D:\\debug\\vorbis.exe    # vorbis.exe path to strip ogg file
+
+*** Test Cases ***
+01_Duran_Duran_Planet_Earth_44P1khz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\01_Duran_Duran_Planet_Earth_44P1khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1032909
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    75aadd97
+    [Teardown]    断开串口
+
+bobyoung_44P1khz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\bobyoung_44P1khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1269894
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    827b9994
+    [Teardown]    断开串口
+
+Breathless_MPEG1_LAYER2_64kbps_32khz_Stereo.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\Breathless_MPEG1_LAYER2_64kbps_32khz_Stereo.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 32000
+    sleep    2
+    common_command    setlen 1447570
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    393794b2
+    [Teardown]    断开串口
+
+coyote_48khz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\coyote_48khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 1548944
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    06b1b14a
+    [Teardown]    断开串口
+
+la_isla_bonita_16khz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\la_isla_bonita_16khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 16000
+    sleep    2
+    common_command    setlen 1443230
+    播放    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8acc4368
+    [Teardown]    断开串口
+
+Lumme-Badloop_44P1khz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\Lumme-Badloop_44P1khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 6007257
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0548b85d
+    [Teardown]    断开串口
+
+Lumme-Badloop_44P1khz_q-1.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\Lumme-Badloop_44P1khz_q-1.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 2180560
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    653fd8f4
+    [Teardown]    断开串口
+
+Lumme-Badloop_44P1khz_q10.ogg
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\Lumme-Badloop_44P1khz_q10.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 17970581
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8b78e283
+    [Teardown]    断开串口
+
+MarcTerenziLovetobeLovedbyyou_11p025khz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\MarcTerenziLovetobeLovedbyyou_11p025khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 2086020
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    dc83f297
+    [Teardown]    断开串口
+
+mgs1-sample1_44P1khz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\mgs1-sample1_44P1khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 14763
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    083fa9c8
+    [Teardown]    断开串口
+
+mgs1-sample2_44P1khz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\mgs1-sample2_44P1khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 276364
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4bd82db0
+    [Teardown]    断开串口
+
+mmw-deadzy_44P1khz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\mmw-deadzy_44P1khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 12090346
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7a00e9d7
+    [Teardown]    断开串口
+
+ogg++vorbis++vocal2_prob_converting_44P1khz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\ogg++vorbis++vocal2_prob_converting_44P1khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 272233
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e2fddcad
+    [Teardown]    断开串口
+
+ogg+mpeg4+vorbis++crash_foobar_48khz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\ogg+mpeg4+vorbis++crash_foobar_48khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 25970
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    39c66a79
+    [Teardown]    断开串口
+
+Sahara_22P50khz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\Sahara_22P50khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 157461
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b867b3f1
+    [Teardown]    断开串口
+
+sample.VBR.32.64.8000Hz.Mono.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\sample.VBR.32.64.8000Hz.Mono.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 11499
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4d94eab9
+    [Teardown]    断开串口
+
+test_88P2kHz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\test_88P2kHz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 88200
+    sleep    2
+    common_command    setlen 2858543
+    播放    10    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    67c8de82
+    [Teardown]    断开串口
+
+test_96kHz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\test_96kHz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 96000
+    sleep    2
+    common_command    setlen 5019381
+    播放    11    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a9ec583f
+    [Teardown]    断开串口
+
+test_176P4kHz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\test_176P4kHz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 176400
+    sleep    2
+    common_command    setlen 5389553
+    播放    13    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    281efed8
+    [Teardown]    断开串口
+
+test_192kHz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\test_192kHz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 192000
+    sleep    2
+    common_command    setlen 5524894
+    播放    14    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8631eed3
+    [Teardown]    断开串口
+
+theora_44P1khz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\theora_44P1khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 2294457
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    87947a19
+    [Teardown]    断开串口
+
+virginradio-three-consecutive-chains_44P1khz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\virginradio-three-consecutive-chains_44P1khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 539360
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7bd2436e
+    [Teardown]    断开串口
+
+vorbis_floor_type_0_44P1khz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\vorbis_floor_type_0_44P1khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 5202792
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    848e9946
+    [Teardown]    断开串口
+
+Yeager_supersonic_flight_1947_44P1khz.ogg
+    [Setup]    连接串口
+    设置音频    ES\\ogg_stripped\\Yeager_supersonic_flight_1947_44P1khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1392246
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    044c4ea9
+    [Teardown]    断开串口
+
+160Kbps_mono.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\160Kbps_mono.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 6697390
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2925f57f
+    [Teardown]    断开串口
+
+192Kbps.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\192Kbps.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 5081048
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1ded4fc0
+    [Teardown]    断开串口
+
+256k-cbr.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\256k-cbr.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 7873264
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6c0c944c
+    [Teardown]    断开串口
+
+350Kbps.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\350Kbps.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 8076588
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c1324e52
+    [Teardown]    断开串口
+
+500k-cbr.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\500k-cbr.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 12452297
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ef76c5b4
+    [Teardown]    断开串口
+
+500k-vbr.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\500k-vbr.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 8771781
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    80487024
+    [Teardown]    断开串口
+
+A001_VORBIS_96KBPS_48KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\A001_VORBIS_96KBPS_48KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 553264
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fd328528
+    [Teardown]    断开串口
+
+A002_VORBIS_104KBPS_48KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\A002_VORBIS_104KBPS_48KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 537692
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    eaf8716c
+    [Teardown]    断开串口
+
+A003_VORBIS_128KBPS_48KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\A003_VORBIS_128KBPS_48KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 1935755
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7d5e0781
+    [Teardown]    断开串口
+
+A004_VORBIS_192KBPS_48KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\A004_VORBIS_192KBPS_48KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 1074802
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    293e9344
+    [Teardown]    断开串口
+
+A005_VORBIS_320KBPS_441KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\A005_VORBIS_320KBPS_441KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 9965259
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    26fc033b
+    [Teardown]    断开串口
+
+B001_VORBIS_CBR_12KBPS_8000HZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B001_VORBIS_CBR_12KBPS_8000HZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 394741
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c94595d9
+    [Teardown]    断开串口
+
+B002_VORBIS_CBR_26KBPS_11025KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B002_VORBIS_CBR_26KBPS_11025KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 1103536
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    429293da
+    [Teardown]    断开串口
+
+B003_VORBIS_CBR_45KBPS_48KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B003_VORBIS_CBR_45KBPS_48KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 1276077
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    01294990
+    [Teardown]    断开串口
+
+B004_VORBIS_CBR_56KBPS_24KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B004_VORBIS_CBR_56KBPS_24KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 24000
+    sleep    2
+    common_command    setlen 1881491
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f0c16d4f
+    [Teardown]    断开串口
+
+B005_VORBIS_CBR_56KBPS_2205KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B005_VORBIS_CBR_56KBPS_2205KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 1853069
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    eb81c70c
+    [Teardown]    断开串口
+
+B006_VORBIS_CBR_57KBPS_11025KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B006_VORBIS_CBR_57KBPS_11025KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 1548742
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    96dc17f9
+    [Teardown]    断开串口
+
+B007_VORBIS_CBR_64KBPS_441KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B007_VORBIS_CBR_64KBPS_441KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1653094
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    18353fa6
+    [Teardown]    断开串口
+
+B008_VORBIS_CBR_64KBPS_8000HZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B008_VORBIS_CBR_64KBPS_8000HZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 2086423
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    418f7e28
+    [Teardown]    断开串口
+
+B009_VORBIS_CBR_70KBPS_32KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B009_VORBIS_CBR_70KBPS_32KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 32000
+    sleep    2
+    common_command    setlen 2324460
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b15afc4a
+    [Teardown]    断开串口
+
+B010_VORBIS_CBR_88KBPS_16KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B010_VORBIS_CBR_88KBPS_16KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 16000
+    sleep    2
+    common_command    setlen 2708340
+    播放    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    034f249e
+    [Teardown]    断开串口
+
+B011_VORBIS_CBR_104KBPS_48KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B011_VORBIS_CBR_104KBPS_48KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 537692
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    eaf8716c
+    [Teardown]    断开串口
+
+B012_VORBIS_CBR_105KBPS_24KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B012_VORBIS_CBR_105KBPS_24KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 24000
+    sleep    2
+    common_command    setlen 3260798
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1ac8d9f6
+    [Teardown]    断开串口
+
+B013_VORBIS_CBR_105KBPS_2205KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B013_VORBIS_CBR_105KBPS_2205KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 3060934
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    55250f76
+    [Teardown]    断开串口
+
+B014_VORBIS_CBR_112KBPS_48KHZ.OGG
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B014_VORBIS_CBR_112KBPS_48KHZ.OGG.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 1546373
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e6d62e97
+    [Teardown]    断开串口
+
+B015_VORBIS_cbr_120kbps_32khz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B015_VORBIS_cbr_120kbps_32khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 32000
+    sleep    2
+    common_command    setlen 3281553
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4a794b03
+    [Teardown]    断开串口
+
+B016_VORBIS_cbr_122kbps_24khz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B016_VORBIS_cbr_122kbps_24khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 24000
+    sleep    2
+    common_command    setlen 4495655
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a89e5b70
+    [Teardown]    断开串口
+
+B017_VORBIS_cbr_122kbps_2205khz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B017_VORBIS_cbr_122kbps_2205khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 3444048
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8fa73b9f
+    [Teardown]    断开串口
+
+B018_VORBIS_cbr_128kbps_441khz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B018_VORBIS_cbr_128kbps_441khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1281772
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a2f26c05
+    [Teardown]    断开串口
+
+B019_VORBIS_cbr_138kbps_16khz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B019_VORBIS_cbr_138kbps_16khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 16000
+    sleep    2
+    common_command    setlen 3199060
+    播放    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ae2b473c
+    [Teardown]    断开串口
+
+B020_VORBIS_cbr_150kbps_32khz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B020_VORBIS_cbr_150kbps_32khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 32000
+    sleep    2
+    common_command    setlen 4416762
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7d9d48b5
+    [Teardown]    断开串口
+
+B021_VORBIS_cbr_160kbps_441khz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B021_VORBIS_cbr_160kbps_441khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 2532091
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e9d8538c
+    [Teardown]    断开串口
+
+B022_VORBIS_cbr_192kbps_48khz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B022_VORBIS_cbr_192kbps_48khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 4033361
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e911f593
+    [Teardown]    断开串口
+
+B023_VORBIS_cbr_230kbps_32khz.ogg
+    [Tags]    simulator
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B023_VORBIS_cbr_230kbps_32khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 32000
+    sleep    2
+    common_command    setlen 15326726
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1644ec03
+    [Teardown]    断开串口
+
+B024_VORBIS_cbr_240kbps_441khz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B024_VORBIS_cbr_240kbps_441khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 7149273
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    637c69ed
+    [Teardown]    断开串口
+
+B025_VORBIS_cbr_318kbps_8000hz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B025_VORBIS_cbr_318kbps_8000hz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 1193853
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2e9823db
+    [Teardown]    断开串口
+
+B026_VORBIS_cbr_453kbps_16khz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B026_VORBIS_cbr_453kbps_16khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 16000
+    sleep    2
+    common_command    setlen 1198938
+    播放    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8a8153db
+    [Teardown]    断开串口
+
+B027_VORBIS_cbr_456kbps_8000hz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B027_VORBIS_cbr_456kbps_8000hz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 8000
+    sleep    2
+    common_command    setlen 1621253
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    03121b57
+    [Teardown]    断开串口
+
+B028_VORBIS_cbr_500kbps_48khz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B028_VORBIS_cbr_500kbps_48khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 12375571
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    41e64ea1
+    [Teardown]    断开串口
+
+B029_VORBIS_cbr_508kbps_11025khz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B029_VORBIS_cbr_508kbps_11025khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 1587404
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2c64ad8a
+    [Teardown]    断开串口
+
+B030_VORBIS_cbr_667kbps_24khz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B030_VORBIS_cbr_667kbps_24khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 24000
+    sleep    2
+    common_command    setlen 1870772
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f9cddb1f
+    [Teardown]    断开串口
+
+B031_VORBIS_cbr_667kbps_2205khz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B031_VORBIS_cbr_667kbps_2205khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 22050
+    sleep    2
+    common_command    setlen 1767845
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0d8813d0
+    [Teardown]    断开串口
+
+B032_VORBIS_cbr_773kbps_16khz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B032_VORBIS_cbr_773kbps_16khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 16000
+    sleep    2
+    common_command    setlen 1638801
+    播放    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    76e1c911
+    [Teardown]    断开串口
+
+B033_VORBIS_cbr_818kbps_11025khz.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\B033_VORBIS_cbr_818kbps_11025khz.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 11025
+    sleep    2
+    common_command    setlen 3131936
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6eab5342
+    [Teardown]    断开串口
+
+ogg_0001-112k-cbr.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\ogg_0001-112k-cbr.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 3577694
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f0c72804
+    [Teardown]    断开串口
+
+ogg_0002-128Kbps.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\ogg_0002-128Kbps.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 4525135
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    efbfb1e4
+    [Teardown]    断开串口
+
+ogg_0003-160Kbps_OGG.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\ogg_0003-160Kbps_OGG.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 5870061
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    75db82aa
+    [Teardown]    断开串口
+
+ogg_0004-160Kbps_mono.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\ogg_0004-160Kbps_mono.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 6697390
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2925f57f
+    [Teardown]    断开串口
+
+ogg_0005-192Kbps.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\ogg_0005-192Kbps.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 5081048
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1ded4fc0
+    [Teardown]    断开串口
+
+ogg_0006-256k-cbr.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\ogg_0006-256k-cbr.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 7873264
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6c0c944c
+    [Teardown]    断开串口
+
+ogg_0007-350Kbps.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\ogg_0007-350Kbps.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 8076588
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c1324e52
+    [Teardown]    断开串口
+
+ogg_0008-45k-cbr.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\ogg_0008-45k-cbr.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 1435241
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c57f65b2
+    [Teardown]    断开串口
+
+ogg_0009-48Kbps.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\ogg_0009-48Kbps.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 48000
+    sleep    2
+    common_command    setlen 1337225
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    31103f66
+    [Teardown]    断开串口
+
+ogg_0010-500k-cbr.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\ogg_0010-500k-cbr.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 12452297
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ef76c5b4
+    [Teardown]    断开串口
+
+ogg_0011-500k-vbr.ogg
+    [Setup]    连接串口
+    设置音频    FromSunplus\\ogg_stripped\\ogg_0011-500k-vbr.ogg.packet    1
+    sleep    5
+    common_command    setfmt OGG
+    sleep    2
+    common_command    setsr 44100
+    sleep    2
+    common_command    setlen 8771781
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    80487024
+    [Teardown]    断开串口

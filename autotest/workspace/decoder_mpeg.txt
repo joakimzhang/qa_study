@@ -1,0 +1,2618 @@
+*** Settings ***
+Library           test_tool
+Library           SSHLibrary
+Resource          ../业务关键字.txt
+Library           OperatingSystem
+Library           String
+
+*** Variables ***
+${platform}       1    # 0:fpga,1:simulator,2:ASIC
+${console_num}    1    # 当前pc连接fpga用的串口号
+${sim_exe_path}    D:\\simulator\\Debug\\test_audio_mpeg.exe    # simulator的exe文件所在路径
+${BJDevel03_UserName}    houh    # bjdevel03的用户名
+${BJDevel03_Password}    Avl1118    # devel03的密码，用户登录bjdevel03
+${AudioFileDir}    D:\\AudioFile    # \\\\bjdevel03\\stream\\AudioTestFile D:\\AudioFile
+
+*** Test Cases ***
+mpeg1_layer1_32k_1ch.mpa
+    [Documentation]    edbb850a (1130)
+    ...    88ed9749 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\MPEG1_LAYER1\\mpeg1_layer1_32k_1ch.mpa    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 133374
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    88ed9749
+    [Teardown]    断开串口
+
+Apologize_MPEG1_LAYER1_44.1khz_128Kbps.mp1
+    [Documentation]    877c7323 (1130)
+    ...    f024c17c (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\MPEG1_LAYER1\\Apologize_MPEG1_LAYER1_44.1khz_128Kbps.mp1    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 3011121
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f024c17c
+    [Teardown]    断开串口
+
+mp1-sample.mp1
+    [Documentation]    83440202 (1130)
+    ...    bacb1061 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\MPEG1_LAYER1\\mp1-sample.mp1    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 28224
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bacb1061
+    [Teardown]    断开串口
+
+T017_iso_mp1l2_44.1kh_192kb_Joint_Stereo.mpa
+    [Documentation]    ac6a2e21 (1130)
+    ...    1a26b8de (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\MPEG1_LAYER2\\T017_iso_mp1l2_44.1kh_192kb_Joint_Stereo.mpa    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 153574
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1a26b8de
+    [Teardown]    断开串口
+
+TheEndOfTheWorld_MPEG1_LAYER2_128kbps_44khz_Stereo.mp2
+    [Documentation]    4e094ada (1130)
+    ...    f85f66c5 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\MPEG1_LAYER2\\TheEndOfTheWorld_MPEG1_LAYER2_128kbps_44khz_Stereo.mp2    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 4079700
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f85f66c5
+    [Teardown]    断开串口
+
+es02.mp3
+    [Documentation]    344552f5 (1130)
+    ...    2484ba20 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\es02.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 138890
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2484ba20
+    [Teardown]    断开串口
+
+IS_MS_short_long_case_44k_cbr.mp3
+    [Documentation]    dd6a4f03 (1130)
+    ...    975fae57 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\IS_MS_short_long_case_44k_cbr.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 1930344
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    975fae57
+    [Teardown]    断开串口
+
+l1-fl1.mpg
+    [Documentation]    83440202 (1130)
+    ...    bacb1061 (1161)
+    [Tags]    smoke
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l1-fl1.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 28224
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bacb1061
+    [Teardown]    断开串口
+
+l1-fl2.mpg
+    [Documentation]    77798669 (1130)
+    ...    6aa3c56b (1161)
+    [Tags]    basic
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l1-fl2.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 20480
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6aa3c56b
+    [Teardown]    断开串口
+
+l1-fl3.mpg
+    [Documentation]    28e9b6b3 (1130)
+    ...    acb784d6 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l1-fl3.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 18816
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    acb784d6
+    [Teardown]    断开串口
+
+l1-fl4.mpg
+    [Documentation]    63093f68 (1130)
+    ...    2220db52 (1161)
+    [Tags]    smoke
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l1-fl4.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 2352
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2220db52
+    [Teardown]    断开串口
+
+l1-fl5.mpg
+    [Documentation]    6b80d2fc (1130)
+    ...    21cc4545 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l1-fl5.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 21952
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    21cc4545
+    [Teardown]    断开串口
+
+l1-fl6.mpg
+    [Documentation]    536222c3 (1130)
+    ...    3e3e5c65 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l1-fl6.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 20480
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3e3e5c65
+    [Teardown]    断开串口
+
+l1-fl7.mpg
+    [Documentation]    27475db8 (1130)
+    ...    5905db8a (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l1-fl7.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 26332
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5905db8a
+    [Teardown]    断开串口
+
+l2-fl10.mpg
+    [Documentation]    5bb613ff (1130)
+    ...    407361d0 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l2-fl10.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 42336
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    407361d0
+    [Teardown]    断开串口
+
+l2-fl11.mpg
+    [Documentation]    a7f489d5 (1130)
+    ...    92255510 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l2-fl11.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 30720
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    92255510
+    [Teardown]    断开串口
+
+l2-fl12.mpg
+    [Documentation]    7be991ae (1130)
+    ...    06c4518e (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l2-fl12.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 28224
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    06c4518e
+    [Teardown]    断开串口
+
+l2-fl13.mpg
+    [Documentation]    7e5e4fd6 (1130)
+    ...    f61cba01 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l2-fl13.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 7056
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f61cba01
+    [Teardown]    断开串口
+
+l2-fl14.mpg
+    [Documentation]    50729c70 (1130)
+    ...    6eb99fe9 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l2-fl14.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 18432
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6eb99fe9
+    [Teardown]    断开串口
+
+l2-fl15.mpg
+    [Documentation]    87606be0 (1130)
+    ...    6b3e9feb (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l2-fl15.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 18432
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6b3e9feb
+    [Teardown]    断开串口
+
+l2-fl16.mpg
+    [Documentation]    dea774c3 (1130)
+    ...    1775f3a4 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l2-fl16.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 48384
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1775f3a4
+    [Teardown]    断开串口
+
+l3-compl.mpg
+    [Documentation]    7726fb22 (1130)
+    ...    1a3d3c8d (1161)
+    [Tags]    basic
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l3-compl.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 41495
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1a3d3c8d
+    [Teardown]    断开串口
+
+l3-he_32khz.mpg
+    [Documentation]    417f4ecb (1130)
+    ...    803c327a (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l3-he_32khz.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 95760
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    803c327a
+    [Teardown]    断开串口
+
+l3-he_44khz.mpg
+    [Documentation]    aee3a412 (1130)
+    ...    e5c02a86 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l3-he_44khz.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 166661
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e5c02a86
+    [Teardown]    断开串口
+
+l3-he_48khz.mpg
+    [Documentation]    417f4ecb (1130)
+    ...    803c327a (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l3-he_48khz.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 63840
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    803c327a
+    [Teardown]    断开串口
+
+l3-he_mode.mpg
+    [Documentation]    bb66a667 (1130)
+    ...    b87f9570 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l3-he_mode.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 53498
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b87f9570
+    [Teardown]    断开串口
+
+l3-hecommon.mpg
+    [Documentation]    ccc5d7b2 (1130)
+    ...    b1ffa490 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l3-hecommon.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 12538
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b1ffa490
+    [Teardown]    断开串口
+
+l3-si.mpg
+    [Documentation]    65c5f050 (1130)
+    ...    13085a14 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l3-si.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 24659
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    13085a14
+    [Teardown]    断开串口
+
+l3-si_block.mpg
+    [Documentation]    ebf724dd (1130)
+    ...    227e43e2 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l3-si_block.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 13374
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    227e43e2
+    [Teardown]    断开串口
+
+l3-si_huff.mpg
+    [Documentation]    42288c52 (1130)
+    ...    5f40b06a (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l3-si_huff.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 15673
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5f40b06a
+    [Teardown]    断开串口
+
+l3-sin1k0db.mpg
+    [Documentation]    7be43833 (1130)
+    ...    23ac2b62 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\l3-sin1k0db.mpg    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 133120
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    23ac2b62
+    [Teardown]    断开串口
+
+left.mp3
+    [Documentation]    1df679cb (1130)
+    ...    4e555f39 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 1328832
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4e555f39
+    [Teardown]    断开串口
+
+left_right_diff48khz_192kbps.mp3
+    [Documentation]    3afc0936 (1130)
+    ...    ccc5cff3 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff48khz_192kbps.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 1328832
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ccc5cff3
+    [Teardown]    断开串口
+
+left_right_diff_32khz_64kbps_mono.mp3
+    [Documentation]    a754b72a (1130)
+    ...    f5aed8bb (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_32khz_64kbps_mono.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 443232
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f5aed8bb
+    [Teardown]    断开串口
+
+left_right_diff_32khz_128kbps_stereo.mp3
+    [Documentation]    3cff5e2c (1130)
+    ...    9c88ca71 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_32khz_128kbps_stereo.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 886464
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9c88ca71
+    [Teardown]    断开串口
+
+left_right_diff_44.1khz_64kbps_mono.mp3
+    [Documentation]    cc0c63c5 (1130)
+    ...    50d8ced2 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_44.1khz_64kbps_mono.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 443037
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    50d8ced2
+    [Teardown]    断开串口
+
+left_right_diff_44.1khz_128kbps_stereo.mp3
+    [Documentation]    50fd8929 (1130)
+    ...    34fe63bc (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_44.1khz_128kbps_stereo.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 886073
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    34fe63bc
+    [Teardown]    断开串口
+
+left_right_diff_48khz_64kbps_mono.mp3
+    [Documentation]    db447b38 (1130)
+    ...    130be7db (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_48khz_64kbps_mono.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 442944
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    130be7db
+    [Teardown]    断开串口
+
+left_right_diff_48khz_80kbps_mono.mp3
+    [Documentation]    3f2e29cf (1130)
+    ...    d0067020 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_48khz_80kbps_mono.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 553680
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d0067020
+    [Teardown]    断开串口
+
+left_right_diff_48khz_96kbps_mono.mp3
+    [Documentation]    5499665d (1130)
+    ...    bea52401 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_48khz_96kbps_mono.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 664416
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bea52401
+    [Teardown]    断开串口
+
+left_right_diff_48khz_112kbps_mono.mp3
+    [Documentation]    0d070109 (1130)
+    ...    1f4d5322 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_48khz_112kbps_mono.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 775152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1f4d5322
+    [Teardown]    断开串口
+
+left_right_diff_48khz_112kbps_stereo.mp3
+    [Documentation]    c403dac7 (1130)
+    ...    1485998e (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_48khz_112kbps_stereo.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 775152
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1485998e
+    [Teardown]    断开串口
+
+left_right_diff_48khz_128kbps_crc.mp3
+    [Documentation]    5b90ebd9 (1130)
+    ...    1f00b750 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_48khz_128kbps_crc.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 885888
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1f00b750
+    [Teardown]    断开串口
+
+left_right_diff_48khz_128kbps_mono.mp3
+    [Documentation]    a04df2b4 (1130)
+    ...    4a0a3993 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_48khz_128kbps_mono.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 885888
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4a0a3993
+    [Teardown]    断开串口
+
+left_right_diff_48khz_128kbps_stereo.mp3
+    [Documentation]    5b90ebd9 (1130)
+    ...    1f00b750 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_48khz_128kbps_stereo.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 885888
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1f00b750
+    [Teardown]    断开串口
+
+left_right_diff_48khz_160kbps_stereo.mp3
+    [Documentation]    fc041ea7 (1130)
+    ...    2e5492af (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_48khz_160kbps_stereo.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 1107360
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2e5492af
+    [Teardown]    断开串口
+
+left_right_diff_48khz_192kbps_stereo.mp3
+    [Documentation]    bbc4c85b (1130)
+    ...    ad60affb (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_48khz_192kbps_stereo.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 1328832
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ad60affb
+    [Teardown]    断开串口
+
+left_right_diff_48khz_224kbps_stereo.mp3
+    [Documentation]    56252de3 (1130)
+    ...    2b1c6f97 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_48khz_224kbps_stereo.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 1550304
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2b1c6f97
+    [Teardown]    断开串口
+
+left_right_diff_48khz_256kbps_stereo.mp3
+    [Documentation]    d454df91 (1130)
+    ...    35b0b42e (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_48khz_256kbps_stereo.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 1771776
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    35b0b42e
+    [Teardown]    断开串口
+
+left_right_diff_48khz_320kbps_stereo.mp3
+    [Documentation]    8e408bf5 (1130)
+    ...    7186c5bb (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_48khz_320kbps_stereo.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 2214720
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7186c5bb
+    [Teardown]    断开串口
+
+left_right_diff_480_128kbps_j.mp3
+    [Documentation]    15afaf0e (1130)
+    ...    8cf000e0 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_480_128kbps_j.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 885504
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8cf000e0
+    [Teardown]    断开串口
+
+left_right_diff_amp_48khz_128kbps_stereo.mp3
+    [Documentation]    3b8a1148 (1130)
+    ...    5ae8262a (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\left_right_diff_amp_48khz_128kbps_stereo.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 885888
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5ae8262a
+    [Teardown]    断开串口
+
+mpa2_22k_vbr.mp3
+    [Documentation]    4e8dbd87 (1130)
+    ...    8a4518e1 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\mpa2_22k_vbr.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 22050
+    common_command    setlen 1486926
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8a4518e1
+    [Teardown]    断开串口
+
+sfReuse_mixedblock_44k_cbr.mp3
+    [Documentation]    4cf3b503 (1130)
+    ...    32364ae7 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\sfReuse_mixedblock_44k_cbr.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 3861106
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    32364ae7
+    [Teardown]    断开串口
+
+test_20k_8000_lowbitrate.mp3
+    [Documentation]    5176d781 (1130)
+    ...    63d1ddc6 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\test_20k_8000_lowbitrate.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 265131
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    63d1ddc6
+    [Teardown]    断开串口
+
+test_64k_48000_mono.mp3
+    [Documentation]    6bf8d3e3 (1130)
+    ...    a95c5ea9 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\test_64k_48000_mono.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 846528
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a95c5ea9
+    [Teardown]    断开串口
+
+test_128k_44100_dual.mp3
+    [Documentation]    be0aed6c (1130)
+    ...    02ed6483 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\test_128k_44100_dual.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 1693153
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    02ed6483
+    [Teardown]    断开串口
+
+test_128k_44100_intensity_jointstereo.mp3
+    [Documentation]    be0aed6c (1130)
+    ...    02ed6483 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\test_128k_44100_intensity_jointstereo.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 1693153
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    02ed6483
+    [Teardown]    断开串口
+
+test_128k_44100_midside_jointstereo.mp3
+    [Documentation]    da2d7297 (1130)
+    ...    7d170f3c (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\test_128k_44100_midside_jointstereo.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 1693153
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    7d170f3c
+    [Teardown]    断开串口
+
+test_128k_44100_stereo.mp3
+    [Documentation]    be0aed6c (1130)
+    ...    02ed6483 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\test_128k_44100_stereo.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 1693153
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    02ed6483
+    [Teardown]    断开串口
+
+test_320k_48000_highbitrate.mp3
+    [Documentation]    6f1f40e9 (1130)
+    ...    29c99ebf (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\test_320k_48000_highbitrate.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 4232640
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    29c99ebf
+    [Teardown]    断开串口
+
+test_long.mp2
+    [Documentation]    ddaf9eee (1130)
+    ...    f00265bf (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    ES\\ComplianceTestFile\\mpa_test\\compressed\\test_long.mp2    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 2539018
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f00265bf
+    [Teardown]    断开串口
+
+mp3_0852-1-Quartet_8_8000.mp3
+    [Documentation]    6275987d (1130)
+    ...    ae6e7b45 (1161)
+    [Tags]    basic
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\01-8KPBS_Bitrate\\mp3_0852-1-Quartet_8_8000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 11472
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ae6e7b45
+    [Teardown]    断开串口
+
+mp3_0853-2-mp3_08_008_2.mp3
+    [Documentation]    273ced98 (1130)
+    ...    0e20e3a5 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\01-8KPBS_Bitrate\\mp3_0853-2-mp3_08_008_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 109008
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0e20e3a5
+    [Teardown]    断开串口
+
+mp3_0854-3-008000bitrate-8kHz.mp3
+    [Documentation]    9627421a (1130)
+    ...    3e843a43 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\01-8KPBS_Bitrate\\mp3_0854-3-008000bitrate-8kHz.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 235520
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3e843a43
+    [Teardown]    断开串口
+
+mp3_0855-1-Quartet_16_11025.mp3
+    [Documentation]    57e78dbb (1130)
+    ...    99853221 (1161)
+    [Tags]    basic
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\02-16KPBS_Bitrate\\mp3_0855-1-Quartet_16_11025.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 11025
+    common_command    setlen 22175
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    99853221
+    [Teardown]    断开串口
+
+mp3_0856-2-Quartet_16_8000.mp3
+    [Documentation]    30041bc7 (1130)
+    ...    bef0a344 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\02-16KPBS_Bitrate\\mp3_0856-2-Quartet_16_8000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 22304
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    bef0a344
+    [Teardown]    断开串口
+
+mp3_0857-3-Quartet_16_16000.mp3
+    [Documentation]    2808c4cc (1130)
+    ...    3e8f88c8 (1161)
+    [Tags]    basic
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\02-16KPBS_Bitrate\\mp3_0857-3-Quartet_16_16000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 16000
+    common_command    setlen 22344
+    播放    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3e8f88c8
+    [Teardown]    断开串口
+
+mp3_0858-4-mp3_12_016_2.mp3
+    [Documentation]    de209ed2 (1130)
+    ...    1a995d33 (1161)
+    [Tags]    basic
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\02-16KPBS_Bitrate\\mp3_0858-4-mp3_12_016_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 12000
+    common_command    setlen 218016
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1a995d33
+    [Teardown]    断开串口
+
+mp3_0859-5-mp3_11_016_2.mp3
+    [Documentation]    692b3d30 (1130)
+    ...    efae6087 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\02-16KPBS_Bitrate\\mp3_0859-5-mp3_11_016_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 11025
+    common_command    setlen 218070
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    efae6087
+    [Teardown]    断开串口
+
+mp3_0860-6-mp3_08_016_2.mp3
+    [Documentation]    dca2d98d (1130)
+    ...    adfb8515 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\02-16KPBS_Bitrate\\mp3_0860-6-mp3_08_016_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 218016
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    adfb8515
+    [Teardown]    断开串口
+
+mp3_0861-7-16KP-8kHz.mp3
+    [Documentation]    c3d3ceaa (1130)
+    ...    30d9dc99 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\02-16KPBS_Bitrate\\mp3_0861-7-16KP-8kHz.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 589824
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    30d9dc99
+    [Teardown]    断开串口
+
+1-Quartet_24_16000.mp3
+    [Documentation]    3aa083e7 (1130)
+    ...    a87d3740 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\03-24KPBS_Bitrate\\1-Quartet_24_16000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 16000
+    common_command    setlen 33068
+    播放    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a87d3740
+    [Teardown]    断开串口
+
+2-Quartet_24_11000.mp3
+    [Documentation]    b2804401 (1130)
+    ...    fd5e8da4 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\03-24KPBS_Bitrate\\2-Quartet_24_11000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 11025
+    common_command    setlen 33199
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fd5e8da4
+    [Teardown]    断开串口
+
+3-mp3_12_024_2.mp3
+    [Documentation]    ce6dc139 (1130)
+    ...    cb8306b3 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\03-24KPBS_Bitrate\\3-mp3_12_024_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 12000
+    common_command    setlen 327024
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    cb8306b3
+    [Teardown]    断开串口
+
+4-mp3_11_024_2.mp3
+    [Documentation]    8929ed06 (1130)
+    ...    0875abbd (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\03-24KPBS_Bitrate\\4-mp3_11_024_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 11025
+    common_command    setlen 327105
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    0875abbd
+    [Teardown]    断开串口
+
+5-mp3_08_024_2.mp3
+    [Documentation]    15ed2caa (1130)
+    ...    c5c87394 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\03-24KPBS_Bitrate\\5-mp3_08_024_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 327240
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c5c87394
+    [Teardown]    断开串口
+
+mp3_0867-1-Quartet_32_16000.mp3
+    [Documentation]    a124b108 (1130)
+    ...    02ac4640 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\04-32KPBS_Bitrate\\mp3_0867-1-Quartet_32_16000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 16000
+    common_command    setlen 44048
+    播放    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    02ac4640
+    [Teardown]    断开串口
+
+mp3_0868-2-Quartet_32_11025.mp3
+    [Documentation]    93b8783f (1130)
+    ...    83d5ad1f (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\04-32KPBS_Bitrate\\mp3_0868-2-Quartet_32_11025.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 11025
+    common_command    setlen 44222
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    83d5ad1f
+    [Teardown]    断开串口
+
+mp3_0869-3-mp3_12_032_2.mp3
+    [Documentation]    fd1a11aa (1130)
+    ...    917e0724 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\04-32KPBS_Bitrate\\mp3_0869-3-mp3_12_032_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 12000
+    common_command    setlen 436224
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    917e0724
+    [Teardown]    断开串口
+
+mp3_0870-4-mp3_11_032_2.mp3
+    [Documentation]    8d2ab5f7 (1130)
+    ...    6ca7a606 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\04-32KPBS_Bitrate\\mp3_0870-4-mp3_11_032_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 11025
+    common_command    setlen 436348
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6ca7a606
+    [Teardown]    断开串口
+
+mp3_0871-5-mp3_08_032_2.mp3
+    [Documentation]    259ed803 (1130)
+    ...    e3d13c05 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\04-32KPBS_Bitrate\\mp3_0871-5-mp3_08_032_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 436320
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e3d13c05
+    [Teardown]    断开串口
+
+mp3_0872-1-mp3_08_040_2.mp3
+    [Documentation]    4d10c0ee (1130)
+    ...    43f200c1 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\05-40KPBS_Bitrate\\mp3_0872-1-mp3_08_040_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 545400
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    43f200c1
+    [Teardown]    断开串口
+
+mp3_0873-2-mp3_11_040_2.mp3
+    [Documentation]    2caeae70 (1130)
+    ...    2204a9f5 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\05-40KPBS_Bitrate\\mp3_0873-2-mp3_11_040_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 11025
+    common_command    setlen 545437
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2204a9f5
+    [Teardown]    断开串口
+
+mp3_0874-3-mp3_12_040_2.mp3
+    [Documentation]    0d04b985 (1130)
+    ...    df2409c8 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\05-40KPBS_Bitrate\\mp3_0874-3-mp3_12_040_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 12000
+    common_command    setlen 545280
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    df2409c8
+    [Teardown]    断开串口
+
+mp3_0875-1-Quartet_48_24000.mp3
+    [Documentation]    15655438 (1130)
+    ...    2927de0b (1161)
+    [Tags]    basic
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\06-48KPBS_Bitrate\\mp3_0875-1-Quartet_48_24000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 24000
+    common_command    setlen 65360
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2927de0b
+    [Teardown]    断开串口
+
+mp3_0876-2-Quartet_48_22050.mp3
+    [Documentation]    2992f30f (1130)
+    ...    13e546ad (1161)
+    [Tags]    basic
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\06-48KPBS_Bitrate\\mp3_0876-2-Quartet_48_22050.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 22050
+    common_command    setlen 65329
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    13e546ad
+    [Teardown]    断开串口
+
+mp3_0877-3-Quartet_48_16000.mp3
+    [Documentation]    d2c631a3 (1130)
+    ...    981eef4a (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\06-48KPBS_Bitrate\\mp3_0877-3-Quartet_48_16000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 16000
+    common_command    setlen 65360
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    981eef4a
+    [Teardown]    断开串口
+
+mp3_0878-4-mp3_12_048_2.mp3
+    [Documentation]    20ca9881 (1130)
+    ...    2da1e2d1 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\06-48KPBS_Bitrate\\mp3_0878-4-mp3_12_048_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 12000
+    common_command    setlen 654336
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2da1e2d1
+    [Teardown]    断开串口
+
+mp3_0879-5-mp3_11_048_2.mp3
+    [Documentation]    7031c9e5 (1130)
+    ...    c761f0c9 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\06-48KPBS_Bitrate\\mp3_0879-5-mp3_11_048_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 11025
+    common_command    setlen 654524
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c761f0c9
+    [Teardown]    断开串口
+
+mp3_0880-6-mp3_08_048_2.mp3
+    [Documentation]    581edfe8 (1130)
+    ...    93ab403d (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\06-48KPBS_Bitrate\\mp3_0880-6-mp3_08_048_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 654480
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    93ab403d
+    [Teardown]    断开串口
+
+mp3_0881-1-Quartet_56_32000.mp3
+    [Documentation]    d60f3d6d (1130)
+    ...    323d1c9d (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\07-56KPBS_Bitrate\\mp3_0881-1-Quartet_56_32000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 76484
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    323d1c9d
+    [Teardown]    断开串口
+
+mp3_0882-2-Quartet_56_24000.mp3
+    [Documentation]    74fbfa90 (1130)
+    ...    8316b062 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\07-56KPBS_Bitrate\\mp3_0882-2-Quartet_56_24000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 24000
+    common_command    setlen 76736
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8316b062
+    [Teardown]    断开串口
+
+mp3_0883-3-Quartet_56_22000.mp3
+    [Documentation]    47c82166 (1130)
+    ...    6aa7a8eb (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\07-56KPBS_Bitrate\\mp3_0883-3-Quartet_56_22000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 22050
+    common_command    setlen 76745
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6aa7a8eb
+    [Teardown]    断开串口
+
+mp3_0884-4-mp3_12_056_2.mp3
+    [Documentation]    2979c37b (1130)
+    ...    3087c5aa (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\07-56KPBS_Bitrate\\mp3_0884-4-mp3_12_056_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 12000
+    common_command    setlen 763392
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    3087c5aa
+    [Teardown]    断开串口
+
+mp3_0885-5-mp3_11_056_2.mp3
+    [Documentation]    692c3f10 (1130)
+    ...    97bb2d30 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\07-56KPBS_Bitrate\\mp3_0885-5-mp3_11_056_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 11025
+    common_command    setlen 763610
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    97bb2d30
+    [Teardown]    断开串口
+
+mp3_0886-6-mp3_08_056_2.mp3
+    [Documentation]    57a46277 (1130)
+    ...    4ca439f8 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\07-56KPBS_Bitrate\\mp3_0886-6-mp3_08_056_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 763560
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4ca439f8
+    [Teardown]    断开串口
+
+mp3_0887-1-Quartet_64_32000.mp3
+    [Documentation]    a9ff4a41 (1130)
+    ...    28bcd4db (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\08-64KPBS_Bitrate\\mp3_0887-1-Quartet_64_32000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 87392
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    28bcd4db
+    [Teardown]    断开串口
+
+mp3_0888-2-Quartet_64_24000.mp3
+    [Documentation]    f41d9a3a (1130)
+    ...    d9cf33ed (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\08-64KPBS_Bitrate\\mp3_0888-2-Quartet_64_24000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 24000
+    common_command    setlen 87680
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d9cf33ed
+    [Teardown]    断开串口
+
+mp3_0889-3-Quartet_64_22050.mp3
+    [Documentation]    ef5310a9 (1130)
+    ...    9d951166 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\08-64KPBS_Bitrate\\mp3_0889-3-Quartet_64_22050.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 22050
+    common_command    setlen 87946
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9d951166
+    [Teardown]    断开串口
+
+mp3_0890-4-mp3_12_064_2.mp3
+    [Documentation]    b92630d3 (1130)
+    ...    fd937bfb (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\08-64KPBS_Bitrate\\mp3_0890-4-mp3_12_064_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    sleep    3
+    common_command    setsr 12000
+    sleep    3
+    common_command    setlen 872832
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    fd937bfb
+    [Teardown]    断开串口
+
+mp3_0891-5-mp3_11_064_2.mp3
+    [Documentation]    ba392171 (1130)
+    ...    78cea488 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\08-64KPBS_Bitrate\\mp3_0891-5-mp3_11_064_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 11025
+    common_command    setlen 872697
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    78cea488
+    [Teardown]    断开串口
+
+mp3_0892-6-mp3_08_064_2.mp3
+    [Documentation]    9bd90732 (1130)
+    ...    af561e27 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\08-64KPBS_Bitrate\\mp3_0892-6-mp3_08_064_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 872640
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    af561e27
+    [Teardown]    断开串口
+
+mp3_0893-1-Quartet_80_24000.mp3
+    [Documentation]    cf8425e5 (1130)
+    ...    cdde45c1 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\09-80KPBS_Bitrate\\mp3_0893-1-Quartet_80_24000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 24000
+    common_command    setlen 109088
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    cdde45c1
+    [Teardown]    断开串口
+
+mp3_0894-2-Quartet_80_22050.mp3
+    [Documentation]    7c0ee3c5 (1130)
+    ...    390e9b5d (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\09-80KPBS_Bitrate\\mp3_0894-2-Quartet_80_22050.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 22050
+    common_command    setlen 108797
+    播放    5    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    390e9b5d
+    [Teardown]    断开串口
+
+mp3_0895-3-Quartet_80_16000.mp3
+    [Documentation]    d713946b (1130)
+    ...    eaafdc7a (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\09-80KPBS_Bitrate\\mp3_0895-3-Quartet_80_16000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 16000
+    common_command    setlen 108488
+    播放    4    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    eaafdc7a
+    [Teardown]    断开串口
+
+mp3_0896-4-mp3_12_080_2.mp3
+    [Documentation]    8c93fc63 (1130)
+    ...    83ae3582 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\09-80KPBS_Bitrate\\mp3_0896-4-mp3_12_080_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 12000
+    common_command    setlen 1090560
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    83ae3582
+    [Teardown]    断开串口
+
+mp3_0897-5-mp3_11_080_2.mp3
+    [Documentation]    ad30b340 (1130)
+    ...    91dea379 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\09-80KPBS_Bitrate\\mp3_0897-5-mp3_11_080_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 11025
+    common_command    setlen 1090873
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    91dea379
+    [Teardown]    断开串口
+
+mp3_0898-6-mp3_08_080_2.mp3
+    [Documentation]    69686133 (1130)
+    ...    01c3d467 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\09-80KPBS_Bitrate\\mp3_0898-6-mp3_08_080_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 1090800
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    01c3d467
+    [Teardown]    断开串口
+
+mp3_0899-1-Quartet_96_48000.mp3
+    [Documentation]    bc21b339 (1130)
+    ...    f6846c36 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\10-96KPBS_Bitrate\\mp3_0899-1-Quartet_96_48000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 131136
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f6846c36
+    [Teardown]    断开串口
+
+mp3_0900-2-Quartet_96_44100.mp3
+    [Documentation]    fd3677c2 (1130)
+    ...    5fed0e3d (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\10-96KPBS_Bitrate\\mp3_0900-2-Quartet_96_44100.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 131158
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5fed0e3d
+    [Teardown]    断开串口
+
+mp3_0901-3-Quartet_96_32000.mp3
+    [Documentation]    80719089 (1130)
+    ...    a6cd60f0 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\10-96KPBS_Bitrate\\mp3_0901-3-Quartet_96_32000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 131280
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    a6cd60f0
+    [Teardown]    断开串口
+
+mp3_0902-4-mp3_12_096_2.mp3
+    [Documentation]    17b8d6cc (1130)
+    ...    b89bd74a (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\10-96KPBS_Bitrate\\mp3_0902-4-mp3_12_096_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 12000
+    common_command    setlen 1308672
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b89bd74a
+    [Teardown]    断开串口
+
+mp3_0903-5-mp3_11_096_2.mp3
+    [Documentation]    9c73c754 (1130)
+    ...    1f10d406 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\10-96KPBS_Bitrate\\mp3_0903-5-mp3_11_096_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 11025
+    common_command    setlen 1309047
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1f10d406
+    [Teardown]    断开串口
+
+mp3_0904-6-mp3_08_096_2.mp3
+    [Documentation]    ecada895 (1130)
+    ...    effdaa19 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\10-96KPBS_Bitrate\\mp3_0904-6-mp3_08_096_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 1308960
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    effdaa19
+    [Teardown]    断开串口
+
+mp3_0905-1-Quartet_112_48000.mp3
+    [Documentation]    d1ae64f7 (1130)
+    ...    d4fbc420 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\11-112KPBS_Bitrate\\mp3_0905-1-Quartet_112_48000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 152672
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d4fbc420
+    [Teardown]    断开串口
+
+mp3_0906-2-Quartet_112_44100.mp3
+    [Documentation]    c02b0a97 (1130)
+    ...    d5476b22 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\11-112KPBS_Bitrate\\mp3_0906-2-Quartet_112_44100.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 152996
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d5476b22
+    [Teardown]    断开串口
+
+mp3_0907-3-Quartet_112_32000.mp3
+    [Documentation]    729bee94 (1130)
+    ...    068cf734 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\11-112KPBS_Bitrate\\mp3_0907-3-Quartet_112_32000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 152840
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    068cf734
+    [Teardown]    断开串口
+
+mp3_0908-4-mp3_08_112_2.mp3
+    [Documentation]    9de2300f (1130)
+    ...    922dae52 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\11-112KPBS_Bitrate\\mp3_0908-4-mp3_08_112_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 1527120
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    922dae52
+    [Teardown]    断开串口
+
+mp3_0909-5-mp3_11_112_2.mp3
+    [Documentation]    245950f7 (1130)
+    ...    37cf54de (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\11-112KPBS_Bitrate\\mp3_0909-5-mp3_11_112_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 11025
+    common_command    setlen 1527222
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    37cf54de
+    [Teardown]    断开串口
+
+mp3_0909-1-Quartet_128_48000.mp3
+    [Documentation]    897fe702 (1130)
+    ...    5d50265f (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\12-128KPBS_Bitrate\\mp3_0909-1-Quartet_128_48000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 174464
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5d50265f
+    [Teardown]    断开串口
+
+mp3_0910-2-Quartet_128_44100.mp3
+    [Documentation]    9f184e53 (1130)
+    ...    4ced39ab (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\12-128KPBS_Bitrate\\mp3_0910-2-Quartet_128_44100.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 174834
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4ced39ab
+    [Teardown]    断开串口
+
+mp3_0911-3-Quartet_128_32000.mp3
+    [Documentation]    8b045331 (1130)
+    ...    20efa3b5 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\12-128KPBS_Bitrate\\mp3_0911-3-Quartet_128_32000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 174656
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    20efa3b5
+    [Teardown]    断开串口
+
+mp3_0912-4-mp3_08_128_2.mp3
+    [Documentation]    4b798e1a (1130)
+    ...    6a6823b5 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\12-128KPBS_Bitrate\\mp3_0912-4-mp3_08_128_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 1745280
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6a6823b5
+    [Teardown]    断开串口
+
+mp3_0913-5-mp3_11_128_2.mp3
+    [Documentation]    1fecbe71 (1130)
+    ...    1bcf5839 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\12-128KPBS_Bitrate\\mp3_0913-5-mp3_11_128_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 11025
+    common_command    setlen 1745396
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1bcf5839
+    [Teardown]    断开串口
+
+mp3_0914-1-mp3_08_144_2.mp3
+    [Documentation]    1f9bfd6d (1130)
+    ...    e4ad8fa6 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\13-144KPBS_Bitrate\\mp3_0914-1-mp3_08_144_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 1963440
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e4ad8fa6
+    [Teardown]    断开串口
+
+mp3_0915-2-mp3_11_144_2.mp3
+    [Documentation]    ee7d0a2e (1130)
+    ...    c53d69f4 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\13-144KPBS_Bitrate\\mp3_0915-2-mp3_11_144_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 11025
+    common_command    setlen 1963572
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c53d69f4
+    [Teardown]    断开串口
+
+mp3_0916-1-Quartet_160_48000.mp3
+    [Documentation]    95aaec80 (1130)
+    ...    028de020 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\14-160KPBS_Bitrate\\mp3_0916-1-Quartet_160_48000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 217568
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    028de020
+    [Teardown]    断开串口
+
+mp3_0917-2-Quartet_160_44100.mp3
+    [Documentation]    969dfbb2 (1130)
+    ...    31824f3e (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\14-160KPBS_Bitrate\\mp3_0917-2-Quartet_160_44100.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 217466
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    31824f3e
+    [Teardown]    断开串口
+
+mp3_0918-3-Quartet_160_32000.mp3
+    [Documentation]    2a810bc9 (1130)
+    ...    ecd52d88 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\14-160KPBS_Bitrate\\mp3_0918-3-Quartet_160_32000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 217568
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    ecd52d88
+    [Teardown]    断开串口
+
+mp3_0919-4-mp3_11_160_2.mp3
+    [Documentation]    fdcc8b14 (1130)
+    ...    6dbe5e82 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\14-160KPBS_Bitrate\\mp3_0919-4-mp3_11_160_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 11025
+    common_command    setlen 2181746
+    播放    3    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    6dbe5e82
+    [Teardown]    断开串口
+
+mp3_0920-5-mp3_08_160_2.mp3
+    [Documentation]    1f9bfd6d (1130)
+    ...    e4ad8fa6 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\14-160KPBS_Bitrate\\mp3_0920-5-mp3_08_160_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 8000
+    common_command    setlen 2181600
+    播放    2    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    e4ad8fa6
+    [Teardown]    断开串口
+
+1-Quartet_192_48000.mp3
+    [Documentation]    bb8c97d3 (1130)
+    ...    5da0e7e5 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\15-192KPBS_Bitrate\\1-Quartet_192_48000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 261632
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5da0e7e5
+    [Teardown]    断开串口
+
+2-Quartet_192_44100.mp3
+    [Documentation]    b597faeb (1130)
+    ...    11223b56 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\15-192KPBS_Bitrate\\2-Quartet_192_44100.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 262188
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    11223b56
+    [Teardown]    断开串口
+
+3-Quartet_192_32000.mp3
+    [Documentation]    b2cddd04 (1130)
+    ...    2a8de658 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\15-192KPBS_Bitrate\\3-Quartet_192_32000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 261920
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    2a8de658
+    [Teardown]    断开串口
+
+mp3_0924-1-Quartet_224_48000.mp3
+    [Documentation]    2a6dca7d (1130)
+    ...    9b913528 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\16-224KPBS_Bitrate\\mp3_0924-1-Quartet_224_48000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 304544
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    9b913528
+    [Teardown]    断开串口
+
+mp3_0925-2-Quartet_224_44100.mp3
+    [Documentation]    7510f888 (1130)
+    ...    8a2bd7c3 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\16-224KPBS_Bitrate\\mp3_0925-2-Quartet_224_44100.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 304402
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    8a2bd7c3
+    [Teardown]    断开串口
+
+mp3_0926-3-Quartet_224_32000.mp3
+    [Documentation]    2a5a7781 (1130)
+    ...    f9bc0f11 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\16-224KPBS_Bitrate\\mp3_0926-3-Quartet_224_32000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 304544
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    f9bc0f11
+    [Teardown]    断开串口
+
+mp3_0927-1-Quartet_256_48000.mp3
+    [Documentation]    b811faad (1130)
+    ...    b3745f59 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\17-256KPBS_Bitrate\\mp3_0927-1-Quartet_256_48000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 348800
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b3745f59
+    [Teardown]    断开串口
+
+mp3_0928-2-Quartet_256_44100.mp3
+    [Documentation]    e56419c5 (1130)
+    ...    c9a4335a (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\17-256KPBS_Bitrate\\mp3_0928-2-Quartet_256_44100.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 349541
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c9a4335a
+    [Teardown]    断开串口
+
+mp3_0929-3-Quartet_256_32000.mp3
+    [Documentation]    34314e15 (1130)
+    ...    1f079393 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\17-256KPBS_Bitrate\\mp3_0929-3-Quartet_256_32000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 349184
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    1f079393
+    [Teardown]    断开串口
+
+mp3_0930-1-Quartet_320_48000.mp3
+    [Documentation]    9b9c68f4 (1130)
+    ...    60c477f8 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\18-320KPBS_Bitrate\\mp3_0930-1-Quartet_320_48000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 435008
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    60c477f8
+    [Teardown]    断开串口
+
+mp3_0931-2-Quartet_320_44100.mp3
+    [Documentation]    f8cbf2f9 (1130)
+    ...    325fc241 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\18-320KPBS_Bitrate\\mp3_0931-2-Quartet_320_44100.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 435061
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    325fc241
+    [Teardown]    断开串口
+
+mp3_0932-3-Quartet_320_32000.mp3
+    [Documentation]    59953ae9 (1130)
+    ...    836a5024 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\18-320KPBS_Bitrate\\mp3_0932-3-Quartet_320_32000.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 32000
+    common_command    setlen 435264
+    播放    6    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    836a5024
+    [Teardown]    断开串口
+
+mp3_0933-4-mp3_48_320_2.mp3
+    [Documentation]    f7c284d6 (1130)
+    ...    00ab0a1f (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\18-320KPBS_Bitrate\\mp3_0933-4-mp3_48_320_2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 48000
+    common_command    setlen 4363200
+    播放    8    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    00ab0a1f
+    [Teardown]    断开串口
+
+mp3_0934-1-VBR-194kbs-Xing-Quality1.mp3
+    [Documentation]    dc415315 (1130)
+    ...    565d96a9 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\19-VBR\\mp3_0934-1-VBR-194kbs-Xing-Quality1.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 3516416
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    565d96a9
+    [Teardown]    断开串口
+
+mp3_0935-2-VBR-242kbs-Xing-Quality2.mp3
+    [Documentation]    9e530582 (1130)
+    ...    c5b52f60 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\19-VBR\\mp3_0935-2-VBR-242kbs-Xing-Quality2.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 2619392
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    c5b52f60
+    [Teardown]    断开串口
+
+mp3_0936-3-VBR-380kbs-Xing-Quality3.mp3
+    [Documentation]    e6a3bbee (1130)
+    ...    923158d6 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\19-VBR\\mp3_0936-3-VBR-380kbs-Xing-Quality3.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 4777984
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    923158d6
+    [Teardown]    断开串口
+
+mp3_0937-4-VBR-488kbs-Xing-Quality4.mp3
+    [Documentation]    37e331c9 (1130)
+    ...    5e0aaf6a (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\19-VBR\\mp3_0937-4-VBR-488kbs-Xing-Quality4.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 7161856
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5e0aaf6a
+    [Teardown]    断开串口
+
+mp3_0938-5-VBR-526kbs-Xing-Quality5.mp3
+    [Documentation]    028c819e (1130)
+    ...    b4dfa12e (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\19-VBR\\mp3_0938-5-VBR-526kbs-Xing-Quality5.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 7096320
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    b4dfa12e
+    [Teardown]    断开串口
+
+mp3_0939-1-Forever.mp3
+    [Documentation]    a62d34ce (1130)
+    ...    5ddaf7fd (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\20_384Kbps_Bitrate\\mp3_0939-1-Forever.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 3039529
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    5ddaf7fd
+    [Teardown]    断开串口
+
+mp3_0940-2-MissYou.mp3
+    [Documentation]    f519e028 (1130)
+    ...    4ac592d8 (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\20_384Kbps_Bitrate\\mp3_0940-2-MissYou.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 2931695
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    4ac592d8
+    [Teardown]    断开串口
+
+mp3_0941-3-YesSir.mp3
+    [Documentation]    43f1b160 (1130)
+    ...    d59c19cd (1161)
+    [Tags]    function
+    [Setup]    连接串口
+    设置音频    FromSunplus\\MP3\\Bitrate_Test\\20_384Kbps_Bitrate\\mp3_0941-3-YesSir.mp3    1
+    sleep    5
+    common_command    setfmt MPEG
+    common_command    setsr 44100
+    common_command    setlen 2988120
+    播放    7    0    1
+    sleep    10
+    common_command    stop 1
+    sleep    3
+    检查checksum    d59c19cd
+    [Teardown]    断开串口
