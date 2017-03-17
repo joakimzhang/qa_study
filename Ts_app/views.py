@@ -1,7 +1,7 @@
 # coding:utf-8
 from django.shortcuts import render
 from django.http import JsonResponse
-from Ts_app.form import AddForm, AddUser, StreamForm, RentForm, TestlinkForm
+from Ts_app.form import AddForm, AddUser, StreamForm, RentForm, TestlinkForm, TestlinkForm_case, TestlinkForm_suite
 from Ts_app.models import user_info, RentDB, TestlinkDB, TestlinkCase
 # from django.views.generic.edit import CreateView, FormView
 from Ts_app.switch_stream_Worker import switch_stream_Worker
@@ -9,8 +9,14 @@ from datetime import datetime
 from Ts_app.XML_CSV import XML_CSV
 import markdown2
 
+
+
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
 def homeview(request):
-    test = "AAAAAAABBBBBBBBBB"
+    test = [('States',1), [('Kansas',2), [('Lawrence',3), ('Topeka',4), ('Illinois',5)]]]
     return render(request, 'Ts_app/home.html', {'test':test})
 
 # Ts_app页面的逻辑函数
@@ -157,9 +163,11 @@ def radioview(request):
 def get_suite_list(root_node):
     play_list = []
     for i in root_node:
-        if str(i) == "TestlinkDB":
+        print i.type_name()
+        #if str(i) == "TestlinkDB":
+        if i.type_name() == "TestlinkDB":
             #print "suit"
-            play_list.append(i.suite_name)
+            play_list.append((i.suite_name,0))
             # 目录的目录子节点
             child_case = i.children_case.all()
             # 目录的case子节点
@@ -173,12 +181,53 @@ def get_suite_list(root_node):
             #elif len(child_case) > 0:
             #    play_list.append(get_suite_list(child_case))
         # 当是case的时候，把case加入list
-        elif str(i) == "TestlinkCase":
-            play_list.append(i.case_name)
+        #elif str(i) == "TestlinkCase":
+        if i.type_name() == "TestlinkCase":
+            play_list.append((i.case_name,i.id))
             #print "case"
     #print play_list
     return play_list
 
+
+def edit_case_view(request):
+    test_suite_root = TestlinkDB.objects.filter(parent_suite_name=None)
+    test_suite_list = get_suite_list(test_suite_root)
+    if "add_case" in request.POST:  
+        form_obj_2 = TestlinkForm_case(request.POST)  
+        form_obj_2.save()
+        #if "add_case" in request.post:
+        return render(request, 'Ts_app/editcase.html',{'test_suite_list':test_suite_list, "form_obj_2":form_obj_2})
+    else:
+        form_obj_2 = TestlinkForm_case() 
+        return render(request, 'Ts_app/editcase.html',{'test_suite_list':test_suite_list, "form_obj_2":form_obj_2})
+
+def edit_suite_view(request):
+    form_obj_3 = TestlinkForm_suite(request.POST)
+    test_suite_root = TestlinkDB.objects.filter(parent_suite_name=None)
+    test_suite_list = get_suite_list(test_suite_root)
+    if "add_suite" in request.POST:    
+        form_obj_3.save()
+        #if "add_case" in request.post:
+        return render(request, 'Ts_app/editsuite.html',{'test_suite_list':test_suite_list, "form_obj_3":form_obj_3})
+    return render(request, 'Ts_app/editsuite.html',{'test_suite_list':test_suite_list, "form_obj_3":form_obj_3})
+
+def test_case_view(request, case_num):
+    test_case_list = TestlinkCase.objects.filter(id=int(case_num))
+    for i in test_case_list:
+        if i.id:
+            num = i.id
+    print test_case_list
+    
+    if request.method == 'POST':
+        #print request.POST.values()
+        if "delete" in request.POST.values():
+            fileter_o = TestlinkCase.objects.filter(id=num).delete()
+            #print num
+            return render(request, 'Ts_app/testcase.html',{'test_case_list': test_case_list})
+        if "edit" in request.POST.values():
+            print "edit"
+    
+    return render(request, 'Ts_app/testcase.html',{'test_case_list': test_case_list})
 
 def testlinkview(request):
     
@@ -192,8 +241,40 @@ def testlinkview(request):
             print e
     test_suite_root = TestlinkDB.objects.filter(parent_suite_name=None)
     test_suite_list = get_suite_list(test_suite_root)
+    test_suite_list_2 = TestlinkDB.objects.all()
     if request.method == 'POST':
+        if "delete" in request.POST.values():
+            for i in request.POST:
+                if request.POST[i] == "delete":
+                    print i 
+                    fileter_o = TestlinkCase.objects.filter(id=i).delete()
+        if "delete_suite" in request.POST.values():
+            for i in request.POST:
+                if request.POST[i] == "delete_suite":
+                    print i 
+                    fileter_o = TestlinkDB.objects.filter(id=i).delete()
+
+
+        
         form_obj = TestlinkForm(request.POST, request.FILES)
+        form_obj_2 = TestlinkForm_case(request.POST)
+        form_obj_3 = TestlinkForm_suite(request.POST)
+        #if form_obj_2.isvalid():
+        if "add_case" in request.POST:    
+            form_obj_2.save()
+            #if "add_case" in request.post:
+            return render(request, 'Ts_app/testlink.html',
+              {'form_obj': form_obj, 'test_case_list': test_case_list,
+               'test_suite_root': test_suite_root, 'test_suite_list':test_suite_list, "form_obj_2":form_obj_2})
+        if "add_suite" in request.POST:    
+            form_obj_3.save()
+            #if "add_case" in request.post:
+            return render(request, 'Ts_app/testlink.html',
+              {'form_obj': form_obj, 'test_case_list': test_case_list,
+               'test_suite_root': test_suite_root, 'test_suite_list':test_suite_list, "form_obj_3":form_obj_3})
+        
+
+        
         if form_obj.is_valid():
             file_name = form_obj.cleaned_data['filepath']
             #print file_name
@@ -241,6 +322,8 @@ def testlinkview(request):
 
     else:
         form_obj = TestlinkForm()
+        form_obj_2 = TestlinkForm_case()
+        form_obj_3 = TestlinkForm_suite()
     return render(request, 'Ts_app/testlink.html',
                   {'form_obj': form_obj, 'test_case_list': test_case_list,
-                   'test_suite_root': test_suite_root, 'test_suite_list':test_suite_list})
+                   'test_suite_root': test_suite_root, 'test_suite_list':test_suite_list,'test_suite_list_2':test_suite_list_2,  "form_obj_2":form_obj_2, "form_obj_3":form_obj_3})
