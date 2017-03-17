@@ -1,0 +1,33 @@
+{% autoescape off %}
+<p>
+{% for i in test_case_list %}
+<b>name:</b><br>
+<font color="green">
+{{ i.case_name }}
+</font>
+<br>
+<b>step:</b><br>
+<font color="blue">
+{{ i.case_step }}<br>
+{{ i.content }}<br>
+
+</font>
+<b>except result:</b><br>
+<font color="grey">
+{{ i.case_except }}<br>
+</font>
+<br>
+
+<form method='POST'>
+{% csrf_token %}
+<input type='submit' name="{{ i.id }} " value='delete'>
+<button>
+<a href="/admin/Ts_app/testlinkcase/{{ i.id }}/change">Edit</a>
+</button>
+</form>
+
+{% endfor %}
+</p>
+
+
+{% endautoescape %}
