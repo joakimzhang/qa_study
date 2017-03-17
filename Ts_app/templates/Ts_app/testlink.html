@@ -1,40 +1,29 @@
-<p>
-<form method='POST' enctype="multipart/form-data">
-{% csrf_token %}
-{{ form_obj }}
-<input type='submit' value='submit'></input>
-</form>
-</p>
+{% load tree_list %}
 
-{% autoescape off %}
-<p>
-{% for i in test_case_list %}
-<b>name:</b><br>
-<font color="green">
-{{ i.case_name }}<br>
-</font>
-<b>step:</b><br>
-<font color="blue">
-{{ i.case_step }}<br>
-</font>
-<b>except result:</b><br>
-<font color="grey">
-{{ i.case_except }}<br>
-</font>
+
+{{ test_suite_list|li_tree }}
 <br>
-{% endfor %}
-</p>
+<br>
+<a href="/admin/Ts_app/testlinkcase/add/">addcase</a>
+<a href="/admin/Ts_app/testlinkdb/add/">addsuite</a>
+{% autoescape off %}
+
+
 {% endautoescape %}
 
 <p>
-{% for i in test_suite_root %}
+{% for i in test_suite_list_2 %}
+<br>
+<font color="blue">
+{{ i.suite_name }}
 <form method='POST'>
 {% csrf_token %}
-<input type='submit' value="{{ i.suite_name }}">
-</input>
+<input type='submit' name="{{ i.id }} " value='delete_suite'>
+<input type='submit' name="{{ i.id }} " value='edit_suite'>
 </form>
-<br>
 {% endfor %}
 </p>
 
-{{ test_suite_list|unordered_list }}
+
+
+
