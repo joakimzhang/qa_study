@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 from django import forms
-from Ts_app.models import user_info, RentDB
+from Ts_app.models import user_info, RentDB, TestlinkCase, TestlinkDB
 
 
 class StreamForm(forms.Form):
@@ -103,3 +103,22 @@ class RentForm(forms.ModelForm):
 
 class TestlinkForm(forms.Form):
     filepath = forms.FileField()
+
+
+class TestlinkForm_case(forms.ModelForm):
+    #d_type_choice = (('usb', u'usb'), ('disk', u'disk'))
+    #d_type = forms.ChoiceField(label=(u"device type"),
+    #                           required=True, choices=d_type_choice)
+    
+    class Meta:
+        model = TestlinkCase
+        fields = ['case_name', 'case_step', 'case_except', 'case_suite']
+
+class TestlinkForm_suite(forms.ModelForm):
+    #d_type_choice = (('usb', u'usb'), ('disk', u'disk'))
+    #d_type = forms.ChoiceField(label=(u"device type"),
+    #                           required=True, choices=d_type_choice)
+
+    class Meta:
+        model = TestlinkDB
+        fields = ['suite_name', 'parent_suite_name']

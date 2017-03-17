@@ -23,25 +23,31 @@ class RentDB(models.Model):
 class TestlinkDB(models.Model):
     # parent_suite_name = models.CharField(max_length=100)
     parent_suite_name = models.ForeignKey(
-        'self', blank=True, null=True, related_name='children')
-    suite_name = models.CharField(max_length=100)
-    suite_detail = models.TextField()
-    suite_id = models.CharField(max_length=100)
+        'self',  related_name='children')
+    suite_name = models.CharField(max_length=100,null=True, blank=True)
+    suite_detail = models.TextField(default='null')
+    suite_id = models.CharField(max_length=100, default='null')
 
     def __str__(self):
+        #return "TestlinkDB33"
+        return self.suite_name
+    def type_name(self):
         return "TestlinkDB"
 
 
 class TestlinkCase(models.Model):
     case_name = models.CharField(
-        max_length=100, default='null', null=True, blank=True)
-    case_sum = models.TextField(null=True, blank=True)
+        max_length=100,null=True, blank=True)
+    case_sum = models.TextField(null=True, blank=True,default='null')
     case_step = models.TextField(max_length=4000, null=True, blank=True)
     case_except = models.TextField(null=True, blank=True)
     case_suite = models.ForeignKey('TestlinkDB',
                                    blank=True, null=True,
                                    related_name='children_case')
-    internalid = models.CharField(max_length=1000, default='0000')
+    internalid = models.CharField(max_length=1000,default='null')
 
     def __str__(self):
+        return self.case_name
+    
+    def type_name(self):
         return "TestlinkCase"
