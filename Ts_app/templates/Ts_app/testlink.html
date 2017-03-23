@@ -1,28 +1,48 @@
-{% load tree_list %}
+<!--<script src="http://code.jquery.com/jquery-latest.js">-->
+<script src="/media/js/jquery-latest.js">
+</script>
 
+
+<script>
+     $(document).ready(function () {
+            //加载时隐藏子菜单
+            //$('li ul').hide();
+            //$('.testlink_case').hide();
+            //不包含子菜单时鼠标指针和项目图标
+            $('li:not(:has(ul))')
+           .css({ 'cursor': 'default', 'list-style-image': 'none' });
+            //包含子菜单时鼠标指针和项目图标
+            $('li:has(ul)')
+            .css({ 'cursor': 'pointer', 'list-style-image': 'url(/media/img/eg_arrow.gif)' });
+            //单击含子菜单的项
+            $('li:has(ul)').click(function (event) {
+                if (this == event.target) {
+                    if ($(this).children().is(':hidden')) {
+                        $(this)
+                    .css('list-style-image', 'url(/media/img/eg_arrow.gif)')
+                    .children().show();
+                    }
+                    else {
+                        $(this)
+                 .css('list-style-image', 'url(/media/img/eg_arrow.gif)')
+                 .children("ul").hide();
+                    }
+                }
+            })
+        })
+</script>
+<button onclick="window.location.href=('/admin/Ts_app/testlinkcase/add/')">新建用例</button>
+<button onclick="window.location.href=('/admin/Ts_app/testlinkdb/add/')">新建目录</button>
+{% load tree_list %}
 
 {{ test_suite_list|li_tree }}
 <br>
-<br>
-<a href="/admin/Ts_app/testlinkcase/add/">addcase</a>
-<a href="/admin/Ts_app/testlinkdb/add/">addsuite</a>
+<button onclick="window.location.href=('/admin/Ts_app/testlinkcase/add/')">新建用例</button>
+<button onclick="window.location.href=('/admin/Ts_app/testlinkdb/add/')">新建目录</button>
 {% autoescape off %}
 
 
 {% endautoescape %}
-
-<p>
-{% for i in test_suite_list_2 %}
-<br>
-<font color="blue">
-{{ i.suite_name }}
-<form method='POST'>
-{% csrf_token %}
-<input type='submit' name="{{ i.id }} " value='delete_suite'>
-<input type='submit' name="{{ i.id }} " value='edit_suite'>
-</form>
-{% endfor %}
-</p>
 
 
 

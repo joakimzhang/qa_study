@@ -26,7 +26,7 @@ SECRET_KEY = ')yikeu)91j1tuvrl5$to3qt_9s-0q%#!c-sh^1vl%v9le+%$3x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -124,10 +124,12 @@ HERE = os.path.dirname(os.path.dirname(__file__))
 
 MEDIA_ROOT = os.path.join(HERE, 'media').replace('\\', '/')
 
-# MEDIA_URL = '/media/'
+#MEDIA_URL = '/media/'
 
-# STATIC_ROOT =os.path.join( HERE , 'static').replace('\\','/')
+STATIC_ROOT =os.path.join( HERE , 'static').replace('\\','/')
 
-STATICFILES_DIRS = ('C:/Users/zhangq/git/qa_study/media/',)
-
-STATIC_URL = '/media/'
+#STATICFILES_DIRS = (os.path.join(HERE, 'static').replace('\\', '/'),)
+#print STATICFILES_DIRS
+#STATICFILES_DIRS = ('C:/Users/zhangq/git/qa_study/media/',)
+STATIC_URL = '/static/'
+#STATIC_URL = '/media/'

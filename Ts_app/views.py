@@ -167,7 +167,7 @@ def get_suite_list(root_node):
         #if str(i) == "TestlinkDB":
         if i.type_name() == "TestlinkDB":
             #print "suit"
-            play_list.append((i.suite_name,0))
+            play_list.append((i.suite_name,i.id,0))
             # 目录的目录子节点
             child_case = i.children_case.all()
             # 目录的case子节点
@@ -183,7 +183,7 @@ def get_suite_list(root_node):
         # 当是case的时候，把case加入list
         #elif str(i) == "TestlinkCase":
         if i.type_name() == "TestlinkCase":
-            play_list.append((i.case_name,i.id))
+            play_list.append((i.case_name,i.id,1))
             #print "case"
     #print play_list
     return play_list

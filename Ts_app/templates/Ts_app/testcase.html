@@ -1,5 +1,4 @@
 {% autoescape off %}
-<p>
 {% for i in test_case_list %}
 <b>name:</b><br>
 <font color="green">
@@ -18,16 +17,10 @@
 </font>
 <br>
 
-<form method='POST'>
-{% csrf_token %}
-<input type='submit' name="{{ i.id }} " value='delete'>
-<button>
-<a href="/admin/Ts_app/testlinkcase/{{ i.id }}/change">Edit</a>
+<button onclick="window.location.href=('/admin/Ts_app/testlinkcase/{{ i.id }}/change')">
+edit case
 </button>
-</form>
-
 {% endfor %}
-</p>
 
 
 {% endautoescape %}
