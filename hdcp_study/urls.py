@@ -15,12 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-
+import settings
+import django
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include(
         'hdcp_app.urls', namespace='hdcp_app', app_name='hdcp_app')),
     url(r'', include('Ts_app.urls', namespace='Ts_app', app_name='Ts_app')),
-
+    url(r'^media/(?P<path>.*)$', django.views.static.serve,{'document_root':settings.MEDIA_ROOT}),
+    #url(r'^static/(?P<path>.*)', 'django.views.static.serve', {'document_root':'/home/anna/Documents/django_py/showImg/image/pic'}),
 ]

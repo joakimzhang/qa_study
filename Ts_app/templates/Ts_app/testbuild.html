@@ -1,0 +1,20 @@
+
+{% for i in test_build_list %}
+
+{{ i.build_name }}<br>
+{% for j in i.case_report.all %}
+
+<a href="/testcase/{{ j.test_case.id }}">{{ j.test_case }}:
+</a>
+
+{% if j.test_result == "Pass" %}
+<font style="font-weight:bold;" color="green">
+{% elif j.test_result == "Fail" %}
+<font style="font-weight:bold;" color="red">
+{% endif %}
+{{ j.test_result }}<br>
+</font>
+
+{% endfor %}
+
+{% endfor %}

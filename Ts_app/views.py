@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from Ts_app.form import AddForm, AddUser, StreamForm, RentForm, TestlinkForm, TestlinkForm_case, TestlinkForm_suite
-from Ts_app.models import user_info, RentDB, TestlinkDB, TestlinkCase
+from Ts_app.models import user_info, RentDB, TestlinkDB, TestlinkCase, TestlinkReport, TestlinkBuild
 # from django.views.generic.edit import CreateView, FormView
 from Ts_app.switch_stream_Worker import switch_stream_Worker
 from datetime import datetime
@@ -160,7 +160,42 @@ def radioview(request):
             print request.method
 
 
-def get_suite_list(root_node):
+def get_suite_list(root_node,build_id):
+    play_list = []
+    for i in root_node:
+        print i.type_name()
+        #if str(i) == "TestlinkDB":
+        if i.type_name() == "TestlinkDB":
+            #print "suit"
+            play_list.append((i.suite_name,i.id,0))
+            # 目录的目录子节点
+            child_case = i.children_case.all()
+            # 目录的case子节点
+            children = i.children.all()
+            #if len(child_case) > 0 and len(children) > 0:
+            # 目录子节点和case子节点都加入列表
+            play_list.append(
+                get_suite_list(children,build_id)+get_suite_list(child_case,build_id))
+            #elif len(children) > 0:
+            #    play_list.append(get_suite_list(children))
+            #elif len(child_case) > 0:
+            #    play_list.append(get_suite_list(child_case))
+        # 当是case的时候，把case加入list
+        #elif str(i) == "TestlinkCase":
+        if i.type_name() == "TestlinkCase":
+            j = i.case_report.filter(build_name=build_id)
+            if j:
+                _test_result = j[0].test_result
+            else:
+                _test_result = ""
+            play_list.append((i.case_name,i.id,1,_test_result,build_id))
+
+            #print "case"
+    #print play_list
+    return play_list
+
+
+def get_build_suite_list(root_node):
     play_list = []
     for i in root_node:
         print i.type_name()
@@ -183,10 +218,15 @@ def get_suite_list(root_node):
         # 当是case的时候，把case加入list
         #elif str(i) == "TestlinkCase":
         if i.type_name() == "TestlinkCase":
-            play_list.append((i.case_name,i.id,1))
+            play_list.append((i.case_name,i.id,1,i.case_report))
+            j = i.case_report.filter(build_name=build_id)
+            if j:
+                print j[0].test_result
+            
             #print "case"
     #print play_list
     return play_list
+
 
 
 def edit_case_view(request):
@@ -211,12 +251,28 @@ def edit_suite_view(request):
         return render(request, 'Ts_app/editsuite.html',{'test_suite_list':test_suite_list, "form_obj_3":form_obj_3})
     return render(request, 'Ts_app/editsuite.html',{'test_suite_list':test_suite_list, "form_obj_3":form_obj_3})
 
+def test_build_view(request, _build_id):
+
+    test_build_list = TestlinkBuild.objects.filter(id=str(_build_id))
+    test_suite_root = TestlinkDB.objects.filter(parent_suite_name=None)
+    #test_case_list = TestlinkCase.objects.all()
+    test_suite_list = get_suite_list(test_suite_root,_build_id)
+    if request.method == 'POST':
+        pass
+    
+    #return render(request, 'Ts_app/testbuild.html',{'test_build_list': test_build_list})
+    return render(request, 'Ts_app/testlink.html',
+                  {'test_suite_list':test_suite_list,'test_build_list': test_build_list})
 def test_case_view(request, case_num):
     test_case_list = TestlinkCase.objects.filter(id=int(case_num))
     for i in test_case_list:
         if i.id:
             num = i.id
+            report_obj = i.case_report.all()
+            for j in report_obj:
+                print j.test_result
     print test_case_list
+
     
     if request.method == 'POST':
         #print request.POST.values()
@@ -229,6 +285,27 @@ def test_case_view(request, case_num):
     
     return render(request, 'Ts_app/testcase.html',{'test_case_list': test_case_list})
 
+def test_report_view(request, case_num):
+    #build_id = request.GET['id']
+    test_case_list = TestlinkCase.objects.filter(id=int(case_num))
+    for i in test_case_list:
+        if i.id:
+            num = i.id
+            report_obj = i.case_report.all()
+            #report_obj = i.case_report.filter(build_name=build_id)
+
+    #print test_case_list
+    print report_obj
+    for j in report_obj:
+        pass
+        print j.test_result
+        print j.result_description
+    
+    return render(request, 'Ts_app/testreport.html',{'test_case_list': test_case_list},{'report_obj':report_obj})
+
+
+
+
 def testlinkview(request):
     
     test_case_list = TestlinkCase.objects.all()
@@ -240,8 +317,10 @@ def testlinkview(request):
         except Exception, e:
             print e
     test_suite_root = TestlinkDB.objects.filter(parent_suite_name=None)
-    test_suite_list = get_suite_list(test_suite_root)
+    test_suite_list = get_suite_list(test_suite_root,0)
     test_suite_list_2 = TestlinkDB.objects.all()
+    test_build_list = TestlinkBuild.objects.all()
+
     if request.method == 'POST':
         if "delete" in request.POST.values():
             for i in request.POST:
@@ -318,7 +397,9 @@ def testlinkview(request):
                           {'form_obj': form_obj, 'file_name': file_name,
                            'test_case_list': test_case_list,
                            'test_suite_root': test_suite_root,
-                           'test_suite_list': test_suite_list})
+                           'test_suite_list': test_suite_list,
+                           'test_build_list': test_build_list
+                           })
 
     else:
         form_obj = TestlinkForm()
@@ -326,4 +407,4 @@ def testlinkview(request):
         form_obj_3 = TestlinkForm_suite()
     return render(request, 'Ts_app/testlink.html',
                   {'form_obj': form_obj, 'test_case_list': test_case_list,
-                   'test_suite_root': test_suite_root, 'test_suite_list':test_suite_list,'test_suite_list_2':test_suite_list_2,  "form_obj_2":form_obj_2, "form_obj_3":form_obj_3})
+                   'test_suite_root': test_suite_root, 'test_suite_list':test_suite_list,'test_suite_list_2':test_suite_list_2,  "form_obj_2":form_obj_2, "form_obj_3":form_obj_3, 'test_build_list': test_build_list})

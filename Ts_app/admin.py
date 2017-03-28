@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import TestlinkCase, TestlinkDB
+from .models import TestlinkCase, TestlinkDB, TestlinkReport, TestlinkBuild
 
 #admin.site.register(TestlinkCase)
 
@@ -14,6 +14,19 @@ from django.utils.translation import (
 class TestlinkAdmin(admin.ModelAdmin):
     exclude = ('case_sum','internalid','suite_id')
     """aaa"""
+    def get_id(self, request):
+        return request.GET['id']
+    def formfield_for_dbfield(self, db_field,**kwargs):
+        field =  super(TestlinkAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+        if db_field.name == 'test_case':
+        #    if kwargs:
+            try:
+                field.initial = kwargs['request'].GET['id']
+            except:
+                pass
+                
+        print "aaaaaaaaaaaaaaaaaaaaaa",field,"aaaaaaaaaaaaa",db_field,"aaaaaaaaaaaa",kwargs
+        return field
     
     def response_add(self, request, obj, post_url_continue=None):
         """
@@ -89,7 +102,18 @@ class TestlinkAdmin(admin.ModelAdmin):
             )
             self.message_user(request, msg, messages.SUCCESS)
             #return self.response_post_save_add(request, obj)
-            return HttpResponseRedirect("/testlink")
+            #return HttpResponseRedirect("/testlink")
+        
+            if opts.model_name == "testlinkdb":
+                #return HttpResponseRedirect("/testcase/%s"%(pk_value))
+                return HttpResponseRedirect("/testlink")
+            elif opts.model_name == "testlinkreport":
+                return HttpResponseRedirect("/testreport/%s"%(request.GET['id']))  
+            else:        
+                return HttpResponseRedirect("/testcase/%s"%(pk_value)) 
+        
+        
+        
     
     def response_change(self, request, obj):
         """
@@ -162,11 +186,13 @@ class TestlinkAdmin(admin.ModelAdmin):
             )
             self.message_user(request, msg, messages.SUCCESS)
             #return self.response_post_save_change(request, obj)
-            print "up!!!!!",self.admin_site.name,opts.model_name,opts.app_label
+            print "up!!!!!",self.admin_site.name,opts.model_name,opts.app_label,type(opts)
             if opts.model_name == "testlinkdb":
                 #return HttpResponseRedirect("/testcase/%s"%(pk_value))
                 return HttpResponseRedirect("/testlink")
-            else:
+            elif opts.model_name == "testlinkreport":
+                return HttpResponseRedirect("/testreport/%s"%(request.GET['id']))  
+            else:        
                 return HttpResponseRedirect("/testcase/%s"%(pk_value))    
             
 
@@ -201,6 +227,14 @@ class TestlinkAdmin(admin.ModelAdmin):
                 {'preserved_filters': preserved_filters, 'opts': opts}, post_url
             )
             post_url = "/testlink"
+            #if opts.model_name == "testlinkdb":
+                #return HttpResponseRedirect("/testcase/%s"%(pk_value))
+            #    post_url = "/testlink"
+            #elif opts.model_name == "testlinkreport":
+            #    post_url = ("/testreport/%s"%(request.GET['id']))  
+            #else:        
+            #    post_url = ("/testcase/%s"%(pk_value))  
+            
         else:
             post_url = reverse('admin:index', current_app=self.admin_site.name)
         return HttpResponseRedirect(post_url)
@@ -217,11 +251,10 @@ class TestlinkAdmin(admin.ModelAdmin):
 
 
 
-
-
-
+admin.site.register(TestlinkDB, TestlinkAdmin)
 admin.site.register(TestlinkCase, TestlinkAdmin)
 
+admin.site.register(TestlinkReport, TestlinkAdmin)
+admin.site.register(TestlinkBuild, TestlinkAdmin)
 
-admin.site.register(TestlinkDB, TestlinkAdmin)
 

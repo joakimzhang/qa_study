@@ -5,16 +5,16 @@
 
 <script>
      $(document).ready(function () {
-            //加载时隐藏子菜单
+            //鍔犺浇鏃堕殣钘忓瓙鑿滃崟
             //$('li ul').hide();
             //$('.testlink_case').hide();
-            //不包含子菜单时鼠标指针和项目图标
+            //涓嶅寘鍚瓙鑿滃崟鏃堕紶鏍囨寚閽堝拰椤圭洰鍥炬爣
             $('li:not(:has(ul))')
            .css({ 'cursor': 'default', 'list-style-image': 'none' });
-            //包含子菜单时鼠标指针和项目图标
+            //鍖呭惈瀛愯彍鍗曟椂榧犳爣鎸囬拡鍜岄」鐩浘鏍�
             $('li:has(ul)')
             .css({ 'cursor': 'pointer', 'list-style-image': 'url(/media/img/eg_arrow.gif)' });
-            //单击含子菜单的项
+            //鍗曞嚮鍚瓙鑿滃崟鐨勯」
             $('li:has(ul)').click(function (event) {
                 if (this == event.target) {
                     if ($(this).children().is(':hidden')) {
@@ -44,6 +44,15 @@
 
 {% endautoescape %}
 
-
+<br>
+<br>
+<br>
+<br>
+<a>测试报告</a><br>
+{% for i in test_build_list %}
+<a href="/testbuild/{{ i.id }}">
+{{ i.build_name }}
+</a><br>
+{% endfor %}
 
 

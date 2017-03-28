@@ -1,0 +1,86 @@
+{% autoescape off %}
+<font style="font-weight:bold;" color="blue">
+<a>Test Case:</a>
+</font>
+<br>
+{% for i in test_case_list %}
+
+
+<b>name:</b><br>
+<font color="green">
+{{ i.case_name }}
+</font>
+<br>
+<br>
+<b>step:</b><br>
+<font color="blue">
+{{ i.case_step }}<br>
+{{ i.content }}<br>
+
+</font>
+<b>except result:</b><br>
+<font color="grey">
+{{ i.case_except }}<br>
+</font>
+
+
+
+
+<br>
+<br>
+<font style="font-weight:bold;" color="blue">
+<a>Test report:</a>
+</font>
+<br><br>
+	{% for j in i.case_report.all %}
+		<a>result:</a>
+		<br>
+		{% if j.test_result == "Pass" %}
+		<font style="font-weight:bold;" color="green">
+		{% elif j.test_result == "Fail" %}
+		<font style="font-weight:bold;" color="red">
+		{% endif %}
+		{{ j.test_result }}<br>
+		</font>
+		
+		<br>
+		<a>description:</a><br>
+		{{ j.result_description }}<br>
+		
+		{% if j.result_pic %}
+		<a>picture:</a><br>
+		<img src="/media/{{ j.result_pic }}" border="0" width="270">
+		<br>
+		{% endif %}
+		
+		{% if j.result_video %}
+		<a>video:</a><br>
+		<video width="270" controls>
+		<source src="/media/{{ j.result_video }}" type="video/mp4">
+		not suport video tag
+		</video>
+		{% endif %}
+		
+		<br>
+		<button onclick="window.location.href=('/admin/Ts_app/testlinkreport/{{ j.id }}/change?id={{i.id}}')">
+		edit report
+		</button>
+		<br>
+		<br>
+	{% endfor %}
+	
+	
+
+		<button onclick="window.location.href=('/admin/Ts_app/testlinkreport/add?id={{i.id}}')">
+		add report
+		</button>
+
+	
+	
+
+{% endfor %}
+
+
+
+
+{% endautoescape %}
